@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Blade-of-Oneiros"
+run/main_scene="uid://ck5mvuvjoe7uu"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="Blade-of-Oneiros"
 
 [rendering]
 
