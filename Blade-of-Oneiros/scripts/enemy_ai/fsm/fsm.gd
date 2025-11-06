@@ -1,0 +1,24 @@
+# Finite state machine for AI
+class_name FSM
+extends RefCounted
+
+
+var current_state:State
+
+
+func _init(initial_state:State) -> void:
+	current_state = initial_state
+
+
+func update(delta:float):
+	if current_state and current_state.on_update.is_valid():
+		current_state.on_update.call(delta)
+
+
+func change_state(new_state:State):
+	if current_state and current_state.on_state_exit.is_valid():
+		current_state.on_state_exit.call()
+	current_state = new_state
+	if current_state and current_state.on_state_enter.is_valid():
+			current_state.on_state_enter.call()
+

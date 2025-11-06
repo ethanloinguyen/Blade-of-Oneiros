@@ -18,4 +18,4 @@ func _physics_process(_delta:float) -> void:
 
 	direction = direction.normalized()
 	velocity = direction * speed
-	move_and_slide()q
+	move_and_slide()
