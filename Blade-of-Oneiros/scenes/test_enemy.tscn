@@ -8,6 +8,7 @@ size = Vector2(50, 50)
 
 [node name="TestEnemy" type="CharacterBody2D"]
 script = ExtResource("1_mkyue")
+activate_distance = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -16,5 +17,3 @@ shape = SubResource("RectangleShape2D_22uif")
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("2_fpxyv")
 flip_v = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
