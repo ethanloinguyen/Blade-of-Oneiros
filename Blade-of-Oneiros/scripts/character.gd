@@ -1,75 +1,40 @@
 class_name Character
 extends CharacterBody2D
 
-signal CharacterDirectionChange(facing:Facing)
+signal direction_changed(new_dir: String)
 
+# --- Core movement parameters ---
+@export var move_speed: float = 100.0
 
-enum Facing { 
-	LEFT,
-	RIGHT,
-}
+# --- Facing and state ---
+enum Facing { UP, DOWN, LEFT, RIGHT }
+var facing: Facing = Facing.DOWN
+var current_state: String = "idle"
 
-const TERMINAL_VELOCITY = 700
-const DEFAULT_JUMP_VELOCITY = -400
-const DEFAULT_MOVE_VELOCITY = 300
+# --- Animation ---
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var movement_speed = DEFAULT_MOVE_VELOCITY
-var jump_velocity = DEFAULT_JUMP_VELOCITY
+# --- Movement handling ---
+func _physics_process(_delta: float) -> void:
+	move_and_slide()  # Base movement; subclasses or commands set velocity.
 
-var idle : Command
-var up_cmd : Command
-var down_cmd : Command
-var right_cmd : Command
-var left_cmd : Command
-var fire1 : Command
+# Called by commands to set facing and trigger direction change signals.
+func change_facing(new_facing: Facing) -> void:
+	if facing != new_facing:
+		facing = new_facing
+		emit_signal("direction_changed", facing)
 
-var facing:Facing = Facing.DOWN
-var attacking : bool: 
-	set(value): 
-		attacking = value
-	get():
-		return attacking
-
-var summoning : bool:
-	set(value):
-		summoning = value
-	get():
-		return summoning
-
-var _horizontal_input : float
-
-@onready var animation_player:AnimationPlayer = $AnimationPlayer
-@onready var sprite:Sprite2D = $Sprite2D
-@onready var dialogue_box:DialogueBox = %DialogueBox
-
-func _ready() -> void:
-	attacking = false
-	summoning = false
-	change_facing(facing)
-
-
-func move(value: float) -> void:
-	_horizontal_input = value
-
-
-func change_facing(new_facing:Facing) -> void:
-	facing = new_facing
-	emit_signal("CharacterDirectionChange", facing)
-
-
-#This function is meant to be called in the AnimationController after the each relevant anmiation has concluded.
-func clear_action_state() -> void:
-	attacking = false
-	summoning = false
-
-
-func command_callback(_name:String) -> void:
-	pass
-
-
-func _physics_process(delta: float) -> void: 
-	_apply_movement(delta)
-
-
-func _apply_movement(_delta: float):
-	move_and_slide()
+# Command helper for consistent animation naming.
+func play_animation(state: String) -> void:
+	var facing_name: String
+	match facing:
+		Facing.UP: facing_name = "up"
+		Facing.DOWN: facing_name = "down"
+		Facing.LEFT: facing_name = "left"
+		Facing.RIGHT: facing_name = "right"
+		_: facing_name = "down"
+	
+	var anim_name = "%s_%s" % [state, facing_name]  # e.g. walk_down
+	if anim_sprite.animation != anim_name:
+		anim_sprite.play(anim_name)
+	current_state = state

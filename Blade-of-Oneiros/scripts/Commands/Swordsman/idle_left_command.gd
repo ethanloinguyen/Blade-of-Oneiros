@@ -1,4 +1,4 @@
-class_name IdleCommand
+class_name IdleLeftCommand
 extends Command
 
 func execute(character: Character) -> Status:
