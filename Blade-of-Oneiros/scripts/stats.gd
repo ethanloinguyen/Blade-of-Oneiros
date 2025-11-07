@@ -5,4 +5,4 @@ extends Resource
 @export var attack: float
 @export var defense: float
 @export var agility: float
-@export var speed: float
+@export var move_speed: float

@@ -12,10 +12,32 @@ func _ready() -> void:
 	bind_commands()
 
 func _physics_process(delta: float) -> void:
-	var command: Command = get_input_command()
-	if command:
-		command.execute(self)
-	super(delta)  # applies physics via Character._physics_process()
+	# if player isn't current attacking and pressed attack, then attack
+	if !attacking and Input.is_action_just_pressed("attack"):
+		attack_cmd.execute(self)
+		
+	# Get player input direction
+	var dir = Vector2.ZERO
+	dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	
+	# If player input direction is not 0 execute 
+	# appropriate movement command, if 0, execute idle
+	if abs(dir.x) > 0 or abs(dir.y) > 0:
+		if dir.x > 0:
+			right_cmd.execute(self)
+		elif dir.x < 0:
+			left_cmd.execute(self)
+		if dir.y > 0:
+			down_cmd.execute(self)
+		elif dir.y < 0:
+			up_cmd.execute(self)
+	else:
+		idle_cmd.execute(self)
+	
+	super(delta)
+	
+	_manage_animation_tree_state()
 
 func bind_commands() -> void:
 	up_cmd = MoveUpCommand.new()
@@ -25,19 +47,6 @@ func bind_commands() -> void:
 	attack_cmd = AttackCommand.new()
 	idle_cmd = IdleCommand.new()
 
-# Returns the appropriate command based on input.
-func get_input_command() -> Command:
-	if Input.is_action_just_pressed("attack"):
-		return attack_cmd
 
-	var dir = Vector2.ZERO
-	dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
-	if dir == Vector2.ZERO:
-		return idle_cmd
-
-	if abs(dir.x) > abs(dir.y):
-		return right_cmd if dir.x > 0 else left_cmd
-	else:
-		return down_cmd if dir.y > 0 else up_cmd
+func _manage_animation_tree_state() -> void:
+	pass

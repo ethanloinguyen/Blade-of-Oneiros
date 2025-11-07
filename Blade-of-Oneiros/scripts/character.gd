@@ -10,6 +10,7 @@ signal direction_changed(new_dir: String)
 enum Facing { UP, DOWN, LEFT, RIGHT }
 var facing: Facing = Facing.DOWN
 var current_state: String = "idle"
+var attacking: bool = false
 
 # --- Animation ---
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D

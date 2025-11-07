@@ -772,10 +772,6 @@ animations = [{
 
 [node name="Swordsman" type="CharacterBody2D" parent="."]
 script = ExtResource("1_h2yge")
-attack_cooldown = null
-move_speed = null
-acceleration = null
-friction = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Swordsman"]
 
