@@ -6,7 +6,12 @@
 [node name="AiTest" type="Node2D"]
 
 [node name="TestPlayer" parent="." instance=ExtResource("1_3lomd")]
-speed = 600.0
 
 [node name="TestEnemy" parent="." instance=ExtResource("2_em1xb")]
 position = Vector2(260, 51)
+
+[node name="TestEnemy2" parent="." instance=ExtResource("2_em1xb")]
+position = Vector2(207, -89)
+
+[node name="TestEnemy3" parent="." instance=ExtResource("2_em1xb")]
+position = Vector2(64, -179)
