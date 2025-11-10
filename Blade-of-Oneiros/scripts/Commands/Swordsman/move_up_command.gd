@@ -3,7 +3,11 @@ extends Command
 
 
 func execute(character: Character) -> Status:
-	character.velocity.y -= character.move_speed
+	if character.running:
+		character.velocity.y -= character.run_speed
+	else:
+		character.velocity.y -= character.move_speed
+		
 	character.change_facing(Character.Facing.UP)
 	#character.play_animation("walk")
 	return Status.DONE

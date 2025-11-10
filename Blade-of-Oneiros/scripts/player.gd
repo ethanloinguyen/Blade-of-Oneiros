@@ -37,6 +37,11 @@ func _physics_process(delta: float) -> void:
 	# If player input direction is not 0 execute 
 	# appropriate movement command, if 0, execute idle
 	if dir != Vector2.ZERO:
+		if Input.is_action_pressed("run"):
+			running = true
+		else:
+			running = false
+		
 		if abs(dir.x) > 0:
 			if dir.x > 0:
 				right_cmd.execute(self)
@@ -47,7 +52,11 @@ func _physics_process(delta: float) -> void:
 				down_cmd.execute(self)
 			else:
 				up_cmd.execute(self)
-		play_animation("walk")
+		
+		if running:
+			play_animation("run")
+		else:
+			play_animation("walk")
 	else:
 		idle_cmd.execute(self)
 		play_animation("idle")
