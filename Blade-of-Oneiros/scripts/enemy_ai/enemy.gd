@@ -5,9 +5,12 @@ extends CharacterBody2D
 @export var speed:float
 @export var chase_leash_distance:float
 
+@export var attack_hitbox:Hitbox
+
 var fsm:FSM
 var wait_state:State
 var chase_state:State
+var attack_state:State
 
 var _player:TestPlayer
 
@@ -35,6 +38,19 @@ func _ready():
 			velocity = Vector2(0, 0)
 		,
 		Callable(),
+	)
+	attack_state = State.new(
+		"Attack",
+		func():
+		velocity = Vector2(0, 0)
+		attack_hitbox.set_active(true)
+		,
+		func(_delta:float):
+		if attack_hitbox.is_attack_finished():
+			fsm.change_state(chase_state)
+		,
+		func():
+		attack_hitbox.set_active(false)
 	)
 	fsm = FSM.new(wait_state)
 

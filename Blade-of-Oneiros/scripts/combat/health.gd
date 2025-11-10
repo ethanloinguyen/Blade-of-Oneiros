@@ -7,7 +7,3 @@ var current_health:int
 
 func _ready() -> void:
 	current_health = max_health
-	area_entered.connect(func(a):
-		if a is Hitbox:
-			current_health -= a.damage
-	)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvf1lahvsywjg"]
+[gd_scene load_steps=5 format=3 uid="uid://bvf1lahvsywjg"]
 
-[ext_resource type="Script" path="res://scripts/test_player.gd" id="1_0ax77"]
+[ext_resource type="Script" uid="uid://d4asm02xlesb8" path="res://scripts/test_player.gd" id="1_0ax77"]
 [ext_resource type="Texture2D" uid="uid://cfvtplunpyvnt" path="res://icon.svg" id="1_e7mys"]
+[ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_22uif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(50, 50)
@@ -16,5 +17,13 @@ shape = SubResource("RectangleShape2D_22uif")
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("1_e7mys")
+
+[node name="Health" type="Area2D" parent="."]
+script = ExtResource("3_22uif")
+max_health = 100
+metadata/_custom_type_script = "uid://cwcorrfft7hdn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
+shape = SubResource("RectangleShape2D_22uif")
 
 [node name="Camera2D" type="Camera2D" parent="."]
