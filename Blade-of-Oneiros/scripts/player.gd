@@ -13,27 +13,44 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# if player isn't current attacking and pressed attack, then attack
-	if !attacking and Input.is_action_just_pressed("attack"):
+	if attacking:
+		super(delta)
+		return
+	
+	if Input.is_action_just_pressed("attack"):
 		attack_cmd.execute(self)
+		return
 		
 	# Get player input direction
-	var dir = Vector2.ZERO
-	dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var dir = Vector2(
+		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	)
+	
+	# Normalize diagonal movement speed
+	if dir.length() > 1:
+		dir = dir.normalized()
+	
+	# Reset velocity every frame
+	velocity = Vector2.ZERO
 	
 	# If player input direction is not 0 execute 
 	# appropriate movement command, if 0, execute idle
-	if abs(dir.x) > 0 or abs(dir.y) > 0:
-		if dir.x > 0:
-			right_cmd.execute(self)
-		elif dir.x < 0:
-			left_cmd.execute(self)
-		if dir.y > 0:
-			down_cmd.execute(self)
-		elif dir.y < 0:
-			up_cmd.execute(self)
+	if dir != Vector2.ZERO:
+		if abs(dir.x) > 0:
+			if dir.x > 0:
+				right_cmd.execute(self)
+			else:
+				left_cmd.execute(self)
+		if abs(dir.y) > 0:
+			if dir.y > 0:
+				down_cmd.execute(self)
+			else:
+				up_cmd.execute(self)
+		play_animation("walk")
 	else:
 		idle_cmd.execute(self)
+		play_animation("idle")
 	
 	super(delta)
 	
