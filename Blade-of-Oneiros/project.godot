@@ -11,12 +11,18 @@ config_version=5
 [application]
 
 config/name="Blade-of-Oneiros"
+run/main_scene="uid://jf00x0fdgo5l"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
+
+[display]
+
+window/size/viewport_width=240
+window/size/viewport_height=160
 
 [editor_plugins]
 
