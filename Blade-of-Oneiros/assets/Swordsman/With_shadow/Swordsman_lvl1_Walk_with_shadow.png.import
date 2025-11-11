@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4nnbgnppwjr3"
-path="res://.godot/imported/icon.svg-7d4870855c0daec5051feb4adbea0091.ctex"
+uid="uid://dk7y3f6favlp6"
+path="res://.godot/imported/Swordsman_lvl1_Walk_with_shadow.png-b99f71a400b40247676d8c4e891f4998.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/better-terrain/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-7d4870855c0daec5051feb4adbea0091.ctex"]
+source_file="res://assets/Swordsman/With_shadow/Swordsman_lvl1_Walk_with_shadow.png"
+dest_files=["res://.godot/imported/Swordsman_lvl1_Walk_with_shadow.png-b99f71a400b40247676d8c4e891f4998.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

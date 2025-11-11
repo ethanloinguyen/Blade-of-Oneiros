@@ -1,18 +1,17 @@
-<<<<<<< HEAD
-[gd_scene load_steps=20 format=4 uid="uid://jf00x0fdgo5l"]
+[gd_scene load_steps=20 format=4 uid="uid://dt8877ic8yd65"]
 
-[ext_resource type="Texture2D" uid="uid://bmub1d1q1n24d" path="res://assets/map/tileset/walls_floor.png" id="1_fj7yv"]
-[ext_resource type="Texture2D" uid="uid://bywqebn6pou0b" path="res://assets/map/tileset/Water_coasts_animation.png" id="1_ioo17"]
-[ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="2_tlwt5"]
-[ext_resource type="Texture2D" uid="uid://cnfdfavidmc2o" path="res://assets/map/tileset/fire_animation.png" id="4_wse8f"]
-[ext_resource type="Texture2D" uid="uid://ch4onvfvhpx26" path="res://assets/map/tileset/fire_animation2.png" id="5_ic0uy"]
-[ext_resource type="Texture2D" uid="uid://d20jxl6104j8v" path="res://assets/map/tileset/decorative_cracks_walls.png" id="6_k3n1d"]
-[ext_resource type="Texture2D" uid="uid://bwtyni86ejo40" path="res://assets/map/tileset/trap_animation.png" id="7_2o6r5"]
-[ext_resource type="Texture2D" uid="uid://bn42wlcdwgnmh" path="res://assets/map/tileset/water_details_animation.png" id="8_70uel"]
-[ext_resource type="Texture2D" uid="uid://dceswf5asdop8" path="res://assets/map/debug_map.png" id="9_hiqwa"]
+[ext_resource type="Texture2D" uid="uid://bywqebn6pou0b" path="res://assets/map/tileset/Water_coasts_animation.png" id="1_bdl0o"]
+[ext_resource type="Texture2D" uid="uid://bmub1d1q1n24d" path="res://assets/map/tileset/walls_floor.png" id="2_yj5bh"]
+[ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="3_yj8bs"]
+[ext_resource type="Texture2D" uid="uid://cnfdfavidmc2o" path="res://assets/map/tileset/fire_animation.png" id="4_4vbb2"]
+[ext_resource type="Texture2D" uid="uid://ch4onvfvhpx26" path="res://assets/map/tileset/fire_animation2.png" id="5_uvj2c"]
+[ext_resource type="Texture2D" uid="uid://d20jxl6104j8v" path="res://assets/map/tileset/decorative_cracks_walls.png" id="6_x6sdv"]
+[ext_resource type="Texture2D" uid="uid://bwtyni86ejo40" path="res://assets/map/tileset/trap_animation.png" id="7_8182d"]
+[ext_resource type="Texture2D" uid="uid://bn42wlcdwgnmh" path="res://assets/map/tileset/water_details_animation.png" id="8_lqlou"]
+[ext_resource type="Texture2D" uid="uid://dceswf5asdop8" path="res://assets/map/debug_map.png" id="9_k6tcn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2u3nc"]
-texture = ExtResource("1_ioo17")
+texture = ExtResource("1_bdl0o")
 1:1/0 = 0
 2:1/0 = 0
 3:1/0 = 0
@@ -550,7 +549,7 @@ texture = ExtResource("1_ioo17")
 11:30/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_036b0"]
-texture = ExtResource("1_fj7yv")
+texture = ExtResource("2_yj5bh")
 1:1/0 = 0
 1:1/0/terrain_set = 1
 1:1/0/terrain = 0
@@ -1659,7 +1658,7 @@ texture = ExtResource("1_fj7yv")
 14:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -1, 7.0078125, -0.9921875, 7.0078125, 0, 6.0078125, 0, 6.0078125, 8, 8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwbse"]
-texture = ExtResource("2_tlwt5")
+texture = ExtResource("3_yj8bs")
 0:0/animation_columns = 1
 0:0/animation_separation = Vector2i(0, 2)
 0:0/animation_frame_0/duration = 1.0
@@ -1717,7 +1716,7 @@ texture = ExtResource("2_tlwt5")
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.963451, -14.567068, 14.963451, -14.864355, 15.756216, 14.963451, -14.963451, 15.062548, -15.359835, 15.062548)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udxuc"]
-texture = ExtResource("4_wse8f")
+texture = ExtResource("4_4vbb2")
 0:0/size_in_atlas = Vector2i(2, 3)
 0:0/animation_columns = 1
 0:0/animation_speed = 5.0
@@ -1762,10 +1761,10 @@ texture = ExtResource("4_wse8f")
 8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.265457, -1.8828163, -9.463638, 4.1620216, -8.27449, 10.305954, -1.4368896, 12.486061, 4.6079407, 9.612282, 6.7880554, 3.2701607, 5.797104, -1.2882423)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ikiii"]
-texture = ExtResource("5_ic0uy")
+texture = ExtResource("5_uvj2c")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cbp6q"]
-texture = ExtResource("6_k3n1d")
+texture = ExtResource("6_x6sdv")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2024,7 +2023,7 @@ texture = ExtResource("6_k3n1d")
 7:31/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_26xuy"]
-texture = ExtResource("7_2o6r5")
+texture = ExtResource("7_8182d")
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
@@ -2205,7 +2204,7 @@ texture = ExtResource("7_2o6r5")
 10:29/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bc84e"]
-texture = ExtResource("8_70uel")
+texture = ExtResource("8_lqlou")
 4:1/0 = 0
 5:1/0 = 0
 6:1/0 = 0
@@ -3220,7 +3219,7 @@ texture = ExtResource("8_70uel")
 12:75/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wukud"]
-texture = ExtResource("9_hiqwa")
+texture = ExtResource("9_k6tcn")
 3:3/0 = 0
 4:3/0 = 0
 5:3/0 = 0
@@ -3450,23 +3449,7 @@ metadata/_better_terrain = {
 &"version": "0.2"
 }
 
-[node name="World" type="Node"]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer"]
 texture_filter = 1
-position = Vector2(35, 19)
 tile_map_data = PackedByteArray("AAAPAAIAAwAIAAEAAAARAAAAAwAAAAAAAAARAAIAAwAGAAAAAAATAAIAAwAEAAAAAAAVAAIAAwAAAAEAAAAXAAIAAwACAAEAAAAPAAYABAAAAAAAAAASAAYABAACAAAAAAAVAAYABAAFAAAAAAAYAAYABAAIAAAAAAA=")
 tile_set = SubResource("TileSet_gv5m4")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -1)
-zoom = Vector2(8, 8)
-=======
-[gd_scene load_steps=2 format=3 uid="uid://jf00x0fdgo5l"]
-
-[ext_resource type="PackedScene" uid="uid://b4d7n8ekaqidh" path="res://scenes/swordsman.tscn" id="1_f3sb7"]
-
-[node name="World" type="Node"]
-
-[node name="Swordsman" parent="." instance=ExtResource("1_f3sb7")]
->>>>>>> jerome
