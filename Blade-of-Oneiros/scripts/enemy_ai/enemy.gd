@@ -8,12 +8,15 @@ extends CharacterBody2D
 @export var attack_hitbox:Hitbox
 @export var attack_distance:float
 
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 var fsm:FSM
 var wait_state:State
 var chase_state:State
 var attack_state:State
 
 var _player:Player
+var _dir:String = "down"
 
 
 func _ready():
@@ -60,4 +63,23 @@ func _ready():
 
 func _physics_process(delta:float) -> void:
 	fsm.update(delta)
+	_update_sprite()
 	move_and_slide()
+
+
+func _update_sprite() -> void:
+	if velocity.x > velocity.y:
+		if velocity.x > 0:
+			_dir = "right"
+		elif velocity.x < 0:
+			_dir = "left"
+	else:
+		if velocity.y > 0:
+			_dir = "down"
+		elif velocity.y < 0:
+			_dir = "up"
+
+	if velocity.is_zero_approx():
+		sprite.play("idle_%s" % [_dir])
+	else:
+		sprite.play("walk_%s" % [_dir])
