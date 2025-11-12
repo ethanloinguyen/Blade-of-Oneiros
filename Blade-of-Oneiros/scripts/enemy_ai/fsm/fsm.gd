@@ -17,7 +17,7 @@ func update(delta:float):
 
 func change_state(new_state:State):
 	if current_state.on_exit.is_valid():
-		current_state.on_state_exit.call()
+		current_state.on_exit.call()
 	current_state = new_state
 	if current_state.on_enter.is_valid():
-		current_state.on_state_enter.call()
+		current_state.on_enter.call()

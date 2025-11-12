@@ -8,6 +8,8 @@
 size = Vector2(50, 50)
 
 [node name="TestPlayer" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_0ax77")
 speed = 600.0
 
@@ -19,6 +21,8 @@ scale = Vector2(0.425, 0.425)
 texture = ExtResource("1_e7mys")
 
 [node name="Health" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("3_22uif")
 max_health = 100
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"

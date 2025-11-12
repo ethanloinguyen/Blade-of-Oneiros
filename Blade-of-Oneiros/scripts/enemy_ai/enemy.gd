@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var chase_leash_distance:float
 
 @export var attack_hitbox:Hitbox
+@export var attack_distance:float
 
 var fsm:FSM
 var wait_state:State
@@ -32,8 +33,11 @@ func _ready():
 		"Chase",
 		Callable(),
 		func(_delta:float):
-		if _player.global_position.distance_to(global_position) > chase_leash_distance:
+		var dist_to_player:float= _player.global_position.distance_to(global_position)
+		if dist_to_player > chase_leash_distance:
 			velocity = (_player.global_position - global_position).normalized() * speed
+		elif dist_to_player < attack_distance:
+			fsm.change_state(attack_state)
 		else:
 			velocity = Vector2(0, 0)
 		,
@@ -43,14 +47,13 @@ func _ready():
 		"Attack",
 		func():
 		velocity = Vector2(0, 0)
-		attack_hitbox.set_active(true)
+		attack_hitbox.activate()
 		,
 		func(_delta:float):
-		if attack_hitbox.is_attack_finished():
-			fsm.change_state(chase_state)
+		# TODO: wait for attack animation to finish
+		fsm.change_state(chase_state)
 		,
-		func():
-		attack_hitbox.set_active(false)
+		Callable()
 	)
 	fsm = FSM.new(wait_state)
 
