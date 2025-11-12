@@ -50,7 +50,7 @@ func _ready():
 		"Attack",
 		func():
 		velocity = Vector2(0, 0)
-		attack_hitbox.activate()
+		attack_hitbox.activate(_player.global_position - global_position)
 		,
 		func(_delta:float):
 		# TODO: wait for attack animation to finish
