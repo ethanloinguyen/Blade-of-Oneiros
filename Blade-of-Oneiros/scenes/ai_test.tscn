@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck5mvuvjoe7uu"]
+
+[ext_resource type="PackedScene" uid="uid://bvf1lahvsywjg" path="res://scenes/test_player.tscn" id="1_3lomd"]
+[ext_resource type="PackedScene" uid="uid://dnkyyhf64k4lu" path="res://scenes/test_enemy.tscn" id="2_em1xb"]
+
+[node name="AiTest" type="Node2D"]
+
+[node name="TestPlayer" parent="." instance=ExtResource("1_3lomd")]
+
+[node name="TestEnemy" parent="." instance=ExtResource("2_em1xb")]
+position = Vector2(260, 51)
+
+[node name="TestEnemy2" parent="." instance=ExtResource("2_em1xb")]
+position = Vector2(207, -89)
+
+[node name="TestEnemy3" parent="." instance=ExtResource("2_em1xb")]
+position = Vector2(64, -179)
