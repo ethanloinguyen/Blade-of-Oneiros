@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvf1lahvsywjg"]
 
 [ext_resource type="Script" uid="uid://d4asm02xlesb8" path="res://scripts/test_player.gd" id="1_0ax77"]
-[ext_resource type="Texture2D" uid="uid://cfvtplunpyvnt" path="res://icon.svg" id="1_e7mys"]
+[ext_resource type="Texture2D" uid="uid://jwaqq02y8c4v" path="res://assets/player/Swordsman_lvl1/dialogue.png" id="2_22uif"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_22uif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
@@ -18,7 +18,7 @@ shape = SubResource("RectangleShape2D_22uif")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.425, 0.425)
-texture = ExtResource("1_e7mys")
+texture = ExtResource("2_22uif")
 
 [node name="Health" type="Area2D" parent="."]
 collision_layer = 2

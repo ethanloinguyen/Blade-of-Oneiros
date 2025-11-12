@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dnkyyhf64k4lu"]
 
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
-[ext_resource type="Texture2D" uid="uid://cfvtplunpyvnt" path="res://icon.svg" id="2_fpxyv"]
+[ext_resource type="Texture2D" uid="uid://jwaqq02y8c4v" path="res://assets/player/Swordsman_lvl1/dialogue.png" id="2_lkcdx"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
 
@@ -26,7 +26,7 @@ shape = SubResource("RectangleShape2D_22uif")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.425, 0.425)
-texture = ExtResource("2_fpxyv")
+texture = ExtResource("2_lkcdx")
 flip_v = true
 
 [node name="Health" type="Area2D" parent="."]
