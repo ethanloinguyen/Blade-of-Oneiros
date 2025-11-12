@@ -13,7 +13,7 @@ var wait_state:State
 var chase_state:State
 var attack_state:State
 
-var _player:TestPlayer
+var _player:Player
 
 
 func _ready():
