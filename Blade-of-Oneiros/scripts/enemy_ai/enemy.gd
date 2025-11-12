@@ -36,7 +36,7 @@ func _ready():
 		"Chase",
 		Callable(),
 		func(_delta:float):
-		var dist_to_player:float= _player.global_position.distance_to(global_position)
+		var dist_to_player:float = _player.global_position.distance_to(global_position)
 		if dist_to_player > chase_leash_distance:
 			velocity = (_player.global_position - global_position).normalized() * speed
 		elif dist_to_player < attack_distance:
