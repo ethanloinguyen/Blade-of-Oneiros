@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnkyyhf64k4lu"]
+[gd_scene load_steps=7 format=3 uid="uid://cmy6ymoibmm2m"]
 
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
-[ext_resource type="Texture2D" uid="uid://jwaqq02y8c4v" path="res://assets/player/Swordsman_lvl1/dialogue.png" id="2_lkcdx"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
 
@@ -10,6 +9,8 @@ size = Vector2(50, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkyue"]
 size = Vector2(140, 140)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fpxyv"]
 
 [node name="TestEnemy" type="CharacterBody2D" node_paths=PackedStringArray("attack_hitbox")]
 collision_layer = 4
@@ -23,11 +24,6 @@ attack_distance = 90.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.425, 0.425)
-texture = ExtResource("2_lkcdx")
-flip_v = true
 
 [node name="Health" type="Area2D" parent="."]
 collision_layer = 4
@@ -47,3 +43,6 @@ damage = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("RectangleShape2D_mkyue")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fpxyv")
