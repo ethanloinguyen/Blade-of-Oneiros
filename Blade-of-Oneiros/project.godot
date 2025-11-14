@@ -13,15 +13,24 @@ config_version=5
 config/name="Blade-of-Oneiros"
 run/main_scene="uid://jf00x0fdgo5l"
 config/features=PackedStringArray("4.5", "Mobile")
+config/icon="res://icon.svg"
 
 [autoload]
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 PlayerManagement="*res://scripts/player_manager.gd"
 
+[dotnet]
+
+project/assembly_name="Blade-of-Oneiros"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
+
+[global_group]
+
+player=""
 
 [input]
 
@@ -71,7 +80,7 @@ interact={
 
 [layer_names]
 
-2d_physics/layer_1="map"
+2d_physics/layer_1="environment"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemies"
 

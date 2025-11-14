@@ -1,0 +1,50 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Plant3_Walk_without_shadow.png.import
+uid="uid://dbtkoah7hd00o"
+path="res://.godot/imported/Plant3_Walk_without_shadow.png-6611b55d98f8c554d005ae323969bbbc.ctex"
+=======
+uid="uid://dt1njpcfctfdy"
+path="res://.godot/imported/Plant3_Walk_without_shadow.png-600d35d0f8e2adfd1c74d506efb324e7.ctex"
+>>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Plant3_Walk_without_shadow.png.import
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Plant3_Walk_without_shadow.png.import
+source_file="res://assets/plantmob/Plant3/Without_shadow/Plant3_Walk_without_shadow.png"
+dest_files=["res://.godot/imported/Plant3_Walk_without_shadow.png-6611b55d98f8c554d005ae323969bbbc.ctex"]
+=======
+source_file="res://assets/mobs/plant/Plant3/Without_shadow/Plant3_Walk_without_shadow.png"
+dest_files=["res://.godot/imported/Plant3_Walk_without_shadow.png-600d35d0f8e2adfd1c74d506efb324e7.ctex"]
+>>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Plant3_Walk_without_shadow.png.import
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
