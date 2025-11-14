@@ -1023,6 +1023,8 @@ animations = [{
 }]
 
 [node name="Swordsman" type="CharacterBody2D"]
+z_index = 3
+texture_filter = 1
 script = ExtResource("1_yb8h7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1045,3 +1047,6 @@ shape = SubResource("RectangleShape2D_7mycd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4obbf")
 animation = &"attack_down"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
