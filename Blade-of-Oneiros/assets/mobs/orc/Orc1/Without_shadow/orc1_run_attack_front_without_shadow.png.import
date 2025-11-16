@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png.import
-uid="uid://bi0jnd7nrlp75"
-path="res://.godot/imported/orc1_run_attack_front_without_shadow.png-d02d20506fc441958e6a48c48f98b7c3.ctex"
-=======
 uid="uid://cox1oa472np66"
 path="res://.godot/imported/orc1_run_attack_front_without_shadow.png-18a5614ddc2e8b5ac8b92cb0dbd385d5.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png.import
-source_file="res://assets/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png"
-dest_files=["res://.godot/imported/orc1_run_attack_front_without_shadow.png-d02d20506fc441958e6a48c48f98b7c3.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png"
 dest_files=["res://.godot/imported/orc1_run_attack_front_without_shadow.png-18a5614ddc2e8b5ac8b92cb0dbd385d5.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Without_shadow/orc1_run_attack_front_without_shadow.png.import
 
 [params]
 

@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_run_attack_head.png.import
-uid="uid://caifj8pik5wiw"
-path="res://.godot/imported/orc2_run_attack_head.png-1168b423f2aecf636877d99f96c543b8.ctex"
-=======
 uid="uid://dcliq3h4ojjy7"
 path="res://.godot/imported/orc2_run_attack_head.png-39422dd7747b8923c9a0faafae1593c3.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_run_attack_head.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_run_attack_head.png.import
-source_file="res://assets/orc/Orc2/Parts/orc2_run_attack_head.png"
-dest_files=["res://.godot/imported/orc2_run_attack_head.png-1168b423f2aecf636877d99f96c543b8.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/Parts/orc2_run_attack_head.png"
 dest_files=["res://.godot/imported/orc2_run_attack_head.png-39422dd7747b8923c9a0faafae1593c3.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_run_attack_head.png.import
 
 [params]
 

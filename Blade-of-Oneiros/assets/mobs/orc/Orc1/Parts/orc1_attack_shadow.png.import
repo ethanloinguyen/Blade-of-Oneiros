@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_attack_shadow.png.import
-uid="uid://duwsmlnl6fd1w"
-path="res://.godot/imported/orc1_attack_shadow.png-2bbc05d00a85111413e5d3ef438b8772.ctex"
-=======
 uid="uid://dqpqf6igwkc2e"
 path="res://.godot/imported/orc1_attack_shadow.png-7321279860c13fceee942fbe97850956.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_attack_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_attack_shadow.png.import
-source_file="res://assets/orc/Orc1/Parts/orc1_attack_shadow.png"
-dest_files=["res://.godot/imported/orc1_attack_shadow.png-2bbc05d00a85111413e5d3ef438b8772.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Parts/orc1_attack_shadow.png"
 dest_files=["res://.godot/imported/orc1_attack_shadow.png-7321279860c13fceee942fbe97850956.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_attack_shadow.png.import
 
 [params]
 

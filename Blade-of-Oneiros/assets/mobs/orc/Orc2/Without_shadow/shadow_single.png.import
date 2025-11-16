@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Without_shadow/shadow_single.png.import
-uid="uid://bfyqd6muukf5r"
-path="res://.godot/imported/shadow_single.png-8091d228d9ada64564e946852c977472.ctex"
-=======
 uid="uid://e1vycrib5qqo"
 path="res://.godot/imported/shadow_single.png-c507aa446fa3fe1c7dc5660fffadcc8d.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Without_shadow/shadow_single.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Without_shadow/shadow_single.png.import
-source_file="res://assets/orc/Orc2/Without_shadow/shadow_single.png"
-dest_files=["res://.godot/imported/shadow_single.png-8091d228d9ada64564e946852c977472.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/Without_shadow/shadow_single.png"
 dest_files=["res://.godot/imported/shadow_single.png-c507aa446fa3fe1c7dc5660fffadcc8d.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Without_shadow/shadow_single.png.import
 
 [params]
 

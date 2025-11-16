@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Walk_body.png.import
-uid="uid://bdveorogv1kqr"
-path="res://.godot/imported/Slime2_Walk_body.png-3ac2326294921af538877b2c995deb74.ctex"
-=======
 uid="uid://b1pm6155ql0tm"
 path="res://.godot/imported/Slime2_Walk_body.png-4fb91cc4078ccd58a3d31dad7e001e44.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Walk_body.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Walk_body.png.import
-source_file="res://assets/mob/Slime2/Parts/Slime2_Walk_body.png"
-dest_files=["res://.godot/imported/Slime2_Walk_body.png-3ac2326294921af538877b2c995deb74.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime2/Parts/Slime2_Walk_body.png"
 dest_files=["res://.godot/imported/Slime2_Walk_body.png-4fb91cc4078ccd58a3d31dad7e001e44.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Walk_body.png.import
 
 [params]
 

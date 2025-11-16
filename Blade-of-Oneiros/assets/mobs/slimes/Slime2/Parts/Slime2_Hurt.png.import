@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Hurt.png.import
-uid="uid://bl007shap6dk2"
-path="res://.godot/imported/Slime2_Hurt.png-056f9603a04d895641b4cdabad59be8f.ctex"
-=======
 uid="uid://cpivllacwvhi0"
 path="res://.godot/imported/Slime2_Hurt.png-a9daf7daab4b05683783610c62b58c67.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Hurt.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Hurt.png.import
-source_file="res://assets/mob/Slime2/Parts/Slime2_Hurt.png"
-dest_files=["res://.godot/imported/Slime2_Hurt.png-056f9603a04d895641b4cdabad59be8f.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime2/Parts/Slime2_Hurt.png"
 dest_files=["res://.godot/imported/Slime2_Hurt.png-a9daf7daab4b05683783610c62b58c67.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Hurt.png.import
 
 [params]
 

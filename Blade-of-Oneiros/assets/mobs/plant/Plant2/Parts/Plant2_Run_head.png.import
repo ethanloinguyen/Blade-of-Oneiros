@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant2/Parts/Plant2_Run_head.png.import
-uid="uid://dqc26w8xewwf"
-path="res://.godot/imported/Plant2_Run_head.png-d3700ad58f8a5783dd3a659986ff2513.ctex"
-=======
 uid="uid://bhiq0m04e2vc5"
 path="res://.godot/imported/Plant2_Run_head.png-058dc1f4d745ff2f540d54d716783a0e.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant2/Parts/Plant2_Run_head.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant2/Parts/Plant2_Run_head.png.import
-source_file="res://assets/plantmob/Plant2/Parts/Plant2_Run_head.png"
-dest_files=["res://.godot/imported/Plant2_Run_head.png-d3700ad58f8a5783dd3a659986ff2513.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant2/Parts/Plant2_Run_head.png"
 dest_files=["res://.godot/imported/Plant2_Run_head.png-058dc1f4d745ff2f540d54d716783a0e.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant2/Parts/Plant2_Run_head.png.import
 
 [params]
 

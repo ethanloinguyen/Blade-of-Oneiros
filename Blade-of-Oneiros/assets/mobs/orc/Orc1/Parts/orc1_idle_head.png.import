@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_idle_head.png.import
-uid="uid://d4hdh3chmy2ly"
-path="res://.godot/imported/orc1_idle_head.png-586113908c1a9b1e49e165374ca87b34.ctex"
-=======
 uid="uid://cvwr5r2h2rm1o"
 path="res://.godot/imported/orc1_idle_head.png-89f8a771466f63394659ff875155e6b2.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_idle_head.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_idle_head.png.import
-source_file="res://assets/orc/Orc1/Parts/orc1_idle_head.png"
-dest_files=["res://.godot/imported/orc1_idle_head.png-586113908c1a9b1e49e165374ca87b34.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Parts/orc1_idle_head.png"
 dest_files=["res://.godot/imported/orc1_idle_head.png-89f8a771466f63394659ff875155e6b2.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_idle_head.png.import
 
 [params]
 

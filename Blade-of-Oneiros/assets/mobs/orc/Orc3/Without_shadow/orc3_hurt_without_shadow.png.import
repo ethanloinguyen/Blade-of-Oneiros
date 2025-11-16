@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png.import
-uid="uid://bphjarsgcbbok"
-path="res://.godot/imported/orc3_hurt_without_shadow.png-9edb9e77b451afe13e9315fcf687d5a8.ctex"
-=======
 uid="uid://bwvviawgmq6sl"
 path="res://.godot/imported/orc3_hurt_without_shadow.png-fb43932f30824af94382de63c5d380c9.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png.import
-source_file="res://assets/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png"
-dest_files=["res://.godot/imported/orc3_hurt_without_shadow.png-9edb9e77b451afe13e9315fcf687d5a8.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png"
 dest_files=["res://.godot/imported/orc3_hurt_without_shadow.png-fb43932f30824af94382de63c5d380c9.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Without_shadow/orc3_hurt_without_shadow.png.import
 
 [params]
 

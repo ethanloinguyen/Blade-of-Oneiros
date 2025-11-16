@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Plant3_Death_without_shadow.png.import
-uid="uid://cwlw7jy2wqglq"
-path="res://.godot/imported/Plant3_Death_without_shadow.png-dfd5f9ba4e589dc5f263614bbc29e824.ctex"
-=======
 uid="uid://elte1rjkv85q"
 path="res://.godot/imported/Plant3_Death_without_shadow.png-cb2ad497b816cac42a722da22732ddf4.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Plant3_Death_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Plant3_Death_without_shadow.png.import
-source_file="res://assets/plantmob/Plant3/Without_shadow/Plant3_Death_without_shadow.png"
-dest_files=["res://.godot/imported/Plant3_Death_without_shadow.png-dfd5f9ba4e589dc5f263614bbc29e824.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant3/Without_shadow/Plant3_Death_without_shadow.png"
 dest_files=["res://.godot/imported/Plant3_Death_without_shadow.png-cb2ad497b816cac42a722da22732ddf4.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Plant3_Death_without_shadow.png.import
 
 [params]
 

@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_hurt_red.png.import
-uid="uid://cd28dv3wrjs10"
-path="res://.godot/imported/orc2_hurt_red.png-a5d98a9ff33cb65c4cce1bbf7aa01404.ctex"
-=======
 uid="uid://gyi77rn1v1fe"
 path="res://.godot/imported/orc2_hurt_red.png-41a4d7b94f9a6c0a4f9ce1bbc7d5891f.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_hurt_red.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_hurt_red.png.import
-source_file="res://assets/orc/Orc2/Parts/orc2_hurt_red.png"
-dest_files=["res://.godot/imported/orc2_hurt_red.png-a5d98a9ff33cb65c4cce1bbf7aa01404.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/Parts/orc2_hurt_red.png"
 dest_files=["res://.godot/imported/orc2_hurt_red.png-41a4d7b94f9a6c0a4f9ce1bbc7d5891f.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_hurt_red.png.import
 
 [params]
 

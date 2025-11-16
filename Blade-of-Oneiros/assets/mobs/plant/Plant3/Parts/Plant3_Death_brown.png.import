@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Parts/Plant3_Death_brown.png.import
-uid="uid://d02hoitumkg5e"
-path="res://.godot/imported/Plant3_Death_brown.png-5414607f076ecb1649a6b6fef8c4b893.ctex"
-=======
 uid="uid://d0jgd53jpp0mt"
 path="res://.godot/imported/Plant3_Death_brown.png-3ef6b8f72ad34e3e691bce641263997c.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Parts/Plant3_Death_brown.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Parts/Plant3_Death_brown.png.import
-source_file="res://assets/plantmob/Plant3/Parts/Plant3_Death_brown.png"
-dest_files=["res://.godot/imported/Plant3_Death_brown.png-5414607f076ecb1649a6b6fef8c4b893.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant3/Parts/Plant3_Death_brown.png"
 dest_files=["res://.godot/imported/Plant3_Death_brown.png-3ef6b8f72ad34e3e691bce641263997c.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Parts/Plant3_Death_brown.png.import
 
 [params]
 

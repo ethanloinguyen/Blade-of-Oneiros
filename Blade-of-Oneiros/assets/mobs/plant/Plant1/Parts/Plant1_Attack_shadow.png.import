@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Attack_shadow.png.import
-uid="uid://c1kot5ouwnamx"
-path="res://.godot/imported/Plant1_Attack_shadow.png-cdbf20fdc9f6d6a3fc71ec0fa5efdd63.ctex"
-=======
 uid="uid://dty661pkhlcto"
 path="res://.godot/imported/Plant1_Attack_shadow.png-0e28527e71768cfbf16b008e2984ad44.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Attack_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Attack_shadow.png.import
-source_file="res://assets/plantmob/Plant1/Parts/Plant1_Attack_shadow.png"
-dest_files=["res://.godot/imported/Plant1_Attack_shadow.png-cdbf20fdc9f6d6a3fc71ec0fa5efdd63.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant1/Parts/Plant1_Attack_shadow.png"
 dest_files=["res://.godot/imported/Plant1_Attack_shadow.png-0e28527e71768cfbf16b008e2984ad44.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Attack_shadow.png.import
 
 [params]
 

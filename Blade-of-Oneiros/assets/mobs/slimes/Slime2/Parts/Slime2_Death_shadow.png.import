@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Death_shadow.png.import
-uid="uid://33esgbhu0dne"
-path="res://.godot/imported/Slime2_Death_shadow.png-198fb4c18bb027ef5f4416221fd80541.ctex"
-=======
 uid="uid://c5mh2r36b2lub"
 path="res://.godot/imported/Slime2_Death_shadow.png-a1c508b85405bcfd68661fa760333f31.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Death_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Parts/Slime2_Death_shadow.png.import
-source_file="res://assets/mob/Slime2/Parts/Slime2_Death_shadow.png"
-dest_files=["res://.godot/imported/Slime2_Death_shadow.png-198fb4c18bb027ef5f4416221fd80541.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime2/Parts/Slime2_Death_shadow.png"
 dest_files=["res://.godot/imported/Slime2_Death_shadow.png-a1c508b85405bcfd68661fa760333f31.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Parts/Slime2_Death_shadow.png.import
 
 [params]
 

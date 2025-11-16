@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime1/Without_shadow/Slime1_Attack_without_shadow.png.import
-uid="uid://ptlu8vf6pxeo"
-path="res://.godot/imported/Slime1_Attack_without_shadow.png-7a6d84cf5ce0a506a476b5c79e89f270.ctex"
-=======
 uid="uid://c2yi3wb6byauk"
 path="res://.godot/imported/Slime1_Attack_without_shadow.png-b6968e9756b64238b525fa075a448c10.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime1/Without_shadow/Slime1_Attack_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime1/Without_shadow/Slime1_Attack_without_shadow.png.import
-source_file="res://assets/mob/Slime1/Without_shadow/Slime1_Attack_without_shadow.png"
-dest_files=["res://.godot/imported/Slime1_Attack_without_shadow.png-7a6d84cf5ce0a506a476b5c79e89f270.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime1/Without_shadow/Slime1_Attack_without_shadow.png"
 dest_files=["res://.godot/imported/Slime1_Attack_without_shadow.png-b6968e9756b64238b525fa075a448c10.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime1/Without_shadow/Slime1_Attack_without_shadow.png.import
 
 [params]
 

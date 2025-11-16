@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_hurt_head.png.import
-uid="uid://cc1kxgiw6114c"
-path="res://.godot/imported/orc3_hurt_head.png-cf8b82b7aeb63f2c9f2ecc71a137700d.ctex"
-=======
 uid="uid://dqbr0b1wyxdbm"
 path="res://.godot/imported/orc3_hurt_head.png-be070717eecbe521a007cf873f00420d.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_hurt_head.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_hurt_head.png.import
-source_file="res://assets/orc/Orc3/Parts/orc3_hurt_head.png"
-dest_files=["res://.godot/imported/orc3_hurt_head.png-cf8b82b7aeb63f2c9f2ecc71a137700d.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Parts/orc3_hurt_head.png"
 dest_files=["res://.godot/imported/orc3_hurt_head.png-be070717eecbe521a007cf873f00420d.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_hurt_head.png.import
 
 [params]
 

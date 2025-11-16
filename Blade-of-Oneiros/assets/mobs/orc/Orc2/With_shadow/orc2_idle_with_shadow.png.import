@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/With_shadow/orc2_idle_with_shadow.png.import
-uid="uid://ddj8gf8aykcd8"
-path="res://.godot/imported/orc2_idle_with_shadow.png-99e637f737962216820e96c846259841.ctex"
-=======
 uid="uid://veao6gtonr66"
 path="res://.godot/imported/orc2_idle_with_shadow.png-1510b84bce637377b355764d8b95111f.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/With_shadow/orc2_idle_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/With_shadow/orc2_idle_with_shadow.png.import
-source_file="res://assets/orc/Orc2/With_shadow/orc2_idle_with_shadow.png"
-dest_files=["res://.godot/imported/orc2_idle_with_shadow.png-99e637f737962216820e96c846259841.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/With_shadow/orc2_idle_with_shadow.png"
 dest_files=["res://.godot/imported/orc2_idle_with_shadow.png-1510b84bce637377b355764d8b95111f.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/With_shadow/orc2_idle_with_shadow.png.import
 
 [params]
 

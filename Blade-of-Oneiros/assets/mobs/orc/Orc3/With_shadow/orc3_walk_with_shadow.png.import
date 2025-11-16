@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/With_shadow/orc3_walk_with_shadow.png.import
-uid="uid://2r2m52p31ccr"
-path="res://.godot/imported/orc3_walk_with_shadow.png-ba3e4e8fdf67f1a142015f90f98e0205.ctex"
-=======
 uid="uid://dik6f3ivippo6"
 path="res://.godot/imported/orc3_walk_with_shadow.png-b2fb482a4741a4e69c1164ff68dc59bb.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/With_shadow/orc3_walk_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/With_shadow/orc3_walk_with_shadow.png.import
-source_file="res://assets/orc/Orc3/With_shadow/orc3_walk_with_shadow.png"
-dest_files=["res://.godot/imported/orc3_walk_with_shadow.png-ba3e4e8fdf67f1a142015f90f98e0205.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/With_shadow/orc3_walk_with_shadow.png"
 dest_files=["res://.godot/imported/orc3_walk_with_shadow.png-b2fb482a4741a4e69c1164ff68dc59bb.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/With_shadow/orc3_walk_with_shadow.png.import
 
 [params]
 

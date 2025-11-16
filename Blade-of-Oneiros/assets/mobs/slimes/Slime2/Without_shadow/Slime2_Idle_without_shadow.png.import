@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Without_shadow/Slime2_Idle_without_shadow.png.import
-uid="uid://bionwjl6hhil2"
-path="res://.godot/imported/Slime2_Idle_without_shadow.png-170fdcacc53a1e69694718a79f9a0c4d.ctex"
-=======
 uid="uid://0fcl1cwdu4xu"
 path="res://.godot/imported/Slime2_Idle_without_shadow.png-2a0e70e0aafb0ec50a3275bdf5d73eca.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Without_shadow/Slime2_Idle_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/Without_shadow/Slime2_Idle_without_shadow.png.import
-source_file="res://assets/mob/Slime2/Without_shadow/Slime2_Idle_without_shadow.png"
-dest_files=["res://.godot/imported/Slime2_Idle_without_shadow.png-170fdcacc53a1e69694718a79f9a0c4d.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime2/Without_shadow/Slime2_Idle_without_shadow.png"
 dest_files=["res://.godot/imported/Slime2_Idle_without_shadow.png-2a0e70e0aafb0ec50a3275bdf5d73eca.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/Without_shadow/Slime2_Idle_without_shadow.png.import
 
 [params]
 

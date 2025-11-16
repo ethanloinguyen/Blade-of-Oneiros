@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Death_shadow.png.import
-uid="uid://dqv5623y2p3f0"
-path="res://.godot/imported/Plant1_Death_shadow.png-0060b01837f69ed5eda75b876034036e.ctex"
-=======
 uid="uid://bnqx85opjahrm"
 path="res://.godot/imported/Plant1_Death_shadow.png-0db35117a68095aa0e4c59397b125cfa.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Death_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Death_shadow.png.import
-source_file="res://assets/plantmob/Plant1/Parts/Plant1_Death_shadow.png"
-dest_files=["res://.godot/imported/Plant1_Death_shadow.png-0060b01837f69ed5eda75b876034036e.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant1/Parts/Plant1_Death_shadow.png"
 dest_files=["res://.godot/imported/Plant1_Death_shadow.png-0db35117a68095aa0e4c59397b125cfa.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Death_shadow.png.import
 
 [params]
 

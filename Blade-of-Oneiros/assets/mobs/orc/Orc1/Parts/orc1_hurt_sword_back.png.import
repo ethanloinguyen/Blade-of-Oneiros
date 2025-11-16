@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_hurt_sword_back.png.import
-uid="uid://cjps7nixwk701"
-path="res://.godot/imported/orc1_hurt_sword_back.png-58ae5b3a6b87934602da8ff3ad47c773.ctex"
-=======
 uid="uid://btrj1dnew7f2k"
 path="res://.godot/imported/orc1_hurt_sword_back.png-2b6f45af936f6dce95bb1c3f95994ca2.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_hurt_sword_back.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_hurt_sword_back.png.import
-source_file="res://assets/orc/Orc1/Parts/orc1_hurt_sword_back.png"
-dest_files=["res://.godot/imported/orc1_hurt_sword_back.png-58ae5b3a6b87934602da8ff3ad47c773.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Parts/orc1_hurt_sword_back.png"
 dest_files=["res://.godot/imported/orc1_hurt_sword_back.png-2b6f45af936f6dce95bb1c3f95994ca2.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_hurt_sword_back.png.import
 
 [params]
 

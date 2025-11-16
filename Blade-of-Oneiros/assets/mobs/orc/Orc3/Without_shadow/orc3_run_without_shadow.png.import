@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Without_shadow/orc3_run_without_shadow.png.import
-uid="uid://cyl5rvdk7ld0a"
-path="res://.godot/imported/orc3_run_without_shadow.png-33dc044c0d293d3047b7e756d8e9ee13.ctex"
-=======
 uid="uid://dsy2ri8j0eegf"
 path="res://.godot/imported/orc3_run_without_shadow.png-db0b25a76108d831ef70b75115d253bb.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Without_shadow/orc3_run_without_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Without_shadow/orc3_run_without_shadow.png.import
-source_file="res://assets/orc/Orc3/Without_shadow/orc3_run_without_shadow.png"
-dest_files=["res://.godot/imported/orc3_run_without_shadow.png-33dc044c0d293d3047b7e756d8e9ee13.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Without_shadow/orc3_run_without_shadow.png"
 dest_files=["res://.godot/imported/orc3_run_without_shadow.png-db0b25a76108d831ef70b75115d253bb.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Without_shadow/orc3_run_without_shadow.png.import
 
 [params]
 

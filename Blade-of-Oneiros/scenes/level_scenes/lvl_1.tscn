@@ -4,10 +4,10 @@
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="2_l8iau"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_hwdor"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="4_53anu"]
-[ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/debug_map.tscn" id="5_53anu"]
+[ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ilr"]
-size = Vector2(20, 25)
+size = Vector2(20, 32.5)
 
 [node name="tutorial_start" type="Node2D"]
 y_sort_enabled = true
@@ -32,13 +32,14 @@ tag = &"start"
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(120, 29)
+collision_mask = 2
 script = ExtResource("4_53anu")
 target_scene = "uid://cs6v7gg3ojoa8"
 target_spawn = &"debug"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 3
-position = Vector2(0, -10)
+position = Vector2(0, -6.25)
 shape = SubResource("RectangleShape2D_u8ilr")
 
 [node name="debug_map" parent="." instance=ExtResource("5_53anu")]

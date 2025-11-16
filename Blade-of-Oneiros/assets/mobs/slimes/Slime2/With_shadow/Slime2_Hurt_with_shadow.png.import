@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/With_shadow/Slime2_Hurt_with_shadow.png.import
-uid="uid://ng2axekot1di"
-path="res://.godot/imported/Slime2_Hurt_with_shadow.png-8acfdd4c7a6f6dd69340b7217637b451.ctex"
-=======
 uid="uid://dbhyir26jguue"
 path="res://.godot/imported/Slime2_Hurt_with_shadow.png-78554372ed79f351d68bd6c61444bf2b.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/With_shadow/Slime2_Hurt_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime2/With_shadow/Slime2_Hurt_with_shadow.png.import
-source_file="res://assets/mob/Slime2/With_shadow/Slime2_Hurt_with_shadow.png"
-dest_files=["res://.godot/imported/Slime2_Hurt_with_shadow.png-8acfdd4c7a6f6dd69340b7217637b451.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Hurt_with_shadow.png"
 dest_files=["res://.godot/imported/Slime2_Hurt_with_shadow.png-78554372ed79f351d68bd6c61444bf2b.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime2/With_shadow/Slime2_Hurt_with_shadow.png.import
 
 [params]
 

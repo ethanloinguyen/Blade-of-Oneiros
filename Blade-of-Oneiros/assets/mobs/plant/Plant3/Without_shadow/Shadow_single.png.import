@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Shadow_single.png.import
-uid="uid://ccl3wulooovum"
-path="res://.godot/imported/Shadow_single.png-8e7dfb1157da47e2fe57b90bc04ef13a.ctex"
-=======
 uid="uid://baoxq2h0x4724"
 path="res://.godot/imported/Shadow_single.png-921c930ae5f6e205022e8e734fbe18bd.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Shadow_single.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/Without_shadow/Shadow_single.png.import
-source_file="res://assets/plantmob/Plant3/Without_shadow/Shadow_single.png"
-dest_files=["res://.godot/imported/Shadow_single.png-8e7dfb1157da47e2fe57b90bc04ef13a.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant3/Without_shadow/Shadow_single.png"
 dest_files=["res://.godot/imported/Shadow_single.png-921c930ae5f6e205022e8e734fbe18bd.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/Without_shadow/Shadow_single.png.import
 
 [params]
 

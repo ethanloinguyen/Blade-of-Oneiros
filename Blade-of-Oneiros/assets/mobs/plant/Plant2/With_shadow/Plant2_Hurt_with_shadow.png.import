@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant2/With_shadow/Plant2_Hurt_with_shadow.png.import
-uid="uid://dokkgxnv3iydm"
-path="res://.godot/imported/Plant2_Hurt_with_shadow.png-30e3b76dfee2daa6db21fea87f9a9fa4.ctex"
-=======
 uid="uid://bveifythdsk1"
 path="res://.godot/imported/Plant2_Hurt_with_shadow.png-68bc865d494ca49830b1b0c82732f182.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant2/With_shadow/Plant2_Hurt_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant2/With_shadow/Plant2_Hurt_with_shadow.png.import
-source_file="res://assets/plantmob/Plant2/With_shadow/Plant2_Hurt_with_shadow.png"
-dest_files=["res://.godot/imported/Plant2_Hurt_with_shadow.png-30e3b76dfee2daa6db21fea87f9a9fa4.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant2/With_shadow/Plant2_Hurt_with_shadow.png"
 dest_files=["res://.godot/imported/Plant2_Hurt_with_shadow.png-68bc865d494ca49830b1b0c82732f182.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant2/With_shadow/Plant2_Hurt_with_shadow.png.import
 
 [params]
 

@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime3/Parts/Slime3_Walk_shadow.png.import
-uid="uid://dv2mmv66rp6jj"
-path="res://.godot/imported/Slime3_Walk_shadow.png-e90bf49d07d420f45dcc9abda99f1605.ctex"
-=======
 uid="uid://nlq0jpd0b7ys"
 path="res://.godot/imported/Slime3_Walk_shadow.png-59df43046dffd7b2dbfef3aca9839033.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime3/Parts/Slime3_Walk_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime3/Parts/Slime3_Walk_shadow.png.import
-source_file="res://assets/mob/Slime3/Parts/Slime3_Walk_shadow.png"
-dest_files=["res://.godot/imported/Slime3_Walk_shadow.png-e90bf49d07d420f45dcc9abda99f1605.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime3/Parts/Slime3_Walk_shadow.png"
 dest_files=["res://.godot/imported/Slime3_Walk_shadow.png-59df43046dffd7b2dbfef3aca9839033.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime3/Parts/Slime3_Walk_shadow.png.import
 
 [params]
 

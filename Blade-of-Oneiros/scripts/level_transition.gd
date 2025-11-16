@@ -14,9 +14,11 @@ var _enabled :bool = true
 
 func _ready() -> void:
 	body_entered.connect(_on_enter)
-	
+	set_process_unhandled_input(true)
 	
 func _on_enter(body: Node) -> void:
+	#for debug purposes
+	#print("Door", name, "body_entered by:", body.name, "groups:", body.get_groups())
 	if not _enabled:
 		return
 	if not body.is_in_group("player"):
@@ -25,7 +27,18 @@ func _on_enter(body: Node) -> void:
 	if not press_to_use:
 		_trigger()
 		
+
+func _unhandled_input(event: InputEvent) -> void:
+	
+	if not _enabled or not press_to_use or not _player_inside:
+		return
+	if event.is_action_pressed(action):
+		_trigger()
+	
+	
 func _trigger() -> void:
+	#for debug
+	#print("Door", name, "TRIGGER: target_scene =", target_scene, "target_spawn =", target_spawn)
 	if single_use:
 		_enabled = false
 	PlayerManagement.change_level(target_scene, target_spawn)

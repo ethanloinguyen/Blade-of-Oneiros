@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_idle_sword_front.png.import
-uid="uid://cmfxcmj41c1bt"
-path="res://.godot/imported/orc1_idle_sword_front.png-1e311aea48664761ed8564dcb9344e67.ctex"
-=======
 uid="uid://boh841ydxkug6"
 path="res://.godot/imported/orc1_idle_sword_front.png-9160c2391b5a340121c6d37b90a13e56.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_idle_sword_front.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_idle_sword_front.png.import
-source_file="res://assets/orc/Orc1/Parts/orc1_idle_sword_front.png"
-dest_files=["res://.godot/imported/orc1_idle_sword_front.png-1e311aea48664761ed8564dcb9344e67.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Parts/orc1_idle_sword_front.png"
 dest_files=["res://.godot/imported/orc1_idle_sword_front.png-9160c2391b5a340121c6d37b90a13e56.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_idle_sword_front.png.import
 
 [params]
 

@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime1/Without_shadow/Shadows/Shadow.png.import
-uid="uid://bb678d1i7gpxy"
-path="res://.godot/imported/Shadow.png-6966c5aed215c34e9398adbff0036321.ctex"
-=======
 uid="uid://bnlutkodpqosi"
 path="res://.godot/imported/Shadow.png-cb9f53398a763ed26d7dfc4fc696c646.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime1/Without_shadow/Shadows/Shadow.png.import
-source_file="res://assets/mob/Slime1/Without_shadow/Shadows/Shadow.png"
-dest_files=["res://.godot/imported/Shadow.png-6966c5aed215c34e9398adbff0036321.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png"
 dest_files=["res://.godot/imported/Shadow.png-cb9f53398a763ed26d7dfc4fc696c646.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png.import
 
 [params]
 

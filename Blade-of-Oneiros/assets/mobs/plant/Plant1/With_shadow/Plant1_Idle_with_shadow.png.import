@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/With_shadow/Plant1_Idle_with_shadow.png.import
-uid="uid://be8opnagc6gml"
-path="res://.godot/imported/Plant1_Idle_with_shadow.png-89de37535838bf47ab614a71265962d3.ctex"
-=======
 uid="uid://qvky87dibsmf"
 path="res://.godot/imported/Plant1_Idle_with_shadow.png-1c718205c84a62d218d48226d6cbaa26.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/With_shadow/Plant1_Idle_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/With_shadow/Plant1_Idle_with_shadow.png.import
-source_file="res://assets/plantmob/Plant1/With_shadow/Plant1_Idle_with_shadow.png"
-dest_files=["res://.godot/imported/Plant1_Idle_with_shadow.png-89de37535838bf47ab614a71265962d3.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant1/With_shadow/Plant1_Idle_with_shadow.png"
 dest_files=["res://.godot/imported/Plant1_Idle_with_shadow.png-1c718205c84a62d218d48226d6cbaa26.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/With_shadow/Plant1_Idle_with_shadow.png.import
 
 [params]
 

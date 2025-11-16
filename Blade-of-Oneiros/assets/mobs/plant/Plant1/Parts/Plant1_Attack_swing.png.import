@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Attack_swing.png.import
-uid="uid://tq4coriktux"
-path="res://.godot/imported/Plant1_Attack_swing.png-08fb681de8f15356a875f88d85bc57da.ctex"
-=======
 uid="uid://gvjwamyk46pv"
 path="res://.godot/imported/Plant1_Attack_swing.png-4540c89952623887f28c4f9a80115b78.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Attack_swing.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Attack_swing.png.import
-source_file="res://assets/plantmob/Plant1/Parts/Plant1_Attack_swing.png"
-dest_files=["res://.godot/imported/Plant1_Attack_swing.png-08fb681de8f15356a875f88d85bc57da.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant1/Parts/Plant1_Attack_swing.png"
 dest_files=["res://.godot/imported/Plant1_Attack_swing.png-4540c89952623887f28c4f9a80115b78.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Attack_swing.png.import
 
 [params]
 

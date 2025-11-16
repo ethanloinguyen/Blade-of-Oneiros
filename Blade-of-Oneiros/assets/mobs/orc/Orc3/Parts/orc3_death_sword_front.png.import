@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_death_sword_front.png.import
-uid="uid://dka1smhao1ku1"
-path="res://.godot/imported/orc3_death_sword_front.png-fa0dc2fcd21ffb5f996d932f1d52b3d8.ctex"
-=======
 uid="uid://cr73ot557rmkk"
 path="res://.godot/imported/orc3_death_sword_front.png-8b5da00c2e614376d25e9c2d52a74c72.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_death_sword_front.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_death_sword_front.png.import
-source_file="res://assets/orc/Orc3/Parts/orc3_death_sword_front.png"
-dest_files=["res://.godot/imported/orc3_death_sword_front.png-fa0dc2fcd21ffb5f996d932f1d52b3d8.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Parts/orc3_death_sword_front.png"
 dest_files=["res://.godot/imported/orc3_death_sword_front.png-8b5da00c2e614376d25e9c2d52a74c72.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_death_sword_front.png.import
 
 [params]
 

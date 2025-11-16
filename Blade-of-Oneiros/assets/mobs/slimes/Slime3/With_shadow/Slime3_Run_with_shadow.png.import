@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime3/With_shadow/Slime3_Run_with_shadow.png.import
-uid="uid://cg1atohpqa4hu"
-path="res://.godot/imported/Slime3_Run_with_shadow.png-fcdd131c4f0db9de91bc4d38cee5574a.ctex"
-=======
 uid="uid://dtndfy8y2i8ko"
 path="res://.godot/imported/Slime3_Run_with_shadow.png-e85aa69e7a3c3e5c1e4d5de4e4084a6a.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime3/With_shadow/Slime3_Run_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/mob/Slime3/With_shadow/Slime3_Run_with_shadow.png.import
-source_file="res://assets/mob/Slime3/With_shadow/Slime3_Run_with_shadow.png"
-dest_files=["res://.godot/imported/Slime3_Run_with_shadow.png-fcdd131c4f0db9de91bc4d38cee5574a.ctex"]
-=======
 source_file="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Run_with_shadow.png"
 dest_files=["res://.godot/imported/Slime3_Run_with_shadow.png-e85aa69e7a3c3e5c1e4d5de4e4084a6a.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/slimes/Slime3/With_shadow/Slime3_Run_with_shadow.png.import
 
 [params]
 

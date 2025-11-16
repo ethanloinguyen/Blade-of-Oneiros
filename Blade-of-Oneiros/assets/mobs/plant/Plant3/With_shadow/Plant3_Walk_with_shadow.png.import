@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/With_shadow/Plant3_Walk_with_shadow.png.import
-uid="uid://dbqagsxhee02i"
-path="res://.godot/imported/Plant3_Walk_with_shadow.png-3cd0368d9d18268c2e8ec09efb7ec4da.ctex"
-=======
 uid="uid://vua2n5fv5jhv"
 path="res://.godot/imported/Plant3_Walk_with_shadow.png-b6efe9613a429e124719ea0c5a8883d8.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/With_shadow/Plant3_Walk_with_shadow.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant3/With_shadow/Plant3_Walk_with_shadow.png.import
-source_file="res://assets/plantmob/Plant3/With_shadow/Plant3_Walk_with_shadow.png"
-dest_files=["res://.godot/imported/Plant3_Walk_with_shadow.png-3cd0368d9d18268c2e8ec09efb7ec4da.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant3/With_shadow/Plant3_Walk_with_shadow.png"
 dest_files=["res://.godot/imported/Plant3_Walk_with_shadow.png-b6efe9613a429e124719ea0c5a8883d8.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant3/With_shadow/Plant3_Walk_with_shadow.png.import
 
 [params]
 

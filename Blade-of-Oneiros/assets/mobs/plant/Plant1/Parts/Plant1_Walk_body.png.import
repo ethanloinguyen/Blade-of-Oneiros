@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Walk_body.png.import
-uid="uid://bi0drrpjq33og"
-path="res://.godot/imported/Plant1_Walk_body.png-232361e5feda34083c5c4a6f253847fc.ctex"
-=======
 uid="uid://5uqy2dlvio0o"
 path="res://.godot/imported/Plant1_Walk_body.png-a2f29981e7d1a2e3c10629477228f29f.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Walk_body.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/plantmob/Plant1/Parts/Plant1_Walk_body.png.import
-source_file="res://assets/plantmob/Plant1/Parts/Plant1_Walk_body.png"
-dest_files=["res://.godot/imported/Plant1_Walk_body.png-232361e5feda34083c5c4a6f253847fc.ctex"]
-=======
 source_file="res://assets/mobs/plant/Plant1/Parts/Plant1_Walk_body.png"
 dest_files=["res://.godot/imported/Plant1_Walk_body.png-a2f29981e7d1a2e3c10629477228f29f.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/plant/Plant1/Parts/Plant1_Walk_body.png.import
 
 [params]
 

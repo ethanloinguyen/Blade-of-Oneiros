@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_walk_head.png.import
-uid="uid://bxb5radnkydxh"
-path="res://.godot/imported/orc1_walk_head.png-b98e01f1a0631832977132020475a052.ctex"
-=======
 uid="uid://bd8bj6ir38nho"
 path="res://.godot/imported/orc1_walk_head.png-c273740974da68fd63b682cbf462ff4c.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_walk_head.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc1/Parts/orc1_walk_head.png.import
-source_file="res://assets/orc/Orc1/Parts/orc1_walk_head.png"
-dest_files=["res://.godot/imported/orc1_walk_head.png-b98e01f1a0631832977132020475a052.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc1/Parts/orc1_walk_head.png"
 dest_files=["res://.godot/imported/orc1_walk_head.png-c273740974da68fd63b682cbf462ff4c.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc1/Parts/orc1_walk_head.png.import
 
 [params]
 

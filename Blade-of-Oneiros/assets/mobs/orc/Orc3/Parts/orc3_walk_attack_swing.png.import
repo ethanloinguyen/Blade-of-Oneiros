@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_walk_attack_swing.png.import
-uid="uid://c6s5jmdr6f78b"
-path="res://.godot/imported/orc3_walk_attack_swing.png-f4b26f5dc0e464d7ed96f2fa5f3832fe.ctex"
-=======
 uid="uid://b3aybbr1hcb3l"
 path="res://.godot/imported/orc3_walk_attack_swing.png-73e9972c59c59dd5aef7007026b45963.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_walk_attack_swing.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_walk_attack_swing.png.import
-source_file="res://assets/orc/Orc3/Parts/orc3_walk_attack_swing.png"
-dest_files=["res://.godot/imported/orc3_walk_attack_swing.png-f4b26f5dc0e464d7ed96f2fa5f3832fe.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Parts/orc3_walk_attack_swing.png"
 dest_files=["res://.godot/imported/orc3_walk_attack_swing.png-73e9972c59c59dd5aef7007026b45963.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_walk_attack_swing.png.import
 
 [params]
 

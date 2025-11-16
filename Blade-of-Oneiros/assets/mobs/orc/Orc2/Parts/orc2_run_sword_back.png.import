@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_run_sword_back.png.import
-uid="uid://dtvpgfxer6n3o"
-path="res://.godot/imported/orc2_run_sword_back.png-0fa6c939fc247fdf6fc15022a255817f.ctex"
-=======
 uid="uid://cprh7erbqw555"
 path="res://.godot/imported/orc2_run_sword_back.png-af287860c571f5a8a6b5cc6395b80b4d.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_run_sword_back.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Parts/orc2_run_sword_back.png.import
-source_file="res://assets/orc/Orc2/Parts/orc2_run_sword_back.png"
-dest_files=["res://.godot/imported/orc2_run_sword_back.png-0fa6c939fc247fdf6fc15022a255817f.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/Parts/orc2_run_sword_back.png"
 dest_files=["res://.godot/imported/orc2_run_sword_back.png-af287860c571f5a8a6b5cc6395b80b4d.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Parts/orc2_run_sword_back.png.import
 
 [params]
 

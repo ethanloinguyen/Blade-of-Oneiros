@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_run_attack_swing.png.import
-uid="uid://da2npsexyf8jl"
-path="res://.godot/imported/orc3_run_attack_swing.png-7109cc50349429fd843dd1421a09e9b0.ctex"
-=======
 uid="uid://n74pwcsih6xk"
 path="res://.godot/imported/orc3_run_attack_swing.png-f2b80b2a2b6e3e73a66393fa35be6443.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_run_attack_swing.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc3/Parts/orc3_run_attack_swing.png.import
-source_file="res://assets/orc/Orc3/Parts/orc3_run_attack_swing.png"
-dest_files=["res://.godot/imported/orc3_run_attack_swing.png-7109cc50349429fd843dd1421a09e9b0.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc3/Parts/orc3_run_attack_swing.png"
 dest_files=["res://.godot/imported/orc3_run_attack_swing.png-f2b80b2a2b6e3e73a66393fa35be6443.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc3/Parts/orc3_run_attack_swing.png.import
 
 [params]
 

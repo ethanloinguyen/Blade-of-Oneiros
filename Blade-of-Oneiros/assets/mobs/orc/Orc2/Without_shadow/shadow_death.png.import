@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Without_shadow/shadow_death.png.import
-uid="uid://s6abvw466yeb"
-path="res://.godot/imported/shadow_death.png-775746885909fe6de5717f815fe77c0a.ctex"
-=======
 uid="uid://ddgs2xcwi0d6u"
 path="res://.godot/imported/shadow_death.png-efa1380d264a68b59f7541786a5cd09c.ctex"
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Without_shadow/shadow_death.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:Blade-of-Oneiros/assets/orc/Orc2/Without_shadow/shadow_death.png.import
-source_file="res://assets/orc/Orc2/Without_shadow/shadow_death.png"
-dest_files=["res://.godot/imported/shadow_death.png-775746885909fe6de5717f815fe77c0a.ctex"]
-=======
 source_file="res://assets/mobs/orc/Orc2/Without_shadow/shadow_death.png"
 dest_files=["res://.godot/imported/shadow_death.png-efa1380d264a68b59f7541786a5cd09c.ctex"]
->>>>>>> main:Blade-of-Oneiros/assets/mobs/orc/Orc2/Without_shadow/shadow_death.png.import
 
 [params]
 
