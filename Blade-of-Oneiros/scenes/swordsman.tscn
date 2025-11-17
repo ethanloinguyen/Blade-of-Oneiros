@@ -1401,6 +1401,11 @@ animations = [{
 }]
 
 [node name="Swordsman" type="CharacterBody2D"]
+z_index = 4
+y_sort_enabled = true
+texture_filter = 1
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_yb8h7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1423,3 +1428,6 @@ shape = SubResource("RectangleShape2D_7mycd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4obbf")
 animation = &"death_up"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
