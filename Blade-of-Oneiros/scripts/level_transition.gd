@@ -26,7 +26,7 @@ func _on_enter(body: Node) -> void:
 	_player_inside = true
 	if not press_to_use:
 		_trigger()
-		
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	
@@ -39,6 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _trigger() -> void:
 	#for debug
 	#print("Door", name, "TRIGGER: target_scene =", target_scene, "target_spawn =", target_spawn)
+	await SceneTransition.fade_out()
 	if single_use:
 		_enabled = false
 	PlayerManagement.change_level(target_scene, target_spawn)
+	await SceneTransition.fade_in()
