@@ -27,6 +27,9 @@ func _ready():
 		"Wait",
 		Callable(),
 		func(_delta:float):
+		_play_animation("idle")
+
+		# transition
 		if _player.global_position.distance_to(global_position) < activate_distance:
 			fsm.change_state(chase_state)
 		,
@@ -39,22 +42,33 @@ func _ready():
 		var dist_to_player:float = _player.global_position.distance_to(global_position)
 		if dist_to_player > chase_leash_distance:
 			velocity = (_player.global_position - global_position).normalized() * speed
-		elif dist_to_player < attack_distance:
-			fsm.change_state(attack_state)
 		else:
 			velocity = Vector2(0, 0)
+
+		# play animation
+		if velocity.is_zero_approx():
+			_play_animation("idle")
+		else:
+			_play_animation("walk")
+
+		# transition
+		if dist_to_player < attack_distance:
+			fsm.change_state(attack_state)
 		,
 		Callable(),
 	)
 	attack_state = State.new(
 		"Attack",
 		func():
-		velocity = Vector2(0, 0)
 		attack_hitbox.activate(_player.global_position - global_position)
+		_play_animation("attack")
+
+		# wait for attack animation to finish
+		await sprite.animation_finished
+		fsm.change_state(chase_state)
 		,
 		func(_delta:float):
-		# TODO: wait for attack animation to finish
-		fsm.change_state(chase_state)
+		velocity = Vector2(0, 0)
 		,
 		Callable()
 	)
@@ -63,11 +77,11 @@ func _ready():
 
 func _physics_process(delta:float) -> void:
 	fsm.update(delta)
-	_update_sprite()
+	_update_dir()
 	move_and_slide()
 
 
-func _update_sprite() -> void:
+func _update_dir() -> void:
 	if velocity.x > velocity.y:
 		if velocity.x > 0:
 			_dir = "right"
@@ -79,7 +93,6 @@ func _update_sprite() -> void:
 		elif velocity.y < 0:
 			_dir = "up"
 
-	if velocity.is_zero_approx():
-		sprite.play("idle_%s" % [_dir])
-	else:
-		sprite.play("walk_%s" % [_dir])
+
+func _play_animation(animation:String) -> void:
+	sprite.play("%s_%s" % [animation, _dir])
