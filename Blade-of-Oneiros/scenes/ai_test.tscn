@@ -5,7 +5,7 @@
 
 [node name="AiTest" type="Node2D"]
 
-[node name="Swordsman" parent="." groups=["player"] instance=ExtResource("1_em1xb")]
+[node name="Swordsman" parent="." instance=ExtResource("1_em1xb")]
 
 [node name="TestEnemy" parent="." instance=ExtResource("2_em1xb")]
 position = Vector2(260, 51)

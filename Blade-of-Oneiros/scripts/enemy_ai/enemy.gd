@@ -21,6 +21,7 @@ var _dir:String = "down"
 
 func _ready():
 	_player = get_tree().get_first_node_in_group("player")
+	attack_hitbox.attach_signal(sprite)
 
 	# create states
 	wait_state = State.new(
@@ -60,7 +61,6 @@ func _ready():
 	attack_state = State.new(
 		"Attack",
 		func():
-		attack_hitbox.activate(_player.global_position - global_position)
 		_play_animation("attack")
 
 		# wait for attack animation to finish
