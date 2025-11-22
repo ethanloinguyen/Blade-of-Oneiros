@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=3 uid="uid://bsub7obgh0uw8"]
+
+[ext_resource type="Script" uid="uid://3kgurf3ba1qa" path="res://scripts/door.gd" id="1_uvdjg"]
+[ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="2_83dcw"]
+
+[sub_resource type="Animation" id="Animation_la1wf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_18pbm"]
+resource_name = "open_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_q5w8r"]
+resource_name = "closed_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t58dd"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666663, 0.33333337, 0.5, 0.66666675),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 4), Vector2i(3, 3), Vector2i(3, 2), Vector2i(3, 1), Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ju5n0"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.33333334, 0.5, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 0), Vector2i(3, 1), Vector2i(3, 2), Vector2i(3, 3), Vector2i(3, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kgbum"]
+_data = {
+&"RESET": SubResource("Animation_la1wf"),
+&"close": SubResource("Animation_t58dd"),
+&"closed_idle": SubResource("Animation_q5w8r"),
+&"open": SubResource("Animation_ju5n0"),
+&"open_idle": SubResource("Animation_18pbm")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
+size = Vector2(32, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83dcw"]
+size = Vector2(32, 59)
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_uvdjg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_83dcw")
+hframes = 5
+vframes = 5
+frame = 3
+region_rect = Rect2(96, 0, 32, 48)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kgbum")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_uvdjg")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10.5)
+shape = SubResource("RectangleShape2D_83dcw")
+debug_color = Color(0.8403169, 0.3128716, 0.57573026, 0.41960785)

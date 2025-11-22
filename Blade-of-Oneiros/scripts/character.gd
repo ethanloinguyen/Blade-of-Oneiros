@@ -5,12 +5,15 @@ signal direction_changed(new_dir: String)
 
 # --- Core movement parameters ---
 @export var move_speed: float = 100.0
+@export var run_speed: float = 150.0
 
 # --- Facing and state ---
 enum Facing { UP, DOWN, LEFT, RIGHT }
 var facing: Facing = Facing.DOWN
+var direction: Vector2 = Vector2.ZERO
 var current_state: String = "idle"
 var attacking: bool = false
+var running: bool = false
 
 # --- Animation ---
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D

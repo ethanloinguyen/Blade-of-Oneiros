@@ -8,13 +8,10 @@
 [node name="Swordsman" parent="." instance=ExtResource("1_em1xb")]
 
 [node name="TestEnemy" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(260, 51)
+position = Vector2(275, 82)
 
 [node name="TestEnemy2" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(207, -89)
+position = Vector2(222, -58)
 
 [node name="TestEnemy3" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(64, -179)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+position = Vector2(79, -148)
