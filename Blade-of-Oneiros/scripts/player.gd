@@ -9,20 +9,26 @@ func _ready() -> void:
 	bind_commands()
 
 func _physics_process(delta: float) -> void:
+	# ADDED BY ALFRED:
+	# If the dialogue is active, the player should lose all movement, except idle.
+	# However, the player should be able to move through durative commands (like exercise 1) for cutscenes.
+	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
+
 	# if player isn't current attacking and pressed attack, then attack
 	if attacking:
 		super(delta)
 		return
 	
-	if Input.is_action_just_pressed("attack"):
+	if not in_dialogue and Input.is_action_just_pressed("attack"):
 		attack_cmd.execute(self)
 		return
 		
-	# Get player input direction
-	direction = Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	)
+	# Get player input direction (don't move when in dialogue)
+	if not in_dialogue:
+		direction = Vector2(
+			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		)
 	
 	# Normalize diagonal movement speed
 	if direction.length() > 1:
