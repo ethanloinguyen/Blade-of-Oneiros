@@ -19,15 +19,27 @@ var _player:Player
 var _dir:String = "down"
 
 
+func _enter_tree():
+	add_to_group("enemy")
+
+
 func _ready():
-	_player = get_tree().get_first_node_in_group("player")
 	attack_hitbox.attach_signal(sprite)
+
+	# set player var for enemies spawned mid-game
+	if _player == null:
+		_player = get_tree().get_first_node_in_group("player")
+
 
 	# create states
 	wait_state = State.new(
 		"Wait",
 		Callable(),
 		func(_delta:float):
+		# wait until player variable is set
+		if _player == null:
+			return
+
 		_play_animation("idle")
 
 		# transition

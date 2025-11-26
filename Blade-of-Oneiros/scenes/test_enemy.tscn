@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
-[ext_resource type="Texture2D" uid="uid://ck6h6ai0x0cyd" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_8c00y"]
-[ext_resource type="Texture2D" uid="uid://dv1phshnnp4xu" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="4_jqw88"]
-[ext_resource type="Texture2D" uid="uid://dw88ahnm4tt" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="4_lkcdx"]
+[ext_resource type="Texture2D" uid="uid://cl31jqs14fgu5" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_8c00y"]
+[ext_resource type="Texture2D" uid="uid://df7imlxh27mt2" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="4_jqw88"]
+[ext_resource type="Texture2D" uid="uid://dpy8bjduomqaq" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="4_lkcdx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(16, 16)
