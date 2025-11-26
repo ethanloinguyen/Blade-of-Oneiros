@@ -1407,6 +1407,7 @@ y_sort_enabled = true
 texture_filter = 1
 collision_layer = 2
 collision_mask = 7
+motion_mode = 1
 script = ExtResource("1_yb8h7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
