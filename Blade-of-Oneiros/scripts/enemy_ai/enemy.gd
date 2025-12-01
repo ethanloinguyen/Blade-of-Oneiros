@@ -8,7 +8,8 @@ extends CharacterBody2D
 @export var attack_hitbox:Hitbox
 @export var attack_distance:float
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
+@onready var health:Health = $Health
 
 var fsm:FSM
 var wait_state:State
@@ -30,6 +31,10 @@ func _ready():
 	if _player == null:
 		_player = get_tree().get_first_node_in_group("player")
 
+	# health setup
+	health.died.connect(func():
+		queue_free()
+	)
 
 	# create states
 	wait_state = State.new(
