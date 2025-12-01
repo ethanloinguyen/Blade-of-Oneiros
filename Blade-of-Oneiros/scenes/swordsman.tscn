@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://coyhkobrcgmg" path="res://assets/Swordsman/With_shadow/Swordsman_lvl1_Run_with_shadow.png" id="4_s1psh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(13, 12)
+size = Vector2(11, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
 size = Vector2(18, 26)

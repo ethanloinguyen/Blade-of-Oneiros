@@ -1,122 +1,150 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsub7obgh0uw8"]
+[gd_scene load_steps=10 format=3 uid="uid://bsub7obgh0uw8"]
 
 [ext_resource type="Script" uid="uid://3kgurf3ba1qa" path="res://scripts/door.gd" id="1_uvdjg"]
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="2_83dcw"]
 
-[sub_resource type="Animation" id="Animation_la1wf"]
+[sub_resource type="Animation" id="Animation_uvdjg"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("bottom:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(3, 0)]
+"update": 0,
+"values": [Rect2(96, 32, 32, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("top:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(96, 0, 32, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_t58dd"]
+[sub_resource type="Animation" id="Animation_83dcw"]
 resource_name = "close"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("top:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666663, 0.33333337, 0.5, 0.66666675),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(3, 4), Vector2i(3, 3), Vector2i(3, 2), Vector2i(3, 1), Vector2i(3, 0)]
+"values": [Rect2(96, 192, 32, 32), Rect2(96, 144, 32, 32), Rect2(96, 96, 32, 32), Rect2(96, 48, 32, 32), Rect2(96, 0, 32, 32)]
 }
-
-[sub_resource type="Animation" id="Animation_q5w8r"]
-resource_name = "closed_idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bottom:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(3, 0)]
+"values": [Rect2(96, 224, 32, 16), Rect2(96, 176, 32, 16), Rect2(96, 128, 32, 16), Rect2(96, 80, 32, 16), Rect2(96, 32, 32, 16)]
 }
 
-[sub_resource type="Animation" id="Animation_ju5n0"]
+[sub_resource type="Animation" id="Animation_kgbum"]
 resource_name = "open"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("bottom:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666669, 0.33333334, 0.5, 0.6666667),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(3, 0), Vector2i(3, 1), Vector2i(3, 2), Vector2i(3, 3), Vector2i(3, 4)]
+"values": [Rect2(96, 32, 32, 16), Rect2(96, 80, 32, 16), Rect2(96, 128, 32, 16), Rect2(96, 176, 32, 16), Rect2(96, 224, 32, 16)]
 }
-
-[sub_resource type="Animation" id="Animation_18pbm"]
-resource_name = "open_idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("top:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(3, 4)]
+"values": [Rect2(96, 0, 32, 32), Rect2(96, 48, 32, 32), Rect2(96, 96, 32, 32), Rect2(96, 144, 32, 32), Rect2(96, 192, 32, 32)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kgbum"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pg2b6"]
 _data = {
-&"RESET": SubResource("Animation_la1wf"),
-&"close": SubResource("Animation_t58dd"),
-&"closed_idle": SubResource("Animation_q5w8r"),
-&"open": SubResource("Animation_ju5n0"),
-&"open_idle": SubResource("Animation_18pbm")
+&"RESET": SubResource("Animation_uvdjg"),
+&"close": SubResource("Animation_83dcw"),
+&"open": SubResource("Animation_kgbum")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
-size = Vector2(32, 28)
+size = Vector2(32, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_la1wf"]
+size = Vector2(8, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83dcw"]
-size = Vector2(32, 59)
+size = Vector2(32, 65)
 
 [node name="Door" type="StaticBody2D"]
 script = ExtResource("1_uvdjg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="bottom" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 16)
 texture = ExtResource("2_83dcw")
-hframes = 5
-vframes = 5
-frame = 3
-region_rect = Rect2(96, 0, 32, 48)
+region_enabled = true
+region_rect = Rect2(96, 32, 32, 16)
+
+[node name="top" type="Sprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("2_83dcw")
+region_enabled = true
+region_rect = Rect2(96, 0, 32, 32)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_kgbum")
+&"": SubResource("AnimationLibrary_pg2b6")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+[node name="doorblock" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_uvdjg")
+
+[node name="physicslayer" type="CollisionShape2D" parent="."]
+top_level = true
+position = Vector2(-12, -2)
+shape = SubResource("RectangleShape2D_la1wf")
+debug_color = Color(0.3372549, 0.5921569, 0.47843137, 0.7647059)
+
+[node name="physicslayer2" type="CollisionShape2D" parent="."]
+top_level = true
+position = Vector2(12, -2)
+shape = SubResource("RectangleShape2D_la1wf")
+debug_color = Color(0.3372549, 0.5921569, 0.47843137, 0.7647059)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -10.5)
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_83dcw")
 debug_color = Color(0.8403169, 0.3128716, 0.57573026, 0.41960785)
