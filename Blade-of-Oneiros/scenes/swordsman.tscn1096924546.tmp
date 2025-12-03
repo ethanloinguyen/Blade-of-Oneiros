@@ -1,7 +1,7 @@
 [gd_scene load_steps=80 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
-[ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
+[ext_resource type="Script" uid="uid://ksopbacyqjx3" path="res://scripts/lerp_camera.gd" id="2_6mje0"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
@@ -728,10 +728,9 @@ shape = SubResource("RectangleShape2D_7mycd")
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
 zoom = Vector2(4, 4)
-process_callback = 0
 limit_enabled = false
-position_smoothing_enabled = true
-position_smoothing_speed = 4.0
+drag_horizontal_offset = 0.8
+drag_vertical_offset = 1.0
 drag_left_margin = 0.0
 drag_top_margin = 0.0
 drag_right_margin = 0.0

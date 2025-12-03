@@ -28,7 +28,7 @@ position = Vector2(126, 95)
 script = ExtResource("3_hwdor")
 
 [node name="doorspawn" type="Marker2D" parent="."]
-position = Vector2(129, 52)
+position = Vector2(128, 60)
 script = ExtResource("3_hwdor")
 tag = &"start"
 
