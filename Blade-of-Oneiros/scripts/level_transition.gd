@@ -14,6 +14,7 @@ var _enabled :bool = true
 
 func _ready() -> void:
 	body_entered.connect(_on_enter)
+	body_exited.connect(_on_exit)
 	set_process_unhandled_input(true)
 	
 func _on_enter(body: Node) -> void:
@@ -28,10 +29,19 @@ func _on_enter(body: Node) -> void:
 		_trigger()
 	
 
-func _unhandled_input(event: InputEvent) -> void:
+func _on_exit(body: Node) -> void:
+	if not _enabled:
+		return
+	if not body.is_in_group("player"):
+		return
+		
+	_player_inside = false
 	
+	
+func _unhandled_input(event: InputEvent) -> void:
 	if not _enabled or not press_to_use or not _player_inside:
 		return
+		
 	if event.is_action_pressed(action):
 		_trigger()
 	
@@ -42,5 +52,6 @@ func _trigger() -> void:
 	await SceneTransition.fade_out()
 	if single_use:
 		_enabled = false
+		_player_inside = false
 	PlayerManagement.change_level(target_scene, target_spawn)
 	await SceneTransition.fade_in()

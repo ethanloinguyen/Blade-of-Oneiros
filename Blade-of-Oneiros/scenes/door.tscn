@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsub7obgh0uw8"]
+[gd_scene load_steps=12 format=3 uid="uid://bsub7obgh0uw8"]
 
 [ext_resource type="Script" uid="uid://3kgurf3ba1qa" path="res://scripts/door.gd" id="1_uvdjg"]
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="2_83dcw"]
@@ -94,10 +94,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
-size = Vector2(32, 38)
+size = Vector2(32, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_la1wf"]
-size = Vector2(8, 38)
+size = Vector2(8, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5w8r"]
+size = Vector2(8, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83dcw"]
 size = Vector2(32, 25)
@@ -109,6 +112,7 @@ size = Vector2(32, 10)
 script = ExtResource("1_uvdjg")
 
 [node name="bottom" type="Sprite2D" parent="."]
+z_index = -2
 texture_filter = 1
 position = Vector2(0, 16)
 texture = ExtResource("2_83dcw")
@@ -116,7 +120,6 @@ region_enabled = true
 region_rect = Rect2(96, 32, 32, 16)
 
 [node name="top" type="Sprite2D" parent="."]
-z_index = 2
 texture_filter = 1
 position = Vector2(0, -8)
 texture = ExtResource("2_83dcw")
@@ -129,20 +132,19 @@ libraries = {
 }
 
 [node name="doorblock" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_uvdjg")
 
 [node name="physicslayer" type="CollisionShape2D" parent="."]
 top_level = true
-position = Vector2(-12, -2)
+position = Vector2(-12, 4.5)
 shape = SubResource("RectangleShape2D_la1wf")
 debug_color = Color(0.3372549, 0.5921569, 0.47843137, 0.7647059)
 
 [node name="physicslayer2" type="CollisionShape2D" parent="."]
-top_level = true
-position = Vector2(12, -2)
-shape = SubResource("RectangleShape2D_la1wf")
-debug_color = Color(0.3372549, 0.5921569, 0.47843137, 0.7647059)
+position = Vector2(12, 4.5)
+shape = SubResource("RectangleShape2D_q5w8r")
+debug_color = Color(0.18280166, 0.6187531, 0.5001685, 0.41960785)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
