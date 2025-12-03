@@ -12,8 +12,8 @@ var off_rect: Rect2
 
 @onready var area_2d: Area2D = $Area2D
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var audio_activate: AudioStream = preload("res://assets/audio/Elevator-bell-ring-tone.mp3")
-@onready var audio_deactivate: AudioStream = preload("res://assets/audio/Elevator-bell-ring-tone.mp3")
+@onready var audio_activate: AudioStream = preload("res://assets/audio/plate1.wav")
+@onready var audio_deactivate: AudioStream = preload("res://assets/audio/plate2.wav")
 @onready var sprite: Sprite2D = $Sprite2D
 
 
