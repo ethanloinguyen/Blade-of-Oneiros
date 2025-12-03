@@ -471,7 +471,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_h7ukg"]
 resource_name = "idle_left"
-length = 0.4
+length = 1.3
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -481,7 +481,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667),
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6, 0.70000005, 0.8000001, 0.90000004, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
@@ -489,7 +489,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_m4nto"]
 resource_name = "idle_right"
-length = 0.4
+length = 1.3
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -499,7 +499,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667),
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6, 0.70000005, 0.8000001, 0.90000004, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
@@ -507,7 +507,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sc1u0"]
 resource_name = "idle_up"
-length = 0.2
+length = 0.7
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -517,7 +517,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001),
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.50000006),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [36, 37, 38, 39]
