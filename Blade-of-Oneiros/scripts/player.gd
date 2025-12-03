@@ -5,6 +5,7 @@ extends Character
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var push_ray: RayCast2D = $PushRay
 
 var _damaged: bool = false
 var _dead: bool = false
@@ -12,11 +13,14 @@ var _dead: bool = false
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
+var facing_direction: Vector2 = Vector2.DOWN
+
 
 func _ready() -> void:
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
 	bind_commands()
+
 
 func _physics_process(delta: float) -> void:
 	if _dead:
@@ -48,6 +52,21 @@ func _physics_process(delta: float) -> void:
 	if direction.length() > 1:
 		direction = direction.normalized()
 	
+	#Ray updates in frame if while pressing directional input against box,
+	# the ray collides with the box, it will continuously call push in that direction
+	if direction != Vector2.ZERO:
+		facing_direction = DirectionSnap._snap_to_cardinal(direction)
+	
+	if push_ray != null:
+		var ray_length: float = 8
+		push_ray.target_position = facing_direction * ray_length
+		push_ray.force_raycast_update()
+	
+		if direction != Vector2.ZERO and push_ray.is_colliding():
+			var collider_object: Object = push_ray.get_collider()
+			if collider_object is PushableBox:
+				var box: PushableBox = collider_object as PushableBox
+				box.push(facing_direction)
 	# Reset velocity every frame
 	velocity = Vector2.ZERO
 	
