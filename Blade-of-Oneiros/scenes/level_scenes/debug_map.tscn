@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="3_x3h6k"]
 [ext_resource type="PackedScene" uid="uid://dho272p8oa3pp" path="res://scenes/interactables/pushables.tscn" id="4_d63d8"]
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="6_2ru53"]
-[ext_resource type="PackedScene" path="res://scenes/DialogUI.tscn" id="8_dpr55"]
+[ext_resource type="PackedScene" uid="uid://cjm6vswbwmqr5" path="res://scenes/DialogUI.tscn" id="8_dpr55"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 [ext_resource type="Texture2D" uid="uid://w2am8hyb36kh" path="res://assets/map/tileset/area_dialogue.png" id="10_66ogq"]
 
