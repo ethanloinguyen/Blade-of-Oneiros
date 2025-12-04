@@ -9,8 +9,8 @@ static func _snap_to_cardinal(dir: Vector2) -> Vector2:
 
 	var cardinals: Array[Vector2] = [
 		Vector2.RIGHT,
-		Vector2.DOWN,
 		Vector2.LEFT,
+		Vector2.DOWN,
 		Vector2.UP,
 	]
 

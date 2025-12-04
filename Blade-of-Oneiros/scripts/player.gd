@@ -6,6 +6,15 @@ extends Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
+@onready var hitbox: Area2D = $HitBox
+@onready var hitbox_collision: CollisionShape2D = $HitBox/CollisionShape2D
+
+@export var attack_damage: int = 1
+@export var hitbox_offset_down: Vector2 = Vector2(0, 0)
+@export var hitbox_offset_up: Vector2 = Vector2(0, 8)
+@export var hitbox_offset_right: Vector2 = Vector2(12, 10)
+@export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
+
 
 var _damaged: bool = false
 var _dead: bool = false
@@ -21,9 +30,11 @@ var facing_direction: Vector2 = Vector2.DOWN
 func _ready() -> void:
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
+	
 	bind_commands()
+	hitbox_collision.disabled = true
 
-
+	
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -41,14 +52,13 @@ func _physics_process(delta: float) -> void:
 		# check unlock
 		if attack_timer <= 0:
 			attacking = false
-		
+			hitbox_collision.disabled = true
 		# still playing attack → update animation but STOP MOVEMENT LOGIC
 		_manage_animation_tree_state()
 		return
 		
 	if not in_dialogue and Input.is_action_just_pressed("attack"):
-		attack_cmd.execute(self)
-		_manage_animation_tree_state()
+		_attack()
 		return
 	
 	if not in_dialogue:
@@ -63,8 +73,7 @@ func _physics_process(delta: float) -> void:
 		running = false
 	
 	if Input.is_action_just_pressed("attack"):
-		attack_cmd.execute(self)
-		_manage_animation_tree_state()
+		_attack()
 		return
 	
 	if Input.is_action_pressed("run"):
@@ -86,6 +95,7 @@ func _physics_process(delta: float) -> void:
 	# the ray collides with the box, it will continuously call push in that direction
 	if direction != Vector2.ZERO:
 		facing_direction = DirectionSnap._snap_to_cardinal(direction)
+	_update_hitbox()
 	
 	if push_ray != null:
 		var ray_length: float = 8
@@ -107,6 +117,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		idle_cmd.execute(self)
 	
+	#attack lock
+	if attack_timer <= 0:
+		attacking = false
+		$HitBox/CollisionShape2D.disabled = true
+		
+		
 	super(delta)
 	
 	_manage_animation_tree_state()
@@ -131,6 +147,38 @@ func bind_commands() -> void:
 	idle_cmd = IdleCommand.new()
 
 
+func _attack():
+	hitbox_collision.disabled = false
+	attacking = true
+	attack_timer = attack_duration
+	attack_cmd.execute(self)
+	
+	_manage_animation_tree_state()
+	
+
+func _update_hitbox() -> void:
+
+	var rect := hitbox_collision.shape as RectangleShape2D
+	if rect == null:
+		return
+	match facing_direction:
+		Vector2.DOWN:
+			hitbox.rotation = 0.0
+			hitbox.position = hitbox_offset_down
+
+		Vector2.RIGHT:
+			hitbox.rotation = -PI * 0.5  
+			hitbox.position = hitbox_offset_right
+
+		Vector2.UP:
+			hitbox.rotation = PI        
+			hitbox.position = hitbox_offset_up
+
+		Vector2.LEFT:
+			hitbox.rotation = PI * 0.5 
+			hitbox.position = hitbox_offset_left
+			
+			
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if (direction != Vector2.ZERO):
