@@ -9,6 +9,8 @@ extends Character
 
 var _damaged: bool = false
 var _dead: bool = false
+var attack_duration: float = 0.3  # whatever your attack animation length is
+var attack_timer: float = 0.0
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -26,9 +28,16 @@ func _physics_process(delta: float) -> void:
 	if _dead:
 		return
 	
-	# if player isn't current attacking and pressed attack, then attack
+	# Handle attack lock (movement disabled)
 	if attacking:
-		super(delta)
+		attack_timer -= delta
+		velocity = Vector2.ZERO  # fully stop the character
+		
+		# check unlock
+		if attack_timer <= 0:
+			attacking = false
+		
+		# still playing attack → update animation but STOP MOVEMENT LOGIC
 		_manage_animation_tree_state()
 		return
 	
@@ -119,11 +128,7 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/moving"] = true
 	
 	# Toggles
-	if attacking:
-		animation_tree["parameters/conditions/attacking"] = true
-		attacking = false
-	else:
-		animation_tree["parameters/conditions/attacking"] = false
+	animation_tree["parameters/conditions/attacking"] = attacking
 		
 	if _damaged:
 		animation_tree["parameters/conditions/damaged"] = true
@@ -131,7 +136,4 @@ func _manage_animation_tree_state() -> void:
 	else:
 		animation_tree["parameters/conditions/damaged"] = false
 		
-	if running:
-		animation_tree["parameters/conditions/running"] = true
-	else:
-		animation_tree["parameters/conditions/running"] = false
+	animation_tree["parameters/conditions/running"] = running

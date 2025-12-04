@@ -7,6 +7,7 @@ func execute(character: Character) -> Status:
 		return Status.DONE
 		
 	character.attacking = true
+	character.attack_timer = character.attack_duration
 	character.velocity = Vector2.ZERO
 	
 	return Status.DONE
