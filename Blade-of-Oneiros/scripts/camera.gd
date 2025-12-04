@@ -7,6 +7,7 @@ extends Camera2D
 
 var _current_look_ahead: Vector2 = Vector2.ZERO
 
+
 func _physics_process(delta: float) -> void:
 	var velocity: Vector2 = player.velocity
 	
@@ -17,3 +18,8 @@ func _physics_process(delta: float) -> void:
 		
 	_current_look_ahead = _current_look_ahead.lerp(target_offset, look_ahead_speed*delta)
 	offset = _current_look_ahead
+	
+	
+func snap_to_player() -> void:
+
+	reset_smoothing()
