@@ -23,6 +23,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# ADDED BY ALFRED:
+	# If the dialogue is active, the player should lose all movement, except idle.
+	# However, the player should be able to move through durative commands (like exercise 1) for
+	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
+	
 	if _dead:
 		return
 	
@@ -31,6 +36,22 @@ func _physics_process(delta: float) -> void:
 		super(delta)
 		_manage_animation_tree_state()
 		return
+		
+	if not in_dialogue and Input.is_action_just_pressed("attack"):
+		attack_cmd.execute(self)
+		_manage_animation_tree_state()
+		return
+	
+	if not in_dialogue:
+		direction = Vector2(
+			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		)
+		
+	if not in_dialogue and Input.is_action_pressed("run"):
+		running = true
+	else:
+		running = false
 	
 	if Input.is_action_just_pressed("attack"):
 		attack_cmd.execute(self)

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://b0y636010434p" path="res://scenes/scene_transition/scene_transition.gd" id="1_iwxbl"]
 [ext_resource type="AudioStream" uid="uid://cg021551yxqgd" path="res://assets/audio/Elevator-bell-ring-tone.mp3" id="2_hen7b"]
 
-[sub_resource type="Animation" id="Animation_hen7b"]
-resource_name = "default"
+[sub_resource type="Animation" id="Animation_mbrwa"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,8 +18,8 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_mbrwa"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_hen7b"]
+resource_name = "default"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

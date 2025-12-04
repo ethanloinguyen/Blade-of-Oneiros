@@ -52,7 +52,9 @@ func _place_player() ->void:
 		
 	if spawn:
 		player.global_position = spawn.global_position
-		
+		var cam := player.get_node_or_null("Camera2D") as Camera2D
+		if cam:
+			cam.snap_to_player()
 	
 func _find_spawn(root: Node, tag: StringName) -> Node2D:
 	for n in get_tree().get_nodes_in_group("spawn_point"):
