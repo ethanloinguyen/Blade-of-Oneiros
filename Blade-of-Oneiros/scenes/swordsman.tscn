@@ -733,7 +733,7 @@ zoom = Vector2(4, 4)
 process_callback = 0
 limit_enabled = false
 position_smoothing_enabled = true
-position_smoothing_speed = 2.5
+position_smoothing_speed = 2.0
 drag_left_margin = 0.0
 drag_top_margin = 0.0
 drag_right_margin = 0.0
@@ -741,7 +741,7 @@ drag_bottom_margin = 0.0
 editor_draw_screen = false
 script = ExtResource("2_6mje0")
 max_look_ahead = 40.0
-look_ahead_speed = 2.0
+look_ahead_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -11)
