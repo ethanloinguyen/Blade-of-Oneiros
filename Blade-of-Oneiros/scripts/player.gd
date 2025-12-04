@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	# Handle attack lock (movement disabled)
 	if attacking:
 		attack_timer -= delta
-		velocity = Vector2.ZERO  # fully stop the character
+		velocity = velocity * 0.25 
 		
 		# check unlock
 		if attack_timer <= 0:
