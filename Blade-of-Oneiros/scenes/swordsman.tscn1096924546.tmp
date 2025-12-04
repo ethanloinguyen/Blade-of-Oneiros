@@ -1,15 +1,14 @@
 [gd_scene load_steps=80 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
-[ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
+[ext_resource type="Script" uid="uid://ksopbacyqjx3" path="res://scripts/lerp_camera.gd" id="2_6mje0"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
 radius = 5.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mje0"]
-radius = 5.0
-height = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(18, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(38, 16)
@@ -715,8 +714,7 @@ debug_color = Color(0.83668345, 0.3624882, 0.3701079, 0.41960785)
 position = Vector2(-1, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(1, 0)
-shape = SubResource("CapsuleShape2D_6mje0")
+shape = SubResource("RectangleShape2D_lquwl")
 
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2(0, -14)
@@ -730,18 +728,15 @@ shape = SubResource("RectangleShape2D_7mycd")
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
 zoom = Vector2(4, 4)
-process_callback = 0
 limit_enabled = false
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5
+drag_horizontal_offset = 0.8
+drag_vertical_offset = 1.0
 drag_left_margin = 0.0
 drag_top_margin = 0.0
 drag_right_margin = 0.0
 drag_bottom_margin = 0.0
 editor_draw_screen = false
 script = ExtResource("2_6mje0")
-max_look_ahead = 40.0
-look_ahead_speed = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -11)

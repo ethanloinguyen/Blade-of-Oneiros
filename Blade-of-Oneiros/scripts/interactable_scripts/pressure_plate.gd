@@ -12,8 +12,8 @@ var off_rect: Rect2
 
 @onready var area_2d: Area2D = $Area2D
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var audio_activate: AudioStream = preload("res://assets/audio/Elevator-bell-ring-tone.mp3")
-@onready var audio_deactivate: AudioStream = preload("res://assets/audio/Elevator-bell-ring-tone.mp3")
+@onready var audio_activate: AudioStream = preload("res://assets/audio/plate1.wav")
+@onready var audio_deactivate: AudioStream = preload("res://assets/audio/plate2.wav")
 @onready var sprite: Sprite2D = $Sprite2D
 
 
@@ -22,13 +22,13 @@ func _ready() -> void:
 	area_2d.body_exited.connect(_on_body_exited)
 	off_rect = sprite.region_rect
 	
-func _on_body_entered(b : Node2D) -> void:
+func _on_body_entered(_b : Node2D) -> void:
 	bodies += 1
 	_is_activated()
 	pass
 	
 	
-func _on_body_exited(b : Node2D) -> void:
+func _on_body_exited(_b : Node2D) -> void:
 	bodies -= 1
 	_is_activated()
 	pass
@@ -41,7 +41,7 @@ func _is_activated() -> void:
 		#
 		play_audio(audio_activate)
 		activated.emit()
-	elif bodies < 0 and is_active == true:
+	elif bodies == 0 and is_active == true:
 		is_active = false
 		#sprite.region_react.position.x = off_rect.position.x
 		#
