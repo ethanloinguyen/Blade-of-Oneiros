@@ -5,7 +5,7 @@ signal direction_changed(new_dir: String)
 
 # --- Core movement parameters ---
 @export var move_speed: float = 100.0
-@export var run_speed: float = 150.0
+@export var run_speed: float = 170.0
 
 # --- Facing and state ---
 enum Facing { UP, DOWN, LEFT, RIGHT }
@@ -16,7 +16,7 @@ var attacking: bool = false
 var running: bool = false
 
 # --- Animation ---
-@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: Sprite2D = $Sprite2D
 
 # --- Movement handling ---
 func _physics_process(_delta: float) -> void:
@@ -28,17 +28,17 @@ func change_facing(new_facing: Facing) -> void:
 		facing = new_facing
 		emit_signal("direction_changed", facing)
 
-# Command helper for consistent animation naming.
-func play_animation(state: String) -> void:
-	var facing_name: String
-	match facing:
-		Facing.UP: facing_name = "up"
-		Facing.DOWN: facing_name = "down"
-		Facing.LEFT: facing_name = "left"
-		Facing.RIGHT: facing_name = "right"
-		_: facing_name = "down"
-	
-	var anim_name = "%s_%s" % [state, facing_name]  # e.g. walk_down
-	if anim_sprite.animation != anim_name:
-		anim_sprite.play(anim_name)
-	current_state = state
+## Command helper for consistent animation naming.
+#func play_animation(state: String) -> void:
+	#var facing_name: String
+	#match facing:
+		#Facing.UP: facing_name = "up"
+		#Facing.DOWN: facing_name = "down"
+		#Facing.LEFT: facing_name = "left"
+		#Facing.RIGHT: facing_name = "right"
+		#_: facing_name = "down"
+	#
+	#var anim_name = "%s_%s" % [state, facing_name]  # e.g. walk_down
+	#if anim_sprite.animation != anim_name:
+		#anim_sprite.play(anim_name)
+	#current_state = state

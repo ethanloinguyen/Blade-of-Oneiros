@@ -15,14 +15,19 @@ func _ready() -> void:
 	player.owner = null
 	get_tree().scene_changed.connect(_on_scene_changed)
 
-	call_deferred("_place_player")
-
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player
+
+	call_deferred("_place_player")
 
 
 func change_level(scene_path: String, spawn_tag: StringName = "default") -> void:
 	next_spawn = spawn_tag
+	if player and is_instance_valid(player):
+		var root := get_tree().root
+		if player.get_parent() != root:
+			player.get_parent().remove_child(player)
+			root.add_child(player)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	
 
@@ -36,7 +41,12 @@ func _place_player() ->void:
 	
 	if root == null or player == null:
 		return
-	
+	var entities := root.get_node_or_null("Entities")
+	if entities and player.get_parent() != entities:
+		player.get_parent().remove_child(player)
+		entities.add_child(player)
+		
+		
 	var spawn = _find_spawn(root, next_spawn)
 	if spawn == null:
 		spawn = _find_spawn(root, "default")
@@ -45,7 +55,9 @@ func _place_player() ->void:
 		
 	if spawn:
 		player.global_position = spawn.global_position
-		
+		var cam := player.get_node_or_null("Camera2D") as Camera2D
+		if cam:
+			cam.snap_to_player()
 	
 func _find_spawn(root: Node, tag: StringName) -> Node2D:
 	for n in get_tree().get_nodes_in_group("spawn_point"):

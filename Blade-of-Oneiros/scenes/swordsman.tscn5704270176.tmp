@@ -1,16 +1,14 @@
-[gd_scene load_steps=81 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=80 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="2_6mje0"]
-[ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
+[ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
 radius = 5.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mje0"]
-radius = 5.0
-height = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(18, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(38, 16)
@@ -699,17 +697,13 @@ _data = {
 &"walk_up": SubResource("Animation_ai3mq")
 }
 
-[node name="Swordsman" type="CharacterBody2D" groups=["player"]]
+[node name="Swordsman" type="CharacterBody2D"]
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_yb8h7")
-hitbox_offset_down = Vector2(0, -14)
-hitbox_offset_up = Vector2(0, 0)
-hitbox_offset_right = Vector2(-5, -10)
-hitbox_offset_left = Vector2(5, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -718,18 +712,15 @@ debug_color = Color(0.83668345, 0.3624882, 0.3701079, 0.41960785)
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(-1, -10)
-script = ExtResource("2_6vopk")
-max_health = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(1, 0)
-shape = SubResource("CapsuleShape2D_6mje0")
+shape = SubResource("RectangleShape2D_lquwl")
 
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2(0, -14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, 22)
+position = Vector2(0, 25)
 shape = SubResource("RectangleShape2D_7mycd")
 
 [node name="Audio" type="Node2D" parent="."]
@@ -740,15 +731,13 @@ zoom = Vector2(4, 4)
 process_callback = 0
 limit_enabled = false
 position_smoothing_enabled = true
-position_smoothing_speed = 2.0
+position_smoothing_speed = 4.0
 drag_left_margin = 0.0
 drag_top_margin = 0.0
 drag_right_margin = 0.0
 drag_bottom_margin = 0.0
 editor_draw_screen = false
 script = ExtResource("2_6mje0")
-max_look_ahead = 40.0
-look_ahead_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -11)

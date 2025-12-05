@@ -5,7 +5,7 @@ extends StaticBody2D
 @export var starts_open: bool = false
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
-@onready var blocker: CollisionShape2D = $CollisionShape2D
+@onready var blocker: CollisionShape2D = $doorblock
 @onready var area: Area2D = $Area2D
 
 var _player_near: bool = false
