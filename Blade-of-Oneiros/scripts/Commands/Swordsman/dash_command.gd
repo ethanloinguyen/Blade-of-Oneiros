@@ -16,7 +16,14 @@ func execute(character: Character) -> Status:
 		dash_direction = character.facing_direction
 	else:
 		dash_direction = dash_direction.normalized()
+<<<<<<< Updated upstream
 	
+	character.dashing = true
+	character.dash_on_cooldown = true
+	character.velocity = dash_direction * character.dash_speed
+>>>>>>> Stashed changes
+=======
+		
 	character.dashing = true
 	character.dash_on_cooldown = true
 	character.velocity = dash_direction * character.dash_speed

@@ -21,16 +21,25 @@ var _dead: bool = false
 var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
 
+<<<<<<< Updated upstream
 # Dash related variables
 var dash_duration: float = 0.1
 var dash_timer: float = 0.0
 <<<<<<< Updated upstream
 =======
+=======
+# Dash related variables 
+var dash_duration: float = 0.1
+var dash_timer: float = 0.0
+>>>>>>> Stashed changes
 var dash_cooldown: float = 1.0
 var dash_cooldown_timer: float = 0.0
 var dash_on_cooldown: bool = false
 var dash_ghost_interval:float = 0.03
 var dash_ghost_timer: float = 0.0
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 var move_cmd: Command
@@ -45,8 +54,11 @@ func _ready() -> void:
 	animation_player.speed_scale = 0.1
 	hitbox_collision.disabled = true
 	bind_commands()
+<<<<<<< Updated upstream
+=======
 
-	
+>>>>>>> Stashed changes
+
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -104,6 +116,9 @@ func _physics_process(delta: float) -> void:
 <<<<<<< Updated upstream
 =======
 		dash_ghost_timer = 0.0
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 		_manage_animation_tree_state()
 		return
@@ -215,6 +230,7 @@ func _spawn_dash_ghost() -> void:
 	
 	get_tree().current_scene.add_child(ghost)
 >>>>>>> Stashed changes
+
 
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
