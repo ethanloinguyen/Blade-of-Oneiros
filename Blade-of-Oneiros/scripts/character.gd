@@ -16,7 +16,7 @@ var current_state: String = "idle"
 var attacking: bool = false
 var running: bool = false
 var dashing: bool = false
-
+var dash_speed_factor: float = 0.0
 # --- Animation ---
 @onready var sprite: Sprite2D = $Sprite2D
 
