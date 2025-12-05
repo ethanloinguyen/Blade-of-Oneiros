@@ -6,6 +6,7 @@ signal direction_changed(new_dir: String)
 # --- Core movement parameters ---
 @export var move_speed: float = 100.0
 @export var run_speed: float = 170.0
+@export var dash_speed: float = 2000.0
 
 # --- Facing and state ---
 enum Facing { UP, DOWN, LEFT, RIGHT }
@@ -14,6 +15,7 @@ var direction: Vector2 = Vector2.ZERO
 var current_state: String = "idle"
 var attacking: bool = false
 var running: bool = false
+var dashing: bool = false
 
 # --- Animation ---
 @onready var sprite: Sprite2D = $Sprite2D

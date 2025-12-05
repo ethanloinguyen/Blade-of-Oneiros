@@ -20,10 +20,13 @@ var _damaged: bool = false
 var _dead: bool = false
 var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
+var dash_duration: float = 0.1
+var dash_timer: float = 0.0
 
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
+var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
 
@@ -41,6 +44,10 @@ func _physics_process(delta: float) -> void:
 	# However, the player should be able to move through durative commands (like exercise 1) for
 	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
 	
+	# if in dialogue stop all movement
+	if in_dialogue:
+		return
+	
 	if _dead:
 		return
 	
@@ -53,27 +60,32 @@ func _physics_process(delta: float) -> void:
 		if attack_timer <= 0:
 			attacking = false
 			hitbox_collision.disabled = true
-		# still playing attack → update animation but STOP MOVEMENT LOGIC
+		
 		_manage_animation_tree_state()
 		return
+	
+	# Handle dash lock 
+	if dashing:
+		dash_timer -= delta
+		velocity = facing_direction * dash_speed
 		
-	if not in_dialogue and Input.is_action_just_pressed("attack"):
-		_attack()
+		if dash_timer <= 0:
+			dashing = false
+			velocity = Vector2.ZERO
+		
+		super(delta)
+		_manage_animation_tree_state()
 		return
 	
-	if not in_dialogue:
-		direction = Vector2(
-			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-		)
-		
-	if not in_dialogue and Input.is_action_pressed("run"):
-		running = true
-	else:
-		running = false
-	
 	if Input.is_action_just_pressed("attack"):
-		_attack()
+		attack_cmd.execute(self)
+		_manage_animation_tree_state()
+		return
+	
+	# DASH
+	if Input.is_action_just_pressed("dash"):
+		dash_cmd.execute(self)
+		_manage_animation_tree_state()
 		return
 	
 	if Input.is_action_pressed("run"):
@@ -81,13 +93,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		running = false
 	
-	# Get player input direction
+	# Get and normalize player direction
 	direction = Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	)
-	
-	# Normalize diagonal movement speed
 	if direction.length() > 1:
 		direction = direction.normalized()
 	
@@ -107,6 +117,7 @@ func _physics_process(delta: float) -> void:
 			if collider_object is PushableBox:
 				var box: PushableBox = collider_object as PushableBox
 				box.push(facing_direction)
+	
 	# Reset velocity every frame
 	velocity = Vector2.ZERO
 	
@@ -117,14 +128,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		idle_cmd.execute(self)
 	
-	#attack lock
-	if attack_timer <= 0:
-		attacking = false
-		$HitBox/CollisionShape2D.disabled = true
-		
-		
 	super(delta)
-	
 	_manage_animation_tree_state()
 
 
@@ -145,19 +149,10 @@ func bind_commands() -> void:
 	move_cmd = MoveCommand.new()
 	attack_cmd = AttackCommand.new()
 	idle_cmd = IdleCommand.new()
+	dash_cmd = DashCommand.new()
 
-
-func _attack():
-	hitbox_collision.disabled = false
-	attacking = true
-	attack_timer = attack_duration
-	attack_cmd.execute(self)
-	
-	_manage_animation_tree_state()
-	
 
 func _update_hitbox() -> void:
-
 	var rect := hitbox_collision.shape as RectangleShape2D
 	if rect == null:
 		return
@@ -165,20 +160,21 @@ func _update_hitbox() -> void:
 		Vector2.DOWN:
 			hitbox.rotation = 0.0
 			hitbox.position = hitbox_offset_down
-
+	
 		Vector2.RIGHT:
 			hitbox.rotation = -PI * 0.5  
 			hitbox.position = hitbox_offset_right
-
+	
 		Vector2.UP:
 			hitbox.rotation = PI        
 			hitbox.position = hitbox_offset_up
-
+	
 		Vector2.LEFT:
 			hitbox.rotation = PI * 0.5 
 			hitbox.position = hitbox_offset_left
-			
-			
+
+
+
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if (direction != Vector2.ZERO):
