@@ -14,6 +14,7 @@ extends Character
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
 @export var hitbox_offset_right: Vector2 = Vector2(12, 10)
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
+@export var dash_ghost_scene: PackedScene
 
 
 var _damaged: bool = false
@@ -22,7 +23,8 @@ var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
 var dash_duration: float = 0.1
 var dash_timer: float = 0.0
-
+var dash_ghost_interval:float = 0.03
+var dash_ghost_timer: float = 0.0
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
@@ -67,7 +69,12 @@ func _physics_process(delta: float) -> void:
 	# Handle dash lock 
 	if dashing:
 		dash_timer -= delta
-
+		dash_ghost_timer -= delta
+	
+		if dash_ghost_timer <= 0.0:
+			_spawn_dash_ghost()
+			dash_ghost_timer = dash_ghost_interval
+	
 		if dash_timer <= 0:
 			dashing = false
 			velocity = Vector2.ZERO
@@ -84,6 +91,8 @@ func _physics_process(delta: float) -> void:
 	# DASH
 	if Input.is_action_just_pressed("dash"):
 		dash_cmd.execute(self)
+		dash_ghost_timer = 0.0
+
 		_manage_animation_tree_state()
 		return
 	
@@ -172,7 +181,24 @@ func _update_hitbox() -> void:
 			hitbox.rotation = PI * 0.5 
 			hitbox.position = hitbox_offset_left
 
-
+func _spawn_dash_ghost() -> void:
+	if dash_ghost_scene == null:
+		return
+	
+	var ghost := dash_ghost_scene.instantiate() as Sprite2D
+	var src: Sprite2D = $Sprite2D
+	ghost.texture = src.texture
+	ghost.hframes = src.hframes
+	ghost.vframes = src.vframes
+	ghost.frame = src.frame
+	ghost.flip_h = src.flip_h
+	ghost.flip_v = src.flip_v
+	
+	ghost.global_position = src.global_position
+	ghost.global_rotation = src.global_rotation
+	ghost.global_scale = src.global_scale
+	
+	get_tree().current_scene.add_child(ghost)
 
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
