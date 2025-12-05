@@ -14,10 +14,13 @@ func _ready() -> void:
 	get_tree().root.call_deferred("add_child",player)
 	player.owner = null
 	get_tree().scene_changed.connect(_on_scene_changed)
-	
+
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy._player = player
+
 	call_deferred("_place_player")
-	
-	
+
+
 func change_level(scene_path: String, spawn_tag: StringName = "default") -> void:
 	next_spawn = spawn_tag
 	if player and is_instance_valid(player):
