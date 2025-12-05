@@ -1,10 +1,8 @@
-[gd_scene load_steps=82 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=80 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
-[ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
-[ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
 radius = 5.0
@@ -700,7 +698,7 @@ _data = {
 &"walk_up": SubResource("Animation_ai3mq")
 }
 
-[node name="Swordsman" type="CharacterBody2D" groups=["player"]]
+[node name="Swordsman" type="CharacterBody2D"]
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
@@ -711,7 +709,6 @@ hitbox_offset_down = Vector2(0, -14)
 hitbox_offset_up = Vector2(0, 0)
 hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
-dash_ghost_scene = ExtResource("2_r7u1p")
 dash_speed = 600.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -721,8 +718,6 @@ debug_color = Color(0.83668345, 0.3624882, 0.3701079, 0.41960785)
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(-1, -10)
-script = ExtResource("2_6vopk")
-max_health = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(1, 0)

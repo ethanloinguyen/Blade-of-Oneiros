@@ -14,6 +14,7 @@ extends Character
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
 @export var hitbox_offset_right: Vector2 = Vector2(12, 10)
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
+@export var dash_ghost_scene: PackedScene
 
 
 var _damaged: bool = false
@@ -21,26 +22,14 @@ var _dead: bool = false
 var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
 
-<<<<<<< Updated upstream
-# Dash related variables
-var dash_duration: float = 0.1
-var dash_timer: float = 0.0
-<<<<<<< Updated upstream
-=======
-=======
 # Dash related variables 
 var dash_duration: float = 0.1
 var dash_timer: float = 0.0
->>>>>>> Stashed changes
 var dash_cooldown: float = 1.0
 var dash_cooldown_timer: float = 0.0
 var dash_on_cooldown: bool = false
 var dash_ghost_interval:float = 0.03
 var dash_ghost_timer: float = 0.0
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -54,10 +43,7 @@ func _ready() -> void:
 	animation_player.speed_scale = 0.1
 	hitbox_collision.disabled = true
 	bind_commands()
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
@@ -82,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	# Handle attack lock (movement disabled)
 	if attacking:
 		attack_timer -= delta
-		velocity = Vector2.ZERO  # fully stop the character
+		velocity = velocity * 0.25 
 		
 		# check unlock
 		if attack_timer <= 0:
@@ -95,8 +81,12 @@ func _physics_process(delta: float) -> void:
 	# Handle dash lock 
 	if dashing:
 		dash_timer -= delta
-		velocity = facing_direction * dash_speed
-		
+		dash_ghost_timer -= delta
+	
+		if dash_ghost_timer <= 0.0:
+			_spawn_dash_ghost()
+			dash_ghost_timer = dash_ghost_interval
+	
 		if dash_timer <= 0:
 			dashing = false
 			velocity = Vector2.ZERO
@@ -113,13 +103,8 @@ func _physics_process(delta: float) -> void:
 	# DASH
 	if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 		dash_cmd.execute(self)
-<<<<<<< Updated upstream
-=======
 		dash_ghost_timer = 0.0
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+		
 		_manage_animation_tree_state()
 		return
 	
@@ -209,8 +194,6 @@ func _update_hitbox() -> void:
 			hitbox.position = hitbox_offset_left
 
 
-<<<<<<< Updated upstream
-=======
 func _spawn_dash_ghost() -> void:
 	if dash_ghost_scene == null:
 		return
@@ -229,7 +212,6 @@ func _spawn_dash_ghost() -> void:
 	ghost.global_scale = src.global_scale
 	
 	get_tree().current_scene.add_child(ghost)
->>>>>>> Stashed changes
 
 
 func _manage_animation_tree_state() -> void:
