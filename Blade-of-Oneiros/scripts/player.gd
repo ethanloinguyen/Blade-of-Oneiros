@@ -67,8 +67,7 @@ func _physics_process(delta: float) -> void:
 	# Handle dash lock 
 	if dashing:
 		dash_timer -= delta
-		velocity = facing_direction * dash_speed
-		
+
 		if dash_timer <= 0:
 			dashing = false
 			velocity = Vector2.ZERO

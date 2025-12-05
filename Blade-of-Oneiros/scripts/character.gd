@@ -1,7 +1,7 @@
 class_name Character
 extends CharacterBody2D
 
-signal direction_changed(new_dir: String)
+signal direction_changed(new_dir: int)
 
 # --- Core movement parameters ---
 @export var move_speed: float = 100.0
