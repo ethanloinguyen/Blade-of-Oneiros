@@ -709,6 +709,7 @@ hitbox_offset_down = Vector2(0, -14)
 hitbox_offset_up = Vector2(0, 0)
 hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
+dash_speed = 600.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)

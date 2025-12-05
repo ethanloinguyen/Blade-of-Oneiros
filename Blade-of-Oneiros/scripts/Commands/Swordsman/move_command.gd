@@ -13,10 +13,12 @@ func execute(character: Character) -> Status:
 		character.change_facing(Character.Facing.RIGHT)
 	
 	if character.running:
-		character.velocity.x += character.direction.x * character.run_speed
-		character.velocity.y += character.direction.y * character.run_speed
+		character.velocity += character.direction * character.run_speed
+		#character.velocity.x += character.direction.x * character.run_speed
+		#character.velocity.y += character.direction.y * character.run_speed
 	else:
-		character.velocity.x += character.direction.x * character.move_speed
-		character.velocity.y += character.direction.y * character.move_speed
+		character.velocity += character.direction * character.move_speed
+		#character.velocity.x += character.direction.x * character.move_speed
+		#character.velocity.y += character.direction.y * character.move_speed
 	
 	return Status.DONE
