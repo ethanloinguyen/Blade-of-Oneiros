@@ -21,10 +21,16 @@ var _damaged: bool = false
 var _dead: bool = false
 var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
-var dash_duration: float = 0.1
+
+# Dash related variables
+var dash_duration: float = 0.1 
 var dash_timer: float = 0.0
 var dash_ghost_interval:float = 0.03
 var dash_ghost_timer: float = 0.0
+var dash_on_cooldown: bool = true
+var dash_cooldown: float = 1.0
+var dash_cooldown_timer: float = 0.0
+
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
@@ -52,6 +58,12 @@ func _physics_process(delta: float) -> void:
 	
 	if _dead:
 		return
+	
+	if dash_on_cooldown:
+		dash_cooldown_timer -= delta
+		
+		if dash_cooldown_timer <= 0:
+			dash_on_cooldown = false
 	
 	# Handle attack lock (movement disabled)
 	if attacking:
@@ -89,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# DASH
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 		dash_cmd.execute(self)
 		dash_ghost_timer = 0.0
 
@@ -180,6 +192,7 @@ func _update_hitbox() -> void:
 		Vector2.LEFT:
 			hitbox.rotation = PI * 0.5 
 			hitbox.position = hitbox_offset_left
+
 
 func _spawn_dash_ghost() -> void:
 	if dash_ghost_scene == null:

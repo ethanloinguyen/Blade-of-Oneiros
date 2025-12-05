@@ -12,8 +12,10 @@ func execute(character: Character) -> Status:
 	else:
 		dash_direction = dash_direction.normalized()
 		
-	character.dashing = true	
+	character.dashing = true
+	character.dash_on_cooldown = true
 	character.velocity = dash_direction * character.dash_speed	
 	character.dash_timer = character.dash_duration
+	character.dash_cooldown_timer = character.dash_cooldown
 	
 	return Status.DONE
