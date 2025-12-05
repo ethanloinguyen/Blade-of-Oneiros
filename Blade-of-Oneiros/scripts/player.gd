@@ -20,8 +20,18 @@ var _damaged: bool = false
 var _dead: bool = false
 var attack_duration: float = 0.3  # whatever your attack animation length is
 var attack_timer: float = 0.0
+
+# Dash related variables
 var dash_duration: float = 0.1
 var dash_timer: float = 0.0
+<<<<<<< Updated upstream
+=======
+var dash_cooldown: float = 1.0
+var dash_cooldown_timer: float = 0.0
+var dash_on_cooldown: bool = false
+var dash_ghost_interval:float = 0.03
+var dash_ghost_timer: float = 0.0
+>>>>>>> Stashed changes
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -33,9 +43,8 @@ var facing_direction: Vector2 = Vector2.DOWN
 func _ready() -> void:
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-	
-	bind_commands()
 	hitbox_collision.disabled = true
+	bind_commands()
 
 	
 func _physics_process(delta: float) -> void:
@@ -50,6 +59,13 @@ func _physics_process(delta: float) -> void:
 	
 	if _dead:
 		return
+	
+	# Dash cooldown timer every frame not dead or in dialogue
+	if dash_on_cooldown:
+		dash_cooldown_timer -= delta
+		
+		if dash_cooldown_timer <= 0:
+			dash_on_cooldown = false
 	
 	# Handle attack lock (movement disabled)
 	if attacking:
@@ -83,8 +99,12 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# DASH
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 		dash_cmd.execute(self)
+<<<<<<< Updated upstream
+=======
+		dash_ghost_timer = 0.0
+>>>>>>> Stashed changes
 		_manage_animation_tree_state()
 		return
 	
@@ -174,6 +194,27 @@ func _update_hitbox() -> void:
 			hitbox.position = hitbox_offset_left
 
 
+<<<<<<< Updated upstream
+=======
+func _spawn_dash_ghost() -> void:
+	if dash_ghost_scene == null:
+		return
+	
+	var ghost := dash_ghost_scene.instantiate() as Sprite2D
+	var src: Sprite2D = $Sprite2D
+	ghost.texture = src.texture
+	ghost.hframes = src.hframes
+	ghost.vframes = src.vframes
+	ghost.frame = src.frame
+	ghost.flip_h = src.flip_h
+	ghost.flip_v = src.flip_v
+	
+	ghost.global_position = src.global_position
+	ghost.global_rotation = src.global_rotation
+	ghost.global_scale = src.global_scale
+	
+	get_tree().current_scene.add_child(ghost)
+>>>>>>> Stashed changes
 
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
