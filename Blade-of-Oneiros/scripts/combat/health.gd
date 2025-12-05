@@ -1,6 +1,7 @@
 class_name Health
 extends Area2D
 
+signal hurt
 signal died
 
 @export var max_health:int
@@ -13,5 +14,6 @@ func _ready() -> void:
 
 func take_damage(amount:int):
 	current_health -= amount
+	emit_signal("hurt")
 	if current_health <= 0:
 		emit_signal("died")

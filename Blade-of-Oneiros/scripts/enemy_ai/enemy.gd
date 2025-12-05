@@ -15,6 +15,7 @@ var fsm:FSM
 var wait_state:State
 var chase_state:State
 var attack_state:State
+var stun_state:State
 
 var _player:Player
 var _dir:String = "down"
@@ -32,7 +33,12 @@ func _ready():
 		_player = get_tree().get_first_node_in_group("player")
 
 	# health setup
+	health.hurt.connect(func():
+		fsm.change_state(stun_state)
+	)
 	health.died.connect(func():
+		_play_animation("death")
+		await sprite.animation_finished
 		queue_free()
 	)
 
@@ -89,13 +95,25 @@ func _ready():
 		,
 		Callable()
 	)
+	stun_state = State.new(
+		"Stun",
+		func():
+		_play_animation("hurt")
+		await sprite.animation_finished
+		fsm.change_state(chase_state)
+		,
+		Callable()
+		,
+		Callable()
+	)
 	fsm = FSM.new(wait_state)
 
 
 func _physics_process(delta:float) -> void:
-	fsm.update(delta)
-	_update_dir()
-	move_and_slide()
+	if health.current_health >= 0:
+		fsm.update(delta)
+		_update_dir()
+		move_and_slide()
 
 
 func _update_dir() -> void:
