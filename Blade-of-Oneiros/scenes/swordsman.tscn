@@ -1,10 +1,17 @@
-[gd_scene load_steps=82 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=83 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
+
+[sub_resource type="Curve" id="Curve_s1psh"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 1.4), 0.0, 0.32389936, 0, 0, Vector2(0.26666668, 1), -2.2825458, -2.2825458, 0, 0, Vector2(0.4666667, 0.6), -1.429245, -1.429245, 0, 0, Vector2(0.8000001, 0.2), -1.3638501, -1.3638501, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+metadata/_snap_count = 15
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
 radius = 5.0
@@ -712,7 +719,8 @@ hitbox_offset_up = Vector2(0, 0)
 hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
 dash_ghost_scene = ExtResource("2_r7u1p")
-dash_speed = 600.0
+dash_curve = SubResource("Curve_s1psh")
+dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)

@@ -15,20 +15,21 @@ extends Character
 @export var hitbox_offset_right: Vector2 = Vector2(12, 10)
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
+@export var dash_curve: Curve
 
-
+var dash_time:= 0.0
 var _damaged: bool = false
 var _dead: bool = false
-var attack_duration: float = 0.3  # whatever your attack animation length is
+var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
 
 # Dash related variables
-var dash_duration: float = 0.1 
+var dash_duration: float = 0.16
 var dash_timer: float = 0.0
 var dash_ghost_interval:float = 0.03
 var dash_ghost_timer: float = 0.0
 var dash_on_cooldown: bool = true
-var dash_cooldown: float = 1.0
+var dash_cooldown: float = 0.8
 var dash_cooldown_timer: float = 0.0
 
 var move_cmd: Command
@@ -82,13 +83,17 @@ func _physics_process(delta: float) -> void:
 	if dashing:
 		dash_timer -= delta
 		dash_ghost_timer -= delta
-	
+		dash_time += delta / dash_duration
+		
+		var factor := dash_curve.sample(dash_time)
+		velocity = dash_direction * dash_speed * factor
 		if dash_ghost_timer <= 0.0:
 			_spawn_dash_ghost()
 			dash_ghost_timer = dash_ghost_interval
 	
 		if dash_timer <= 0:
 			dashing = false
+			dash_time = 0.0
 			velocity = Vector2.ZERO
 		
 		super(delta)
