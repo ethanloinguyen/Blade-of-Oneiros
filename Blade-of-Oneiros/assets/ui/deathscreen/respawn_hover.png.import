@@ -2,7 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD
 uid="uid://dey8w4kw46btg"
+=======
+uid="uid://ch7stmr5epb4g"
+
+>>>>>>> 4ba12559e3e72d55998917b371a017d4303a8df7
 path="res://.godot/imported/respawn_hover.png-da1dc886267ffc20284d6a7011161c90.ctex"
 metadata={
 "vram_texture": false
