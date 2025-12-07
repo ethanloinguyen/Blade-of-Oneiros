@@ -35,4 +35,6 @@ func _ready() -> void:
 func _on_anim_finished(_anim_name: StringName) -> void:
 	player.dead = true
 	player.set_health_bar()
+	GameState.game_over = true
+	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 	queue_free()
