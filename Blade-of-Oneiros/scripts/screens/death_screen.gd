@@ -39,4 +39,4 @@ func _hide_death_screen():
 	respawn_button.visible = false
 	you_died_text.visible = false
 	GameState.game_over = false
-	#player.dead = false
+	
