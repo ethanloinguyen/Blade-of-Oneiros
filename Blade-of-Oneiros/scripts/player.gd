@@ -210,11 +210,16 @@ func take_damage(damage: int) -> void:
 	if health <= 0:
 		# play death audio here
 		dead = true
-		animation_tree.active = false
-		animation_tree.play("death")
+		attacking = false
+		running = false
+		velocity = Vector2.ZERO
+		#animation_tree.active = false
+		#animation_tree.play("death")
+		animation_tree["parameters/conditions/death"] = true
 	else:
 		# play hurt audio here
-		pass
+		_damaged = true
+
 
 
 # returns false if unable to use stamina, true if usable
@@ -385,7 +390,13 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
-
+	if _damaged:
+		animation_tree["parameters/conditions/damaged"] = true
+		_damaged = false
+	else:
+		animation_tree["parameters/conditions/damaged"] = false
+		
+	animation_tree["parameters/conditions/running"] = running
 ## Inventory related commands:
 #func _on_potion_pickup_area_entered(body):
 	#if body is Player:
