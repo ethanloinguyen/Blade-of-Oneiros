@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 	#Hide video until button is pressed
 	intro_video.visible = false
+	hud.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
