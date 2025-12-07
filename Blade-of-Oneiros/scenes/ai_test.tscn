@@ -5,10 +5,10 @@
 [node name="AiTest" type="Node2D"]
 
 [node name="TestEnemy" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(275, 82)
+position = Vector2(92, 62)
 
 [node name="TestEnemy2" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(222, -58)
+position = Vector2(116, -36)
 
 [node name="TestEnemy3" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(79, -148)
+position = Vector2(46, -101)
