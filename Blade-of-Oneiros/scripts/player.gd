@@ -19,7 +19,7 @@ extends Character
 
 var dash_time:= 0.0
 var _damaged: bool = false
-var _dead: bool = false
+var dead: bool = false
 var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
 
@@ -53,24 +53,26 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+var health_bar: TextureProgressBar
+var stamina_bar: TextureProgressBar
+var inventory: Control
 #breaking/falling tile variables
 var breakable_tiles: BreakableTiles
 var falling: bool = false
 var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
-var cutscene: Control = cutscene_scene.instantiate()
-@onready var health_bar = $Health/HealthBar
-@onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
-	print("Stamina bar is: ", stamina_bar)
+
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
 	
-
-<<<<<<< HEAD
+	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
+	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
+	inventory = hud.get_node("InventoryPanel") as Control
+	hud.visible = true
 	
 func _physics_process(delta: float) -> void:	
-=======
+
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
@@ -79,8 +81,7 @@ func _physics_process(delta: float) -> void:
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 
-func _physics_process(delta: float) -> void:
->>>>>>> 744e0a3c907e3e3d16fa5c0f734f226e24c9d6dd
+
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
@@ -93,7 +94,7 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		return
 	
-	if _dead:
+	if dead:
 		return
 	
 	if falling:
@@ -157,6 +158,8 @@ func _physics_process(delta: float) -> void:
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
 				return
+	else:
+		running = false
 	
 	# Get and normalize player direction
 	direction = Vector2(
@@ -202,10 +205,11 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: int) -> void:
 	health -= damage
+	set_health_bar()
 	_damaged = true
 	if health <= 0:
 		# play death audio here
-		_dead = true
+		dead = true
 		animation_tree.active = false
 		animation_tree.play("death")
 	else:
@@ -292,7 +296,7 @@ func _spawn_dash_ghost() -> void:
 
 #falling animation/ stops the player, plays moving animation, then fades the player
 func start_fall(fall_position: Vector2) -> void:
-	if falling or _dead:
+	if falling or dead:
 		return
 		
 	falling = true
@@ -341,10 +345,13 @@ func start_fall(fall_position: Vector2) -> void:
 		mat.set_shader_parameter("cut", 1.0)
 	modulate.a = 0.0
 	
+	var cutscene := cutscene_scene.instantiate() as FallingCutscene
+	cutscene.player = self
 	get_tree().current_scene.add_child(cutscene)
 	var cam := get_node_or_null("Camera2D")
 	if cam is Camera2D:
 		(cam as Camera2D).enabled = false
+	
 		
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
@@ -378,3 +385,19 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
+
+## Inventory related commands:
+#func _on_potion_pickup_area_entered(body):
+	#if body is Player:
+		#Inventory.add_potion(1)
+		#queue_free()
+#
+#if Inventory.use_key():
+	#open_door()
+#else:
+	#print("Need a key!")
+#
+#if Inventory.use_potion():
+	#player.heal(20)
+#else:
+	#print("No potions!")

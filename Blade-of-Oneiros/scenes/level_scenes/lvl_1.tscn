@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://cuiacgigade2i"]
+[gd_scene load_steps=7 format=4 uid="uid://cuiacgigade2i"]
 
 [ext_resource type="Script" uid="uid://dofim5r66ei11" path="res://scripts/level.gd" id="1_l8iau"]
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="2_l8iau"]

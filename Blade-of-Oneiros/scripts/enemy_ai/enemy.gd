@@ -6,9 +6,9 @@ extends CharacterBody2D
 @export var move_avoid_collision_dist:float
 @export var chase_leash_distance:float
 
-@export var attack_hitbox:Hitbox
 @export var attack_distance:float
 
+@onready var attack_hitbox = $AttackHitbox
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
 
@@ -50,7 +50,7 @@ func _ready():
 		fsm.change_state(stun_state)
 	)
 	health.died.connect(func():
-		_play_animation("death")
+		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
 		queue_free()
 	)
@@ -64,7 +64,7 @@ func _ready():
 		if _player == null:
 			return
 
-		_play_animation("idle")
+		AiHelper.play_animation(sprite, "idle", _dir)
 
 		# transition
 		if _player.global_position.distance_to(global_position) < activate_distance:
@@ -83,11 +83,11 @@ func _ready():
 			_move_avoid_dirs.push_back(to_player)
 
 		# play animation
-		_update_dir(to_player)
+		_dir = AiHelper.update_dir(to_player)
 		if velocity.is_zero_approx():
-			_play_animation("idle")
+			AiHelper.play_animation(sprite, "idle", _dir)
 		else:
-			_play_animation("walk")
+			AiHelper.play_animation(sprite, "walk", _dir)
 
 		# transition
 		if dist_to_player < attack_distance:
@@ -99,7 +99,7 @@ func _ready():
 		"Attack",
 		func():
 		_desired_move_dir = Vector2.ZERO
-		_play_animation("attack")
+		AiHelper.play_animation(sprite, "attack", _dir)
 
 		# wait for attack animation to finish
 		await sprite.animation_finished
@@ -115,7 +115,7 @@ func _ready():
 		"Stun",
 		func():
 		sprite.stop()
-		_play_animation("hurt")
+		AiHelper.play_animation(sprite, "hurt", _dir)
 		await sprite.animation_finished
 		fsm.change_state(chase_state)
 		,
@@ -182,19 +182,6 @@ func _update_velocity() -> void:
 	queue_redraw()
 
 
-func _update_dir(dir:Vector2) -> void:
-	if abs(dir.x) > abs(dir.y):
-		if dir.x > 0:
-			_dir = "right"
-		elif dir.x < 0:
-			_dir = "left"
-	else:
-		if dir.y > 0:
-			_dir = "down"
-		elif dir.y < 0:
-			_dir = "up"
-
-
 func _draw() -> void:
 	if not OS.is_debug_build() or true:
 		return
@@ -211,7 +198,3 @@ func _draw() -> void:
 		if i == best_index:
 			color = Color(0, 1, 0)
 		draw_line(Vector2.ZERO, _move_dirs[i] * _move_dirs_weights[i] * move_avoid_collision_dist, color, 1.0)
-
-
-func _play_animation(animation:String) -> void:
-	sprite.play("%s_%s" % [animation, _dir])

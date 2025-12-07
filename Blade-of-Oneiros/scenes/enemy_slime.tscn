@@ -1098,7 +1098,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemySlime" type="CharacterBody2D" node_paths=PackedStringArray("attack_hitbox")]
+[node name="EnemySlime" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
@@ -1107,7 +1107,6 @@ activate_distance = 200.0
 speed = 60.0
 move_avoid_collision_dist = 50.0
 chase_leash_distance = 10.0
-attack_hitbox = NodePath("AttackHitbox")
 attack_distance = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1136,4 +1135,4 @@ shape = SubResource("CircleShape2D_t46gg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpxyv")
-animation = &"death_down"
+animation = &"idle_left"
