@@ -1,13 +1,13 @@
 class_name Player
 extends Character
 
-@export var health:int = 100
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var health: Health = $HurtBox
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -70,14 +70,20 @@ func _ready() -> void:
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
 	hud.visible = true
-	
+	health.hurt.connect(_on_health_hurt)
+	health.died.connect(_on_health_died)	
+	health_bar.max_value = health.max_health
+	set_health_bar()
+	stamina_bar.max_value = max_stamina
+	set_stamina_bar()
+	bind_commands()
 	
 func _physics_process(delta: float) -> void:	
 
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
-	bind_commands()	
+		
 
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
@@ -94,8 +100,9 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if dead:
-		GameState.game_over = true
-		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+		#GameState.game_over = true
+		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+		velocity = Vector2.ZERO
 		return
 	
 	if falling:
@@ -205,22 +212,52 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage(damage: int) -> void:
-	health -= damage
-	set_health_bar()
+	health.take_damage(damage)
+	#health -= damage
+	#set_health_bar()
+	#_damaged = true
+	#if health <= 0:
+		## play death audio here
+		#dead = true
+		#attacking = false
+		#running = false
+		#velocity = Vector2.ZERO
+		##animation_tree.active = false
+		##animation_tree.play("death")
+		#animation_tree["parameters/conditions/death"] = true
+	#else:
+		## play hurt audio here
+		#_damaged = true
+		
+func _on_health_hurt() -> void:
+	if dead:
+		return
 	_damaged = true
-	if health <= 0:
-		# play death audio here
-		dead = true
-		attacking = false
-		running = false
-		velocity = Vector2.ZERO
-		#animation_tree.active = false
-		#animation_tree.play("death")
-		animation_tree["parameters/conditions/death"] = true
-	else:
-		# play hurt audio here
-		_damaged = true
+	set_health_bar()
+	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+	sm.travel("hurt") 
 
+	#_manage_animation_tree_state()
+
+
+func _on_health_died() -> void:
+	if dead:
+		return
+
+	dead = true
+	set_health_bar()
+
+	attacking = false
+	running = false
+	velocity = Vector2.ZERO
+
+	#animation_tree["parameters/conditions/death"] = true
+	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+	sm.travel("death")
+	await get_tree().create_timer(1.0).timeout
+	GameState.game_over = true
+	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+	#_manage_animation_tree_state()
 
 
 # returns false if unable to use stamina, true if usable
@@ -239,10 +276,13 @@ func try_use_stamina(amount: float) -> bool:
 	return false
 
 func set_health_bar() -> void:
-	health_bar.value = health
+	if health_bar and health:
+		health_bar.value = health.current_health
+
 
 func set_stamina_bar() -> void:
-	stamina_bar.value = stamina
+	if stamina_bar:
+		stamina_bar.value = stamina
 
 
 func bind_commands() -> void:
@@ -361,6 +401,8 @@ func start_fall(fall_position: Vector2) -> void:
 		
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
+	if dead:
+		return
 	if (direction != Vector2.ZERO):
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
