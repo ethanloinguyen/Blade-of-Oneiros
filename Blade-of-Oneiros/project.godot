@@ -21,9 +21,9 @@ BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 PlayerManagement="*res://scripts/player_manager.gd"
 SceneTransition="*res://scenes/scene_transition/scene_transition.tscn"
 DialogueOrchestrator="*res://scripts/dialogue/DialogueOrchestrator.gd"
+GameState="*res://scripts/GameState.gd"
 Inventory="*res://scripts/hud/inventory.gd"
 hud="*res://scenes/hud.tscn"
-GameState="*res://scripts/GameState.gd"
 
 [dotnet]
 
