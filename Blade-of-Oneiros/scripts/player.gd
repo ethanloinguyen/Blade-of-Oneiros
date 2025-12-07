@@ -43,9 +43,9 @@ var stamina: float = 100.0
 var stamina_delay_timer: float = 0.0
 var stamina_actions_locked = false  # exhaustion state
 
-@export var stamina_cost_attack: float = 15.0
-@export var stamina_cost_dash: float = 25.0
-@export var stamina_cost_run_per_second: float = 10.0
+@export var stamina_cost_attack: float = 10.0
+@export var stamina_cost_dash: float = 15.0
+@export var stamina_cost_run: float = 0.5
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -53,6 +53,7 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+@onready var health_bar = $Health/HealthBar
 @onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
@@ -62,6 +63,7 @@ func _ready() -> void:
 	hitbox_collision.disabled = true
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
+	set_health_bar()
 	bind_commands()
 
 
@@ -125,14 +127,14 @@ func _physics_process(delta: float) -> void:
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
-			if try_use_stamina(10):
+			if try_use_stamina(stamina_cost_attack):
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
 				return
 		
 		# DASH
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
-			if try_use_stamina(15):
+			if try_use_stamina(stamina_cost_dash):
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
@@ -205,6 +207,8 @@ func try_use_stamina(amount: float) -> bool:
 	
 	return false
 
+func set_health_bar() -> void:
+	health_bar.value = health
 
 func set_stamina_bar() -> void:
 	stamina_bar.value = stamina
