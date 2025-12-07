@@ -13,6 +13,8 @@ func _ready() -> void:
 	player.add_to_group("player")
 	player.owner = null
 	get_tree().scene_changed.connect(_on_scene_changed)
+	
+	
 
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player
