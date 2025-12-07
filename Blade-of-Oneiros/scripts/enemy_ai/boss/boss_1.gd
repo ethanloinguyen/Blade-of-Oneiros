@@ -81,6 +81,8 @@ func _ready():
 		)
 	)
 	fsm = FSM.new(idle_state)
+
+	await get_tree().process_frame
 	jump_state.jump(_player.global_position)
 
 

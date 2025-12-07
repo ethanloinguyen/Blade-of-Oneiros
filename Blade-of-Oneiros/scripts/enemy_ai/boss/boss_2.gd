@@ -34,13 +34,16 @@ func _ready():
 	if _player == null:
 		_player = get_tree().get_first_node_in_group("player")
 
+	while _player == null:
+		await get_tree().process_frame
+
 	health.hurt.connect(func():
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
-	
+
 		if next_boss != null:
 			var boss:CharacterBody2D = next_boss.instantiate()
 			get_parent().add_child(boss)
@@ -78,12 +81,15 @@ func _ready():
 		)
 	)
 	fsm = FSM.new(idle_state)
+
+	await get_tree().process_frame
 	jump_state.jump(_player.global_position)
 
 
 func _physics_process(delta:float) -> void:
 	if not health.is_dead():
-		fsm.update(delta)
+		if fsm != null:
+			fsm.update(delta)
 		move_and_slide()
 
 

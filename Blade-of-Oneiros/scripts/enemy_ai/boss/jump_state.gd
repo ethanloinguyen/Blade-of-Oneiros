@@ -38,5 +38,5 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 
 
 func jump(target:Vector2):
-	_target_rel = target - _sprite.global_position
+	_target_rel = target - _enemy.global_position
 	_enemy.fsm.change_state(self)
