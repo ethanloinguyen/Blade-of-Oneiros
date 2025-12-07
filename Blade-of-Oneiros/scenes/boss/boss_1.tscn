@@ -1,6 +1,7 @@
-[gd_scene load_steps=116 format=3 uid="uid://bdfx0cj4pw7ht"]
+[gd_scene load_steps=117 format=3 uid="uid://bdfx0cj4pw7ht"]
 
 [ext_resource type="Script" uid="uid://oesp1yjysd64" path="res://scripts/enemy_ai/boss/boss_1.gd" id="1_7g4c7"]
+[ext_resource type="PackedScene" uid="uid://c8r2dhocxynw0" path="res://scenes/boss/slimeball/slimeball.tscn" id="2_w52jb"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_wj12j"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_w52jb"]
 [ext_resource type="Texture2D" uid="uid://c2yi3wb6byauk" path="res://assets/mobs/slimes/Slime1/Without_shadow/Slime1_Attack_without_shadow.png" id="5_j5mqk"]
@@ -831,6 +832,7 @@ collision_layer = 4
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_7g4c7")
+projectile = ExtResource("2_w52jb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")

@@ -6,7 +6,9 @@ extends CharacterBody2D
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
 
-@export var between_states_wait_duration:float = 3.0
+@export var between_states_wait_duration:float = 4.0
+
+@export var projectile:PackedScene
 
 var fsm:FSM
 var idle_state:State
@@ -35,9 +37,15 @@ func _ready():
 		Callable(),
 	)
 	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
-		_idle(between_states_wait_duration, shoot_state)
+		_idle(between_states_wait_duration, func():
+			fsm.change_state(shoot_state)
+		)
 	)
-	shoot_state = ShootState.new()
+	shoot_state = ShootState.new(self, projectile, 4, false, func():
+		_idle(between_states_wait_duration, func():
+			jump_state.jump(_player.global_position)
+		)
+	)
 	fsm = FSM.new(idle_state)
 	jump_state.jump(_player.global_position)
 
@@ -53,7 +61,7 @@ func _face_player():
 	_dir = AiHelper.update_dir(to_player)
 
 
-func _idle(duration:float, next_state:State):
+func _idle(duration:float, exit_idle:Callable):
 	fsm.change_state(idle_state)
 	await get_tree().create_timer(duration).timeout
-	fsm.change_state(next_state)
+	exit_idle.call()
