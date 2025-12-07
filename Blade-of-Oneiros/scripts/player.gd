@@ -6,8 +6,7 @@ extends Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
-@onready var hitbox: Area2D = $HitBox
-@onready var hitbox_collision: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var hitbox: Hitbox = $HitBox
 
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
@@ -44,9 +43,9 @@ var stamina: float = 100.0
 var stamina_delay_timer: float = 0.0
 var stamina_actions_locked = false  # exhaustion state
 
-@export var stamina_cost_attack: float = 15.0
-@export var stamina_cost_dash: float = 25.0
-@export var stamina_cost_run_per_second: float = 10.0
+@export var stamina_cost_attack: float = 10.0
+@export var stamina_cost_dash: float = 15.0
+@export var stamina_cost_run: float = 0.5
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -55,17 +54,20 @@ var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
 var breakable_tiles: BreakableTiles
+@onready var health_bar = $Health/HealthBar
 @onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-	hitbox_collision.disabled = true
+
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
-	bind_commands()
+	set_health_bar()
+	bind_commands()	
 
+	hitbox.attach_signal(animation_player)
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 
@@ -100,7 +102,6 @@ func _physics_process(delta: float) -> void:
 		# check unlock
 		if attack_timer <= 0:
 			attacking = false
-			hitbox_collision.disabled = true
 		
 		_manage_animation_tree_state()
 		return
@@ -129,14 +130,14 @@ func _physics_process(delta: float) -> void:
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
-			if try_use_stamina(10):
+			if try_use_stamina(stamina_cost_attack):
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
 				return
 		
 		# DASH
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
-			if try_use_stamina(15):
+			if try_use_stamina(stamina_cost_dash):
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
@@ -154,7 +155,6 @@ func _physics_process(delta: float) -> void:
 	# the ray collides with the box, it will continuously call push in that direction
 	if direction != Vector2.ZERO:
 		facing_direction = DirectionSnap._snap_to_cardinal(direction)
-	_update_hitbox()
 	
 	if push_ray != null:
 		var ray_length: float = 8
@@ -213,6 +213,8 @@ func try_use_stamina(amount: float) -> bool:
 	
 	return false
 
+func set_health_bar() -> void:
+	health_bar.value = health
 
 func set_stamina_bar() -> void:
 	stamina_bar.value = stamina
@@ -251,28 +253,6 @@ func _check_exhaustion():
 		velocity = Vector2.ZERO
 		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
 		move_speed = base_move_speed * slow_factor
-
-
-func _update_hitbox() -> void:
-	var rect := hitbox_collision.shape as RectangleShape2D
-	if rect == null:
-		return
-	match facing_direction:
-		Vector2.DOWN:
-			hitbox.rotation = 0.0
-			hitbox.position = hitbox_offset_down
-	
-		Vector2.RIGHT:
-			hitbox.rotation = -PI * 0.5  
-			hitbox.position = hitbox_offset_right
-	
-		Vector2.UP:
-			hitbox.rotation = PI        
-			hitbox.position = hitbox_offset_up
-	
-		Vector2.LEFT:
-			hitbox.rotation = PI * 0.5 
-			hitbox.position = hitbox_offset_left
 
 
 func _spawn_dash_ghost() -> void:

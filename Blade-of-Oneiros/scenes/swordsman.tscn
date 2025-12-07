@@ -1,11 +1,13 @@
-[gd_scene load_steps=84 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=86 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
-[ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
-[ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="6_jtonm"]
+[ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
+[ext_resource type="PackedScene" path="res://scenes/stamina.tscn" id="6_jtonm"]
+[ext_resource type="PackedScene" path="res://scenes/health.tscn" id="7_xauwr"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -22,7 +24,7 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
-size = Vector2(38, 16)
+size = Vector2(16, 38)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j1nbv"]
 graph_offset = Vector2(-312.6071, -344.78262)
@@ -730,6 +732,8 @@ debug_color = Color(0.83668345, 0.3624882, 0.3701079, 0.41960785)
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(-1, -10)
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("2_6vopk")
 max_health = 100
 
@@ -738,10 +742,16 @@ position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_6mje0")
 
 [node name="HitBox" type="Area2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_jtonm")
+damage = 35
+activate_animation = "attack"
+animation_delay = 0.15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, 22)
+position = Vector2(14, 0)
 shape = SubResource("RectangleShape2D_7mycd")
 
 [node name="Audio" type="Node2D" parent="."]
@@ -797,4 +807,5 @@ collision_mask = 8
 hit_from_inside = true
 
 [node name="Stamina" parent="." instance=ExtResource("6_jtonm")]
-z_index = 6
+
+[node name="Health" parent="." instance=ExtResource("7_xauwr")]

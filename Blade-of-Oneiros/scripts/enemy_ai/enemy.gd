@@ -113,6 +113,7 @@ func _ready():
 	stun_state = State.new(
 		"Stun",
 		func():
+		sprite.stop()
 		_play_animation("hurt")
 		await sprite.animation_finished
 		fsm.change_state(chase_state)
@@ -125,7 +126,7 @@ func _ready():
 
 
 func _physics_process(delta:float) -> void:
-	if health.current_health >= 0:
+	if not health.is_dead():
 		fsm.update(delta)
 
 		if not _desired_move_dir.is_zero_approx():
