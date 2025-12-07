@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dapjo80x5nxtv"]
+[gd_scene load_steps=84 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
 [ext_resource type="PackedScene" uid="uid://5vvl8ewnkllm" path="res://scenes/boss/slimeball/fireball.tscn" id="2_gajum"]
@@ -288,49 +288,17 @@ region = Rect2(320, 64, 64, 64)
 atlas = ExtResource("8_gajum")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxfrb"]
-atlas = ExtResource("8_gajum")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7geqw"]
-atlas = ExtResource("8_gajum")
-region = Rect2(128, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_33goe"]
 atlas = ExtResource("8_gajum")
 region = Rect2(0, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ncnq"]
-atlas = ExtResource("8_gajum")
-region = Rect2(64, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wb56y"]
-atlas = ExtResource("8_gajum")
-region = Rect2(128, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbv8c"]
 atlas = ExtResource("8_gajum")
 region = Rect2(0, 192, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_grqg8"]
-atlas = ExtResource("8_gajum")
-region = Rect2(64, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_foicd"]
-atlas = ExtResource("8_gajum")
-region = Rect2(128, 192, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_74p58"]
 atlas = ExtResource("8_gajum")
 region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cbg1l"]
-atlas = ExtResource("8_gajum")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cpvmx"]
-atlas = ExtResource("8_gajum")
-region = Rect2(128, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fpxyv"]
 animations = [{
@@ -598,12 +566,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qnbdj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oxfrb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7geqw")
 }],
 "loop": false,
 "name": &"jump_down",
@@ -612,12 +574,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_33goe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ncnq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wb56y")
 }],
 "loop": false,
 "name": &"jump_left",
@@ -626,12 +582,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xbv8c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_grqg8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_foicd")
 }],
 "loop": false,
 "name": &"jump_right",
@@ -640,12 +590,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_74p58")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cbg1l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cpvmx")
 }],
 "loop": false,
 "name": &"jump_up",
@@ -684,7 +628,7 @@ shape = SubResource("CircleShape2D_t46gg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fpxyv")
-animation = &"hurt_up"
+animation = &"jump_up"
 
 [node name="Shadow" type="Sprite2D" parent="."]
 z_index = -1

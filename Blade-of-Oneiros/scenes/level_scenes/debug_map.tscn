@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="6_2ru53"]
 [ext_resource type="PackedScene" uid="uid://dk80427rw58rr" path="res://scenes/interactables/lever.tscn" id="7_66ogq"]
 [ext_resource type="PackedScene" uid="uid://cjm6vswbwmqr5" path="res://scenes/DialogUI.tscn" id="8_dpr55"]
-[ext_resource type="PackedScene" uid="uid://bdfx0cj4pw7ht" path="res://scenes/boss/boss_1.tscn" id="9_ieut8"]
+[ext_resource type="PackedScene" uid="uid://dapjo80x5nxtv" path="res://scenes/boss/boss_3.tscn" id="9_ieut8"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rtx"]
@@ -71,8 +71,8 @@ script = ExtResource("2_ml6jv")
 
 [node name="Enemies" type="Node2D" parent="Entities"]
 
-[node name="Boss1" parent="Entities/Enemies" instance=ExtResource("9_ieut8")]
-position = Vector2(392, 368)
+[node name="Boss3" parent="Entities/Enemies" instance=ExtResource("9_ieut8")]
+position = Vector2(399, 370)
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true

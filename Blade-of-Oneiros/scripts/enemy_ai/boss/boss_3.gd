@@ -13,7 +13,9 @@ extends CharacterBody2D
 var fsm:FSM
 var idle_state:State
 var jump_state:JumpState
-var shoot_state:ShootState
+var rain_state:State
+var shoot_state_1:ShootState
+var shoot_state_2:ShootState
 var attack_state:State
 var stun_state:State
 
@@ -56,10 +58,28 @@ func _ready():
 	)
 	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
 		_idle(between_states_wait_duration, func():
-			shoot_state.shoot(global_position)
+			fsm.change_state(rain_state)
 		)
 	)
-	shoot_state = ShootState.new(self, projectile, 4, false, func():
+	rain_state = State.new(
+		"Rain",
+		func():
+		# TODO: rain 3 slimes
+		await get_tree().create_timer(1.5).timeout
+		shoot_state_1.shoot(global_position)
+		,
+		func(_delta):
+		pass
+		,
+		func():
+		pass
+	)
+	shoot_state_1 = ShootState.new(self, projectile, 8, false, func():
+		_idle(between_states_wait_duration, func():
+			shoot_state_2.shoot(global_position)
+		)
+	)
+	shoot_state_2 = ShootState.new(self, projectile, 8, true, func():
 		_idle(between_states_wait_duration, func():
 			jump_state.jump(_player.global_position)
 		)
