@@ -113,6 +113,7 @@ func _ready():
 	stun_state = State.new(
 		"Stun",
 		func():
+		sprite.stop()
 		_play_animation("hurt")
 		await sprite.animation_finished
 		fsm.change_state(chase_state)
