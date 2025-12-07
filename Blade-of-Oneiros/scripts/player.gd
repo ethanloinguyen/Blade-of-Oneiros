@@ -32,21 +32,39 @@ var dash_on_cooldown: bool = true
 var dash_cooldown: float = 0.8
 var dash_cooldown_timer: float = 0.0
 
+# STAMINA SYSTEM
+var base_move_speed: float = 100.0
+var slow_factor: float = 0.6
+@export var max_stamina: float = 100.0
+var stamina: float = 100.0
+
+@export var stamina_recharge_rate: float = 20.0   # stamina per second
+@export var stamina_recharge_delay: float = 1.0   # how long until refill starts
+var stamina_delay_timer: float = 0.0
+var stamina_actions_locked = false  # exhaustion state
+
+@export var stamina_cost_attack: float = 15.0
+@export var stamina_cost_dash: float = 25.0
+@export var stamina_cost_run_per_second: float = 10.0
+
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+@onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
+	print("Stamina bar is: ", stamina_bar)
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-	
-	bind_commands()
 	hitbox_collision.disabled = true
+	stamina_bar.max_value = max_stamina
+	set_stamina_bar()
+	bind_commands()
 
-	
+
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -59,6 +77,10 @@ func _physics_process(delta: float) -> void:
 	
 	if _dead:
 		return
+	
+	# Regen stamina and update stamina bar
+	_regen_stamina(delta)
+	set_stamina_bar()
 	
 	if dash_on_cooldown:
 		dash_cooldown_timer -= delta
@@ -100,23 +122,21 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-	if Input.is_action_just_pressed("attack"):
-		attack_cmd.execute(self)
-		_manage_animation_tree_state()
-		return
-	
-	# DASH
-	if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
-		dash_cmd.execute(self)
-		dash_ghost_timer = 0.0
-
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_pressed("run"):
-		running = true
-	else:
-		running = false
+	# If exhausted skip all stamina-related actions
+	if not stamina_actions_locked:
+		if Input.is_action_just_pressed("attack"):
+			if try_use_stamina(10):
+				attack_cmd.execute(self)
+				_manage_animation_tree_state()
+				return
+		
+		# DASH
+		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
+			if try_use_stamina(15):
+				dash_cmd.execute(self)
+				dash_ghost_timer = 0.0
+				_manage_animation_tree_state()
+				return
 	
 	# Get and normalize player direction
 	direction = Vector2(
@@ -170,11 +190,59 @@ func take_damage(damage: int) -> void:
 		pass
 
 
+# returns false if unable to use stamina, true if usable
+func try_use_stamina(amount: float) -> bool:
+	if stamina_actions_locked:
+		return false # exhausted, cannot perform action
+	
+	# If stamina > 0, action is allowed EVEN IF amount > stamina
+	if stamina > 0:
+		stamina -= amount
+		stamina = max(stamina, 0) # stamina should at least be 0
+		stamina_delay_timer = stamina_recharge_delay 
+		_check_exhaustion()
+		return true
+	
+	return false
+
+
+func set_stamina_bar() -> void:
+	stamina_bar.value = stamina
+
+
 func bind_commands() -> void:
 	move_cmd = MoveCommand.new()
 	attack_cmd = AttackCommand.new()
 	idle_cmd = IdleCommand.new()
 	dash_cmd = DashCommand.new()
+
+
+# regen stamina when not full, unlock exhaustion when full
+func _regen_stamina(delta):
+	if stamina < max_stamina:
+		if stamina_delay_timer > 0:
+			stamina_delay_timer -= delta
+		else:
+			stamina += stamina_recharge_rate * delta
+			stamina = min(stamina, max_stamina)
+	
+	stamina_bar.value = stamina
+	
+	# Unlock only when FULL
+	if stamina_actions_locked and stamina >= max_stamina:
+		stamina_actions_locked = false
+		stamina_bar.modulate = Color(1, 1, 1)     # normal
+		move_speed = base_move_speed
+
+
+# if stamina reaches 0, lock stamina actions and slow player
+func _check_exhaustion():
+	if stamina <= 0 and not stamina_actions_locked:
+		stamina_actions_locked = true
+		running = false
+		velocity = Vector2.ZERO
+		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
+		move_speed = base_move_speed * slow_factor
 
 
 func _update_hitbox() -> void:
@@ -218,6 +286,7 @@ func _spawn_dash_ghost() -> void:
 	
 	get_tree().current_scene.add_child(ghost)
 
+
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if (direction != Vector2.ZERO):
@@ -234,6 +303,11 @@ func _manage_animation_tree_state() -> void:
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
+	
+	if stamina_actions_locked && running:
+		animation_tree["parameters/conditions/idle"] = true
+		animation_tree["parameters/conditions/moving"] = false
+		animation_tree["parameters/conditions/running"] = false
 	
 	# Toggles
 	animation_tree["parameters/conditions/attacking"] = attacking
