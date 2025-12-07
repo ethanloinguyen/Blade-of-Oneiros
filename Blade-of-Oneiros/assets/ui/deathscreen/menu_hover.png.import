@@ -6,8 +6,11 @@ type="CompressedTexture2D"
 uid="uid://bw2x55rprhxay"
 =======
 uid="uid://dqclospfc2esx"
+<<<<<<< HEAD
 
 >>>>>>> 4ba12559e3e72d55998917b371a017d4303a8df7
+=======
+>>>>>>> 5369edcb5765f6ff045c73ba649246a7e14100c8
 path="res://.godot/imported/menu_hover.png-16ac1477fff2e62664474ce8a3a76c4d.ctex"
 metadata={
 "vram_texture": false
