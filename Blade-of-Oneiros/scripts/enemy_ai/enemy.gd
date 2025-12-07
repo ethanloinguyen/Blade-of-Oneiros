@@ -103,7 +103,8 @@ func _ready():
 
 		# wait for attack animation to finish
 		await sprite.animation_finished
-		fsm.change_state(chase_state)
+		if fsm.current_state == attack_state:
+			fsm.change_state(chase_state)
 		,
 		func(_delta:float):
 		velocity = Vector2(0, 0)
