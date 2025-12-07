@@ -937,9 +937,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ixw2r")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_down",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -957,9 +957,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ppegb")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_left",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -977,9 +977,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lit8b")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_right",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -997,9 +997,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r8eho")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_up",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1218,9 +1218,9 @@ script = ExtResource("1_mkyue")
 activate_distance = 200.0
 speed = 60.0
 move_avoid_collision_dist = 50.0
-chase_leash_distance = 30.0
+chase_leash_distance = 10.0
 attack_hitbox = NodePath("AttackHitbox")
-attack_distance = 50.0
+attack_distance = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -1240,10 +1240,12 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_fpxyv")
 damage = 50
+activate_animation = "attack"
+animation_delay = 7.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("RectangleShape2D_mkyue")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpxyv")
-animation = &"idle_down"
+animation = &"hurt_left"

@@ -50,6 +50,7 @@ func _ready():
 		fsm.change_state(stun_state)
 	)
 	health.died.connect(func():
+		print("haha")
 		_play_animation("death")
 		await sprite.animation_finished
 		queue_free()
@@ -125,7 +126,7 @@ func _ready():
 
 
 func _physics_process(delta:float) -> void:
-	if health.current_health >= 0:
+	if not health.is_dead():
 		fsm.update(delta)
 
 		if not _desired_move_dir.is_zero_approx():

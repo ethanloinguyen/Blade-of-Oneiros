@@ -15,5 +15,9 @@ func _ready() -> void:
 func take_damage(amount:int):
 	current_health -= amount
 	emit_signal("hurt")
-	if current_health <= 0:
+	if is_dead():
 		emit_signal("died")
+
+
+func is_dead():
+	return current_health <= 0
