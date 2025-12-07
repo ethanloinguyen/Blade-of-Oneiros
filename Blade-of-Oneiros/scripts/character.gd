@@ -5,7 +5,7 @@ signal direction_changed(new_dir: int)
 
 # --- Core movement parameters ---
 @export var move_speed: float = 100.0
-@export var run_speed: float = 170.0
+@export var run_factor: float = 1.7
 @export var dash_speed: float = 1400.0
 
 # --- Facing and state ---

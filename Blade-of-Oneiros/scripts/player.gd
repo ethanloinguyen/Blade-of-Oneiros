@@ -34,6 +34,7 @@ var dash_cooldown_timer: float = 0.0
 
 # STAMINA SYSTEM
 var base_move_speed: float = 100.0
+var slow_factor: float = 0.6
 @export var max_stamina: float = 100.0
 var stamina: float = 100.0
 
@@ -136,12 +137,6 @@ func _physics_process(delta: float) -> void:
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
 				return
-		
-		if Input.is_action_pressed("run"):
-			if try_use_stamina(1):
-				running = true
-		else:
-			running = false
 	
 	# Get and normalize player direction
 	direction = Vector2(
@@ -245,8 +240,9 @@ func _check_exhaustion():
 	if stamina <= 0 and not stamina_actions_locked:
 		stamina_actions_locked = true
 		running = false
+		velocity = Vector2.ZERO
 		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
-		move_speed = base_move_speed * 0.6
+		move_speed = base_move_speed * slow_factor
 
 
 func _update_hitbox() -> void:
@@ -307,6 +303,11 @@ func _manage_animation_tree_state() -> void:
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
+	
+	if stamina_actions_locked && running:
+		animation_tree["parameters/conditions/idle"] = true
+		animation_tree["parameters/conditions/moving"] = false
+		animation_tree["parameters/conditions/running"] = false
 	
 	# Toggles
 	animation_tree["parameters/conditions/attacking"] = attacking
