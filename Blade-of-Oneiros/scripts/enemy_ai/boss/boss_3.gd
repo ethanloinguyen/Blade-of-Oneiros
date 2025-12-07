@@ -1,4 +1,4 @@
-class_name Boss_2
+class_name Boss_3
 extends CharacterBody2D
 
 
@@ -10,16 +10,12 @@ extends CharacterBody2D
 
 @export var projectile:PackedScene
 
-@export var next_boss:PackedScene
-
 var fsm:FSM
 var idle_state:State
-var jump_state_1:JumpState
-var shoot_state_1:ShootState
-var jump_state_2:JumpState
-var shoot_state_2:ShootState
-var jump_state_3:JumpState
-var shoot_state_3:ShootState
+var jump_state:JumpState
+var shoot_state:ShootState
+var attack_state:State
+var stun_state:State
 
 var _player:Player
 var _dir:String = "down"
@@ -43,12 +39,6 @@ func _ready():
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
-
-		if next_boss != null:
-			var boss:CharacterBody2D = next_boss.instantiate()
-			get_parent().add_child(boss)
-			boss.global_position = global_position
-
 		queue_free()
 	)
 
@@ -64,40 +54,20 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state_1 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
-		_idle(0.1, func():
-			shoot_state_1.shoot(global_position)
-		)
-	)
-	shoot_state_1 = ShootState.new(self, projectile, 4, false, func():
+	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
 		_idle(between_states_wait_duration, func():
-			jump_state_2.jump(_player.global_position)
+			shoot_state.shoot(global_position)
 		)
 	)
-	jump_state_2 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
-		_idle(0.1, func():
-			shoot_state_2.shoot(global_position)
-		)
-	)
-	shoot_state_2 = ShootState.new(self, projectile, 4, true, func():
+	shoot_state = ShootState.new(self, projectile, 4, false, func():
 		_idle(between_states_wait_duration, func():
-			jump_state_3.jump(_player.global_position)
-		)
-	)
-	jump_state_3 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
-		_idle(0.1, func():
-			shoot_state_3.shoot(global_position)
-		)
-	)
-	shoot_state_3 = ShootState.new(self, projectile, 4, false, func():
-		_idle(4.0, func():
-			jump_state_1.jump(_player.global_position)
+			jump_state.jump(_player.global_position)
 		)
 	)
 	fsm = FSM.new(idle_state)
 
 	await get_tree().process_frame
-	jump_state_1.jump(_player.global_position)
+	jump_state.jump(_player.global_position)
 
 
 func _physics_process(delta:float) -> void:

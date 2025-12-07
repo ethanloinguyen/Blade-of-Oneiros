@@ -1,7 +1,7 @@
 [gd_scene load_steps=92 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
-[ext_resource type="PackedScene" uid="uid://fohlexck7mcd" path="res://scenes/boss/slimeball/ghostball.tscn" id="2_qnbdj"]
+[ext_resource type="PackedScene" uid="uid://5vvl8ewnkllm" path="res://scenes/boss/slimeball/fireball.tscn" id="2_gajum"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_oxfrb"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_7geqw"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="5_gajum"]
@@ -656,8 +656,8 @@ animations = [{
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gajum")
-between_states_wait_duration = 1.0
-projectile = ExtResource("2_qnbdj")
+between_states_wait_duration = 2.0
+projectile = ExtResource("2_gajum")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")

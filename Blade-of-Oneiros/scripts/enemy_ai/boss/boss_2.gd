@@ -1,4 +1,4 @@
-class_name Boss_3
+class_name Boss_2
 extends CharacterBody2D
 
 
