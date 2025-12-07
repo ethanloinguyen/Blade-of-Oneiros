@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Blade-of-Oneiros"
-run/main_scene="uid://bib054f3xmxj0"
+run/main_scene="uid://c6yqphodjpj40"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
@@ -21,9 +21,9 @@ BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 PlayerManagement="*res://scripts/player_manager.gd"
 SceneTransition="*res://scenes/scene_transition/scene_transition.tscn"
 DialogueOrchestrator="*res://scripts/dialogue/DialogueOrchestrator.gd"
+GameState="*res://scripts/GameState.gd"
 Inventory="*res://scripts/hud/inventory.gd"
 hud="*res://scenes/hud.tscn"
-GameState="*res://scripts/GameState.gd"
 
 [dotnet]
 

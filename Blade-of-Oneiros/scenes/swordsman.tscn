@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 [ext_resource type="AudioStream" uid="uid://bfmw277i5bsxh" path="res://assets/audio/recorded_audio/nono_panic.wav" id="3_8068f"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
-[ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
+[ext_resource type="Shader" path="res://scenes/playershader.gdshader" id="6_plnse"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]

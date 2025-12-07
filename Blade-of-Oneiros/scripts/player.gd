@@ -66,13 +66,11 @@ func _ready() -> void:
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
 
-<<<<<<< HEAD
-=======
+
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
 
->>>>>>> 5369edcb5765f6ff045c73ba649246a7e14100c8
 	
 func _physics_process(delta: float) -> void:	
 
@@ -83,11 +81,6 @@ func _physics_process(delta: float) -> void:
 
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 5369edcb5765f6ff045c73ba649246a7e14100c8
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
@@ -101,11 +94,8 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if dead:
-<<<<<<< HEAD
 		GameState.game_over = true
 		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
-=======
->>>>>>> 5369edcb5765f6ff045c73ba649246a7e14100c8
 		return
 	
 	if falling:
