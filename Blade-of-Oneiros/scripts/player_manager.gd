@@ -11,7 +11,6 @@ var next_spawn: StringName = &"default"
 func _ready() -> void:
 	player = PLAYER.instantiate()
 	player.add_to_group("player")
-	get_tree().root.call_deferred("add_child",player)
 	player.owner = null
 	get_tree().scene_changed.connect(_on_scene_changed)
 	
@@ -43,10 +42,25 @@ func _place_player() ->void:
 	
 	if root == null or player == null:
 		return
-	var entities := root.get_node_or_null("Entities")
-	if entities and player.get_parent() != entities:
-		player.get_parent().remove_child(player)
-		entities.add_child(player)
+		
+	var entities := root.find_child("Entities", true, false)
+
+
+	if entities != null:
+		if player.get_parent() != entities:
+			if player.get_parent():
+				player.get_parent().remove_child(player)
+			entities.add_child(player)
+			
+	var breakable := root.find_child("BreakableTiles", true, false)
+	
+	if breakable:
+		player.breakable_tiles = breakable
+		#print("Assigned BreakableTiles to player:", breakable)
+	else:
+		#print("No BreakableTiles in this scene.")
+		#uncomment for debug, to check if breakable tiles is being assigned
+		player.breakable_tiles = null
 		
 		
 	var spawn = _find_spawn(root, next_spawn)

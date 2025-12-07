@@ -6,9 +6,8 @@ extends Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
-@onready var hitbox: Area2D = $HitBox
-@onready var hitbox_collision: CollisionShape2D = $HitBox/CollisionShape2D
-
+@onready var hitbox: Hitbox = $HitBox
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -16,6 +15,7 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
+@export var falling_audio: AudioStream
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -32,22 +32,55 @@ var dash_on_cooldown: bool = true
 var dash_cooldown: float = 0.8
 var dash_cooldown_timer: float = 0.0
 
+# STAMINA SYSTEM
+var base_move_speed: float = 100.0
+var slow_factor: float = 0.6
+@export var max_stamina: float = 100.0
+var stamina: float = 100.0
+
+@export var stamina_recharge_rate: float = 20.0   # stamina per second
+@export var stamina_recharge_delay: float = 1.0   # how long until refill starts
+var stamina_delay_timer: float = 0.0
+var stamina_actions_locked = false  # exhaustion state
+
+@export var stamina_cost_attack: float = 10.0
+@export var stamina_cost_dash: float = 15.0
+@export var stamina_cost_run: float = 0.5
+
 var move_cmd: Command
 var attack_cmd: Command
 var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+#breaking/falling tile variables
+var breakable_tiles: BreakableTiles
+var falling: bool = false
+var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
+var cutscene: Control = cutscene_scene.instantiate()
+@onready var health_bar = $Health/HealthBar
+@onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
+	print("Stamina bar is: ", stamina_bar)
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
 	
-	bind_commands()
-	hitbox_collision.disabled = true
 
+<<<<<<< HEAD
 	
 func _physics_process(delta: float) -> void:	
+=======
+	stamina_bar.max_value = max_stamina
+	set_stamina_bar()
+	set_health_bar()
+	bind_commands()	
+
+
+	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
+
+func _physics_process(delta: float) -> void:
+>>>>>>> 744e0a3c907e3e3d16fa5c0f734f226e24c9d6dd
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
@@ -63,6 +96,13 @@ func _physics_process(delta: float) -> void:
 	if _dead:
 		return
 	
+	if falling:
+		return
+		
+	# Regen stamina and update stamina bar
+	_regen_stamina(delta)
+	set_stamina_bar()
+	
 	if dash_on_cooldown:
 		dash_cooldown_timer -= delta
 		
@@ -77,7 +117,6 @@ func _physics_process(delta: float) -> void:
 		# check unlock
 		if attack_timer <= 0:
 			attacking = false
-			hitbox_collision.disabled = true
 		
 		_manage_animation_tree_state()
 		return
@@ -103,23 +142,21 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-	if Input.is_action_just_pressed("attack"):
-		attack_cmd.execute(self)
-		_manage_animation_tree_state()
-		return
-	
-	# DASH
-	if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
-		dash_cmd.execute(self)
-		dash_ghost_timer = 0.0
-
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_pressed("run"):
-		running = true
-	else:
-		running = false
+	# If exhausted skip all stamina-related actions
+	if not stamina_actions_locked:
+		if Input.is_action_just_pressed("attack"):
+			if try_use_stamina(stamina_cost_attack):
+				attack_cmd.execute(self)
+				_manage_animation_tree_state()
+				return
+		
+		# DASH
+		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
+			if try_use_stamina(stamina_cost_dash):
+				dash_cmd.execute(self)
+				dash_ghost_timer = 0.0
+				_manage_animation_tree_state()
+				return
 	
 	# Get and normalize player direction
 	direction = Vector2(
@@ -133,7 +170,6 @@ func _physics_process(delta: float) -> void:
 	# the ray collides with the box, it will continuously call push in that direction
 	if direction != Vector2.ZERO:
 		facing_direction = DirectionSnap._snap_to_cardinal(direction)
-	_update_hitbox()
 	
 	if push_ray != null:
 		var ray_length: float = 8
@@ -157,6 +193,10 @@ func _physics_process(delta: float) -> void:
 		idle_cmd.execute(self)
 	
 	super(delta)
+	
+	if breakable_tiles:
+		breakable_tiles.process_player_step(global_position, self)
+		
 	_manage_animation_tree_state()
 
 
@@ -173,6 +213,28 @@ func take_damage(damage: int) -> void:
 		pass
 
 
+# returns false if unable to use stamina, true if usable
+func try_use_stamina(amount: float) -> bool:
+	if stamina_actions_locked:
+		return false # exhausted, cannot perform action
+	
+	# If stamina > 0, action is allowed EVEN IF amount > stamina
+	if stamina > 0:
+		stamina -= amount
+		stamina = max(stamina, 0) # stamina should at least be 0
+		stamina_delay_timer = stamina_recharge_delay 
+		_check_exhaustion()
+		return true
+	
+	return false
+
+func set_health_bar() -> void:
+	health_bar.value = health
+
+func set_stamina_bar() -> void:
+	stamina_bar.value = stamina
+
+
 func bind_commands() -> void:
 	move_cmd = MoveCommand.new()
 	attack_cmd = AttackCommand.new()
@@ -180,26 +242,32 @@ func bind_commands() -> void:
 	dash_cmd = DashCommand.new()
 
 
-func _update_hitbox() -> void:
-	var rect := hitbox_collision.shape as RectangleShape2D
-	if rect == null:
-		return
-	match facing_direction:
-		Vector2.DOWN:
-			hitbox.rotation = 0.0
-			hitbox.position = hitbox_offset_down
+# regen stamina when not full, unlock exhaustion when full
+func _regen_stamina(delta):
+	if stamina < max_stamina:
+		if stamina_delay_timer > 0:
+			stamina_delay_timer -= delta
+		else:
+			stamina += stamina_recharge_rate * delta
+			stamina = min(stamina, max_stamina)
 	
-		Vector2.RIGHT:
-			hitbox.rotation = -PI * 0.5  
-			hitbox.position = hitbox_offset_right
+	stamina_bar.value = stamina
 	
-		Vector2.UP:
-			hitbox.rotation = PI        
-			hitbox.position = hitbox_offset_up
-	
-		Vector2.LEFT:
-			hitbox.rotation = PI * 0.5 
-			hitbox.position = hitbox_offset_left
+	# Unlock only when FULL
+	if stamina_actions_locked and stamina >= max_stamina:
+		stamina_actions_locked = false
+		stamina_bar.modulate = Color(1, 1, 1)     # normal
+		move_speed = base_move_speed
+
+
+# if stamina reaches 0, lock stamina actions and slow player
+func _check_exhaustion():
+	if stamina <= 0 and not stamina_actions_locked:
+		stamina_actions_locked = true
+		running = false
+		velocity = Vector2.ZERO
+		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
+		move_speed = base_move_speed * slow_factor
 
 
 func _spawn_dash_ghost() -> void:
@@ -221,6 +289,63 @@ func _spawn_dash_ghost() -> void:
 	
 	get_tree().current_scene.add_child(ghost)
 
+
+#falling animation/ stops the player, plays moving animation, then fades the player
+func start_fall(fall_position: Vector2) -> void:
+	if falling or _dead:
+		return
+		
+	falling = true
+	velocity = Vector2.ZERO
+	running = false
+	dashing = false
+	attacking = false
+
+	
+	global_position = fall_position
+	audio.stream = falling_audio
+	audio.play()
+	await get_tree().create_timer(0.2).timeout
+	var fall_dir := direction
+	if fall_dir == Vector2.ZERO:
+		fall_dir = facing_direction
+	animation_tree["parameters/idle/blend_position"] = fall_dir
+	animation_tree["parameters/walk/blend_position"] = fall_dir
+	animation_tree["parameters/run/blend_position"] = fall_dir
+	animation_tree["parameters/attack/blend_position"] = fall_dir
+	animation_tree["parameters/hurt/blend_position"] = fall_dir
+	animation_tree["parameters/death/blend_position"] = fall_dir
+
+	animation_tree["parameters/conditions/idle"] = false
+	animation_tree["parameters/conditions/moving"] = true
+	animation_tree["parameters/conditions/running"] = true
+	animation_tree["parameters/conditions/attacking"] = false
+	animation_tree["parameters/conditions/damaged"] = false
+	await get_tree().create_timer(0.3).timeout
+	
+	var mat := sprite.material as ShaderMaterial
+	
+	var duration := 0.5
+	var sink_amount := 5
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN)
+	
+	tween.tween_property(self, "position:y", position.y + sink_amount, duration)
+
+	if mat != null:
+		tween.parallel().tween_property(mat, "shader_parameter/cut", 1.0, duration)
+
+	await tween.finished
+	if mat != null:
+		mat.set_shader_parameter("cut", 1.0)
+	modulate.a = 0.0
+	
+	get_tree().current_scene.add_child(cutscene)
+	var cam := get_node_or_null("Camera2D")
+	if cam is Camera2D:
+		(cam as Camera2D).enabled = false
+		
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if (direction != Vector2.ZERO):
@@ -237,6 +362,11 @@ func _manage_animation_tree_state() -> void:
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
+	
+	if stamina_actions_locked && running:
+		animation_tree["parameters/conditions/idle"] = true
+		animation_tree["parameters/conditions/moving"] = false
+		animation_tree["parameters/conditions/running"] = false
 	
 	# Toggles
 	animation_tree["parameters/conditions/attacking"] = attacking

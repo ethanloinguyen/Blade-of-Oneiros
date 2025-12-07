@@ -12,13 +12,16 @@ func execute(character: Character) -> Status:
 	if Input.is_action_pressed("ui_right"):
 		character.change_facing(Character.Facing.RIGHT)
 	
+	# Only consume stamina when actually moving
+	if Input.is_action_pressed("run"):
+		if character.try_use_stamina(character.stamina_cost_run):
+			character.running = true
+	else:
+		character.running = false
+	
 	if character.running:
-		character.velocity += character.direction * character.run_speed
-		#character.velocity.x += character.direction.x * character.run_speed
-		#character.velocity.y += character.direction.y * character.run_speed
+		character.velocity += character.direction * character.move_speed * character.run_factor
 	else:
 		character.velocity += character.direction * character.move_speed
-		#character.velocity.x += character.direction.x * character.move_speed
-		#character.velocity.y += character.direction.y * character.move_speed
 	
 	return Status.DONE

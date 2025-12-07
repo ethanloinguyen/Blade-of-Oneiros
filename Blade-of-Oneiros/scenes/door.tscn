@@ -106,7 +106,7 @@ size = Vector2(8, 25)
 size = Vector2(32, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_18pbm"]
-size = Vector2(32, 10)
+size = Vector2(25, 5)
 
 [node name="Door" type="StaticBody2D"]
 y_sort_enabled = true
@@ -160,6 +160,5 @@ shape = SubResource("RectangleShape2D_83dcw")
 debug_color = Color(0.8403169, 0.3128716, 0.57573026, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-visible = false
-position = Vector2(0, 20)
+position = Vector2(0.5, 17.5)
 shape = SubResource("RectangleShape2D_18pbm")
