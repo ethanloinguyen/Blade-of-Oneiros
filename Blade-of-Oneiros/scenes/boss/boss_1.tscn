@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_wj12j"]
 [ext_resource type="PackedScene" uid="uid://8juwuubc4nfx" path="res://scenes/boss/boss_2.tscn" id="3_76j1g"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_w52jb"]
-[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemy_slime.tscn" id="4_p5eep"]
+[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemies/enemy_slime.tscn" id="4_p5eep"]
 [ext_resource type="Texture2D" uid="uid://c2yi3wb6byauk" path="res://assets/mobs/slimes/Slime1/Without_shadow/Slime1_Attack_without_shadow.png" id="5_j5mqk"]
 [ext_resource type="Texture2D" uid="uid://qkf1riv0bww2" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Death_with_shadow.png" id="5_p5eep"]
 [ext_resource type="Texture2D" uid="uid://cifskkkahq2ox" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Hurt_with_shadow.png" id="6_c0fov"]
@@ -935,6 +935,8 @@ animations = [{
 }]
 
 [node name="Boss1" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_7g4c7")
