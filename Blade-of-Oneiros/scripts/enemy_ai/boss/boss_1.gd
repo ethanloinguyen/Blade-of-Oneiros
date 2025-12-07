@@ -34,6 +34,9 @@ func _ready():
 	if _player == null:
 		_player = get_tree().get_first_node_in_group("player")
 
+	while _player == null:
+		await get_tree().process_frame
+
 	health.hurt.connect(func():
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
@@ -83,7 +86,8 @@ func _ready():
 
 func _physics_process(delta:float) -> void:
 	if not health.is_dead():
-		fsm.update(delta)
+		if fsm != null:
+			fsm.update(delta)
 		move_and_slide()
 
 
