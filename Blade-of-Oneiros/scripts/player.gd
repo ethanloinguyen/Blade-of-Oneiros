@@ -53,9 +53,9 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
-var breakable_tiles: BreakableTiles
-@onready var health_bar = $Health/HealthBar
-@onready var stamina_bar = $Stamina/StaminaBar
+@onready var health_bar = $HUD/Health/HealthBar
+@onready var stamina_bar = $HUD/Stamina/StaminaBar
+@onready var inventory = $HUD/InventoryPanel
 
 func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
@@ -141,6 +141,8 @@ func _physics_process(delta: float) -> void:
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
 				return
+	else:
+		running = false
 	
 	# Get and normalize player direction
 	direction = Vector2(
@@ -186,6 +188,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: int) -> void:
 	health -= damage
+	set_health_bar()
 	_damaged = true
 	if health <= 0:
 		# play death audio here
@@ -306,3 +309,19 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
+
+## Inventory related commands:
+#func _on_potion_pickup_area_entered(body):
+	#if body is Player:
+		#Inventory.add_potion(1)
+		#queue_free()
+#
+#if Inventory.use_key():
+	#open_door()
+#else:
+	#print("Need a key!")
+#
+#if Inventory.use_potion():
+	#player.heal(20)
+#else:
+	#print("No potions!")

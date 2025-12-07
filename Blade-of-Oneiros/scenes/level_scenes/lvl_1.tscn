@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_hwdor"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="4_53anu"]
 [ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
+[ext_resource type="PackedScene" uid="uid://v002ol18qlu1" path="res://scenes/hud.tscn" id="6_4n67h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ilr"]
 size = Vector2(22.5, 18.25)
@@ -60,3 +61,6 @@ script = ExtResource("3_4n67h")
 
 [node name="debug_map" parent="." instance=ExtResource("5_53anu")]
 position = Vector2(-48, 229)
+
+[node name="HUD" parent="." instance=ExtResource("6_4n67h")]
+follow_viewport_enabled = true
