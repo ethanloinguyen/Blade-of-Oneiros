@@ -8,6 +8,7 @@ extends Character
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var hurt_box : Health = $HurtBox
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -92,10 +93,21 @@ func _physics_process(delta: float) -> void:
 	# if in dialogue stop all movement
 	if in_dialogue:
 		return
+		
+	hurt_box.hurt.connect(func():
+		animation_player.play("hurt")
+	)
+	hurt_box.died.connect(func():
+		animation_tree.active = false
+		animation_player.play("dead")
+		#await sprite.animation_finished
+		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+	)
+	
 	
 	if dead:
 		GameState.game_over = true
-		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+		
 		return
 	
 	if falling:
@@ -202,20 +214,6 @@ func _physics_process(delta: float) -> void:
 		breakable_tiles.process_player_step(global_position, self)
 		
 	_manage_animation_tree_state()
-
-
-func take_damage(damage: int) -> void:
-	health -= damage
-	set_health_bar()
-	_damaged = true
-	if health <= 0:
-		# play death audio here
-		dead = true
-		animation_tree.active = false
-		animation_tree.play("death")
-	else:
-		# play hurt audio here
-		pass
 
 
 # returns false if unable to use stamina, true if usable
