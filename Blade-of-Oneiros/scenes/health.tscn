@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://boifj1fre2w40" path="res://assets/hud/healthbar_juice.png" id="2_58c75"]
 
 [node name="Health" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -148.0

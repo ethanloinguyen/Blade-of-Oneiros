@@ -70,8 +70,10 @@ tile_set = ExtResource("1_4f4na")
 script = ExtResource("2_ml6jv")
 
 [node name="Enemies" type="Node2D" parent="Entities"]
+y_sort_enabled = true
 
 [node name="Boss1" parent="Entities/Enemies" instance=ExtResource("9_ieut8")]
+z_index = 1
 position = Vector2(392, 368)
 
 [node name="ysort" type="Node2D" parent="."]

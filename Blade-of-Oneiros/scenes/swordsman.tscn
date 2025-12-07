@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 [ext_resource type="AudioStream" uid="uid://bfmw277i5bsxh" path="res://assets/audio/recorded_audio/nono_panic.wav" id="3_8068f"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
-[ext_resource type="Shader" path="res://scenes/playershader.gdshader" id="6_plnse"]
+[ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -250,9 +250,13 @@ states/Start/position = Vector2(200, 100.170135)
 states/attack/node = SubResource("AnimationNodeBlendSpace2D_6vopk")
 states/attack/position = Vector2(503.375, 205)
 states/death/node = SubResource("AnimationNodeBlendSpace2D_plnse")
-states/death/position = Vector2(860.5, -31.166666)
+states/death/position = Vector2(889, 170.15625)
 states/hurt/node = SubResource("AnimationNodeBlendSpace2D_8068f")
+<<<<<<< HEAD
 states/hurt/position = Vector2(666.71875, 158.5)
+=======
+states/hurt/position = Vector2(751.6875, 170.08333)
+>>>>>>> fe902173242c7a8b3be72340fe08d16a15777e8d
 states/idle/node = SubResource("AnimationNodeBlendSpace2D_m4nto")
 states/idle/position = Vector2(380, 99.921875)
 states/run/node = SubResource("AnimationNodeBlendSpace2D_h7ukg")
@@ -260,7 +264,7 @@ states/run/position = Vector2(666.71875, 21.25)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_sc1u0")
 states/walk/position = Vector2(503.5, -19)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_cbeiu"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_pq5me"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_bsxtd"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_y0gk3"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_on3w6"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_i4tte"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_4rvpn"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_mktrd"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_n8ud3"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_um5ev"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_5jjdc"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_jgi4d"), "run", "hurt", SubResource("AnimationNodeStateMachineTransition_aeqmg"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_tkdnu"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_4i1br")]
-graph_offset = Vector2(42.569885, -92.34476)
+graph_offset = Vector2(42.569885, -82.22359)
 
 [sub_resource type="Animation" id="Animation_qm2of"]
 length = 0.001
@@ -801,7 +805,7 @@ parameters/attack/blend_position = Vector2(0, 0)
 parameters/death/blend_position = Vector2(0, 0)
 parameters/hurt/blend_position = Vector2(0, 0)
 parameters/idle/blend_position = Vector2(-0.0049200654, 0.9712)
-parameters/run/blend_position = Vector2(0, 0)
+parameters/run/blend_position = Vector2(-0.21531701, 0.634406)
 parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

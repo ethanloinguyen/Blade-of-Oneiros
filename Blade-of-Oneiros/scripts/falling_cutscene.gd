@@ -34,6 +34,5 @@ func _ready() -> void:
 
 func _on_anim_finished(_anim_name: StringName) -> void:
 	player.dead = true
-	player.health = 0
 	player.set_health_bar()
 	queue_free()

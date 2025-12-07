@@ -17,6 +17,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if(GameState.game_over):
 		#await SceneTransition.fade_out()
+		hud.visible = false
 		background.visible = true
 		menu_button.visible = true
 		respawn_button.visible = true
