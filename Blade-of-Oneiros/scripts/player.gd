@@ -65,11 +65,11 @@ func _ready() -> void:
 
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-
+	
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
-
+	hud.visible = true
 	
 func _physics_process(delta: float) -> void:	
 
