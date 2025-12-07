@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=86 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
+[ext_resource type="PackedScene" path="res://scenes/stamina.tscn" id="6_jtonm"]
+[ext_resource type="PackedScene" path="res://scenes/health.tscn" id="7_xauwr"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -253,7 +255,7 @@ states/run/position = Vector2(666.71875, 21.25)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_sc1u0")
 states/walk/position = Vector2(503.5, -19)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_cbeiu"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_pq5me"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_bsxtd"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_y0gk3"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_on3w6"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_i4tte"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_4rvpn"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_mktrd"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_n8ud3"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_um5ev"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_5jjdc"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_jgi4d"), "run", "hurt", SubResource("AnimationNodeStateMachineTransition_aeqmg"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_tkdnu"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_4i1br")]
-graph_offset = Vector2(42.569885, 71.647)
+graph_offset = Vector2(42.569885, -92.34476)
 
 [sub_resource type="Animation" id="Animation_qm2of"]
 length = 0.001
@@ -744,7 +746,7 @@ position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("4_jtonm")
-damage = 30
+damage = 35
 activate_animation = "attack"
 animation_delay = 0.15
 
@@ -803,3 +805,7 @@ position = Vector2(0, -5)
 target_position = Vector2(0, 1)
 collision_mask = 8
 hit_from_inside = true
+
+[node name="Stamina" parent="." instance=ExtResource("6_jtonm")]
+
+[node name="Health" parent="." instance=ExtResource("7_xauwr")]
