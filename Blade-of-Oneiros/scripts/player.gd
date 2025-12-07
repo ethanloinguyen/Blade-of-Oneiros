@@ -19,7 +19,7 @@ extends Character
 
 var dash_time:= 0.0
 var _damaged: bool = false
-var _dead: bool = false
+var dead: bool = false
 var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
 
@@ -67,10 +67,9 @@ func _ready() -> void:
 	animation_player.speed_scale = 0.1
 	
 
-<<<<<<< HEAD
 	
 func _physics_process(delta: float) -> void:	
-=======
+
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
@@ -78,9 +77,6 @@ func _physics_process(delta: float) -> void:
 
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
-
-func _physics_process(delta: float) -> void:
->>>>>>> 744e0a3c907e3e3d16fa5c0f734f226e24c9d6dd
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
@@ -93,7 +89,9 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		return
 	
-	if _dead:
+	if dead:
+		GameState.game_over = true
+		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 		return
 	
 	if falling:
@@ -205,7 +203,7 @@ func take_damage(damage: int) -> void:
 	_damaged = true
 	if health <= 0:
 		# play death audio here
-		_dead = true
+		dead = true
 		animation_tree.active = false
 		animation_tree.play("death")
 	else:
@@ -292,7 +290,7 @@ func _spawn_dash_ghost() -> void:
 
 #falling animation/ stops the player, plays moving animation, then fades the player
 func start_fall(fall_position: Vector2) -> void:
-	if falling or _dead:
+	if falling or dead:
 		return
 		
 	falling = true
