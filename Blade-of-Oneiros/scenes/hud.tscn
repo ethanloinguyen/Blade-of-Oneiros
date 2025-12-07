@@ -6,16 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="3_047uy"]
 [ext_resource type="Texture2D" uid="uid://cv1qm5tjb10xf" path="res://assets/map/tileset/new_objects_fixed.png" id="3_uo2fv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sc1u0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_plnse"]
 atlas = ExtResource("3_uo2fv")
 region = Rect2(16, 32, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qm2of"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8068f"]
 atlas = ExtResource("3_uo2fv")
 region = Rect2(40, 32, 24, 24)
 
 [node name="HUD" type="CanvasLayer"]
-layer = 7
+layer = 10
 script = ExtResource("1_5ysmq")
 
 [node name="Health" parent="." instance=ExtResource("2_uo2fv")]
@@ -48,7 +48,7 @@ layout_mode = 2
 
 [node name="PotionIcon" type="TextureRect" parent="InventoryPanel/PotionBox"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_sc1u0")
+texture = SubResource("AtlasTexture_plnse")
 expand_mode = 2
 
 [node name="KeyBox" type="HBoxContainer" parent="InventoryPanel"]
@@ -62,5 +62,5 @@ layout_mode = 2
 
 [node name="KeyIcon" type="TextureRect" parent="InventoryPanel/KeyBox"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_qm2of")
+texture = SubResource("AtlasTexture_8068f")
 expand_mode = 2

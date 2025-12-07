@@ -1,14 +1,11 @@
-[gd_scene load_steps=89 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=84 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
-[ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="6_jtonm"]
-[ext_resource type="PackedScene" uid="uid://c8un0chbrs547" path="res://scenes/health.tscn" id="7_xauwr"]
-[ext_resource type="Script" uid="uid://ipxuilntxfb3" path="res://scripts/hud/inventory.gd" id="9_m4nto"]
-[ext_resource type="Texture2D" uid="uid://cv1qm5tjb10xf" path="res://assets/map/tileset/new_objects_fixed.png" id="10_h7ukg"]
+[ext_resource type="PackedScene" uid="uid://v002ol18qlu1" path="res://scenes/hud.tscn" id="8_6vopk"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -26,14 +23,6 @@ height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(38, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_plnse"]
-atlas = ExtResource("10_h7ukg")
-region = Rect2(16, 32, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8068f"]
-atlas = ExtResource("10_h7ukg")
-region = Rect2(40, 32, 24, 24)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j1nbv"]
 graph_offset = Vector2(-312.6071, -344.78262)
@@ -773,53 +762,6 @@ script = ExtResource("2_6mje0")
 max_look_ahead = 40.0
 look_ahead_speed = 3.0
 
-[node name="Health" parent="Camera2D" instance=ExtResource("7_xauwr")]
-z_index = 6
-offset_top = -86.0
-offset_bottom = -46.0
-
-[node name="Stamina" parent="Camera2D" instance=ExtResource("6_jtonm")]
-z_index = 6
-offset_top = -69.0
-offset_bottom = -29.0
-
-[node name="InventoryPanel" type="Control" parent="Camera2D"]
-z_index = 6
-layout_mode = 3
-anchors_preset = 0
-offset_left = -140.0
-offset_top = 37.0
-offset_right = -86.0
-offset_bottom = 77.0
-script = ExtResource("9_m4nto")
-
-[node name="PotionBox" type="HBoxContainer" parent="Camera2D/InventoryPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PotionLabel" type="Label" parent="Camera2D/InventoryPanel/PotionBox"]
-layout_mode = 2
-
-[node name="PotionIcon" type="TextureRect" parent="Camera2D/InventoryPanel/PotionBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_plnse")
-expand_mode = 2
-
-[node name="KeyBox" type="HBoxContainer" parent="Camera2D/InventoryPanel"]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 91.0
-offset_bottom = 40.0
-
-[node name="KeyLabel" type="Label" parent="Camera2D/InventoryPanel/KeyBox"]
-layout_mode = 2
-
-[node name="KeyIcon" type="TextureRect" parent="Camera2D/InventoryPanel/KeyBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_8068f")
-expand_mode = 2
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -11)
 texture = ExtResource("2_j1nbv")
@@ -853,3 +795,5 @@ position = Vector2(0, -5)
 target_position = Vector2(0, 1)
 collision_mask = 8
 hit_from_inside = true
+
+[node name="HUD" parent="." instance=ExtResource("8_6vopk")]

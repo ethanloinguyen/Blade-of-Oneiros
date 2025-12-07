@@ -53,9 +53,9 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
-@onready var health_bar = $Camera2D/Health/HealthBar
-@onready var stamina_bar = $Camera2D/Stamina/StaminaBar
-@onready var inventory = $Camera2D/InventoryPanel
+@onready var health_bar = $HUD/Health/HealthBar
+@onready var stamina_bar = $HUD/Stamina/StaminaBar
+@onready var inventory = $HUD/InventoryPanel
 
 func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
@@ -184,6 +184,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: int) -> void:
 	health -= damage
+	set_health_bar()
 	_damaged = true
 	if health <= 0:
 		# play death audio here
