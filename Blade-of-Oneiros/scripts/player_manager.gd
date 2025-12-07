@@ -19,7 +19,7 @@ func _ready() -> void:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player
 
-	call_deferred("_place_player")
+	_place_player()
 
 
 func change_level(scene_path: String, spawn_tag: StringName = "default") -> void:
@@ -34,7 +34,7 @@ func change_level(scene_path: String, spawn_tag: StringName = "default") -> void
 
 
 func _on_scene_changed() -> void:
-	call_deferred("_place_player")
+	_place_player()
 
 
 func _place_player() ->void:

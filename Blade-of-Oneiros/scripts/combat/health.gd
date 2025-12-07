@@ -13,6 +13,8 @@ func _ready() -> void:
 
 
 func take_damage(amount:int):
+	if current_health <= 0: # prevent double death
+		return
 	current_health -= amount
 	emit_signal("hurt")
 	if is_dead():
