@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="3_047uy"]
 [ext_resource type="PackedScene" uid="uid://bgnihqp3bpqcl" path="res://scenes/inventory.tscn" id="4_6fi6k"]
 
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_5ysmq")
 

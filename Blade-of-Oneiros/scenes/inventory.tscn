@@ -13,6 +13,7 @@ region = Rect2(40, 32, 24, 24)
 
 [node name="InventoryPanel" type="Control"]
 z_index = 6
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -140.0
