@@ -47,11 +47,15 @@ func _ready() -> void:
 	hitbox_collision.disabled = true
 
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
 	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
+	
+	if not GameState.game_started:
+		velocity = Vector2.ZERO
+		return
 	
 	# if in dialogue stop all movement
 	if in_dialogue:
