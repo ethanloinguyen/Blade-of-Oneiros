@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @export var activate_distance:float
 @export var speed:float
+@export var move_avoid_collision_dist:float
 @export var chase_leash_distance:float
 
 @export var attack_hitbox:Hitbox
@@ -20,13 +21,25 @@ var stun_state:State
 var _player:Player
 var _dir:String = "down"
 
+var MOVE_DIR_COUNT = 32
+var _move_dirs:Array[Vector2]
+var _move_dirs_weights:Array[float]
+var _desired_move_dir:Vector2
+var _move_avoid_dirs:Array[Vector2]
+
 
 func _enter_tree():
 	add_to_group("enemy")
 
 
 func _ready():
-	attack_hitbox.attach_signal(sprite)
+	attack_hitbox.attach_signal(sprite, false)
+
+	# set up movement
+	for i in range(MOVE_DIR_COUNT):
+		var angle = float(i)/MOVE_DIR_COUNT * TAU
+		_move_dirs.push_back(Vector2(cos(angle), sin(angle)).normalized())
+	_move_dirs_weights.resize(MOVE_DIR_COUNT)
 
 	# set player var for enemies spawned mid-game
 	if _player == null:
@@ -64,12 +77,13 @@ func _ready():
 		Callable(),
 		func(_delta:float):
 		var dist_to_player:float = _player.global_position.distance_to(global_position)
-		if dist_to_player > chase_leash_distance:
-			velocity = (_player.global_position - global_position).normalized() * speed
-		else:
-			velocity = Vector2(0, 0)
+		var to_player = _player.global_position - global_position
+		_desired_move_dir = to_player
+		if chase_leash_distance > dist_to_player:
+			_move_avoid_dirs.push_back(to_player)
 
 		# play animation
+		_update_dir(to_player)
 		if velocity.is_zero_approx():
 			_play_animation("idle")
 		else:
@@ -84,11 +98,13 @@ func _ready():
 	attack_state = State.new(
 		"Attack",
 		func():
+		_desired_move_dir = Vector2.ZERO
 		_play_animation("attack")
 
 		# wait for attack animation to finish
 		await sprite.animation_finished
-		fsm.change_state(chase_state)
+		if fsm.current_state == attack_state:
+			fsm.change_state(chase_state)
 		,
 		func(_delta:float):
 		velocity = Vector2(0, 0)
@@ -98,6 +114,7 @@ func _ready():
 	stun_state = State.new(
 		"Stun",
 		func():
+		sprite.stop()
 		_play_animation("hurt")
 		await sprite.animation_finished
 		fsm.change_state(chase_state)
@@ -110,23 +127,90 @@ func _ready():
 
 
 func _physics_process(delta:float) -> void:
-	if health.current_health >= 0:
+	if not health.is_dead():
 		fsm.update(delta)
-		_update_dir()
-		move_and_slide()
+
+		if not _desired_move_dir.is_zero_approx():
+			_update_velocity()
+			move_and_slide()
 
 
-func _update_dir() -> void:
-	if velocity.x > velocity.y:
-		if velocity.x > 0:
+func _update_velocity() -> void:
+	var space_state := get_world_2d().direct_space_state
+	for i in range(_move_dirs.size()):
+		_move_dirs_weights[i] = 1
+	for i in range(_move_dirs.size()):
+		# raycast to avoid collisions
+		var query := PhysicsRayQueryParameters2D.create(global_position, global_position + _move_dirs[i] * move_avoid_collision_dist)
+		query.collision_mask = collision_mask
+		var result:Dictionary = space_state.intersect_ray(query)
+		if result:
+			var dist: float = global_position.distance_to(result["position"])
+
+			# reduce weight of all nearby rays
+			for j in range(_move_dirs.size()):
+				var dp = _move_dirs[i].dot(_move_dirs[j])
+				if dp > 0.3:
+					var factor = dist/move_avoid_collision_dist * (1-dp)
+					_move_dirs_weights[j] = min(_move_dirs_weights[j], factor)
+
+		# avoid move_avoid_dirs
+		for bad_dir in _move_avoid_dirs:
+			if _move_dirs[i].dot(bad_dir) > 0.8:
+				_move_dirs_weights[i] = 0
+
+		# limit dirs based on desired_move_dir
+		var dir_weighted_limit = max(_move_dirs[i].dot(_desired_move_dir.normalized()), 0)
+		if _move_dirs_weights[i] > dir_weighted_limit:
+			# weigh towards desired_move_dir
+			_move_dirs_weights[i] = dir_weighted_limit
+			# prefer rightward (clockwise) movement
+			var desired_dir_right = Vector2(_desired_move_dir.y, -_desired_move_dir.x)
+			var dp = _move_dirs[i].dot(desired_dir_right)
+			if dp < -0.1 and _move_dirs_weights[i] > 0.3:
+				_move_dirs_weights[i] = 0.3
+
+	# set velocity
+	var best_index = 0
+	for i in range(_move_dirs_weights.size()):
+		if _move_dirs_weights[i] > _move_dirs_weights[best_index]:
+			best_index = i
+	velocity = _move_dirs[best_index] * speed
+
+	# reset move avoid dirs
+	_move_avoid_dirs = []
+	queue_redraw()
+
+
+func _update_dir(dir:Vector2) -> void:
+	if abs(dir.x) > abs(dir.y):
+		if dir.x > 0:
 			_dir = "right"
-		elif velocity.x < 0:
+		elif dir.x < 0:
 			_dir = "left"
 	else:
-		if velocity.y > 0:
+		if dir.y > 0:
 			_dir = "down"
-		elif velocity.y < 0:
+		elif dir.y < 0:
 			_dir = "up"
+
+
+func _draw() -> void:
+	if not OS.is_debug_build() or true:
+		return
+
+	# draw movement dir weights
+	if _move_dirs_weights.size() == 0:
+		return
+	var best_index = 0
+	for i in range(_move_dirs_weights.size()):
+		if _move_dirs_weights[i] > _move_dirs_weights[best_index]:
+			best_index = i
+	for i in range(_move_dirs.size()):
+		var color = Color(1, 0, 0)
+		if i == best_index:
+			color = Color(0, 1, 0)
+		draw_line(Vector2.ZERO, _move_dirs[i] * _move_dirs_weights[i] * move_avoid_collision_dist, color, 1.0)
 
 
 func _play_animation(animation:String) -> void:

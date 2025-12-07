@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6jknupfpias"
-path="res://.godot/imported/dungeon_props.png-e08e974f77579200eaa990edcfbe058c.ctex"
+uid="uid://b8b14i7lj45kq"
+path="res://.godot/imported/pedestals.png-4202be6ebb5c7307795936271c603c37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/dungeon_props.png"
-dest_files=["res://.godot/imported/dungeon_props.png-e08e974f77579200eaa990edcfbe058c.ctex"]
+source_file="res://assets/map/dungeon_objects_extra/pedestals.png"
+dest_files=["res://.godot/imported/pedestals.png-4202be6ebb5c7307795936271c603c37.ctex"]
 
 [params]
 
