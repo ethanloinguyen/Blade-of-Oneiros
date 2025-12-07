@@ -7,7 +7,7 @@ extends Character
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
-
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -15,7 +15,7 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
-
+@export var falling_audio: AudioStream
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -53,7 +53,11 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+#breaking/falling tile variables
 var breakable_tiles: BreakableTiles
+var falling: bool = false
+var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
+var cutscene: Control = cutscene_scene.instantiate()
 @onready var health_bar = $Health/HealthBar
 @onready var stamina_bar = $Stamina/StaminaBar
 
@@ -61,6 +65,7 @@ func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
+	
 
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
@@ -83,6 +88,9 @@ func _physics_process(delta: float) -> void:
 	if _dead:
 		return
 	
+	if falling:
+		return
+		
 	# Regen stamina and update stamina bar
 	_regen_stamina(delta)
 	set_stamina_bar()
@@ -274,6 +282,62 @@ func _spawn_dash_ghost() -> void:
 	get_tree().current_scene.add_child(ghost)
 
 
+#falling animation/ stops the player, plays moving animation, then fades the player
+func start_fall(fall_position: Vector2) -> void:
+	if falling or _dead:
+		return
+		
+	falling = true
+	velocity = Vector2.ZERO
+	running = false
+	dashing = false
+	attacking = false
+
+	
+	global_position = fall_position
+	audio.stream = falling_audio
+	audio.play()
+	await get_tree().create_timer(0.2).timeout
+	var fall_dir := direction
+	if fall_dir == Vector2.ZERO:
+		fall_dir = facing_direction
+	animation_tree["parameters/idle/blend_position"] = fall_dir
+	animation_tree["parameters/walk/blend_position"] = fall_dir
+	animation_tree["parameters/run/blend_position"] = fall_dir
+	animation_tree["parameters/attack/blend_position"] = fall_dir
+	animation_tree["parameters/hurt/blend_position"] = fall_dir
+	animation_tree["parameters/death/blend_position"] = fall_dir
+
+	animation_tree["parameters/conditions/idle"] = false
+	animation_tree["parameters/conditions/moving"] = true
+	animation_tree["parameters/conditions/running"] = true
+	animation_tree["parameters/conditions/attacking"] = false
+	animation_tree["parameters/conditions/damaged"] = false
+	await get_tree().create_timer(0.3).timeout
+	
+	var mat := sprite.material as ShaderMaterial
+	
+	var duration := 0.5
+	var sink_amount := 5
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN)
+	
+	tween.tween_property(self, "position:y", position.y + sink_amount, duration)
+
+	if mat != null:
+		tween.parallel().tween_property(mat, "shader_parameter/cut", 1.0, duration)
+
+	await tween.finished
+	if mat != null:
+		mat.set_shader_parameter("cut", 1.0)
+	modulate.a = 0.0
+	
+	get_tree().current_scene.add_child(cutscene)
+	var cam := get_node_or_null("Camera2D")
+	if cam is Camera2D:
+		(cam as Camera2D).enabled = false
+		
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if (direction != Vector2.ZERO):

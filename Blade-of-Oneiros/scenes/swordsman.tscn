@@ -1,13 +1,15 @@
-[gd_scene load_steps=86 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=90 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="2_6mje0"]
+[ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
+[ext_resource type="AudioStream" uid="uid://bfmw277i5bsxh" path="res://assets/audio/recorded_audio/nono_panic.wav" id="3_8068f"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
-[ext_resource type="PackedScene" path="res://scenes/stamina.tscn" id="6_jtonm"]
-[ext_resource type="PackedScene" path="res://scenes/health.tscn" id="7_xauwr"]
+[ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="6_jtonm"]
+[ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
+[ext_resource type="PackedScene" uid="uid://c8un0chbrs547" path="res://scenes/health.tscn" id="7_xauwr"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -25,6 +27,11 @@ height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(16, 38)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_plnse"]
+shader = ExtResource("6_plnse")
+shader_parameter/cut = 0.0
+shader_parameter/softness = 0.1
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j1nbv"]
 graph_offset = Vector2(-312.6071, -344.78262)
@@ -710,6 +717,8 @@ _data = {
 &"walk_up": SubResource("Animation_ai3mq")
 }
 
+[sub_resource type="AudioStream" id="AudioStream_plnse"]
+
 [node name="Swordsman" type="CharacterBody2D" groups=["player"]]
 z_index = 2
 y_sort_enabled = true
@@ -723,6 +732,7 @@ hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
 dash_ghost_scene = ExtResource("2_r7u1p")
 dash_curve = SubResource("Curve_s1psh")
+falling_audio = ExtResource("3_8068f")
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -773,6 +783,7 @@ max_look_ahead = 40.0
 look_ahead_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_plnse")
 position = Vector2(0, -11)
 texture = ExtResource("2_j1nbv")
 hframes = 12
@@ -809,3 +820,6 @@ hit_from_inside = true
 [node name="Stamina" parent="." instance=ExtResource("6_jtonm")]
 
 [node name="Health" parent="." instance=ExtResource("7_xauwr")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStream_plnse")
