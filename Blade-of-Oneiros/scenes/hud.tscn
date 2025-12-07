@@ -1,69 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://v002ol18qlu1"]
+[gd_scene load_steps=4 format=3 uid="uid://v002ol18qlu1"]
 
-[ext_resource type="Script" uid="uid://bjmgpt3v3d3ts" path="res://scripts/hud/hud.gd" id="1_5ysmq"]
-[ext_resource type="Script" uid="uid://ipxuilntxfb3" path="res://scripts/hud/inventory.gd" id="2_6fi6k"]
-[ext_resource type="PackedScene" uid="uid://c8un0chbrs547" path="res://scenes/health.tscn" id="2_uo2fv"]
-[ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="3_047uy"]
+[ext_resource type="Script" uid="uid://bl8fknnm4qk83" path="res://scripts/potion_pickup.gd" id="1_oo0fn"]
 [ext_resource type="Texture2D" uid="uid://cv1qm5tjb10xf" path="res://assets/map/tileset/new_objects_fixed.png" id="3_uo2fv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_plnse"]
-atlas = ExtResource("3_uo2fv")
-region = Rect2(16, 32, 24, 24)
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtbgd"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8068f"]
-atlas = ExtResource("3_uo2fv")
-region = Rect2(40, 32, 24, 24)
+[node name="Potion" type="Node2D"]
+script = ExtResource("1_oo0fn")
 
-[node name="HUD" type="CanvasLayer"]
-layer = 10
-offset = Vector2(700, 350)
-transform = Transform2D(1, 0, 0, 1, 700, 350)
-follow_viewport_enabled = true
-script = ExtResource("1_5ysmq")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_uo2fv")
+region_enabled = true
+region_rect = Rect2(16, 64, 16, 16)
 
-[node name="Health" parent="." instance=ExtResource("2_uo2fv")]
-z_index = 6
-offset_top = -86.0
-offset_bottom = -46.0
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
 
-[node name="Stamina" parent="." instance=ExtResource("3_047uy")]
-z_index = 6
-offset_top = -69.0
-offset_bottom = -29.0
-
-[node name="InventoryPanel" type="Control" parent="."]
-z_index = 6
-layout_mode = 3
-anchors_preset = 0
-offset_left = -140.0
-offset_top = 37.0
-offset_right = -86.0
-offset_bottom = 77.0
-script = ExtResource("2_6fi6k")
-
-[node name="PotionBox" type="HBoxContainer" parent="InventoryPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PotionLabel" type="Label" parent="InventoryPanel/PotionBox"]
-layout_mode = 2
-
-[node name="PotionIcon" type="TextureRect" parent="InventoryPanel/PotionBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_plnse")
-expand_mode = 2
-
-[node name="KeyBox" type="HBoxContainer" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 91.0
-offset_bottom = 40.0
-
-[node name="KeyLabel" type="Label" parent="InventoryPanel/KeyBox"]
-layout_mode = 2
-
-[node name="KeyIcon" type="TextureRect" parent="InventoryPanel/KeyBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_8068f")
-expand_mode = 2
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vtbgd")

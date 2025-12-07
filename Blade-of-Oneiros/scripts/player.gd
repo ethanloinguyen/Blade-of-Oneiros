@@ -1,13 +1,13 @@
 class_name Player
 extends Character
 
-@export var health:int = 100
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var health: Health = $HurtBox
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -19,7 +19,7 @@ extends Character
 
 var dash_time:= 0.0
 var _damaged: bool = false
-var _dead: bool = false
+var dead: bool = false
 var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
 
@@ -53,42 +53,53 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
-@onready var health_bar = $HUD/Health/HealthBar
-@onready var stamina_bar = $HUD/Stamina/StaminaBar
-@onready var inventory = $HUD/InventoryPanel
+var health_bar: TextureProgressBar
+var stamina_bar: TextureProgressBar
 #breaking/falling tile variables
 var breakable_tiles: BreakableTiles
 var falling: bool = false
 var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
-var cutscene: Control = cutscene_scene.instantiate()
-@onready var health_bar = $Health/HealthBar
-@onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
-	print("Stamina bar is: ", stamina_bar)
+
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-	
 
+	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
+	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
+	hud.visible = true
+	health.hurt.connect(_on_health_hurt)
+	health.died.connect(_on_health_died)	
+	health_bar.max_value = health.max_health
+	set_health_bar()
+	stamina_bar.max_value = max_stamina
+	set_stamina_bar()
+	bind_commands()
+	
+func _physics_process(delta: float) -> void:	
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
-	bind_commands()	
+		
 
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
-
-func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
 	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
+	if not GameState.game_started or GameState.input_locked:
+		velocity = Vector2.ZERO
+		return
 	
 	# if in dialogue stop all movement
 	if in_dialogue:
 		return
 	
-	if _dead:
+	if dead:
+		#GameState.game_over = true
+		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+		velocity = Vector2.ZERO
 		return
 	
 	if falling:
@@ -134,6 +145,20 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 		
 		super(delta)
+		_manage_animation_tree_state()
+		return
+	
+	if Input.is_action_just_pressed("add_potion"):
+		Inventory.add_potion()
+		_manage_animation_tree_state()
+		return
+	
+	# If
+	if Input.is_action_just_pressed("potion"):
+		if Inventory.use_potion():
+			health.current_health += 20
+			health.current_health = min(health.max_health, health.current_health)
+			set_health_bar()
 		_manage_animation_tree_state()
 		return
 	
@@ -198,17 +223,52 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage(damage: int) -> void:
-	health -= damage
-	set_health_bar()
+	health.take_damage(damage)
+	#health -= damage
+	#set_health_bar()
+	#_damaged = true
+	#if health <= 0:
+		## play death audio here
+		#dead = true
+		#attacking = false
+		#running = false
+		#velocity = Vector2.ZERO
+		##animation_tree.active = false
+		##animation_tree.play("death")
+		#animation_tree["parameters/conditions/death"] = true
+	#else:
+		## play hurt audio here
+		#_damaged = true
+		
+func _on_health_hurt() -> void:
+	if dead:
+		return
 	_damaged = true
-	if health <= 0:
-		# play death audio here
-		_dead = true
-		animation_tree.active = false
-		animation_tree.play("death")
-	else:
-		# play hurt audio here
-		pass
+	set_health_bar()
+	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+	sm.travel("hurt") 
+
+	#_manage_animation_tree_state()
+
+
+func _on_health_died() -> void:
+	if dead:
+		return
+
+	dead = true
+	set_health_bar()
+
+	attacking = false
+	running = false
+	velocity = Vector2.ZERO
+
+	#animation_tree["parameters/conditions/death"] = true
+	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+	sm.travel("death")
+	await get_tree().create_timer(1.0).timeout
+	GameState.game_over = true
+	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+	#_manage_animation_tree_state()
 
 
 # returns false if unable to use stamina, true if usable
@@ -227,10 +287,13 @@ func try_use_stamina(amount: float) -> bool:
 	return false
 
 func set_health_bar() -> void:
-	health_bar.value = health
+	if health_bar and health:
+		health_bar.value = health.current_health
+
 
 func set_stamina_bar() -> void:
-	stamina_bar.value = stamina
+	if stamina_bar:
+		stamina_bar.value = stamina
 
 
 func bind_commands() -> void:
@@ -290,7 +353,7 @@ func _spawn_dash_ghost() -> void:
 
 #falling animation/ stops the player, plays moving animation, then fades the player
 func start_fall(fall_position: Vector2) -> void:
-	if falling or _dead:
+	if falling or dead:
 		return
 		
 	falling = true
@@ -339,13 +402,18 @@ func start_fall(fall_position: Vector2) -> void:
 		mat.set_shader_parameter("cut", 1.0)
 	modulate.a = 0.0
 	
+	var cutscene := cutscene_scene.instantiate() as FallingCutscene
+	cutscene.player = self
 	get_tree().current_scene.add_child(cutscene)
 	var cam := get_node_or_null("Camera2D")
 	if cam is Camera2D:
 		(cam as Camera2D).enabled = false
+	
 		
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
+	if dead:
+		return
 	if (direction != Vector2.ZERO):
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
@@ -376,13 +444,21 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
+	if _damaged:
+		animation_tree["parameters/conditions/damaged"] = true
+		_damaged = false
+	else:
+		animation_tree["parameters/conditions/damaged"] = false
+		
+	animation_tree["parameters/conditions/running"] = running
+
 
 ## Inventory related commands:
 #func _on_potion_pickup_area_entered(body):
 	#if body is Player:
 		#Inventory.add_potion(1)
 		#queue_free()
-#
+
 #if Inventory.use_key():
 	#open_door()
 #else:

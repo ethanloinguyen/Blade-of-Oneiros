@@ -6,11 +6,13 @@ var keys: int = 0
 signal inventory_changed
 
 func add_potion(amount: int = 1):
+	print("add pot")
 	potions += amount
 	emit_signal("inventory_changed")
 
 func use_potion() -> bool:
 	if potions > 0:
+		print("use pot")
 		potions -= 1
 		emit_signal("inventory_changed")
 		return true

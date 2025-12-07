@@ -13,6 +13,7 @@ func activate(dir:Vector2, rotate_hitbox:bool) -> void:
 	for a in get_overlapping_areas():
 		if a is Health:
 			a.take_damage(damage)
+			print(a.get_parent().name + " took damage and is at " + str(a.current_health))
 
 
 func activate_from_dir(dir:String, rotate_hitbox:bool):
