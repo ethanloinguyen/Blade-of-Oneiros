@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cs6v7gg3ojoa8"]
+[gd_scene load_steps=15 format=4 uid="uid://cs6v7gg3ojoa8"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_4f4na"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_x3h6k"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="6_2ru53"]
 [ext_resource type="PackedScene" uid="uid://dk80427rw58rr" path="res://scenes/interactables/lever.tscn" id="7_66ogq"]
 [ext_resource type="PackedScene" uid="uid://cjm6vswbwmqr5" path="res://scenes/DialogUI.tscn" id="8_dpr55"]
+[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/test_enemy.tscn" id="8_ieut8"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 [ext_resource type="Texture2D" uid="uid://w2am8hyb36kh" path="res://assets/map/tileset/area_dialogue.png" id="10_66ogq"]
 
@@ -61,6 +62,9 @@ position = Vector2(369, 487)
 
 [node name="Lever" parent="Entities" instance=ExtResource("7_66ogq")]
 position = Vector2(354, 505)
+
+[node name="TestEnemy" parent="Entities" instance=ExtResource("8_ieut8")]
+position = Vector2(386, 282)
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
