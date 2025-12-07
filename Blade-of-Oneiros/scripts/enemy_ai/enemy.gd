@@ -50,7 +50,6 @@ func _ready():
 		fsm.change_state(stun_state)
 	)
 	health.died.connect(func():
-		print("haha")
 		_play_animation("death")
 		await sprite.animation_finished
 		queue_free()
