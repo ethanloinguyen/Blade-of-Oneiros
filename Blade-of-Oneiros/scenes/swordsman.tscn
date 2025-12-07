@@ -1,12 +1,11 @@
-[gd_scene load_steps=85 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=84 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_6vopk"]
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
-[ext_resource type="Texture2D" uid="uid://ccxve0rrkivbv" path="res://assets/hud/stamina_frame.png" id="6_xauwr"]
-[ext_resource type="Texture2D" uid="uid://bkl3ym2dnqaxb" path="res://assets/hud/stamina_juice.png" id="7_6vopk"]
+[ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="6_jtonm"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -797,12 +796,4 @@ target_position = Vector2(0, 1)
 collision_mask = 8
 hit_from_inside = true
 
-[node name="StaminaBar" type="TextureProgressBar" parent="."]
-offset_left = -156.0
-offset_top = -100.0
-offset_right = -59.0
-offset_bottom = -73.0
-size_flags_horizontal = 12
-texture_over = ExtResource("6_xauwr")
-texture_progress = ExtResource("7_6vopk")
-tint_under = Color(0, 0, 0, 1)
+[node name="Stamina" parent="." instance=ExtResource("6_jtonm")]

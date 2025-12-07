@@ -53,7 +53,7 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
-@onready var stamina_bar = $StaminaBar
+@onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
