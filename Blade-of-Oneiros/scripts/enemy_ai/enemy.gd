@@ -125,7 +125,7 @@ func _ready():
 
 
 func _physics_process(delta:float) -> void:
-	if health.current_health >= 0:
+	if not health.is_dead():
 		fsm.update(delta)
 
 		if not _desired_move_dir.is_zero_approx():

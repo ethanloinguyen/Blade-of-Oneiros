@@ -6,8 +6,7 @@ extends Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var push_ray: RayCast2D = $PushRay
-@onready var hitbox: Area2D = $HitBox
-@onready var hitbox_collision: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var hitbox: Hitbox = $HitBox
 
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
@@ -60,12 +59,13 @@ func _ready() -> void:
 	print("Stamina bar is: ", stamina_bar)
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-	hitbox_collision.disabled = true
+
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
-	bind_commands()
+	bind_commands()	
 
+	hitbox.attach_signal(animation_player)
 
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
@@ -98,7 +98,6 @@ func _physics_process(delta: float) -> void:
 		# check unlock
 		if attack_timer <= 0:
 			attacking = false
-			hitbox_collision.disabled = true
 		
 		_manage_animation_tree_state()
 		return
@@ -152,7 +151,6 @@ func _physics_process(delta: float) -> void:
 	# the ray collides with the box, it will continuously call push in that direction
 	if direction != Vector2.ZERO:
 		facing_direction = DirectionSnap._snap_to_cardinal(direction)
-	_update_hitbox()
 	
 	if push_ray != null:
 		var ray_length: float = 8
@@ -247,28 +245,6 @@ func _check_exhaustion():
 		velocity = Vector2.ZERO
 		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
 		move_speed = base_move_speed * slow_factor
-
-
-func _update_hitbox() -> void:
-	var rect := hitbox_collision.shape as RectangleShape2D
-	if rect == null:
-		return
-	match facing_direction:
-		Vector2.DOWN:
-			hitbox.rotation = 0.0
-			hitbox.position = hitbox_offset_down
-	
-		Vector2.RIGHT:
-			hitbox.rotation = -PI * 0.5  
-			hitbox.position = hitbox_offset_right
-	
-		Vector2.UP:
-			hitbox.rotation = PI        
-			hitbox.position = hitbox_offset_up
-	
-		Vector2.LEFT:
-			hitbox.rotation = PI * 0.5 
-			hitbox.position = hitbox_offset_left
 
 
 func _spawn_dash_ghost() -> void:
