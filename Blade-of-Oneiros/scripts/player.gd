@@ -65,7 +65,6 @@ func _ready() -> void:
 	set_health_bar()
 	bind_commands()	
 
-	hitbox.attach_signal(animation_player)
 
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:

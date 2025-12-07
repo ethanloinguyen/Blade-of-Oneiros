@@ -12,8 +12,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkyue"]
-size = Vector2(48, 48)
+[sub_resource type="CircleShape2D" id="CircleShape2D_t46gg"]
+radius = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goobt"]
 atlas = ExtResource("4_jqw88")
@@ -1244,7 +1244,7 @@ activate_animation = "attack"
 animation_delay = 7.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
-shape = SubResource("RectangleShape2D_mkyue")
+shape = SubResource("CircleShape2D_t46gg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpxyv")

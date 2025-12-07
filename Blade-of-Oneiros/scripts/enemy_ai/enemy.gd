@@ -33,7 +33,7 @@ func _enter_tree():
 
 
 func _ready():
-	attack_hitbox.attach_signal(sprite)
+	attack_hitbox.attach_signal(sprite, false)
 
 	# set up movement
 	for i in range(MOVE_DIR_COUNT):
