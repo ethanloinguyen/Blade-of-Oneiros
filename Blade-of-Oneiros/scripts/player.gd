@@ -52,8 +52,7 @@ func _physics_process(delta: float) -> void:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
 	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
-	
-	if not GameState.game_started:
+	if not GameState.game_started or GameState.input_locked:
 		velocity = Vector2.ZERO
 		return
 	
