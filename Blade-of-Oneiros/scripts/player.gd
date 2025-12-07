@@ -16,6 +16,7 @@ extends Character
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
 
+
 var dash_time:= 0.0
 var _damaged: bool = false
 var _dead: bool = false
@@ -52,6 +53,7 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+var breakable_tiles: BreakableTiles
 @onready var health_bar = $Health/HealthBar
 @onready var stamina_bar = $Stamina/StaminaBar
 
@@ -65,6 +67,8 @@ func _ready() -> void:
 	set_health_bar()
 	bind_commands()	
 
+
+	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
@@ -173,6 +177,10 @@ func _physics_process(delta: float) -> void:
 		idle_cmd.execute(self)
 	
 	super(delta)
+	
+	if breakable_tiles:
+		breakable_tiles.process_player_step(global_position, self)
+		
 	_manage_animation_tree_state()
 
 

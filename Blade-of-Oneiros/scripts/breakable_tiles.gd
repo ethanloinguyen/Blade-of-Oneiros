@@ -3,11 +3,11 @@ extends TileMapLayer
 
 signal player_fell(tile_coords: Vector2i)
 
-@export var source_id: int = 0
+var source_id: int = 12
 
-@export var reg_tile: Vector2i = Vector2i(0, 0)
-@export var cracked_tile: Vector2i = Vector2i(1, 0)
-@export var broken_tile: Vector2i = Vector2i(2, 0)
+var reg_tile: Vector2i = Vector2i(10, 13)
+var cracked_tile: Vector2i = Vector2i(9, 14)
+var broken_tile: Vector2i = Vector2i(10, 14)
 
 var step_count: Dictionary = {}
 var prev_tile: Vector2i = Vector2i(999, 999)
