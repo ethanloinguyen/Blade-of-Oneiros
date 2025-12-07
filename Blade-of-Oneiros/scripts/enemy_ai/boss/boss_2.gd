@@ -1,4 +1,4 @@
-class_name Boss_1
+class_name Boss_2
 extends CharacterBody2D
 
 
@@ -40,7 +40,7 @@ func _ready():
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
-
+	
 		if next_boss != null:
 			var boss:CharacterBody2D = next_boss.instantiate()
 			get_parent().add_child(boss)

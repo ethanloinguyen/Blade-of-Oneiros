@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cn5m4asvggno2"]
+[gd_scene load_steps=3 format=3 uid="uid://cn5m4asvggno2"]
 
 [ext_resource type="PackedScene" uid="uid://bdfx0cj4pw7ht" path="res://scenes/boss/boss_1.tscn" id="1_3lomd"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_em1xb"]
-[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemy_slime.tscn" id="3_b0t3f"]
 
 [node name="AiTest" type="Node2D"]
 
@@ -14,6 +13,3 @@ tag = &"debug"
 
 [node name="Boss1" parent="Entities" instance=ExtResource("1_3lomd")]
 position = Vector2(53, -43)
-
-[node name="EnemySlime" parent="Entities" instance=ExtResource("3_b0t3f")]
-position = Vector2(-41, -49)

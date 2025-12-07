@@ -9,7 +9,7 @@ var _sprite
 var _target_rel:Vector2
 var _time:float
 
-func _init(enemy, jump_height:float, jump_duration:float, sprite:Node2D, attack_hitbox:Hitbox, exit_jump:Callable):
+func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2D, attack_hitbox:Hitbox, exit_jump:Callable):
 	_enemy = enemy
 	_sprite = sprite
 	super(
@@ -17,6 +17,7 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:Node2D, attack_
 		func():
 		_time = 0.0
 		enemy.collision_layer &= ~(ENEMY_COLLISION_LAYER)
+		AiHelper.play_animation(sprite, "jump", enemy._dir)
 
 		await _enemy.get_tree().create_timer(jump_duration).timeout
 		exit_jump.call()

@@ -15,15 +15,16 @@ func _init(enemy, projectile:PackedScene, num_dirs: float, offset:bool, exit_sho
 		var a = i * interval
 		if offset:
 			a += interval/2
-		var dir = Vector2(cos(a), sin(a)).normalized()
-		shoot_dirs.push_back(dir)
+		shoot_dirs.push_back(Vector2(cos(a), sin(a)).normalized())
 
 	super(
 	"Shoot",
 	func():
 		for dir in shoot_dirs:
-			var p = projectile.instantiate()
-			p.look_at(_center_pos + dir)
+			var p:Slimeball = projectile.instantiate()
+			p.global_position = _center_pos
+			p.look_at(p.global_position + dir)
+			_enemy.get_parent().add_child(p)
 		exit_shoot.call()
 	,
 	Callable()
