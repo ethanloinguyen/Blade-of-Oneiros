@@ -16,6 +16,9 @@ region = Rect2(40, 32, 24, 24)
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
+offset = Vector2(700, 350)
+transform = Transform2D(1, 0, 0, 1, 700, 350)
+follow_viewport_enabled = true
 script = ExtResource("1_5ysmq")
 
 [node name="Health" parent="." instance=ExtResource("2_uo2fv")]
