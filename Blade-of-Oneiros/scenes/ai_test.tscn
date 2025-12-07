@@ -1,29 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn5m4asvggno2"]
+[gd_scene load_steps=4 format=3 uid="uid://cn5m4asvggno2"]
 
-[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemy_slime.tscn" id="2_em1xb"]
+[ext_resource type="PackedScene" uid="uid://bdfx0cj4pw7ht" path="res://scenes/boss/boss_1.tscn" id="1_3lomd"]
+[ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_em1xb"]
+[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemy_slime.tscn" id="3_b0t3f"]
 
 [node name="AiTest" type="Node2D"]
 
-[node name="EnemySlime" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(92, 62)
-collision_mask = 7
-speed = 100.0
-move_avoid_collision_dist = 0.0
-chase_leash_distance = 80.0
-attack_distance = 90.0
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("2_em1xb")
+tag = &"debug"
 
-[node name="EnemySlime2" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(116, -36)
-collision_mask = 7
-speed = 100.0
-move_avoid_collision_dist = 0.0
-chase_leash_distance = 80.0
-attack_distance = 90.0
+[node name="Entities" type="Node2D" parent="."]
 
-[node name="EnemySlime3" parent="." instance=ExtResource("2_em1xb")]
-position = Vector2(46, -101)
-collision_mask = 7
-speed = 100.0
-move_avoid_collision_dist = 0.0
-chase_leash_distance = 80.0
-attack_distance = 90.0
+[node name="Boss1" parent="Entities" instance=ExtResource("1_3lomd")]
+position = Vector2(53, -43)
+
+[node name="EnemySlime" parent="Entities" instance=ExtResource("3_b0t3f")]
+position = Vector2(-41, -49)
