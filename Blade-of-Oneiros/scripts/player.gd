@@ -67,7 +67,6 @@ func _ready() -> void:
 	set_health_bar()
 	bind_commands()	
 
-	hitbox.attach_signal(animation_player)
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 

@@ -33,7 +33,7 @@ func _enter_tree():
 
 
 func _ready():
-	attack_hitbox.attach_signal(sprite)
+	attack_hitbox.attach_signal(sprite, false)
 
 	# set up movement
 	for i in range(MOVE_DIR_COUNT):
@@ -103,7 +103,8 @@ func _ready():
 
 		# wait for attack animation to finish
 		await sprite.animation_finished
-		fsm.change_state(chase_state)
+		if fsm.current_state == attack_state:
+			fsm.change_state(chase_state)
 		,
 		func(_delta:float):
 		velocity = Vector2(0, 0)
