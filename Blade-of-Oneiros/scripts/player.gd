@@ -16,9 +16,7 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
-@export var breakable_tiles_path: NodePath
 
-var breakable_tiles: BreakableTiles
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -56,6 +54,7 @@ var idle_cmd: Command
 var dash_cmd: Command
 var facing_direction: Vector2 = Vector2.DOWN
 
+var breakable_tiles: BreakableTiles
 @onready var stamina_bar = $Stamina/StaminaBar
 
 func _ready() -> void:
@@ -68,9 +67,8 @@ func _ready() -> void:
 	bind_commands()
 
 
-	if breakable_tiles_path != NodePath():
-		breakable_tiles = get_node(breakable_tiles_path) as BreakableTiles
-	
+	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
+
 func _physics_process(delta: float) -> void:
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -182,8 +180,8 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	
 	if breakable_tiles:
-		var feet_pos: Vector2 = global_position  
-		breakable_tiles.process_player_step(feet_pos, self)
+		breakable_tiles.process_player_step(global_position, self)
+		
 	_manage_animation_tree_state()
 
 

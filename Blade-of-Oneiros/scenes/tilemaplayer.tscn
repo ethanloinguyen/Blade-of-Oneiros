@@ -1,13 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt8877ic8yd65"]
+[gd_scene load_steps=2 format=3 uid="uid://dt8877ic8yd65"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_5hrsl"]
-[ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="2_kpff1"]
 
 [node name="TileMapLayer" type="TileMapLayer"]
 texture_filter = 1
 tile_set = ExtResource("1_5hrsl")
-script = ExtResource("2_kpff1")
-source_id = 12
-reg_tile = Vector2i(10, 13)
-cracked_tile = Vector2i(9, 14)
-broken_tile = Vector2i(10, 14)

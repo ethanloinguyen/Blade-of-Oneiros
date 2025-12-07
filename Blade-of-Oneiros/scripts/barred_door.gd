@@ -20,7 +20,3 @@ func _close() -> void:
 	animation_player.play("closed")
 	pass
 	
-
-
-#func _on_lever_activated() -> void:
-	#pass # Replace with function body.

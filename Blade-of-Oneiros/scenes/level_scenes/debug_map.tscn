@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=4 uid="uid://cs6v7gg3ojoa8"]
+[gd_scene load_steps=16 format=4 uid="uid://cs6v7gg3ojoa8"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_4f4na"]
+[ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="2_ml6jv"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_x3h6k"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_y31ao"]
 [ext_resource type="PackedScene" uid="uid://cbd4df8y2c8r6" path="res://scenes/interactables/pressure_plate.tscn" id="3_d63d8"]
@@ -65,6 +66,16 @@ position = Vector2(354, 505)
 
 [node name="TestEnemy" parent="Entities" instance=ExtResource("8_ieut8")]
 position = Vector2(386, 282)
+
+[node name="BreakableTiles" type="TileMapLayer" parent="Entities"]
+z_index = 1
+tile_map_data = PackedByteArray("AAAdACIADAAKAA0AAAA=")
+tile_set = ExtResource("1_4f4na")
+script = ExtResource("2_ml6jv")
+source_id = 12
+reg_tile = Vector2i(10, 13)
+cracked_tile = Vector2i(9, 14)
+broken_tile = Vector2i(10, 14)
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
