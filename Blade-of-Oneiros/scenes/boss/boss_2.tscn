@@ -1,8 +1,7 @@
-[gd_scene load_steps=106 format=3 uid="uid://8juwuubc4nfx"]
+[gd_scene load_steps=105 format=3 uid="uid://8juwuubc4nfx"]
 
 [ext_resource type="Script" uid="uid://b3t75tepsr635" path="res://scripts/enemy_ai/boss/boss_2.gd" id="1_oq0kp"]
 [ext_resource type="PackedScene" uid="uid://c8r2dhocxynw0" path="res://scenes/boss/slimeball/slimeball.tscn" id="2_kgkne"]
-[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemy_slime.tscn" id="3_x7itn"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="4_vhq4w"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="5_ec1eq"]
 [ext_resource type="Texture2D" uid="uid://bfjxgjqj6ci0e" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Death_with_shadow.png" id="6_d11rf"]
@@ -748,8 +747,8 @@ animations = [{
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_oq0kp")
+between_states_wait_duration = 1.0
 projectile = ExtResource("2_kgkne")
-slime_enemy = ExtResource("3_x7itn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
