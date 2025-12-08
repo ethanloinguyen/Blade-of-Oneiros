@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cuiacgigade2i"]
+[gd_scene load_steps=10 format=4 uid="uid://cuiacgigade2i"]
 
 [ext_resource type="Script" uid="uid://dofim5r66ei11" path="res://scripts/level.gd" id="1_l8iau"]
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="2_l8iau"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" path="res://scripts/door2.tscn" id="5_4n67h"]
 [ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
 [ext_resource type="PackedScene" uid="uid://dho272p8oa3pp" path="res://scenes/interactables/pushables.tscn" id="6_o8j81"]
-[ext_resource type="PackedScene" uid="uid://ds2ns05ftbc5g" path="res://scenes/key.tscn" id="8_0jp12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ilr"]
 size = Vector2(22.5, 18.25)
@@ -65,9 +64,6 @@ single_use = true
 
 [node name="Pushables" parent="Entities" instance=ExtResource("6_o8j81")]
 position = Vector2(60.565033, 88.97693)
-
-[node name="Key" parent="Entities" instance=ExtResource("8_0jp12")]
-position = Vector2(60, 81)
 
 [node name="debug_map" parent="." instance=ExtResource("5_53anu")]
 position = Vector2(-48, 229)
