@@ -172,7 +172,6 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-<<<<<<< HEAD
 	if Input.is_action_just_pressed("potion"):
 		if Inventory.use_potion():
 			health.current_health += 20
@@ -187,8 +186,6 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-=======
->>>>>>> 73bbc9378f2bff708539f896c6bf7b79d902a70b
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
