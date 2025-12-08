@@ -4,10 +4,13 @@ extends Area2D
 @export var damage:int
 @export var activate_animation:String
 @export var animation_delay:float
+@export var hitstop_duration:float
 
 
 # activate hitbox and aim in a direction
-func activate(dir:Vector2, rotate_hitbox:bool) -> void:
+func activate(dir:Vector2, rotate_hitbox:bool, wait_for_delay:bool) -> void:
+	if wait_for_delay:
+		await get_tree().create_timer(animation_delay, false).timeout
 	if rotate_hitbox:
 		global_rotation = dir.angle()
 	for a in get_overlapping_areas():
@@ -15,17 +18,24 @@ func activate(dir:Vector2, rotate_hitbox:bool) -> void:
 			a.take_damage(damage)
 			print(a.get_parent().name + " took damage and is at " + str(a.current_health))
 
+			# hitstop
+			if not a.is_dead() and hitstop_duration > 0:
+				get_tree().paused = true
+				await get_tree().create_timer(hitstop_duration, true).timeout
+				get_tree().paused = false
 
-func activate_from_dir(dir:String, rotate_hitbox:bool):
+
+
+func activate_from_dir(dir:String, rotate_hitbox:bool, wait_for_delay:bool):
 	match dir:
 		"right":
-			activate(Vector2.RIGHT, rotate_hitbox)
+			activate(Vector2.RIGHT, rotate_hitbox, wait_for_delay)
 		"left":
-			activate(Vector2.LEFT, rotate_hitbox)
+			activate(Vector2.LEFT, rotate_hitbox, wait_for_delay)
 		"up":
-			activate(Vector2.UP, rotate_hitbox)
+			activate(Vector2.UP, rotate_hitbox, wait_for_delay)
 		"down":
-			activate(Vector2.DOWN, rotate_hitbox)
+			activate(Vector2.DOWN, rotate_hitbox, wait_for_delay)
 
 
 func attach_signal(animation_player, rotate_hitbox:bool):
@@ -33,5 +43,5 @@ func attach_signal(animation_player, rotate_hitbox:bool):
 		animation_player.frame_changed.connect(func():
 			if animation_player.animation.begins_with(activate_animation) and animation_player.frame == floor(animation_delay):
 				var dir = animation_player.animation.split("_")[-1]
-				activate_from_dir(dir, rotate_hitbox)
+				activate_from_dir(dir, rotate_hitbox, false)
 		)

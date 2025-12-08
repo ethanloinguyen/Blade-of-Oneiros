@@ -9,6 +9,6 @@ func execute(character: Character) -> Status:
 	character.attacking = true
 	character.attack_timer = character.attack_duration
 	character.velocity = Vector2.ZERO
-	character.hitbox.activate(character.facing_direction, true)
+	character.hitbox.activate(character.facing_direction, true, true)
 
 	return Status.DONE

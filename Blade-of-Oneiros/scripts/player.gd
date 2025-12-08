@@ -68,7 +68,7 @@ func _ready() -> void:
 	
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
-		
+
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control

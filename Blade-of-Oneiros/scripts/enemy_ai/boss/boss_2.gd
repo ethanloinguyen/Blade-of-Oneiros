@@ -120,7 +120,7 @@ func _face_player():
 
 func _idle(duration:float, exit_idle:Callable):
 	fsm.change_state(idle_state)
-	await get_tree().create_timer(duration).timeout
+	await get_tree().create_timer(duration, false).timeout
 	if not is_instance_valid(self):
 		return
 	exit_idle.call()

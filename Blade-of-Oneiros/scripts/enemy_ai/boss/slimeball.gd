@@ -15,8 +15,9 @@ func _ready():
 			a.take_damage(damage)
 			_explode()
 	)
-	body_entered.connect(func(_b):
-		_explode()
+	body_entered.connect(func(b):
+		if not (b is CollisionObject2D and (b.collision_layer & 0b11 << 1) != 0):
+			_explode()
 	)
 	if fixed_sprite_rotation:
 		sprite.global_rotation = 0
