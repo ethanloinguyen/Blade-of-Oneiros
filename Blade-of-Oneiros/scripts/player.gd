@@ -7,6 +7,7 @@ extends Character
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
@@ -253,6 +254,11 @@ func _physics_process(delta: float) -> void:
 func play_audio(_stream : AudioStream) -> void:
 	audio.stream = _stream
 	audio.play()
+	
+func play_footstep():
+	footstep_audio.stream = walking_audio[randi() % walking_audio.size()]
+	footstep_audio.pitch_scale = randf_range(0.95, 1.05)  
+	footstep_audio.play()
 
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
