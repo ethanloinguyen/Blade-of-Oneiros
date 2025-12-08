@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://d2kauldx3frsx"]
+[gd_scene load_steps=43 format=4 uid="uid://d2kauldx3frsx"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_xusmx"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_bya5x"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bn42wlcdwgnmh" path="res://assets/map/tileset/water_details_animation.png" id="14_kxpoo"]
 [ext_resource type="Texture2D" uid="uid://dceswf5asdop8" path="res://assets/map/debug_map.png" id="15_ekyxo"]
 [ext_resource type="Script" uid="uid://be64va3tbaiux" path="res://scripts/pressure_plate_group.gd" id="21_6stvj"]
+[ext_resource type="PackedScene" uid="uid://bvp22eifui3tj" path="res://scenes/sprite_upgrade.tscn" id="25_er6ev"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dynrj"]
 texture = ExtResource("2_dynrj")
@@ -4135,6 +4136,9 @@ position = Vector2(-555, -145)
 
 [node name="Door" parent="Entities" instance=ExtResource("2_bya5x")]
 position = Vector2(-539, -282)
+
+[node name="SpriteUpgrade" parent="Entities" instance=ExtResource("25_er6ev")]
+position = Vector2(-176, -351)
 
 [node name="bossskip" type="Area2D" parent="."]
 position = Vector2(-109, 843)
