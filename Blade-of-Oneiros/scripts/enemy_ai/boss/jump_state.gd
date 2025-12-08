@@ -20,7 +20,10 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		AiHelper.play_animation(sprite, "jump", enemy._dir)
 
 		await _enemy.get_tree().create_timer(jump_duration).timeout
-		exit_jump.call()
+		if not is_instance_valid(self):
+			return
+		if exit_jump.is_valid():
+			exit_jump.call()
 		,
 		func(delta):
 		_time += delta
