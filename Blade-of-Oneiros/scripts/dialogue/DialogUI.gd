@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-signal line_finished
-
 # --- Node refs -------------------------------------------------------------
 
 @onready var _label: Label = $Control/DialogueBG/MarginContainer/DialogueLabel
@@ -9,8 +7,6 @@ signal line_finished
 @onready var _portrait_left: TextureRect = $Control/SpeakerPortraitLeft
 @onready var _portrait_right: TextureRect = $Control/SpeakerPortraitRight
 @onready var _dimmer: ColorRect = $Control/Dimmer
-@onready var _box: Control = $Control/DialogueBG
-
 
 # Base positions (captured in _ready)
 var _bg_base_pos: Vector2
@@ -138,7 +134,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
-
 func _make_tween() -> Tween:
 	var t: Tween = create_tween()
 	t.set_trans(anim_trans)
@@ -161,32 +156,6 @@ func _kill_all_tweens() -> void:
 # You can still use this for a single line if you want,
 # but for multi-line back-and-forth, use start_conversation().
 func open(text: String, overrides: Dictionary = {}) -> void:
-	# ------------------------------------------------------------------
-	# FAST PATH: dialogue box is already open
-	# -> behave like _show_next_line (move box + highlight new speaker)
-	# ------------------------------------------------------------------
-	if _is_open:
-		var o := overrides.duplicate()
-
-		# If the line didn't explicitly pass "speaker", keep the current one
-		if _current_speaker != "" and !o.has("speaker"):
-			o["speaker"] = _current_speaker
-
-		var new_speaker: String = o.get("speaker", "")
-
-		# This is exactly what _show_next_line does:
-		_apply_overrides(o)
-		_start_typing(text)
-		_play_line_change_animation(_current_speaker, new_speaker, o)
-		_current_speaker = new_speaker
-
-		_can_advance = true
-		return
-
-	# ------------------------------------------------------------------
-	# FIRST TIME OPENING THE DIALOGUE BOX
-	# -> original intro animation
-	# ------------------------------------------------------------------
 	_apply_overrides(overrides)
 
 	# Store the text for the intro line, but don't start typing yet.
@@ -211,19 +180,6 @@ func open(text: String, overrides: Dictionary = {}) -> void:
 
 
 
-# Single-line entry point used by DialogueOrchestrator's step system.
-# speaker: "player1" / "player2" / "" (for narration)
-# text: the dialogue text
-# overrides: same kind of overrides you already use (color, size, portrait_name, etc.)
-func show_line(speaker: String, text: String, overrides: Dictionary) -> void:
-	var o := overrides.duplicate()
-	if speaker != "":
-		o["speaker"] = speaker
-
-	open(text, o)
-
-
-
 # Preferred entry point for multi-line conversations.
 # Each line: { "text": String, "speaker": String, "overrides": Dictionary }
 func start_conversation(lines: Array) -> void:
@@ -235,12 +191,7 @@ func start_conversation(lines: Array) -> void:
 
 	_lines = lines
 	_current_index = 0
-	print("called start_conversation! Calling open_first_line")
 	_open_first_line()
-
-func set_box_visible(visible: bool) -> void:
-	if _box:
-		_box.visible = visible
 
 
 func close() -> void:
@@ -278,7 +229,6 @@ func is_open() -> bool:
 # ======================================================================
 
 func _open_first_line() -> void:
-	print("First line called!")
 	var line: Dictionary = _lines[_current_index]
 
 	var text: String = line.get("text", "")
@@ -290,24 +240,16 @@ func _open_first_line() -> void:
 	var speaker: String = overrides.get("speaker", "")
 	_current_speaker = speaker
 
-	print("Callig open!")
 	open(text, overrides)
 
 
 func _advance_or_close() -> void:
-	# Orchestrator-driven single-line mode: _lines is empty
-	if _lines.is_empty():
-		emit_signal("line_finished")
-		return
-
-	# Original multi-line behavior
 	if _current_index >= 0 and _current_index < _lines.size() - 1:
 		_current_index += 1
 		var line: Dictionary = _lines[_current_index]
 		_show_next_line(line)
 	else:
 		close()
-
 
 
 func _show_next_line(line: Dictionary) -> void:

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cw10pkjy2r22o"]
-
-[ext_resource type="Script" uid="uid://vw7aqr3xfq7n" path="res://scripts/dash_ghost.gd" id="1_nmejj"]
-
-[node name="Dashghost" type="Sprite2D"]
-modulate = Color(0.56078434, 0.6313726, 0.9529412, 0.99607843)
-script = ExtResource("1_nmejj")

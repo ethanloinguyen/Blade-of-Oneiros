@@ -1,24 +1,18 @@
 extends DialogueScriptBase
 
 func run(orchestrator: DialogueOrchestrator) -> void:
-	orchestrator.clear_steps()
+	orchestrator.clear_lines()
 
 	# Declare who stands where:
 	# left = swordsman.png, right = shadowman.png
-	orchestrator.set_speakers("swordsman_lvl2", "oldmansmiles")
+	orchestrator.set_speakers("swordsman_lvl2", "shadowman")
 
-	orchestrator.action("swordsman", "move", Vector2(264, 564), 140.0, "right")
-	orchestrator.speak("swordsman_lvl2", "To the left", {
+	orchestrator.speak("swordsman_lvl2", "Yo check this out, the dialogue is in the debug map now!", {
 		"color": Color(0.0, 0.741, 0.346, 1.0),
 		"size": 15,
 	})
-	orchestrator.action("swordsman", "move", Vector2(284, 564), 140.0, "right")
-	orchestrator.speak("swordsman_lvl2", "To the right now yall", {
-		"color": Color(0.0, 0.741, 0.346, 1.0),
-		"size": 15,
-	})
-	orchestrator.action("swordsman", "move", Vector2(264, 564), 140.0, "down")
-	orchestrator.speak("oldmansmiles", "What are you doing?", {
+
+	orchestrator.speak("shadowman", "That's awesome! So surely this project is almost done, right?", {
 		"color": Color(0.827, 0.0, 0.298, 1.0),
 		"size": 15,
 	})
@@ -28,7 +22,7 @@ func run(orchestrator: DialogueOrchestrator) -> void:
 		"size": 15,
 	})
 
-	orchestrator.speak("oldmansmiles", "Wierdo.", {
+	orchestrator.speak("shadowman", "...right?", {
 		"color": Color(0.827, 0.0, 0.298, 1.0),
 		"size": 13,
 	})
