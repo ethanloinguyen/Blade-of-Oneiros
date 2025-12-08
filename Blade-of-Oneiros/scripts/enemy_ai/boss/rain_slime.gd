@@ -15,7 +15,9 @@ func _ready():
 	while sprite.position.y < 0:
 		if not is_instance_valid(self):
 			return
-		await get_tree().process_frame
+		var tree = get_tree()
+		if tree != null:
+			await tree.process_frame
 
 	# hurt player
 	var player:Player = get_tree().get_first_node_in_group("player")

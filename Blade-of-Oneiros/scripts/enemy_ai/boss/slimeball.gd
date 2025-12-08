@@ -13,8 +13,10 @@ func _ready():
 	area_entered.connect(func(a):
 		if a is Health and not _exploded:
 			a.take_damage(damage)
-			_exploded = true
 			_explode()
+	)
+	body_entered.connect(func(_b):
+		_explode()
 	)
 	if fixed_sprite_rotation:
 		sprite.global_rotation = 0
