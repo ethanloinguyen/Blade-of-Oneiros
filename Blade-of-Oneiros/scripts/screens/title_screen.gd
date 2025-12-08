@@ -30,13 +30,7 @@ func _on_start_button_pressed():
 	intro_video.visible = true
 	intro_video.play()
 	_video_playing = true
-	#if GameState.last_scene_path == "":
-		#intro_video.visible = true
-		#intro_video.play()
-		#_video_playing = true
-		#return
-#
-	#
+	
 	
 func _on_video_finished():
 	_video_playing = false
@@ -54,6 +48,7 @@ func _input(event):
 		if event.is_pressed():
 			get_viewport().set_input_as_handled()
 			_skip_video()
+			
 			
 func _skip_video():
 	intro_video.stop()
