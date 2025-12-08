@@ -67,7 +67,6 @@ position = Vector2(354, 505)
 
 [node name="BreakableTiles" type="TileMapLayer" parent="Entities"]
 z_index = 1
-tile_map_data = PackedByteArray("AAAdACIADAAKAA0AAAA=")
 tile_set = ExtResource("1_4f4na")
 script = ExtResource("2_ml6jv")
 
