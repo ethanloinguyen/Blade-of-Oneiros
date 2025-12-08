@@ -19,7 +19,7 @@ extends Character
 @export var dash_audio: Array[AudioStream] = []
 @export var attack_grunt_audio: Array[AudioStream] = []
 @export var sword_whoosh_audio: Array[AudioStream] = []
-@export var walking_audio: AudioStream
+@export var walking_audio: Array[AudioStream] = []
 @export var running_audio: AudioStream
 @export var falling_audio: AudioStream
 @export var exhausted_audio: AudioStream
