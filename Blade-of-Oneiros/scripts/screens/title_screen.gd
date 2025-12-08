@@ -26,6 +26,7 @@ func _process(_delta: float) -> void:
 func _on_start_button_pressed():
 	background.visible = false
 	start_button.visible = false
+	title.visible = false
 	
 	
 	#Show and start video
@@ -39,10 +40,14 @@ func _on_video_finished():
 	GameState.game_started = true
 	GameState.game_over = false
 	
+	#Added by Alfred
+	GameState.start_with_opening_tutorial = true
+
 	var first_level := "res://scenes/level_scenes/lvl_1.tscn"
 	GameState.last_scene_path = first_level
 	GameState.last_spawn_tag = "default"
 	PlayerManagement.change_level(first_level, "default")
+
 
 	
 func _input(event):
