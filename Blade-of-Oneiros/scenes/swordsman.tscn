@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dvrmpg74vm0t6"]
+[gd_scene load_steps=104 format=3 uid="uid://dvrmpg74vm0t6"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 [ext_resource type="AudioStream" uid="uid://bfmw277i5bsxh" path="res://assets/audio/recorded_audio/nono_panic.wav" id="3_8068f"]
+[ext_resource type="AudioStream" uid="uid://btdea0jii4tuo" path="res://assets/audio/recorded_audio/hurt1.wav" id="3_ncrap"]
+[ext_resource type="AudioStream" uid="uid://duuwvu4ef7hj6" path="res://assets/audio/recorded_audio/hurt2.wav" id="4_11fqc"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
+[ext_resource type="AudioStream" uid="uid://k2la1flb2hhm" path="res://assets/audio/recorded_audio/hurt_owie.wav" id="5_tbyuo"]
 [ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
@@ -731,6 +734,8 @@ hitbox_offset_left = Vector2(5, -10)
 dash_ghost_scene = ExtResource("2_r7u1p")
 dash_curve = SubResource("Curve_s1psh")
 falling_audio = ExtResource("3_8068f")
+exhausted_audio = ExtResource("12_ai3mq")
+death_audio = ExtResource("13_arqf2")
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

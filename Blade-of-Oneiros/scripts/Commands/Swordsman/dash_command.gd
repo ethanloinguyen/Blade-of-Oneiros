@@ -1,6 +1,7 @@
 class_name DashCommand
 extends Command 
 
+
 func execute(character: Character) -> Status:
 	if character.dashing:
 		return Status.DONE
