@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=4 uid="uid://cuiacgigade2i"]
+[gd_scene load_steps=12 format=4 uid="uid://cuiacgigade2i"]
 
 [ext_resource type="Script" uid="uid://dofim5r66ei11" path="res://scripts/level.gd" id="1_l8iau"]
+[ext_resource type="PackedScene" uid="uid://cnmnm7x3tww41" path="res://scenes/OldManSmiles/OldManSmiles.tscn" id="2_jpcv7"]
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="2_l8iau"]
 [ext_resource type="Texture2D" uid="uid://b4bb8xinfitph" path="res://assets/map/paper.png" id="3_0tu1c"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_hwdor"]
@@ -16,6 +17,9 @@ size = Vector2(22.5, 18.25)
 [node name="tutorial_start" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_l8iau")
+
+[node name="OldManSmiles" parent="." instance=ExtResource("2_jpcv7")]
+position = Vector2(443, 1259)
 
 [node name="floor" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -77,10 +81,10 @@ requires_key = true
 single_use = true
 
 [node name="Pushables" parent="Entities" instance=ExtResource("6_o8j81")]
-position = Vector2(61, 101)
+position = Vector2(60, 79)
 
 [node name="Key" parent="Entities" instance=ExtResource("8_0jp12")]
-position = Vector2(61, 93)
+position = Vector2(61, 78)
 
 [node name="debug_map" parent="." instance=ExtResource("5_53anu")]
 position = Vector2(-48, 229)
