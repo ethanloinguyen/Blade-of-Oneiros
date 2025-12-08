@@ -4136,6 +4136,8 @@ position = Vector2(-555, -145)
 
 [node name="Door" parent="Entities" instance=ExtResource("2_bya5x")]
 position = Vector2(-539, -282)
+requires_key = true
+single_use = true
 
 [node name="SpriteUpgrade" parent="Entities" instance=ExtResource("25_er6ev")]
 position = Vector2(-176, -351)
@@ -4144,6 +4146,7 @@ position = Vector2(-176, -351)
 position = Vector2(-109, 843)
 collision_mask = 2
 script = ExtResource("2_q3gkm")
+target_scene = "uid://qf60ey6t8ph6"
 target_spawn = &"boss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bossskip"]
