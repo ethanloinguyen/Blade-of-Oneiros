@@ -14,6 +14,8 @@ func _ready() -> void:
 	#Hide video until button is pressed
 	intro_video.visible = false
 	hud.visible = false
+	GameState.game_started = false
+	GameState.game_over = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,10 +30,24 @@ func _on_start_button_pressed():
 	intro_video.visible = true
 	intro_video.play()
 	_video_playing = true
+	#if GameState.last_scene_path == "":
+		#intro_video.visible = true
+		#intro_video.play()
+		#_video_playing = true
+		#return
+#
+	#
 	
 func _on_video_finished():
+	_video_playing = false
 	GameState.game_started = true
-	get_tree().change_scene_to_file("res://scenes/level_scenes/lvl_1.tscn")
+	GameState.game_over = false
+	
+	var first_level := "res://scenes/level_scenes/lvl_1.tscn"
+	GameState.last_scene_path = first_level
+	GameState.last_spawn_tag = "default"
+	PlayerManagement.change_level(first_level, "default")
+
 	
 func _input(event):
 	if _video_playing and (event is InputEventKey or event is InputEventMouseButton):
