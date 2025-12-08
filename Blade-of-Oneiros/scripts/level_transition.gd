@@ -2,14 +2,15 @@ class_name LevelTransition
 extends Area2D
 
 
-@export_file("*.tcsn") var target_scene: String
+#@export_file("*.tcsn") var target_scene: String
+@export var target_scene: PackedScene               
 @export var target_spawn: StringName = &"default"
 @export var press_to_use: bool = false
 @export var action: StringName = &"interact"
 @export var single_use: bool = false
 
-var _player_inside :bool = false
-var _enabled :bool = true
+var _player_inside: bool = false
+var _enabled: bool = true
 
 
 func _ready() -> void:
@@ -50,9 +51,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func _trigger() -> void:
 	#for debug
 	#print("Door", name, "TRIGGER: target_scene =", target_scene, "target_spawn =", target_spawn)
+	if target_scene == null:
+		push_warning("LevelTransition: target_scene is not assigned!")
+		return
 	await SceneTransition.fade_out()
 	if single_use:
 		_enabled = false
 		_player_inside = false
-	PlayerManagement.change_level(target_scene, target_spawn)
+	PlayerManagement.change_level(target_scene.resource_path, target_spawn)
 	await SceneTransition.fade_in()
