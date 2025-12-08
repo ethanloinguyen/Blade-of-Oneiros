@@ -18,6 +18,8 @@ func _ready():
 		var tree = get_tree()
 		if tree != null:
 			await tree.process_frame
+		else:
+			return
 
 	# hurt player
 	var player:Player = get_tree().get_first_node_in_group("player")

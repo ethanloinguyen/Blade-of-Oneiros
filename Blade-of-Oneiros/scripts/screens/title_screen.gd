@@ -4,11 +4,13 @@ extends Node
 @onready var intro_video = $CanvasLayer/IntroVideo
 @onready var background = $CanvasLayer/Background
 @onready var title = $CanvasLayer/Title
+@onready var animation_player = $CanvasLayer/Title/AnimationPlayer
 
 var _video_playing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	animation_player.play("default")
 	start_button.pressed.connect(_on_start_button_pressed)
 	intro_video.finished.connect(_on_video_finished)
 	
@@ -28,7 +30,6 @@ func _on_start_button_pressed():
 	start_button.visible = false
 	title.visible = false
 	
-	
 	#Show and start video
 	intro_video.visible = true
 	intro_video.play()
@@ -40,10 +41,14 @@ func _on_video_finished():
 	GameState.game_started = true
 	GameState.game_over = false
 	
+	#Added by Alfred
+	GameState.start_with_opening_tutorial = true
+
 	var first_level := "res://scenes/level_scenes/lvl_1.tscn"
 	GameState.last_scene_path = first_level
 	GameState.last_spawn_tag = "default"
 	PlayerManagement.change_level(first_level, "default")
+
 
 	
 func _input(event):
