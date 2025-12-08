@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd03bdr40w6ov"
-path="res://.godot/imported/attacktutorial.png-dd6b40224f0881f8af0ba086e532b20e.ctex"
+uid="uid://b4bb8xinfitph"
+path="res://.godot/imported/paper.png-cd2ddcd55422c39a0adf3199fb7f76a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/tutorial/attacktutorial.png"
-dest_files=["res://.godot/imported/attacktutorial.png-dd6b40224f0881f8af0ba086e532b20e.ctex"]
+source_file="res://assets/map/paper.png"
+dest_files=["res://.godot/imported/paper.png-cd2ddcd55422c39a0adf3199fb7f76a0.ctex"]
 
 [params]
 
