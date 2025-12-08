@@ -106,7 +106,14 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		return
 	
+	
 	if dead:
+<<<<<<< HEAD
+=======
+		GameState.game_over = true
+		#GameState.game_over = true
+		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
+>>>>>>> c9f974d0b893f2add83a8e487624122d132e4363
 		velocity = Vector2.ZERO
 		return
 	
@@ -275,6 +282,7 @@ func _on_health_died() -> void:
 	GameState.game_over = true
 	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 	#_manage_animation_tree_state()
+
 
 
 # returns false if unable to use stamina, true if usable
