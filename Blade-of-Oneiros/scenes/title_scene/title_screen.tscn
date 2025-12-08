@@ -23,7 +23,7 @@ mouse_filter = 2
 texture = ExtResource("4_llimq")
 stretch_mode = 5
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="Title" type="Sprite2D" parent="CanvasLayer"]
 z_index = 3
 position = Vector2(575, 284)
 scale = Vector2(3.9999998, 3.9999998)

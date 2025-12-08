@@ -3,6 +3,7 @@ extends Node
 @onready var start_button = $CanvasLayer/StartButton
 @onready var intro_video = $CanvasLayer/IntroVideo
 @onready var background = $CanvasLayer/Background
+@onready var title = $CanvasLayer/Title
 
 var _video_playing = false
 
@@ -25,6 +26,8 @@ func _process(_delta: float) -> void:
 func _on_start_button_pressed():
 	background.visible = false
 	start_button.visible = false
+	title.visible = false
+	
 	
 	#Show and start video
 	intro_video.visible = true

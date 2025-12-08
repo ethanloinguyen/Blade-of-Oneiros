@@ -113,12 +113,9 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if dead:
-<<<<<<< HEAD
-=======
 		GameState.game_over = true
 		#GameState.game_over = true
 		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
->>>>>>> c9f974d0b893f2add83a8e487624122d132e4363
 		velocity = Vector2.ZERO
 		return
 	
