@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_hwdor"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="4_53anu"]
 [ext_resource type="PackedScene" uid="uid://bdawost1o6f5o" path="res://scripts/door2.tscn" id="5_4n67h"]
-[ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
+[ext_resource type="PackedScene" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
 [ext_resource type="PackedScene" uid="uid://dho272p8oa3pp" path="res://scenes/interactables/pushables.tscn" id="6_o8j81"]
 [ext_resource type="PackedScene" uid="uid://qf60ey6t8ph6" path="res://scenes/level_scenes/boss_fight.tscn" id="9_0jp12"]
 
@@ -42,7 +42,7 @@ position = Vector2(490.88943, 1212.3341)
 script = ExtResource("3_hwdor")
 tag = &"start"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="bosstp" type="Area2D" parent="."]
 position = Vector2(489, 1268)
 collision_mask = 2
 script = ExtResource("4_53anu")
@@ -50,7 +50,20 @@ target_scene = "uid://qf60ey6t8ph6"
 target_spawn = &"boss"
 press_to_use = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bosstp"]
+z_index = 3
+position = Vector2(7, -3)
+shape = SubResource("RectangleShape2D_u8ilr")
+
+[node name="debugtp" type="Area2D" parent="."]
+position = Vector2(490, 1242)
+collision_mask = 2
+script = ExtResource("4_53anu")
+target_scene = "uid://cs6v7gg3ojoa8"
+target_spawn = &"debug"
+press_to_use = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="debugtp"]
 z_index = 3
 position = Vector2(7, -3)
 shape = SubResource("RectangleShape2D_u8ilr")
