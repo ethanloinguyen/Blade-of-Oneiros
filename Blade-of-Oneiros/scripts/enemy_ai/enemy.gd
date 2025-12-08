@@ -17,7 +17,33 @@ var _player:TestPlayer
 
 
 func _ready():
+<<<<<<< Updated upstream
 	_player = get_tree().get_first_node_in_group("player")
+=======
+	attack_hitbox.attach_signal(sprite, false)
+
+	# set up movement
+	for i in range(MOVE_DIR_COUNT):
+		var angle = float(i)/MOVE_DIR_COUNT * TAU
+		_move_dirs.push_back(Vector2(cos(angle), sin(angle)).normalized())
+	_move_dirs_weights.resize(MOVE_DIR_COUNT)
+
+	# set player var for enemies spawned mid-game
+	if _player == null:
+		_player = get_tree().get_first_node_in_group("player")
+
+	# health setup
+	health.hurt.connect(func():
+		fsm.change_state(stun_state)
+	)
+	health.died.connect(func():
+		AiHelper.play_animation(sprite, "death", _dir)
+		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
+		queue_free()
+	)
+>>>>>>> Stashed changes
 
 	# create states
 	wait_state = State.new(
@@ -46,11 +72,37 @@ func _ready():
 	attack_state = State.new(
 		"Attack",
 		func():
+<<<<<<< Updated upstream
 		velocity = Vector2(0, 0)
 		attack_hitbox.activate()
 		,
 		func(_delta:float):
 		# TODO: wait for attack animation to finish
+=======
+		_desired_move_dir = Vector2.ZERO
+		AiHelper.play_animation(sprite, "attack", _dir)
+
+		# wait for attack animation to finish
+		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
+		if fsm.current_state == attack_state:
+			fsm.change_state(chase_state)
+		,
+		func(_delta:float):
+		velocity = Vector2(0, 0)
+		,
+		Callable()
+	)
+	stun_state = State.new(
+		"Stun",
+		func():
+		sprite.stop()
+		AiHelper.play_animation(sprite, "hurt", _dir)
+		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
+>>>>>>> Stashed changes
 		fsm.change_state(chase_state)
 		,
 		Callable()

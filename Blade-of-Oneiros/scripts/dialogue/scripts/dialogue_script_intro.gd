@@ -1,5 +1,6 @@
 extends DialogueScriptBase
 
+<<<<<<< Updated upstream
 func run(orchestrator: DialogueOrchestrator) -> void:
 	orchestrator.clear_lines()
 
@@ -26,3 +27,11 @@ func run(orchestrator: DialogueOrchestrator) -> void:
 		"color": Color(0.827, 0.0, 0.298, 1.0),
 		"size": 13,
 	})
+=======
+
+func run(orchestrator):
+	orchestrator.clear_steps()
+	orchestrator.camera_switch_to("BossCutsceneCam")
+	orchestrator.narrate("Boss camera active now...", {})
+	orchestrator.camera_restore()
+>>>>>>> Stashed changes

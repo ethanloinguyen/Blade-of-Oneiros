@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjm6vswbwmqr5"]
+[gd_scene load_steps=8 format=3 uid="uid://cjm6vswbwmqr5"]
 
 [ext_resource type="Script" uid="uid://ebn5gaf8kvrf" path="res://scripts/dialogue/DialogUI.gd" id="1_wgg1a"]
 [ext_resource type="FontFile" uid="uid://c25rydse7bjf4" path="res://assets/fonts/pokemon-gen3-battle.otf" id="2_6fm77"]
@@ -17,22 +17,13 @@ shader_parameter/noise_scale = 110.3130051923675
 shader_parameter/vignette_strength = 0.0
 shader_parameter/vignette_exponent = 1.8830000656925
 
-[sub_resource type="LabelSettings" id="LabelSettings_6fm77"]
-font = ExtResource("2_6fm77")
-font_color = Color(0.4745098, 0.78039217, 0.9843137, 1)
-stacked_shadow_count = 1
-stacked_shadow_0/offset = Vector2(0, 0)
-stacked_shadow_0/color = Color(0.07058824, 0.45882353, 0.65882355, 0.43137255)
-
 [node name="DialogUI" type="CanvasLayer"]
+<<<<<<< Updated upstream
+=======
+layer = 8
+>>>>>>> Stashed changes
 script = ExtResource("1_wgg1a")
 font = ExtResource("2_6fm77")
-font_size = 30
-dimmer_rise_duration = 0.6
-bg_fade_duration = 0.5
-dialogue_shift_amount = 230.0
-gradient_max_alpha_target = 1.0
-chars_per_second = 20.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -41,6 +32,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="FadeRect" type="ColorRect" parent="Control"]
+z_index = 15
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Dimmer" type="ColorRect" parent="Control"]
 material = SubResource("ShaderMaterial_p174r")
@@ -82,7 +83,12 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -371.0
+<<<<<<< Updated upstream
 offset_top = -403.0
+=======
+offset_top = -388.0
+offset_bottom = 15.0
+>>>>>>> Stashed changes
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(0, 403)
@@ -94,9 +100,13 @@ stretch_mode = 5
 flip_h = true
 
 [node name="DialogueBG" type="NinePatchRect" parent="Control"]
+<<<<<<< Updated upstream
 z_index = 10
+=======
+z_index = 16
+>>>>>>> Stashed changes
 texture_filter = 1
-custom_minimum_size = Vector2(252, 61)
+custom_minimum_size = Vector2(255, 61)
 layout_mode = 0
 offset_left = 377.0
 offset_top = 524.0
@@ -112,10 +122,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -0.5
-offset_right = -1.0
-offset_bottom = 0.5
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 7.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -126,11 +136,30 @@ theme_override_constants/margin_bottom = 45
 [node name="DialogueLabel" type="Label" parent="Control/DialogueBG/MarginContainer"]
 texture_filter = 1
 layout_mode = 2
-size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_6fm77")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 16
 text = "Testtestetst
 This is a propper test"
-label_settings = SubResource("LabelSettings_6fm77")
 horizontal_alignment = 1
 autowrap_mode = 1
+
+[node name="MultiVoiceContainer" type="VBoxContainer" parent="Control/DialogueBG/MarginContainer"]
+layout_mode = 2
+
+[node name="VoiceLabel1" type="Label" parent="Control/DialogueBG/MarginContainer/MultiVoiceContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6fm77")
+text = "Test"
+autowrap_mode = 2
+
+[node name="VoiceLabel2" type="Label" parent="Control/DialogueBG/MarginContainer/MultiVoiceContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6fm77")
+text = "test"
+autowrap_mode = 2
+
+[node name="VoiceLabel3" type="Label" parent="Control/DialogueBG/MarginContainer/MultiVoiceContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6fm77")
+text = "test"
+autowrap_mode = 2

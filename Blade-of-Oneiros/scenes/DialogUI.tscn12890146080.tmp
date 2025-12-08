@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjm6vswbwmqr5"]
+
+[ext_resource type="Script" uid="uid://ebn5gaf8kvrf" path="res://scripts/dialogue/DialogUI.gd" id="1_wgg1a"]
+[ext_resource type="Shader" uid="uid://d3gwp8ix6yasp" path="res://scenes/DialogUI.gdshader" id="3_6llym"]
+[ext_resource type="Texture2D" uid="uid://cm1ce6fhvb385" path="res://assets/ui/dialoguebox.png" id="3_trnpe"]
+[ext_resource type="Texture2D" uid="uid://c387kyhp3ivmp" path="res://assets/portraits/swordsman_lvl2.png" id="4_6llym"]
+[ext_resource type="Texture2D" uid="uid://c7xaomi8k5xrv" path="res://assets/portraits/oldmansmiles.png" id="5_6llym"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p174r"]
+shader = ExtResource("3_6llym")
+shader_parameter/gradient_color = Color(0, 0, 0, 1)
+shader_parameter/max_alpha = 1.0
+shader_parameter/height_fraction = 0.2000000095
+shader_parameter/noise_amount = 0.0
+shader_parameter/noise_scale = 110.3130051923675
+shader_parameter/vignette_strength = 0.0
+shader_parameter/vignette_exponent = 1.8830000656925
+
+[node name="DialogUI" type="CanvasLayer"]
+script = ExtResource("1_wgg1a")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FadeRect" type="ColorRect" parent="Control"]
+z_index = 11
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Dimmer" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_p174r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.69411767)
+
+[node name="SpeakerPortraitLeft" type="TextureRect" parent="Control"]
+z_index = 10
+texture_filter = 1
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -399.0
+offset_right = 371.0
+offset_bottom = 4.0
+grow_vertical = 0
+pivot_offset = Vector2(371, 403)
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("4_6llym")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="SpeakerPortraitRight" type="TextureRect" parent="Control"]
+z_index = 10
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -371.0
+offset_top = -388.0
+offset_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(0, 403)
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("5_6llym")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="DialogueBG" type="NinePatchRect" parent="Control"]
+z_index = 11
+texture_filter = 1
+custom_minimum_size = Vector2(252, 61)
+layout_mode = 0
+offset_left = 377.0
+offset_top = 524.0
+offset_right = 881.0
+offset_bottom = 646.0
+size_flags_horizontal = 3
+texture = ExtResource("3_trnpe")
+region_rect = Rect2(5.875719, 0.0704155, 237.06134, 54.8045)
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/DialogueBG"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -0.5
+offset_right = -1.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 19
+theme_override_constants/margin_right = 42
+theme_override_constants/margin_bottom = 45
+
+[node name="DialogueLabel" type="Label" parent="Control/DialogueBG/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Testtestetst
+This is a propper test"
+horizontal_alignment = 1
+autowrap_mode = 1

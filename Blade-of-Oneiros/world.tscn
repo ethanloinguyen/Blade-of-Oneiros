@@ -1,8 +1,16 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=2 format=3 uid="uid://jf00x0fdgo5l"]
 
+=======
+[gd_scene load_steps=4 format=3 uid="uid://jf00x0fdgo5l"]
+
+[ext_resource type="Script" uid="uid://dkwxhkw5qnjoc" path="res://world.gd" id="1_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://c6yqphodjpj40" path="res://scenes/title_scene/title_screen.tscn" id="2_fj7yv"]
+>>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://cuiacgigade2i" path="res://scenes/level_scenes/lvl_1.tscn" id="2_tlwt5"]
 
 [node name="World" type="Node"]
+script = ExtResource("1_aqk2v")
 
 [node name="lvl1" parent="." instance=ExtResource("2_tlwt5")]
 position = Vector2(-510, 28)
