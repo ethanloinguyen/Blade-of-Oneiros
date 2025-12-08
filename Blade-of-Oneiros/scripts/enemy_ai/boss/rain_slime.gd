@@ -13,7 +13,7 @@ func _ready():
 	# fall to floor
 	sprite.position.y = -height
 	while sprite.position.y < 0:
-		if not is_instance_valid(self):
+		if not is_instance_valid(self) or not is_inside_tree():
 			return
 		var tree = get_tree()
 		if tree != null:
@@ -22,7 +22,10 @@ func _ready():
 			return
 
 	# hurt player
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var tree = get_tree()
+	if tree == null:
+		return
+	var player:Player = tree.get_first_node_in_group("player")
 	if player.global_position.distance_to(global_position) <= damage_radius:
 		player.health.take_damage(damage)
 		queue_free()
