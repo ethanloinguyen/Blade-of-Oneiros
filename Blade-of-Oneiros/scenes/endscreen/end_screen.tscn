@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnrxw4n1qmehn"]
+
+[ext_resource type="Script" uid="uid://d3igbnol3kpwd" path="res://scripts/screens/end_screen.gd" id="1_clhca"]
+[ext_resource type="VideoStream" path="res://assets/videos/closingcutscene.ogv" id="1_kpxd4"]
+
+[node name="EndScreen" type="Node2D"]
+script = ExtResource("1_clhca")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EndVideo" type="VideoStreamPlayer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_kpxd4")
+expand = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)

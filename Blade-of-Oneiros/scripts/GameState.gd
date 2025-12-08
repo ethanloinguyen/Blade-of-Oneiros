@@ -19,4 +19,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if game_finished:
+		game_finished = false
+		get_tree().change_scene_to_file("res://scenes/endscreen/end_screen.tscn")
