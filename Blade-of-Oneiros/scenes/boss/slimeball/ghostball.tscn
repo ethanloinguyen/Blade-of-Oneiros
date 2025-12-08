@@ -81,7 +81,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -122,3 +122,5 @@ shape = SubResource("CircleShape2D_cwupr")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_7pdxm")
+autoplay = "default"
+frame_progress = 0.07169331
