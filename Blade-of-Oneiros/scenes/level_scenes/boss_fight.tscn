@@ -27,10 +27,14 @@ tile_set = ExtResource("1_ddjkd")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 <<<<<<< HEAD
+<<<<<<< HEAD
 position = Vector2(9.41684, 583.38245)
 =======
 position = Vector2(465, 636)
 >>>>>>> parent of 7a2b459 (worked on boss fight scene)
+=======
+position = Vector2(2.3868408, 325.26868)
+>>>>>>> parent of 1ad683b (audio imports)
 script = ExtResource("2_0vr5p")
 tag = &"debug"
 
@@ -41,6 +45,7 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 [node name="Enemies" type="Node2D" parent="Entities"]
 y_sort_enabled = true
@@ -49,6 +54,11 @@ y_sort_enabled = true
 position = Vector2(392, 368)
 
 >>>>>>> parent of 7a2b459 (worked on boss fight scene)
+=======
+[node name="Enemies" type="Node2D" parent="Entities"]
+y_sort_enabled = true
+
+>>>>>>> parent of 1ad683b (audio imports)
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(417, 13)

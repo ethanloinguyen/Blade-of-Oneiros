@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctaflj2b11gb1"
-path="res://.godot/imported/4.png-8163e82a718d65b6fbf04db03126cb72.ctex"
+uid="uid://dnayg8e0tehb0"
+path="res://.godot/imported/tooltip.png-ac49d676c859bcc6ae9cf1d79e8ffff3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/startingscreen_animation/4.png"
-dest_files=["res://.godot/imported/4.png-8163e82a718d65b6fbf04db03126cb72.ctex"]
+source_file="res://assets/ui/tutorial/tooltip.png"
+dest_files=["res://.godot/imported/tooltip.png-ac49d676c859bcc6ae9cf1d79e8ffff3.ctex"]
 
 [params]
 
