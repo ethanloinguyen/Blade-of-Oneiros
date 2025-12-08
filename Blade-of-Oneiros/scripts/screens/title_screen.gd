@@ -1,5 +1,7 @@
 extends Node
 
+@onready var audio = $AudioStreamPlayer2D
+@export var music_audio: AudioStream
 @onready var start_button = $CanvasLayer/StartButton
 @onready var intro_video = $CanvasLayer/IntroVideo
 @onready var background = $CanvasLayer/Background
@@ -13,6 +15,8 @@ func _ready() -> void:
 	animation_player.play("default")
 	start_button.pressed.connect(_on_start_button_pressed)
 	intro_video.finished.connect(_on_video_finished)
+	play_audio(music_audio)
+	
 	
 	#Hide video until button is pressed
 	intro_video.visible = false
@@ -29,6 +33,7 @@ func _on_start_button_pressed():
 	background.visible = false
 	start_button.visible = false
 	title.visible = false
+	stop_audio()
 	
 	#Show and start video
 	intro_video.visible = true
@@ -57,6 +62,12 @@ func _input(event):
 			get_viewport().set_input_as_handled()
 			_skip_video()
 			
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()	
+	
+func stop_audio():
+	audio.stop()
 			
 func _skip_video():
 	intro_video.stop()
