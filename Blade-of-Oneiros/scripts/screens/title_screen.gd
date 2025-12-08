@@ -4,11 +4,13 @@ extends Node
 @onready var intro_video = $CanvasLayer/IntroVideo
 @onready var background = $CanvasLayer/Background
 @onready var title = $CanvasLayer/Title
+@onready var animation_player = $CanvasLayer/Title/AnimationPlayer
 
 var _video_playing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	animation_player.play("default")
 	start_button.pressed.connect(_on_start_button_pressed)
 	intro_video.finished.connect(_on_video_finished)
 	
@@ -27,7 +29,6 @@ func _on_start_button_pressed():
 	background.visible = false
 	start_button.visible = false
 	title.visible = false
-	
 	
 	#Show and start video
 	intro_video.visible = true
