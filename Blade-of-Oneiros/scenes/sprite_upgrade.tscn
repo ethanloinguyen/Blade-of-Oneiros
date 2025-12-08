@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqla1u51foacv"]
+
+[ext_resource type="Script" uid="uid://jt1gisxrg3cw" path="res://scripts/sprite_upgrade.gd" id="1_p6bps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ihx8"]
+
+[node name="SpriteUpgrade" type="Node2D"]
+script = ExtResource("1_p6bps")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8ihx8")

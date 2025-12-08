@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://dvrmpg74vm0t6"]
+[gd_scene load_steps=105 format=3 uid="uid://dvrmpg74vm0t6"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://cykewtykej5sg" path="res://assets/audio/sword_swing/swordswing2.wav" id="16_i4tte"]
 [ext_resource type="AudioStream" uid="uid://4mfbqkbpx0qw" path="res://assets/audio/recorded_audio/panting.wav" id="18_4rvpn"]
 [ext_resource type="AudioStream" uid="uid://kxlcm2xm7pyc" path="res://assets/audio/recorded_audio/death.wav" id="19_mktrd"]
+[ext_resource type="Texture2D" uid="uid://4ouitcyi4gvo" path="res://assets/player/swordsman_lvl2_spritesheet.png" id="20_4y5hj"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -753,6 +754,7 @@ sword_whoosh_audio = Array[AudioStream]([ExtResource("15_on3w6"), ExtResource("1
 falling_audio = ExtResource("3_8068f")
 exhausted_audio = ExtResource("18_4rvpn")
 death_audio = ExtResource("19_mktrd")
+upgraded_texture = ExtResource("20_4y5hj")
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

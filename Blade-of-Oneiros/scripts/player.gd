@@ -72,6 +72,9 @@ var breakable_tiles: BreakableTiles
 var falling: bool = false
 var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
 
+var upgraded = false
+@export var upgraded_texture: Texture2D
+
 func _ready() -> void:
 
 	animation_tree.active = true
@@ -368,6 +371,13 @@ func _spawn_dash_ghost() -> void:
 	ghost.global_scale = src.global_scale
 	
 	get_tree().current_scene.add_child(ghost)
+
+
+func upgrade_sprite() -> void:
+	if upgraded:
+		return
+	upgraded = true
+	sprite.texture = upgraded_texture
 
 
 #falling animation/ stops the player, plays moving animation, then fades the player
