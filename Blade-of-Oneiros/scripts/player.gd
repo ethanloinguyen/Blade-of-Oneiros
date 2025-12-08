@@ -102,7 +102,11 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		return
 	
+	
 	if dead:
+		GameState.game_over = true
+		#GameState.game_over = true
+		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 		velocity = Vector2.ZERO
 		return
 	
@@ -156,6 +160,7 @@ func _physics_process(delta: float) -> void:
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
 			if try_use_stamina(stamina_cost_attack):
+				play_audio(sword_whoosh_audio[randi() % sword_whoosh_audio.size()])
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
 				return
@@ -245,6 +250,7 @@ func _on_health_died() -> void:
 	GameState.game_over = true
 	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 	#_manage_animation_tree_state()
+
 
 
 # returns false if unable to use stamina, true if usable

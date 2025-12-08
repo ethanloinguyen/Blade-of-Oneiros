@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bl0gmhokcbyf1"
-path="res://.godot/imported/walkstep10.wav-feb6224ec4da367cd61f1852340c593d.sample"
+path="res://.godot/imported/walkstep10.wav-39ccbccba1c09f6396cad0ad696df76e.sample"
 
 [deps]
 
-source_file="res://assets/audio/walkstep10.wav"
-dest_files=["res://.godot/imported/walkstep10.wav-feb6224ec4da367cd61f1852340c593d.sample"]
+source_file="res://assets/audio/walking/walkstep10.wav"
+dest_files=["res://.godot/imported/walkstep10.wav-39ccbccba1c09f6396cad0ad696df76e.sample"]
 
 [params]
 
