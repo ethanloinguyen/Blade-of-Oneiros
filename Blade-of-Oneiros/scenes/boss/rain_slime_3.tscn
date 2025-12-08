@@ -111,7 +111,7 @@ collision_mask = 2
 script = ExtResource("1_qqhhm")
 height = 150.0
 fall_duration = 0.5
-damage = 10
+damage = 30
 damage_radius = 9.0
 remain_duration = 5.0
 
