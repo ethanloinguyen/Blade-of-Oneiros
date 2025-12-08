@@ -73,6 +73,9 @@ var breakable_tiles: BreakableTiles
 var falling: bool = false
 var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
 
+var upgraded: bool = false
+@export var upgraded_texture: Texture2D 
+
 func _ready() -> void:
 
 	animation_tree.active = true
@@ -376,6 +379,22 @@ func _spawn_dash_ghost() -> void:
 	get_tree().current_scene.add_child(ghost)
 
 
+func upgrade_sprite() -> void:
+	if upgraded:
+		return
+	
+	upgraded = true
+	sprite.texture = upgraded_texture
+	
+	# Upgrade player stats
+	health.max_health = 200
+	health_bar.max_value = health.max_health
+	health.current_health = health.max_health
+	stamina_recharge_rate = 30
+	set_health_bar()
+	set_stamina_bar()
+
+
 #falling animation/ stops the player, plays moving animation, then fades the player
 func start_fall(fall_position: Vector2) -> void:
 	if falling or dead:
@@ -386,7 +405,7 @@ func start_fall(fall_position: Vector2) -> void:
 	running = false
 	dashing = false
 	attacking = false
-
+	
 	
 	global_position = fall_position
 	audio.stream = falling_audio
@@ -433,9 +452,8 @@ func start_fall(fall_position: Vector2) -> void:
 	var cam := get_node_or_null("Camera2D")
 	if cam is Camera2D:
 		(cam as Camera2D).enabled = false
-	
-		
-		
+
+
 func reset_player() -> void:
 	dead = false
 	falling = false
@@ -451,7 +469,7 @@ func reset_player() -> void:
 	_manage_animation_tree_state()
 	modulate = Color(1, 1, 1, 1)  # fully visible
 
-	
+
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if dead:
@@ -493,18 +511,3 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
-## Inventory related commands:
-#func _on_potion_pickup_area_entered(body):
-	#if body is Player:
-		#Inventory.add_potion(1)
-		#queue_free()
-#
-#if Inventory.use_key():
-	#open_door()
-#else:
-	#print("Need a key!")
-#
-#if Inventory.use_potion():
-	#player.heal(20)
-#else:
-	#print("No potions!")

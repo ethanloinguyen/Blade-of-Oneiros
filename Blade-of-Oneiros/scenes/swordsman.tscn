@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://dvrmpg74vm0t6"]
+[gd_scene load_steps=115 format=3 uid="uid://dvrmpg74vm0t6"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://cykewtykej5sg" path="res://assets/audio/sword_swing/swordswing2.wav" id="16_i4tte"]
 [ext_resource type="AudioStream" uid="uid://4mfbqkbpx0qw" path="res://assets/audio/recorded_audio/panting.wav" id="18_4rvpn"]
 [ext_resource type="AudioStream" uid="uid://kxlcm2xm7pyc" path="res://assets/audio/recorded_audio/death.wav" id="19_mktrd"]
+[ext_resource type="Texture2D" uid="uid://mciv6cx2403g" path="res://assets/player/swordsman_lvl2_spritesheet.png" id="20_4y5hj"]
 [ext_resource type="AudioStream" uid="uid://b3p6cly0qq68" path="res://assets/audio/walking/walkstep1.wav" id="26_y0gk3"]
 [ext_resource type="AudioStream" uid="uid://6b57qp7ep6b0" path="res://assets/audio/walking/walkstep2.wav" id="27_on3w6"]
 [ext_resource type="AudioStream" uid="uid://b7bsnixxtjhij" path="res://assets/audio/walking/walkstep3.wav" id="28_i4tte"]
@@ -936,6 +937,7 @@ walking_audio = Array[AudioStream]([ExtResource("26_y0gk3"), ExtResource("27_on3
 falling_audio = ExtResource("3_8068f")
 exhausted_audio = ExtResource("18_4rvpn")
 death_audio = ExtResource("19_mktrd")
+upgraded_texture = ExtResource("20_4y5hj")
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
