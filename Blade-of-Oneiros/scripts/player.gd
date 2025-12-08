@@ -15,7 +15,16 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
+@export var hurt_audio: Array[AudioStream] = []
+@export var dash_audio: Array[AudioStream] = []
+@export var attack_grunt_audio: Array[AudioStream] = []
+@export var sword_whoosh_audio: Array[AudioStream] = []
+@export var walking_audio: Array[AudioStream] = []
+@export var running_audio: AudioStream
 @export var falling_audio: AudioStream
+@export var exhausted_audio: AudioStream
+@export var death_audio: AudioStream
+
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -55,7 +64,6 @@ var facing_direction: Vector2 = Vector2.DOWN
 
 var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
-var inventory: Control
 #breaking/falling tile variables
 var breakable_tiles: BreakableTiles
 var falling: bool = false
@@ -68,10 +76,9 @@ func _ready() -> void:
 	
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
-		
+
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
-	inventory = hud.get_node("InventoryPanel") as Control
 	hud.visible = true
 	health.hurt.connect(_on_health_hurt)
 	health.died.connect(_on_health_died)	
@@ -82,13 +89,10 @@ func _ready() -> void:
 	bind_commands()
 	
 func _physics_process(delta: float) -> void:	
-
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
-		
-
-
+	
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -137,6 +141,7 @@ func _physics_process(delta: float) -> void:
 		dash_ghost_timer -= delta
 		dash_time += delta / dash_duration
 		
+		
 		var factor := dash_curve.sample(dash_time)
 		velocity = dash_direction * dash_speed * factor
 		if dash_ghost_timer <= 0.0:
@@ -152,6 +157,25 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
+	if Input.is_action_just_pressed("add_potion"):
+		Inventory.add_potion()
+		_manage_animation_tree_state()
+		return
+	
+	if Input.is_action_just_pressed("potion"):
+		if Inventory.use_potion():
+			health.current_health += 20
+			health.current_health = min(health.max_health, health.current_health)
+		_manage_animation_tree_state()
+		return
+	
+	if Input.is_action_just_pressed("use_key"):
+		if Inventory.use_key():
+			# open door command
+			pass
+		_manage_animation_tree_state()
+		return
+	
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
@@ -163,6 +187,7 @@ func _physics_process(delta: float) -> void:
 		# DASH
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 			if try_use_stamina(stamina_cost_dash):
+				play_audio(dash_audio[randi() % dash_audio.size()])
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
@@ -211,19 +236,22 @@ func _physics_process(delta: float) -> void:
 		
 	_manage_animation_tree_state()
 
+#function to play audio throughout script
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
 
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
-	
 		
 func _on_health_hurt() -> void:
 	if dead:
 		return
 	_damaged = true
+	play_audio(hurt_audio[randi() % hurt_audio.size()])
 	set_health_bar()
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("hurt") 
-
 	#_manage_animation_tree_state()
 
 
@@ -237,8 +265,9 @@ func _on_health_died() -> void:
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
-
+	
 	#animation_tree["parameters/conditions/death"] = true
+	play_audio(death_audio)
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("death")
 	await get_tree().create_timer(1.0).timeout
@@ -444,18 +473,3 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
-## Inventory related commands:
-#func _on_potion_pickup_area_entered(body):
-	#if body is Player:
-		#Inventory.add_potion(1)
-		#queue_free()
-#
-#if Inventory.use_key():
-	#open_door()
-#else:
-	#print("Need a key!")
-#
-#if Inventory.use_potion():
-	#player.heal(20)
-#else:
-	#print("No potions!")

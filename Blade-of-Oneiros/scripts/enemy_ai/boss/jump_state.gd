@@ -9,7 +9,7 @@ var _sprite
 var _target_rel:Vector2
 var _time:float
 
-func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2D, attack_hitbox:Hitbox, exit_jump:Callable):
+func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2D, attack_hitbox:Hitbox, play_anim_after:bool, exit_jump:Callable):
 	_enemy = enemy
 	_sprite = sprite
 	super(
@@ -17,9 +17,10 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		func():
 		_time = 0.0
 		enemy.collision_layer &= ~(ENEMY_COLLISION_LAYER)
-		AiHelper.play_animation(sprite, "jump", enemy._dir)
+		if not play_anim_after:
+			AiHelper.play_animation(sprite, "jump", enemy._dir)
 
-		await _enemy.get_tree().create_timer(jump_duration).timeout
+		await _enemy.get_tree().create_timer(jump_duration, false).timeout
 		if not is_instance_valid(self):
 			return
 		if exit_jump.is_valid():
@@ -35,8 +36,11 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		,
 		func():
 		sprite.position = Vector2.ZERO
-		attack_hitbox.activate(Vector2.UP, false)
+		attack_hitbox.activate(Vector2.UP, false, false)
 		enemy.collision_layer |= ENEMY_COLLISION_LAYER
+		if play_anim_after:
+			AiHelper.play_animation(sprite, "jump", enemy._dir)
+
 	)
 
 
