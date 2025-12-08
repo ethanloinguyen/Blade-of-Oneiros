@@ -173,18 +173,20 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if Input.is_action_just_pressed("potion"):
+		print("pressed")
 		if Inventory.use_potion():
-			health.current_health += 20
+			print("heal")
+			health.current_health += roundi(health.max_health * 0.2)
 			health.current_health = min(health.max_health, health.current_health)
 		_manage_animation_tree_state()
 		return
 	
-	if Input.is_action_just_pressed("use_key"):
-		if Inventory.use_key():
-			# open door command
-			pass
-		_manage_animation_tree_state()
-		return
+	#if Input.is_action_just_pressed("use_key"):
+		#if Inventory.use_key():
+			## open door command
+			#pass
+		#_manage_animation_tree_state()
+		#return
 	
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
