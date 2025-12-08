@@ -7,11 +7,7 @@ extends Character
 @onready var push_ray: RayCast2D = $PushRay
 @onready var hitbox: Hitbox = $HitBox
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
-<<<<<<< HEAD
-@onready var hurt_box : Health = $HurtBox
-=======
 @onready var health: Health = $HurtBox
->>>>>>> fe902173242c7a8b3be72340fe08d16a15777e8d
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -102,27 +98,13 @@ func _physics_process(delta: float) -> void:
 	# if in dialogue stop all movement
 	if in_dialogue:
 		return
-		
-	hurt_box.hurt.connect(func():
-		animation_player.play("hurt")
-	)
-	hurt_box.died.connect(func():
-		animation_tree.active = false
-		animation_player.play("dead")
-		#await sprite.animation_finished
-		get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
-	)
 	
 	
 	if dead:
-<<<<<<< HEAD
 		GameState.game_over = true
-		
-=======
 		#GameState.game_over = true
 		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 		velocity = Vector2.ZERO
->>>>>>> fe902173242c7a8b3be72340fe08d16a15777e8d
 		return
 	
 	if falling:
@@ -231,8 +213,6 @@ func _physics_process(delta: float) -> void:
 	_manage_animation_tree_state()
 
 
-<<<<<<< HEAD
-=======
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
 	#health -= damage
@@ -282,7 +262,7 @@ func _on_health_died() -> void:
 	#_manage_animation_tree_state()
 
 
->>>>>>> fe902173242c7a8b3be72340fe08d16a15777e8d
+
 # returns false if unable to use stamina, true if usable
 func try_use_stamina(amount: float) -> bool:
 	if stamina_actions_locked:
