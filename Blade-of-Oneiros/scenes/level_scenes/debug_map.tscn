@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cs6v7gg3ojoa8"]
+[gd_scene load_steps=17 format=4 uid="uid://cs6v7gg3ojoa8"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_4f4na"]
 [ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="2_ml6jv"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bxa1txm1q7i7a" path="res://scenes/level_enemy_containers/debug_map_enemy_container.tscn" id="9_ieut8"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 [ext_resource type="PackedScene" uid="uid://ds2ns05ftbc5g" path="res://scenes/key.tscn" id="13_qxto5"]
-[ext_resource type="PackedScene" uid="uid://bd7ubbogsvs15" path="res://scenes/potion.tscn" id="14_m8cr4"]
+[ext_resource type="PackedScene" uid="uid://cpptia23mhpbe" path="res://scenes/potion.tscn" id="14_m8cr4"]
 [ext_resource type="PackedScene" uid="uid://bvp22eifui3tj" path="res://scenes/sprite_upgrade.tscn" id="15_m8cr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rtx"]

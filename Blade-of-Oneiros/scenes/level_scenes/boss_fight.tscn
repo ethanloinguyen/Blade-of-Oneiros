@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=4 uid="uid://qf60ey6t8ph6"]
+[gd_scene load_steps=20 format=4 uid="uid://qf60ey6t8ph6"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_ddjkd"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_0vr5p"]
 [ext_resource type="PackedScene" uid="uid://dtt6ths5d2otx" path="res://scenes/level_enemy_containers/boss_fight_container.tscn" id="3_ttc01"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="10_gqr7n"]
-[ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="12_lft1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttc01"]
 size = Vector2(33.5, 34)
@@ -51,9 +50,6 @@ size = Vector2(77, 44.499985)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rtx"]
 size = Vector2(35, 32.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ieut8"]
-size = Vector2(456.27985, 63.593018)
-
 [node name="boss_fight" type="Node2D"]
 y_sort_enabled = true
 
@@ -93,13 +89,10 @@ y_sort_enabled = true
 [node name="Boxes" type="Node2D" parent="Entities"]
 y_sort_enabled = true
 
-[node name="Enemies" type="Node2D" parent="Entities"]
-y_sort_enabled = true
-
-[node name="Enemies2" parent="Entities" instance=ExtResource("3_ttc01")]
+[node name="Enemies" parent="Entities" instance=ExtResource("3_ttc01")]
 position = Vector2(-26.230896, 335.11185)
 
-[node name="Boss1" parent="Entities/Enemies2" index="0"]
+[node name="Boss1" parent="Entities/Enemies" index="0"]
 position = Vector2(34.230896, -113.11185)
 between_states_wait_duration = 4.0
 
@@ -236,29 +229,4 @@ texture_filter = 1
 position = Vector2(-700, -137)
 shape = SubResource("RectangleShape2D_c2rtx")
 
-[node name="NPCTrigger" type="Node2D" parent="."]
-visibility_layer = 3
-y_sort_enabled = true
-texture_filter = 3
-texture_repeat = 2
-position = Vector2(264, 564)
-scale = Vector2(0.629, 0.629)
-
-[node name="Area2D" type="Area2D" parent="NPCTrigger"]
-z_index = 1
-texture_filter = 1
-texture_repeat = 2
-collision_layer = 255
-collision_mask = 255
-script = ExtResource("12_lft1h")
-dialogue_id = "npc_intro_1"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCTrigger/Area2D"]
-z_index = 1
-texture_repeat = 2
-position = Vector2(-403.81558, -200.31796)
-shape = SubResource("RectangleShape2D_ieut8")
-
-[node name="Sprite2D" type="Sprite2D" parent="NPCTrigger/Area2D"]
-
-[editable path="Entities/Enemies2"]
+[editable path="Entities/Enemies"]

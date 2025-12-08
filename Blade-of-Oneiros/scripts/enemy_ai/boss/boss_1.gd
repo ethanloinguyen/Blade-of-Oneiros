@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var attack_hitbox = $JumpHitbox
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
+@onready var audio = $AudioStreamPlayer2D
 
 @export var between_states_wait_duration:float = 4.0
 
@@ -13,6 +14,8 @@ extends CharacterBody2D
 @export var next_boss:PackedScene
 @export var slime_enemy:PackedScene
 @export var death_slime_spawn_count:int = 3
+
+@export var bounce_audio: AudioStream
 
 var fsm:FSM
 var idle_state:State
@@ -76,6 +79,7 @@ func _ready():
 		_face_player()
 	)
 	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
+		play_audio(bounce_audio)
 		_idle(between_states_wait_duration, func():
 			shoot_state.shoot(global_position)
 		)
@@ -103,6 +107,11 @@ func _physics_process(delta:float) -> void:
 func _face_player():
 	var to_player = _player.global_position - global_position
 	_dir = AiHelper.update_dir(to_player)
+	
+
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
 
 
 func _idle(duration:float, exit_idle:Callable):

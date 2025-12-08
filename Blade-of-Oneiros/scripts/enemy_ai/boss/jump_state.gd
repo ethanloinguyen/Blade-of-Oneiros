@@ -40,7 +40,6 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		enemy.collision_layer |= ENEMY_COLLISION_LAYER
 		if play_anim_after:
 			AiHelper.play_animation(sprite, "jump", enemy._dir)
-
 	)
 
 
