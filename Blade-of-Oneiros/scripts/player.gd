@@ -15,16 +15,7 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
-@export var hurt_audio: Array[AudioStream] = []
-@export var dash_audio: Array[AudioStream] = []
-@export var attack_grunt_audio: Array[AudioStream] = []
-@export var sword_whoosh_audio: Array[AudioStream] = []
-@export var walking_audio: Array[AudioStream] = []
-@export var running_audio: AudioStream
 @export var falling_audio: AudioStream
-@export var exhausted_audio: AudioStream
-@export var death_audio: AudioStream
-
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -77,7 +68,7 @@ func _ready() -> void:
 	
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
-
+		
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
@@ -146,7 +137,6 @@ func _physics_process(delta: float) -> void:
 		dash_ghost_timer -= delta
 		dash_time += delta / dash_duration
 		
-		
 		var factor := dash_curve.sample(dash_time)
 		velocity = dash_direction * dash_speed * factor
 		if dash_ghost_timer <= 0.0:
@@ -173,7 +163,6 @@ func _physics_process(delta: float) -> void:
 		# DASH
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 			if try_use_stamina(stamina_cost_dash):
-				play_audio(dash_audio[randi() % dash_audio.size()])
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
@@ -222,22 +211,19 @@ func _physics_process(delta: float) -> void:
 		
 	_manage_animation_tree_state()
 
-#function to play audio throughout script
-func play_audio(_stream : AudioStream) -> void:
-	audio.stream = _stream
-	audio.play()
 
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
+	
 		
 func _on_health_hurt() -> void:
 	if dead:
 		return
 	_damaged = true
-	play_audio(hurt_audio[randi() % hurt_audio.size()])
 	set_health_bar()
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("hurt") 
+
 	#_manage_animation_tree_state()
 
 
@@ -251,9 +237,8 @@ func _on_health_died() -> void:
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
-	
+
 	#animation_tree["parameters/conditions/death"] = true
-	play_audio(death_audio)
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("death")
 	await get_tree().create_timer(1.0).timeout

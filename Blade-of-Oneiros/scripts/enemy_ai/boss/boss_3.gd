@@ -39,7 +39,6 @@ func _ready():
 			return
 
 	health.hurt.connect(func():
-		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
 	health.died.connect(func():
@@ -62,7 +61,7 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, true, func():
+	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, func():
 		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(
@@ -72,10 +71,10 @@ func _ready():
 			var rs:RainSlime = rain_slime.instantiate()
 			get_parent().add_child(rs)
 			rs.global_position = _player.global_position
-			await get_tree().create_timer(0.5, false).timeout
+			await get_tree().create_timer(0.5).timeout
 			if not is_instance_valid(self):
 				return
-		await get_tree().create_timer(1.5, false).timeout
+		await get_tree().create_timer(1.5).timeout
 		if not is_instance_valid(self):
 			return
 		shoot_state_1.shoot(global_position)
@@ -118,7 +117,7 @@ func _face_player():
 
 func _idle(duration:float, exit_idle:Callable):
 	fsm.change_state(idle_state)
-	await get_tree().create_timer(duration, false).timeout
+	await get_tree().create_timer(duration).timeout
 	if not is_instance_valid(self):
 		return
 	exit_idle.call()

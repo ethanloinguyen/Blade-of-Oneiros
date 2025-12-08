@@ -40,7 +40,6 @@ func _ready():
 			return
 
 	health.hurt.connect(func():
-		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
 	health.died.connect(func():
@@ -75,7 +74,7 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
+	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
 		_idle(between_states_wait_duration, func():
 			shoot_state.shoot(global_position)
 		)
@@ -107,7 +106,7 @@ func _face_player():
 
 func _idle(duration:float, exit_idle:Callable):
 	fsm.change_state(idle_state)
-	await get_tree().create_timer(duration, false).timeout
+	await get_tree().create_timer(duration).timeout
 	if not is_instance_valid(self):
 		return
 	exit_idle.call()
