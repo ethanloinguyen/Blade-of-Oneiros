@@ -1,8 +1,9 @@
-[gd_scene load_steps=84 format=3 uid="uid://dapjo80x5nxtv"]
+[gd_scene load_steps=85 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
 [ext_resource type="PackedScene" uid="uid://5vvl8ewnkllm" path="res://scenes/boss/slimeball/fireball.tscn" id="2_gajum"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_oxfrb"]
+[ext_resource type="PackedScene" uid="uid://c0iyshfw82ja6" path="res://scenes/boss/rain_slime_3.tscn" id="3_qnbdj"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_7geqw"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="5_gajum"]
 [ext_resource type="Texture2D" uid="uid://cqsdpj24pty3" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Hurt_with_shadow.png" id="6_qnbdj"]
@@ -597,11 +598,13 @@ animations = [{
 }]
 
 [node name="Boss3" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gajum")
 between_states_wait_duration = 2.0
 projectile = ExtResource("2_gajum")
+rain_slime = ExtResource("3_qnbdj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -626,12 +629,12 @@ damage = 50
 shape = SubResource("CircleShape2D_t46gg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fpxyv")
 animation = &"jump_up"
 
 [node name="Shadow" type="Sprite2D" parent="."]
-z_index = -1
 position = Vector2(0, 16)
 scale = Vector2(2, 2)
 texture = ExtResource("9_grqg8")

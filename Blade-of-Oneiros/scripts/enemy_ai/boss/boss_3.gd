@@ -9,6 +9,7 @@ extends CharacterBody2D
 @export var between_states_wait_duration:float = 4.0
 
 @export var projectile:PackedScene
+@export var rain_slime:PackedScene
 
 var fsm:FSM
 var idle_state:State
@@ -64,7 +65,11 @@ func _ready():
 	rain_state = State.new(
 		"Rain",
 		func():
-		# TODO: rain 3 slimes
+		for i in range(5):
+			var rs:RainSlime = rain_slime.instantiate()
+			get_parent().add_child(rs)
+			rs.global_position = _player.global_position
+			await get_tree().create_timer(0.5).timeout
 		await get_tree().create_timer(1.5).timeout
 		shoot_state_1.shoot(global_position)
 		,
@@ -80,7 +85,7 @@ func _ready():
 		)
 	)
 	shoot_state_2 = ShootState.new(self, projectile, 8, true, func():
-		_idle(between_states_wait_duration, func():
+		_idle(5.0, func():
 			jump_state.jump(_player.global_position)
 		)
 	)
