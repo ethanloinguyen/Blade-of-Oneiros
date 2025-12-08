@@ -15,7 +15,9 @@ func _ready() -> void:
 	check_exist()
 	get_tree().scene_changed.connect(_on_scene_changed)
 	
-	
+	# ADDED BY ALFRED: register player as "swordsman" character with the DialogueOrchestrator
+	DialogueOrchestrator.register_character("swordsman", player)
+
 
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player
@@ -50,6 +52,12 @@ func change_level(scene_path: String, spawn_tag: StringName = "default") -> void
 
 func _on_scene_changed() -> void:
 	_place_player()
+
+	#ADded by Alfred
+	if GameState.start_with_opening_tutorial \
+	and GameState.last_scene_path == "res://scenes/level_scenes/lvl_1.tscn":
+		GameState.start_with_opening_tutorial = false
+		DialogueOrchestrator.start("tutorial_cutscene")
 
 
 func _place_player() ->void:
