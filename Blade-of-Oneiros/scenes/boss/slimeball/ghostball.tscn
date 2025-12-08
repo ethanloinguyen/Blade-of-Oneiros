@@ -120,7 +120,8 @@ damage = 40
 shape = SubResource("CircleShape2D_cwupr")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 2
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_7pdxm")
 autoplay = "default"
-frame_progress = 0.07169331
+frame_progress = 0.7525982

@@ -129,7 +129,8 @@ fixed_sprite_rotation = true
 shape = SubResource("CircleShape2D_jxnv5")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 2
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_e8spc")
 autoplay = "default"
-frame_progress = 0.19175489
+frame_progress = 0.37535408
