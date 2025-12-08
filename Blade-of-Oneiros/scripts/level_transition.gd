@@ -17,6 +17,7 @@ func _ready() -> void:
 	body_exited.connect(_on_exit)
 	set_process_unhandled_input(true)
 	
+	
 func _on_enter(body: Node) -> void:
 	#for debug purposes
 	#print("Door", name, "body_entered by:", body.name, "groups:", body.get_groups())

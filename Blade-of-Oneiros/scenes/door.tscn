@@ -162,3 +162,5 @@ debug_color = Color(0.8403169, 0.3128716, 0.57573026, 0.41960785)
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, 17.5)
 shape = SubResource("RectangleShape2D_18pbm")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
