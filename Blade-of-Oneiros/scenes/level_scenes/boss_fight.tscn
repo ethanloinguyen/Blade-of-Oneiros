@@ -33,7 +33,7 @@ tile_map_data = PackedByteArray("AAD1/w8AAQACAAYAAAD1/xAAAQACAAcAAAD2/xAAAQACAAc
 tile_set = ExtResource("1_ddjkd")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(2.3868408, 325.26868)
+position = Vector2(9.41684, 583.38245)
 script = ExtResource("2_0vr5p")
 tag = &"boss"
 
@@ -41,9 +41,6 @@ tag = &"boss"
 y_sort_enabled = true
 
 [node name="Boxes" type="Node2D" parent="Entities"]
-y_sort_enabled = true
-
-[node name="Enemies" type="Node2D" parent="Entities"]
 y_sort_enabled = true
 
 [node name="ysort" type="Node2D" parent="."]
