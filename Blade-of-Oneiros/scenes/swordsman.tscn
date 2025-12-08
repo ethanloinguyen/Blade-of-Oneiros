@@ -12,14 +12,14 @@
 [ext_resource type="AudioStream" uid="uid://k2la1flb2hhm" path="res://assets/audio/recorded_audio/hurt_owie.wav" id="5_tbyuo"]
 [ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
 [ext_resource type="AudioStream" uid="uid://bg8yamnwxkdij" path="res://assets/audio/recorded_audio/hurt_my_leg.wav" id="6_qxl16"]
-[ext_resource type="AudioStream" uid="uid://ct57a832ha8jm" path="res://assets/audio/dash/dash1.wav" id="7_ncrap"]
+[ext_resource type="AudioStream" uid="uid://ct57a832ha8jm" path="res://assets/audio/dash/dash1.wav" id="7_nnse2"]
 [ext_resource type="AudioStream" uid="uid://cjr5rinska33" path="res://assets/audio/recorded_audio/attack1.wav" id="7_vj5qx"]
-[ext_resource type="AudioStream" uid="uid://chuouurw65aus" path="res://assets/audio/dash/dash2.wav" id="8_11fqc"]
+[ext_resource type="AudioStream" uid="uid://chuouurw65aus" path="res://assets/audio/dash/dash2.wav" id="8_4y5hj"]
 [ext_resource type="AudioStream" uid="uid://cld4m20qr65jc" path="res://assets/audio/recorded_audio/attack2.wav" id="8_32w2b"]
+[ext_resource type="AudioStream" uid="uid://dh10yibk37jrg" path="res://assets/audio/dash/dash3.wav" id="9_ai3mq"]
 [ext_resource type="AudioStream" uid="uid://wydaxsj3lse0" path="res://assets/audio/recorded_audio/attack3.wav" id="9_nnse2"]
-[ext_resource type="AudioStream" uid="uid://dh10yibk37jrg" path="res://assets/audio/dash/dash3.wav" id="9_tbyuo"]
 [ext_resource type="AudioStream" uid="uid://cfcdey6ad5hst" path="res://assets/audio/recorded_audio/attack4.wav" id="10_4y5hj"]
-[ext_resource type="AudioStream" uid="uid://dqgkdaslpn6lt" path="res://assets/audio/dash/dash4.wav" id="10_qxl16"]
+[ext_resource type="AudioStream" uid="uid://dqgkdaslpn6lt" path="res://assets/audio/dash/dash4.wav" id="10_arqf2"]
 [ext_resource type="AudioStream" uid="uid://4mfbqkbpx0qw" path="res://assets/audio/recorded_audio/panting.wav" id="12_ai3mq"]
 [ext_resource type="AudioStream" uid="uid://kxlcm2xm7pyc" path="res://assets/audio/recorded_audio/death.wav" id="13_arqf2"]
 [ext_resource type="AudioStream" uid="uid://crqw2pr521p6h" path="res://assets/audio/sword_swing/swordswing1.wav" id="15_nnse2"]
@@ -740,6 +740,7 @@ texture_filter = 1
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_yb8h7")
+attack_damage = null
 hitbox_offset_down = Vector2(0, -14)
 hitbox_offset_up = Vector2(0, 0)
 hitbox_offset_right = Vector2(-5, -10)
@@ -747,12 +748,21 @@ hitbox_offset_left = Vector2(5, -10)
 dash_ghost_scene = ExtResource("2_r7u1p")
 dash_curve = SubResource("Curve_s1psh")
 hurt_audio = Array[AudioStream]([ExtResource("3_ncrap"), ExtResource("4_11fqc"), ExtResource("5_tbyuo"), ExtResource("6_qxl16")])
-dash_audio = Array[AudioStream]([ExtResource("7_ncrap"), ExtResource("8_11fqc"), ExtResource("9_tbyuo"), ExtResource("10_qxl16")])
+dash_audio = Array[AudioStream]([ExtResource("7_nnse2"), ExtResource("8_4y5hj"), ExtResource("9_ai3mq"), ExtResource("10_arqf2")])
 attack_grunt_audio = Array[AudioStream]([ExtResource("7_vj5qx"), ExtResource("8_32w2b"), ExtResource("9_nnse2"), ExtResource("10_4y5hj")])
 sword_whoosh_audio = Array[AudioStream]([ExtResource("15_nnse2"), ExtResource("16_4y5hj")])
+walking_audio = null
 falling_audio = ExtResource("3_8068f")
 exhausted_audio = ExtResource("12_ai3mq")
 death_audio = ExtResource("13_arqf2")
+max_stamina = null
+stamina_recharge_rate = null
+stamina_recharge_delay = null
+stamina_cost_attack = null
+stamina_cost_dash = null
+stamina_cost_run = null
+move_speed = null
+run_factor = null
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
