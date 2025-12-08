@@ -736,3 +736,21 @@ func _do_attack_action(target: Node) -> void:
 		target.start_attack()
 	else:
 		push_warning("DialogueOrchestrator._do_attack_action: target has no attack method (expected play_attack_from_dialogue/attack/start_attack)")
+
+func skip_all() -> void:
+	if _state != State.RUNNING_SCRIPT:
+		return
+
+	print("DEBUG: skip_all called, skipping script '%s'" % _current_script_id)
+
+	_steps.clear()
+	_current_lines.clear()
+	_step_index = 0
+
+	_finish_dialogue()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if _state == State.RUNNING_SCRIPT:
+		if event.is_pressed() and event is InputEventKey:
+			if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
+				skip_all()

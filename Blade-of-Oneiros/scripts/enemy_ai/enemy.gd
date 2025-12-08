@@ -8,9 +8,12 @@ extends CharacterBody2D
 
 @export var attack_distance:float
 
+@export var slime_attack_audio: AudioStream
+
 @onready var attack_hitbox = $AttackHitbox
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var fsm:FSM
 var wait_state:State
@@ -102,9 +105,11 @@ func _ready():
 		func():
 		_desired_move_dir = Vector2.ZERO
 		AiHelper.play_animation(sprite, "attack", _dir)
-
+		#play_audio(slime_attack_audio)
+		
 		# wait for attack animation to finish
 		await sprite.animation_finished
+		
 		if not is_instance_valid(self):
 			return
 		if fsm.current_state == attack_state:
@@ -186,6 +191,10 @@ func _update_velocity() -> void:
 	# reset move avoid dirs
 	_move_avoid_dirs = []
 	queue_redraw()
+	
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
 
 
 func _draw() -> void:

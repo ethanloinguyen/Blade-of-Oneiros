@@ -22,9 +22,9 @@ func _init(enemy, projectile:PackedScene, num_dirs: float, offset:bool, exit_sho
 	func():
 		for dir in shoot_dirs:
 			var p:Slimeball = projectile.instantiate()
+			_enemy.get_parent().add_child(p)
 			p.global_position = _center_pos
 			p.look_at(p.global_position + dir)
-			_enemy.get_parent().add_child(p)
 		if exit_shoot.is_valid():
 			exit_shoot.call()
 	,
