@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cs6v7gg3ojoa8"]
+[gd_scene load_steps=17 format=4 uid="uid://cs6v7gg3ojoa8"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_4f4na"]
 [ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="2_ml6jv"]
