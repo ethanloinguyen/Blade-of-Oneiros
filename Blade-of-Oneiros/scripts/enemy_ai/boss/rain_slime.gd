@@ -21,7 +21,6 @@ func _ready():
 	var player:Player = get_tree().get_first_node_in_group("player")
 	if player.global_position.distance_to(global_position) <= damage_radius:
 		player.health.take_damage(damage)
-		print("hit")
 		queue_free()
 	else: area_entered.connect(func(a):
 		if a is Health:
