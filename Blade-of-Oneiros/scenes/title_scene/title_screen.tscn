@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6yqphodjpj40"]
+[gd_scene load_steps=6 format=3 uid="uid://c6yqphodjpj40"]
 
 [ext_resource type="Script" uid="uid://d0kttfk4v1keu" path="res://scripts/screens/title_screen.gd" id="1_llimq"]
 [ext_resource type="VideoStream" uid="uid://bj06ucc1e7yk5" path="res://assets/videos/openingcutscene.ogv" id="2_0dix8"]
 [ext_resource type="Texture2D" uid="uid://pdr6fa0ea5c2" path="res://assets/ui/startbutton.png" id="2_g2w87"]
 [ext_resource type="Texture2D" uid="uid://fe2txym8yy3r" path="res://assets/ui/startbutton_hover.png" id="3_os8c6"]
 [ext_resource type="Texture2D" uid="uid://c1yj34n1fvw1" path="res://assets/ui/startscreen_back.png" id="4_llimq"]
-[ext_resource type="Texture2D" path="res://assets/ui/startanim.png" id="6_wq2bf"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_llimq")
@@ -47,14 +46,6 @@ offset_right = 1926.0
 offset_bottom = 1075.0
 scale = Vector2(0.6, 0.6)
 stream = ExtResource("2_0dix8")
-
-[node name="Title" type="Sprite2D" parent="CanvasLayer"]
-z_index = 6
-position = Vector2(578, 323)
-scale = Vector2(3.9999998, 3.9999998)
-texture = ExtResource("6_wq2bf")
-hframes = 5
-vframes = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
