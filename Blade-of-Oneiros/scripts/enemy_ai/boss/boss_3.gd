@@ -43,6 +43,7 @@ func _ready():
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
 	health.died.connect(func():
+		GameState.game_finished = true
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
 		if not is_instance_valid(self):
