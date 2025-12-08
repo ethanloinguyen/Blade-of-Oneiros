@@ -42,7 +42,7 @@ position = Vector2(490.88943, 1212.3341)
 script = ExtResource("3_hwdor")
 tag = &"start"
 
-[node name="bosstp" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 position = Vector2(489, 1268)
 collision_mask = 2
 script = ExtResource("4_53anu")
@@ -50,20 +50,7 @@ target_scene = "uid://qf60ey6t8ph6"
 target_spawn = &"boss"
 press_to_use = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bosstp"]
-z_index = 3
-position = Vector2(7, -3)
-shape = SubResource("RectangleShape2D_u8ilr")
-
-[node name="debugtp" type="Area2D" parent="."]
-position = Vector2(490, 1242)
-collision_mask = 2
-script = ExtResource("4_53anu")
-target_scene = "uid://cs6v7gg3ojoa8"
-target_spawn = &"debug"
-press_to_use = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="debugtp"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 3
 position = Vector2(7, -3)
 shape = SubResource("RectangleShape2D_u8ilr")
