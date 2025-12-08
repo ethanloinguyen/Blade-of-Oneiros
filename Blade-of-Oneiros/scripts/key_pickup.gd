@@ -12,7 +12,7 @@ func _ready():
 
 func _on_body_entered(body):
 	if body is Player:
-		Inventory.add_potion(amount)
+		Inventory.add_key(amount)
 		_play_pickup_animation()
 
 

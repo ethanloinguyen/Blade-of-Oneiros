@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cs6v7gg3ojoa8"]
+[gd_scene load_steps=17 format=4 uid="uid://cs6v7gg3ojoa8"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_4f4na"]
 [ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="2_ml6jv"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bdfx0cj4pw7ht" path="res://scenes/boss/boss_1.tscn" id="9_ieut8"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 [ext_resource type="PackedScene" uid="uid://bf605d3c1ic3c" path="res://scenes/potion.tscn" id="13_ml6jv"]
+[ext_resource type="PackedScene" uid="uid://ckjy5c4oo76hx" path="res://scenes/key.tscn" id="14_qxto5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rtx"]
 size = Vector2(35, 32.5)
@@ -143,6 +144,9 @@ shape = SubResource("RectangleShape2D_ieut8")
 
 [node name="Potion" parent="." instance=ExtResource("13_ml6jv")]
 position = Vector2(453, 532)
+
+[node name="Key" parent="." instance=ExtResource("14_qxto5")]
+position = Vector2(502, 527)
 
 [connection signal="activated" from="Entities/PressurePlate" to="Entities/BarredDoor" method="_open"]
 [connection signal="deactivated" from="Entities/PressurePlate" to="Entities/BarredDoor" method="_close"]

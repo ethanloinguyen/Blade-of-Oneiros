@@ -158,6 +158,13 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
+	if Input.is_action_just_pressed("use_key"):
+		if Inventory.use_key():
+			# open door command
+			pass
+		_manage_animation_tree_state()
+		return
+	
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
