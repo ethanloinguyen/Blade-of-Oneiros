@@ -31,6 +31,8 @@ var dash_ghost_timer: float = 0.0
 var dash_on_cooldown: bool = true
 var dash_cooldown: float = 0.8
 var dash_cooldown_timer: float = 0.0
+var dash_invuln_duration: float = 0.15
+var dash_invuln_timer: float = 0.0
 
 # STAMINA SYSTEM
 var base_move_speed: float = 100.0
@@ -127,6 +129,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle dash lock 
 	if dashing:
+		dash_invuln_timer -= delta
 		dash_timer -= delta
 		dash_ghost_timer -= delta
 		dash_time += delta / dash_duration
@@ -136,18 +139,16 @@ func _physics_process(delta: float) -> void:
 		if dash_ghost_timer <= 0.0:
 			_spawn_dash_ghost()
 			dash_ghost_timer = dash_ghost_interval
-	
+		
 		if dash_timer <= 0:
 			dashing = false
 			dash_time = 0.0
 			velocity = Vector2.ZERO
 		
+		if dash_invuln_timer <= 0:
+			health.set_invincible(false)
+		
 		super(delta)
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_just_pressed("add_potion"):
-		Inventory.add_potion()
 		_manage_animation_tree_state()
 		return
 	

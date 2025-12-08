@@ -12,6 +12,11 @@ func _ready() -> void:
 	current_health = max_health
 
 
+func set_invincible(state: bool):
+	var collision = $CollisionShape2D
+	collision.disabled = state
+
+
 func take_damage(amount:int):
 	if is_dead(): # prevent double death
 		return
