@@ -39,6 +39,7 @@ func _ready():
 			return
 
 	health.hurt.connect(func():
+		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
 	)
 	health.died.connect(func():
