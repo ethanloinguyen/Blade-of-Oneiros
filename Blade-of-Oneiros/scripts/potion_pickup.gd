@@ -34,17 +34,17 @@ func _start_bobbing():
 
 
 func _play_pickup_animation():
-	area.monitoring = false   # disable further collisions
-
+	area.set_deferred("monitoring", false)# disable further collisions
+	
 	var tween = create_tween()
 	tween.set_parallel(true)
-
+	
 	# Float upward
 	tween.tween_property(self, "position:y", position.y - 10, 0.5)
-
+	
 	# Fade out
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.5)
-
+	
 	# When finished, delete the whole potion scene
 	tween.finished.connect(func():
 		queue_free()

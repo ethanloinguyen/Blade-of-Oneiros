@@ -34,7 +34,8 @@ func _start_bobbing():
 
 
 func _play_pickup_animation():
-	area.monitoring = false   # disable further collisions
+	area.set_deferred("monitoring", false)
+
 
 	var tween = create_tween()
 	tween.set_parallel(true)
