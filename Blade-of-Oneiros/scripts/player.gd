@@ -65,7 +65,10 @@ func _ready() -> void:
 
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
-
+	
+	if sprite and sprite.material:
+		sprite.material = sprite.material.duplicate()
+		
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
@@ -100,8 +103,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if dead:
-		#GameState.game_over = true
-		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 		velocity = Vector2.ZERO
 		return
 	
@@ -213,21 +214,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
-	#health -= damage
-	#set_health_bar()
-	#_damaged = true
-	#if health <= 0:
-		## play death audio here
-		#dead = true
-		#attacking = false
-		#running = false
-		#velocity = Vector2.ZERO
-		##animation_tree.active = false
-		##animation_tree.play("death")
-		#animation_tree["parameters/conditions/death"] = true
-	#else:
-		## play hurt audio here
-		#_damaged = true
+	
 		
 func _on_health_hurt() -> void:
 	if dead:
@@ -399,6 +386,23 @@ func start_fall(fall_position: Vector2) -> void:
 		(cam as Camera2D).enabled = false
 	
 		
+		
+func reset_player() -> void:
+	dead = false
+	falling = false
+	attacking = false
+	running = false
+	velocity = Vector2.ZERO
+	
+	# Restore resources
+	health.current_health = health.max_health
+	stamina = max_stamina
+	set_health_bar()
+	set_stamina_bar()
+	_manage_animation_tree_state()
+	modulate = Color(1, 1, 1, 1)  # fully visible
+
+	
 func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if dead:
