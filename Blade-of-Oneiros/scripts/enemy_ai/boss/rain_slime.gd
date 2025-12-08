@@ -13,9 +13,9 @@ func _ready():
 	# fall to floor
 	sprite.position.y = -height
 	while sprite.position.y < 0:
-		await get_tree().process_frame
 		if not is_instance_valid(self):
 			return
+		await get_tree().process_frame
 
 	# hurt player
 	var player:Player = get_tree().get_first_node_in_group("player")

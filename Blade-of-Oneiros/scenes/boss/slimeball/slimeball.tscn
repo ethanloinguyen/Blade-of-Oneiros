@@ -1,10 +1,93 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8r2dhocxynw0"]
+[gd_scene load_steps=15 format=3 uid="uid://c8r2dhocxynw0"]
 
 [ext_resource type="Script" uid="uid://o4iivkp0oabx" path="res://scripts/enemy_ai/boss/slimeball.gd" id="1_k2oac"]
-[ext_resource type="Texture2D" uid="uid://cfvtplunpyvnt" path="res://icon.svg" id="2_h4jer"]
+[ext_resource type="Texture2D" uid="uid://bbn7wggftc6om" path="res://assets/mobs/slimes/projectiles.png" id="2_h4jer"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bastg"]
-radius = 20.0
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bastg"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aykfn"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn3by"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mswej"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4jer"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb52k"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6ssb"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_re56n"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy3pm"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2nt0"]
+atlas = ExtResource("2_h4jer")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_347hh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bastg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aykfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn3by")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mswej")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4jer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fb52k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6ssb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_re56n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy3pm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2nt0")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 15.0
+}]
 
 [node name="Slimeball" type="Area2D"]
 collision_layer = 0
@@ -16,7 +99,7 @@ speed = 40
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bastg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5707964
-scale = Vector2(0.27999973, 0.27999973)
-texture = ExtResource("2_h4jer")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -1)
+sprite_frames = SubResource("SpriteFrames_347hh")
+frame_progress = 0.36117727
