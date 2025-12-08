@@ -85,7 +85,6 @@ func _place_player() ->void:
 		spawn = _get_any_spawn(root)
 		
 	if spawn:
-		# respawn players
 		player.global_position = spawn.global_position
 		if spawn is SpawnPoint:
 			GameState.last_scene_path = root.scene_file_path
@@ -98,21 +97,8 @@ func _place_player() ->void:
 		var cam := player.get_node_or_null("Camera2D") as Camera2D
 		if cam:
 			cam.snap_to_player()
-
-	# reinstantiate enemy container
-	if entities != null:
-		var enemy_container:EnemyContainer = entities.find_child("Enemies")
-		if enemy_container != null:
-			enemy_container.update_spawn_pos_dict()
-			var enemy_spawn_pos = enemy_container.enemy_spawn_pos
-			var container_path = enemy_container.scene_file_path
-			enemy_container.queue_free()
-			var new_enemy_container:EnemyContainer = load(container_path).instantiate()
-			new_enemy_container.enemy_spawn_pos = enemy_spawn_pos
-			entities.add_child(new_enemy_container)
-			new_enemy_container.update_spawn_pos_dict()
-
-
+	
+	
 func _find_spawn(root: Node, tag: StringName) -> Node2D:
 	for n in get_tree().get_nodes_in_group("spawn_point"):
 		if root.is_ancestor_of(n) and (n as SpawnPoint).tag == tag:

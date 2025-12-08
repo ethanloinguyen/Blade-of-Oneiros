@@ -940,7 +940,6 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_7g4c7")
-between_states_wait_duration = 1.0
 projectile = ExtResource("2_w52jb")
 next_boss = ExtResource("3_76j1g")
 slime_enemy = ExtResource("4_p5eep")

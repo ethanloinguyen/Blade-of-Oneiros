@@ -780,6 +780,7 @@ sprite_frames = SubResource("SpriteFrames_fpxyv")
 animation = &"idle_down"
 
 [node name="Shadow" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(0, 16)
 scale = Vector2(2, 2)
 texture = ExtResource("11_xn5pu")
