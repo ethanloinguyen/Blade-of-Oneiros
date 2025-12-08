@@ -93,13 +93,10 @@ y_sort_enabled = true
 [node name="Boxes" type="Node2D" parent="Entities"]
 y_sort_enabled = true
 
-[node name="Enemies" type="Node2D" parent="Entities"]
-y_sort_enabled = true
-
-[node name="Enemies2" parent="Entities" instance=ExtResource("3_ttc01")]
+[node name="Enemies" parent="Entities" instance=ExtResource("3_ttc01")]
 position = Vector2(-26.230896, 335.11185)
 
-[node name="Boss1" parent="Entities/Enemies2" index="0"]
+[node name="Boss1" parent="Entities/Enemies" index="0"]
 position = Vector2(34.230896, -113.11185)
 between_states_wait_duration = 4.0
 
@@ -261,4 +258,4 @@ shape = SubResource("RectangleShape2D_ieut8")
 
 [node name="Sprite2D" type="Sprite2D" parent="NPCTrigger/Area2D"]
 
-[editable path="Entities/Enemies2"]
+[editable path="Entities/Enemies"]
