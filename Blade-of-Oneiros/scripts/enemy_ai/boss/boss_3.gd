@@ -61,10 +61,8 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
-		_idle(between_states_wait_duration, func():
-			fsm.change_state(rain_state)
-		)
+	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, func():
+		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(
 		"Rain",

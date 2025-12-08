@@ -602,7 +602,7 @@ z_index = 1
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gajum")
-between_states_wait_duration = 2.0
+between_states_wait_duration = 1.0
 projectile = ExtResource("2_gajum")
 rain_slime = ExtResource("3_qnbdj")
 

@@ -112,7 +112,8 @@ script = ExtResource("1_qqhhm")
 height = 150.0
 fall_duration = 0.5
 damage = 10
-remain_duration = 1.0
+damage_radius = 9.0
+remain_duration = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
