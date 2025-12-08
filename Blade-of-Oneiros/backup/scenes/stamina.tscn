@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi58g0ma5yt4i"]
+
+[ext_resource type="Texture2D" uid="uid://ccxve0rrkivbv" path="res://assets/hud/stamina_frame.png" id="1_1se55"]
+[ext_resource type="Texture2D" uid="uid://bkl3ym2dnqaxb" path="res://assets/hud/stamina_juice.png" id="2_q28kj"]
+
+[node name="Stamina" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = -129.0
+offset_top = -66.0
+offset_right = -89.0
+offset_bottom = -26.0
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+z_index = 6
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_over = ExtResource("1_1se55")
+texture_progress = ExtResource("2_q28kj")

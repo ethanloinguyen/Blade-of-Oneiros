@@ -15,7 +15,8 @@ func _ready() -> void:
 	check_exist()
 	get_tree().scene_changed.connect(_on_scene_changed)
 	
-	
+	# ADDED BY ALFRED: register player as "swordsman" character with the DialogueOrchestrator
+	DialogueOrchestrator.register_character("swordsman", player)
 
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player

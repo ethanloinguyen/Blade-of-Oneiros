@@ -1,0 +1,207 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqms8su4ht6k"]
+
+[ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="1_mahfm"]
+[ext_resource type="Script" uid="uid://d2whycugnw03g" path="res://scripts/barred_door.gd" id="1_mrjan"]
+[ext_resource type="AudioStream" uid="uid://bkmtkcyadotlj" path="res://assets/audio/fahhh_KcgAXfs.mp3" id="3_rf6uo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrjan"]
+size = Vector2(8, 25.31698)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf6uo"]
+size = Vector2(32, 25.420647)
+
+[sub_resource type="Animation" id="Animation_cww17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 32, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bot:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 24, 32, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_cgfl8"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_rf6uo")
+}],
+"times": PackedFloat32Array(0.19999999)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 192, 32, 24), Rect2(64, 144, 32, 24), Rect2(64, 96, 32, 24), Rect2(64, 48, 32, 24), Rect2(64, 0, 32, 24)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bot:region_rect")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 216, 32, 24), Rect2(64, 168, 32, 24), Rect2(64, 120, 32, 24), Rect2(64, 72, 32, 24), Rect2(64, 24, 32, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_mrjan"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_rf6uo")
+}],
+"times": PackedFloat32Array(0.13333333)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.100000024, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 0, 32, 24), Rect2(64, 48, 32, 24), Rect2(64, 96, 32, 24), Rect2(64, 144, 32, 24), Rect2(64, 192, 32, 24)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bot:region_rect")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 24, 32, 24), Rect2(64, 72, 32, 24), Rect2(64, 120, 32, 24), Rect2(64, 168, 32, 24), Rect2(64, 216, 32, 24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jmqr4"]
+_data = {
+&"RESET": SubResource("Animation_cww17"),
+&"closed": SubResource("Animation_cgfl8"),
+&"open": SubResource("Animation_mrjan")
+}
+
+[node name="BarredDoor" type="StaticBody2D"]
+z_index = 2
+y_sort_enabled = true
+collision_mask = 7
+script = ExtResource("1_mrjan")
+
+[node name="blocker" type="CollisionShape2D" parent="."]
+position = Vector2(4.00196, -13.170459)
+shape = SubResource("RectangleShape2D_mrjan")
+
+[node name="blocker2" type="CollisionShape2D" parent="."]
+position = Vector2(28.038204, -13.229458)
+shape = SubResource("RectangleShape2D_mrjan")
+
+[node name="Top" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(16, -30)
+texture = ExtResource("1_mahfm")
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 24)
+
+[node name="Bot" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, -6)
+texture = ExtResource("1_mahfm")
+region_enabled = true
+region_rect = Rect2(64, 24, 32, 24)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(16, -13.210323)
+shape = SubResource("RectangleShape2D_rf6uo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jmqr4")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

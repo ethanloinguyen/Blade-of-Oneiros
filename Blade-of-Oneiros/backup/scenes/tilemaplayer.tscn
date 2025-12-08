@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8877ic8yd65"]
+
+[ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_5hrsl"]
+
+[node name="TileMapLayer" type="TileMapLayer"]
+texture_filter = 1
+tile_set = ExtResource("1_5hrsl")
