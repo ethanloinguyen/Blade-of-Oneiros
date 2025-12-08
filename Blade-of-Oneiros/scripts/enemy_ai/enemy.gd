@@ -52,6 +52,8 @@ func _ready():
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
 		queue_free()
 	)
 
@@ -103,6 +105,8 @@ func _ready():
 
 		# wait for attack animation to finish
 		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
 		if fsm.current_state == attack_state:
 			fsm.change_state(chase_state)
 		,
@@ -117,6 +121,8 @@ func _ready():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
 		await sprite.animation_finished
+		if not is_instance_valid(self):
+			return
 		fsm.change_state(chase_state)
 		,
 		Callable()
