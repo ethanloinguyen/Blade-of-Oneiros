@@ -64,6 +64,7 @@ var facing_direction: Vector2 = Vector2.DOWN
 
 var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
+var inventory: Control
 #breaking/falling tile variables
 var breakable_tiles: BreakableTiles
 var falling: bool = false
@@ -79,6 +80,7 @@ func _ready() -> void:
 
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
+	inventory = hud.get_node("InventoryPanel") as Control
 	hud.visible = true
 	health.hurt.connect(_on_health_hurt)
 	health.died.connect(_on_health_died)	
@@ -89,10 +91,13 @@ func _ready() -> void:
 	bind_commands()
 	
 func _physics_process(delta: float) -> void:	
+
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	set_health_bar()
-	
+		
+
+
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
@@ -154,25 +159,6 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 		
 		super(delta)
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_just_pressed("add_potion"):
-		Inventory.add_potion()
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_just_pressed("potion"):
-		if Inventory.use_potion():
-			health.current_health += 20
-			health.current_health = min(health.max_health, health.current_health)
-		_manage_animation_tree_state()
-		return
-	
-	if Input.is_action_just_pressed("use_key"):
-		if Inventory.use_key():
-			# open door command
-			pass
 		_manage_animation_tree_state()
 		return
 	
@@ -473,3 +459,18 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
+## Inventory related commands:
+#func _on_potion_pickup_area_entered(body):
+	#if body is Player:
+		#Inventory.add_potion(1)
+		#queue_free()
+#
+#if Inventory.use_key():
+	#open_door()
+#else:
+	#print("Need a key!")
+#
+#if Inventory.use_potion():
+	#player.heal(20)
+#else:
+	#print("No potions!")
