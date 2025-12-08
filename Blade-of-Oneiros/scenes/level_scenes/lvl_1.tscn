@@ -52,7 +52,7 @@ position = Vector2(7, -3)
 shape = SubResource("RectangleShape2D_u8ilr")
 
 [node name="level1cont" type="Area2D" parent="."]
-position = Vector2(374, 1146)
+position = Vector2(374, 1152)
 collision_mask = 2
 script = ExtResource("4_53anu")
 target_scene = "uid://d2kauldx3frsx"
@@ -81,6 +81,7 @@ y_sort_enabled = true
 position = Vector2(285, 1119)
 
 [node name="Door2" parent="Entities" instance=ExtResource("5_4n67h")]
+z_index = 0
 position = Vector2(96.00366, 26.228882)
 requires_key = true
 single_use = true

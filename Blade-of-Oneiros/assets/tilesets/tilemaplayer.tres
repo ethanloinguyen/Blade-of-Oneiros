@@ -5944,6 +5944,7 @@ texture = ExtResource("3_76xbh")
 4:0/animation_frame_3/duration = 1.0
 4:0/animation_frame_4/duration = 1.0
 4:0/0 = 0
+4:0/0/z_index = 2
 6:0/size_in_atlas = Vector2i(2, 3)
 6:0/animation_columns = 1
 6:0/animation_frame_0/duration = 1.0

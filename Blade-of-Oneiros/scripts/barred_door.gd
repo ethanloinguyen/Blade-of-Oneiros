@@ -4,10 +4,17 @@ extends Node2D
 
 var is_open: bool = false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
+@export var start_open: bool = false
 
 
 func _ready() -> void:
+	if start_open:
+		is_open = true
+		animation_player.play("open")
+	else:
+		is_open = false
+		animation_player.play("closed")
+
 	pass
 
 
@@ -20,7 +27,3 @@ func _close() -> void:
 	animation_player.play("closed")
 	pass
 	
-
-
-func _on_plates_all_pressed() -> void:
-	pass # Replace with function body.
