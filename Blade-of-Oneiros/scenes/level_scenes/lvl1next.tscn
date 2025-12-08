@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://d2kauldx3frsx"]
+[gd_scene load_steps=43 format=4 uid="uid://d2kauldx3frsx"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_xusmx"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_bya5x"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://dceswf5asdop8" path="res://assets/map/debug_map.png" id="15_ekyxo"]
 [ext_resource type="Script" uid="uid://be64va3tbaiux" path="res://scripts/pressure_plate_group.gd" id="21_6stvj"]
 [ext_resource type="PackedScene" uid="uid://bvp22eifui3tj" path="res://scenes/sprite_upgrade.tscn" id="25_er6ev"]
-[ext_resource type="PackedScene" uid="uid://qf60ey6t8ph6" path="res://scenes/level_scenes/boss_fight.tscn" id="26_yjd8r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dynrj"]
 texture = ExtResource("2_dynrj")
@@ -4145,7 +4144,6 @@ position = Vector2(-176, -351)
 position = Vector2(-109, 843)
 collision_mask = 2
 script = ExtResource("2_q3gkm")
-target_scene = ExtResource("26_yjd8r")
 target_spawn = &"boss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bossskip"]
