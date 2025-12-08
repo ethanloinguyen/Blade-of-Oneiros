@@ -25,7 +25,8 @@ func _init(enemy, projectile:PackedScene, num_dirs: float, offset:bool, exit_sho
 			p.global_position = _center_pos
 			p.look_at(p.global_position + dir)
 			_enemy.get_parent().add_child(p)
-		exit_shoot.call()
+		if exit_shoot.is_valid():
+			exit_shoot.call()
 	,
 	Callable()
 	,
