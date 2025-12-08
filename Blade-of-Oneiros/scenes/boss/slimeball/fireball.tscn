@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://o4iivkp0oabx" path="res://scripts/enemy_ai/boss/slimeball.gd" id="1_u5okv"]
 [ext_resource type="Texture2D" uid="uid://bbn7wggftc6om" path="res://assets/mobs/slimes/projectiles.png" id="2_u5okv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jxnv5"]
-radius = 4.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5okv"]
+radius = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grwvb"]
 atlas = ExtResource("2_u5okv")
@@ -126,11 +126,11 @@ speed = 100
 fixed_sprite_rotation = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_jxnv5")
+shape = SubResource("CircleShape2D_u5okv")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = 2
-position = Vector2(-1, -1)
+position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_e8spc")
 autoplay = "default"
-frame_progress = 0.37535408
+frame_progress = 0.059787437

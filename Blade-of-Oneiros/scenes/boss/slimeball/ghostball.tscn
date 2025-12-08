@@ -111,6 +111,7 @@ animations = [{
 }]
 
 [node name="Ghostball" type="Area2D"]
+scale = Vector2(2, 2)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_wd3nd")
@@ -124,4 +125,4 @@ z_index = 2
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_7pdxm")
 autoplay = "default"
-frame_progress = 0.7525982
+frame_progress = 0.63705134
