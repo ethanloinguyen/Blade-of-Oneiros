@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://oxm3hgxiq1b5"]
+[gd_scene load_steps=114 format=3 uid="uid://oxm3hgxiq1b5"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -22,16 +22,18 @@
 [ext_resource type="AudioStream" uid="uid://dqgkdaslpn6lt" path="res://assets/audio/dash/dash4.wav" id="10_qxl16"]
 [ext_resource type="AudioStream" uid="uid://4mfbqkbpx0qw" path="res://assets/audio/recorded_audio/panting.wav" id="12_ai3mq"]
 [ext_resource type="AudioStream" uid="uid://kxlcm2xm7pyc" path="res://assets/audio/recorded_audio/death.wav" id="13_arqf2"]
+[ext_resource type="AudioStream" uid="uid://crqw2pr521p6h" path="res://assets/audio/sword_swing/swordswing1.wav" id="15_bsxtd"]
 [ext_resource type="AudioStream" uid="uid://b3p6cly0qq68" path="res://assets/audio/walking/walkstep1.wav" id="15_cbeiu"]
 [ext_resource type="AudioStream" uid="uid://6b57qp7ep6b0" path="res://assets/audio/walking/walkstep2.wav" id="16_pq5me"]
+[ext_resource type="AudioStream" uid="uid://cykewtykej5sg" path="res://assets/audio/sword_swing/swordswing2.wav" id="16_y0gk3"]
 [ext_resource type="AudioStream" uid="uid://b7bsnixxtjhij" path="res://assets/audio/walking/walkstep3.wav" id="17_bsxtd"]
 [ext_resource type="AudioStream" uid="uid://bghuiseu0n1j7" path="res://assets/audio/walking/walkstep4.wav" id="18_y0gk3"]
-[ext_resource type="AudioStream" uid="uid://do65grtmge6vr" path="res://assets/audio/walkstep5.wav" id="19_on3w6"]
-[ext_resource type="AudioStream" uid="uid://c2v0pegyvo644" path="res://assets/audio/walkstep6.wav" id="20_i4tte"]
-[ext_resource type="AudioStream" uid="uid://bbvxifyel80u1" path="res://assets/audio/walkstep7.wav" id="21_4rvpn"]
-[ext_resource type="AudioStream" uid="uid://dscofnjmwp1r5" path="res://assets/audio/walkstep8.wav" id="22_mktrd"]
-[ext_resource type="AudioStream" uid="uid://d1mltbaxu4v8j" path="res://assets/audio/walkstep9.wav" id="23_n8ud3"]
-[ext_resource type="AudioStream" uid="uid://bl0gmhokcbyf1" path="res://assets/audio/walkstep10.wav" id="24_um5ev"]
+[ext_resource type="AudioStream" uid="uid://do65grtmge6vr" path="res://assets/audio/walking/walkstep5.wav" id="19_on3w6"]
+[ext_resource type="AudioStream" uid="uid://c2v0pegyvo644" path="res://assets/audio/walking/walkstep6.wav" id="20_i4tte"]
+[ext_resource type="AudioStream" uid="uid://bbvxifyel80u1" path="res://assets/audio/walking/walkstep7.wav" id="21_4rvpn"]
+[ext_resource type="AudioStream" uid="uid://dscofnjmwp1r5" path="res://assets/audio/walking/walkstep8.wav" id="22_mktrd"]
+[ext_resource type="AudioStream" uid="uid://d1mltbaxu4v8j" path="res://assets/audio/walking/walkstep9.wav" id="23_n8ud3"]
+[ext_resource type="AudioStream" uid="uid://bl0gmhokcbyf1" path="res://assets/audio/walking/walkstep10.wav" id="24_um5ev"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -757,6 +759,7 @@ dash_curve = SubResource("Curve_s1psh")
 hurt_audio = Array[AudioStream]([ExtResource("3_ncrap"), ExtResource("4_11fqc"), ExtResource("5_tbyuo"), ExtResource("6_qxl16")])
 dash_audio = Array[AudioStream]([ExtResource("7_ncrap"), ExtResource("8_11fqc"), ExtResource("9_tbyuo"), ExtResource("10_qxl16")])
 attack_grunt_audio = Array[AudioStream]([ExtResource("7_vj5qx"), ExtResource("8_32w2b"), ExtResource("9_nnse2"), ExtResource("10_4y5hj")])
+sword_whoosh_audio = Array[AudioStream]([ExtResource("15_bsxtd"), ExtResource("16_y0gk3")])
 walking_audio = Array[AudioStream]([ExtResource("15_cbeiu"), ExtResource("16_pq5me"), ExtResource("17_bsxtd"), ExtResource("18_y0gk3"), ExtResource("19_on3w6"), ExtResource("20_i4tte"), ExtResource("21_4rvpn"), ExtResource("22_mktrd"), ExtResource("23_n8ud3"), ExtResource("24_um5ev")])
 falling_audio = ExtResource("3_8068f")
 exhausted_audio = ExtResource("12_ai3mq")

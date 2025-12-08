@@ -180,6 +180,7 @@ func _physics_process(delta: float) -> void:
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
 			if try_use_stamina(stamina_cost_attack):
+				play_audio(sword_whoosh_audio[randi() % sword_whoosh_audio.size()])
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
 				return
