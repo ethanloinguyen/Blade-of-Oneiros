@@ -61,14 +61,8 @@ var breakable_tiles: BreakableTiles
 var falling: bool = false
 var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
 
-#Added by Alfred
-var cutscene_walking: bool = false
-var cutscene_direction: Vector2 = Vector2.ZERO
-
-
 func _ready() -> void:
-	#Added by Alfred
-	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	animation_tree.active = true
 	animation_player.speed_scale = 0.1
 	
@@ -96,11 +90,6 @@ func _physics_process(delta: float) -> void:
 
 
 	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
-
-	if not GameState.game_started or GameState.input_locked:
-		velocity = Vector2.ZERO
-		return
-	
 	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
@@ -108,14 +97,10 @@ func _physics_process(delta: float) -> void:
 	if not GameState.game_started or GameState.input_locked:
 		velocity = Vector2.ZERO
 		return
-	# if in dialogue stop all movement,
-	# EXCEPT in cutscenes
-	if in_dialogue and not cutscene_walking:
-		velocity = Vector2.ZERO
-		idle_cmd.execute(self)
-		_manage_animation_tree_state()
+	
+	# if in dialogue stop all movement
+	if in_dialogue:
 		return
-
 	
 	if dead:
 		velocity = Vector2.ZERO
@@ -146,8 +131,8 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-	# Handle dash lock (Adjusted by Alfred)
-	if dashing and not in_dialogue:
+	# Handle dash lock 
+	if dashing:
 		dash_timer -= delta
 		dash_ghost_timer -= delta
 		dash_time += delta / dash_duration
@@ -175,8 +160,8 @@ func _physics_process(delta: float) -> void:
 				_manage_animation_tree_state()
 				return
 		
-		# DASH (Adjusted by Alfred)
-		if Input.is_action_just_pressed("dash") and not dash_on_cooldown and not in_dialogue:
+		# DASH
+		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 			if try_use_stamina(stamina_cost_dash):
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
@@ -185,16 +170,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		running = false
 	
-	# Get and normalize player direction (Adjusted by Alfred to fulfill Cutscene needs
-	if not cutscene_walking:
-		direction = Vector2(
-			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-		)
-		if direction.length() > 1:
-			direction = direction.normalized()
-		
-
+	# Get and normalize player direction
+	direction = Vector2(
+		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	)
+	if direction.length() > 1:
+		direction = direction.normalized()
 	
 	#Ray updates in frame if while pressing directional input against box,
 	# the ray collides with the box, it will continuously call push in that direction
@@ -216,14 +198,11 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 	
 	# If player input direction is not 0 execute 
-	# appropriate movement command, if 0, execute idle (Adjusted by Alfred)
-	if not cutscene_walking:
-		if direction:
-			move_cmd.execute(self)
-		else:
-			idle_cmd.execute(self)
-	
-
+	# appropriate movement command, if 0, execute idle
+	if direction:
+		move_cmd.execute(self)
+	else:
+		idle_cmd.execute(self)
 	
 	super(delta)
 	
@@ -436,13 +415,12 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/hurt/blend_position"] = direction
 		animation_tree["parameters/death/blend_position"] = direction
 	
-	if (velocity == Vector2.ZERO) and not cutscene_walking: #Adjusted by Alfred
+	if (velocity == Vector2.ZERO):
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/moving"] = false
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
-
 	
 	if stamina_actions_locked && running:
 		animation_tree["parameters/conditions/idle"] = true
@@ -466,41 +444,6 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
-	
-# Added by Alfred
-func begin_cutscene_walk(dir_str: String) -> void:
-	cutscene_walking = true
-
-	# Map text direction to a unit vector + facing enum
-	match dir_str.to_lower():
-		"left":
-			cutscene_direction = Vector2.LEFT
-			change_facing(Facing.LEFT)
-		"right":
-			cutscene_direction = Vector2.RIGHT
-			change_facing(Facing.RIGHT)
-		"up":
-			cutscene_direction = Vector2.UP
-			change_facing(Facing.UP)
-		"down":
-			cutscene_direction = Vector2.DOWN
-			change_facing(Facing.DOWN)
-		_:
-			cutscene_direction = Vector2.ZERO
-
-	# Use this direction for blend spaces
-	if cutscene_direction != Vector2.ZERO:
-		direction = cutscene_direction
-
-	_manage_animation_tree_state()  # immediately update animations
-
-
-func end_cutscene_walk() -> void:
-	cutscene_walking = false
-	cutscene_direction = Vector2.ZERO
-	direction = Vector2.ZERO
-	_manage_animation_tree_state()  # return to idle
-
 ## Inventory related commands:
 #func _on_potion_pickup_area_entered(body):
 	#if body is Player:
