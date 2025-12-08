@@ -100,17 +100,38 @@ func _place_player() ->void:
 			cam.snap_to_player()
 
 	# reinstantiate enemy container
+	#if entities != null:
+		#var enemy_container:EnemyContainer = entities.find_child("Enemies")
+		#if enemy_container != null:
+			#enemy_container.update_spawn_pos_dict()
+			#var enemy_spawn_pos = enemy_container.enemy_spawn_pos
+			#var container_path = enemy_container.scene_file_path
+			#enemy_container.queue_free()
+			#var new_enemy_container:EnemyContainer = load(container_path).instantiate()
+			#new_enemy_container.enemy_spawn_pos = enemy_spawn_pos
+			#entities.add_child(new_enemy_container)
+			#new_enemy_container.update_spawn_pos_dict()
+	# reinstantiate enemy container
 	if entities != null:
-		var enemy_container:EnemyContainer = entities.find_child("Enemies")
-		if enemy_container != null:
-			enemy_container.update_spawn_pos_dict()
-			var enemy_spawn_pos = enemy_container.enemy_spawn_pos
-			var container_path = enemy_container.scene_file_path
-			enemy_container.queue_free()
-			var new_enemy_container:EnemyContainer = load(container_path).instantiate()
-			new_enemy_container.enemy_spawn_pos = enemy_spawn_pos
-			entities.add_child(new_enemy_container)
-			new_enemy_container.update_spawn_pos_dict()
+		var enemy_container := entities.find_child("Enemies") as EnemyContainer
+		if enemy_container == null:
+			# Either there's no "Enemies" node or it doesn't have EnemyContainer script
+			return
+
+		enemy_container.update_spawn_pos_dict()
+		var enemy_spawn_pos = enemy_container.enemy_spawn_pos
+		var container_path = enemy_container.scene_file_path
+
+		enemy_container.queue_free()
+
+		var new_enemy_container := load(container_path).instantiate() as EnemyContainer
+		if new_enemy_container == null:
+			return
+
+		new_enemy_container.enemy_spawn_pos = enemy_spawn_pos
+		entities.add_child(new_enemy_container)
+		new_enemy_container.update_spawn_pos_dict()
+
 
 
 func _find_spawn(root: Node, tag: StringName) -> Node2D:

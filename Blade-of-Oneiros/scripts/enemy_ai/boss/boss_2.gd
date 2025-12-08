@@ -120,8 +120,27 @@ func _face_player():
 
 
 func _idle(duration:float, exit_idle:Callable):
-	fsm.change_state(idle_state)
-	await get_tree().create_timer(duration, false).timeout
-	if not is_instance_valid(self):
+	#fsm.change_state(idle_state)
+	#var tree:= get_tree()
+	#await tree.create_timer(duration, false).timeout
+	#if not is_instance_valid(self):
+		#return
+	#exit_idle.call()
+	# If we're not in the tree or we're dead, don't schedule anything
+	if not is_inside_tree() or health.is_dead():
 		return
+
+	fsm.change_state(idle_state)
+
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	var timer := tree.create_timer(duration, false)
+	await timer.timeout
+
+	# After waiting, double-check we still exist & are in the tree
+	if not is_instance_valid(self) or not is_inside_tree() or health.is_dead():
+		return
+
 	exit_idle.call()
