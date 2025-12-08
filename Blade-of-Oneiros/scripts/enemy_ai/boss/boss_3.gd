@@ -61,7 +61,7 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, func():
+	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, true, func():
 		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(

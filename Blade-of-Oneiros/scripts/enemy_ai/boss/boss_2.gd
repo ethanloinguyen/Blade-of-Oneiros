@@ -68,7 +68,7 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state_1 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
+	jump_state_1 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		_idle(0.1, func():
 			shoot_state_1.shoot(global_position)
 		)
@@ -78,7 +78,7 @@ func _ready():
 			jump_state_2.jump(_player.global_position)
 		)
 	)
-	jump_state_2 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
+	jump_state_2 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		_idle(0.1, func():
 			shoot_state_2.shoot(global_position)
 		)
@@ -88,7 +88,7 @@ func _ready():
 			jump_state_3.jump(_player.global_position)
 		)
 	)
-	jump_state_3 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
+	jump_state_3 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		_idle(0.1, func():
 			shoot_state_3.shoot(global_position)
 		)

@@ -74,7 +74,7 @@ func _ready():
 		func():
 		_face_player()
 	)
-	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, func():
+	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		_idle(between_states_wait_duration, func():
 			shoot_state.shoot(global_position)
 		)

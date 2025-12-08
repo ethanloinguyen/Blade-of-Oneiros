@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="6_2ru53"]
 [ext_resource type="PackedScene" uid="uid://dk80427rw58rr" path="res://scenes/interactables/lever.tscn" id="7_66ogq"]
 [ext_resource type="PackedScene" uid="uid://cjm6vswbwmqr5" path="res://scenes/DialogUI.tscn" id="8_dpr55"]
-[ext_resource type="PackedScene" uid="uid://bdfx0cj4pw7ht" path="res://scenes/boss/boss_1.tscn" id="9_ieut8"]
+[ext_resource type="PackedScene" uid="uid://bxa1txm1q7i7a" path="res://scenes/level_enemy_containers/debug_map_enemy_container.tscn" id="9_ieut8"]
 [ext_resource type="Script" uid="uid://8ygwgbjvsxjj" path="res://scripts/dialogue/DialogueTrigger.gd" id="9_omd4f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rtx"]
@@ -69,11 +69,13 @@ tile_map_data = PackedByteArray("AAAdACIADAAKAA0AAAA=")
 tile_set = ExtResource("1_4f4na")
 script = ExtResource("2_ml6jv")
 
-[node name="Enemies" type="Node2D" parent="Entities"]
-y_sort_enabled = true
+[node name="Enemies" parent="Entities" instance=ExtResource("9_ieut8")]
 
-[node name="Boss1" parent="Entities/Enemies" instance=ExtResource("9_ieut8")]
-position = Vector2(392, 368)
+[node name="EnemySlime" parent="Entities/Enemies" index="0"]
+position = Vector2(413, 390)
+
+[node name="Boss1" parent="Entities/Enemies" index="1"]
+position = Vector2(369, 286)
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -144,3 +146,5 @@ shape = SubResource("RectangleShape2D_ieut8")
 [connection signal="deactivated" from="Entities/PressurePlate" to="Entities/BarredDoor" method="_close"]
 [connection signal="activated" from="Entities/Lever" to="Entities/BarredDoor" method="_open"]
 [connection signal="deactivated" from="Entities/Lever" to="Entities/BarredDoor" method="_close"]
+
+[editable path="Entities/Enemies"]
