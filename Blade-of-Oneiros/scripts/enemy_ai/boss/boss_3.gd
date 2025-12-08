@@ -5,8 +5,11 @@ extends CharacterBody2D
 @onready var attack_hitbox = $JumpHitbox
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
+@onready var audio = $AudioStreamPlayer2D
 
 @export var between_states_wait_duration:float = 4.0
+
+@export var bounce_audio: AudioStream
 
 @export var projectile:PackedScene
 @export var rain_slime:PackedScene
@@ -63,6 +66,7 @@ func _ready():
 		_face_player()
 	)
 	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, true, func():
+		play_audio(bounce_audio)
 		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(
@@ -109,6 +113,11 @@ func _physics_process(delta:float) -> void:
 		if fsm != null:
 			fsm.update(delta)
 		move_and_slide()
+		
+
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
 
 
 func _face_player():

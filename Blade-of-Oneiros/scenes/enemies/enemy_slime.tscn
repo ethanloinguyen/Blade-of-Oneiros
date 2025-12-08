@@ -1,6 +1,7 @@
-[gd_scene load_steps=152 format=3 uid="uid://cmy6ymoibmm2m"]
+[gd_scene load_steps=153 format=3 uid="uid://cmy6ymoibmm2m"]
 
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
+[ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slimebounce.wav" id="2_2p468"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
 [ext_resource type="Texture2D" uid="uid://cl31jqs14fgu5" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_8c00y"]
@@ -1110,6 +1111,7 @@ speed = 60.0
 move_avoid_collision_dist = 50.0
 chase_leash_distance = 10.0
 attack_distance = 20.0
+slime_attack_audio = ExtResource("2_2p468")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -1138,3 +1140,6 @@ shape = SubResource("CircleShape2D_t46gg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpxyv")
 animation = &"idle_left"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -6.058
