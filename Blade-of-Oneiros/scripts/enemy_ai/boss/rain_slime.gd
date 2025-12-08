@@ -37,6 +37,7 @@ func _ready():
 	sprite.play("puddle")
 
 	# despawn after remain duration
+	
 	await get_tree().create_timer(remain_duration).timeout
 	if not is_instance_valid(self):
 		return
