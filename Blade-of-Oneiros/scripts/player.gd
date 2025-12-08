@@ -215,6 +215,7 @@ func _physics_process(delta: float) -> void:
 		# DASH (Adjusted by Alfred)
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown and not in_dialogue:
 			if try_use_stamina(stamina_cost_dash):
+				play_audio(dash_audio[randi() % dash_audio.size()])
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
