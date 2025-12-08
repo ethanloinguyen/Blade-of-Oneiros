@@ -13,9 +13,11 @@ func _ready():
 	# fall to floor
 	sprite.position.y = -height
 	while sprite.position.y < 0:
-		await get_tree().process_frame
 		if not is_instance_valid(self):
 			return
+		var tree = get_tree()
+		if tree != null:
+			await tree.process_frame
 
 	# hurt player
 	var player:Player = get_tree().get_first_node_in_group("player")
@@ -37,8 +39,7 @@ func _ready():
 	sprite.play("puddle")
 
 	# despawn after remain duration
-	
-	await get_tree().create_timer(remain_duration).timeout
+	await get_tree().create_timer(remain_duration, false).timeout
 	if not is_instance_valid(self):
 		return
 	queue_free()

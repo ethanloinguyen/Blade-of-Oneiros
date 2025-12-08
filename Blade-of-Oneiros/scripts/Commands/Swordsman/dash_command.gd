@@ -1,6 +1,7 @@
 class_name DashCommand
 extends Command 
 
+
 func execute(character: Character) -> Status:
 	if character.dashing:
 		return Status.DONE
@@ -17,6 +18,7 @@ func execute(character: Character) -> Status:
 	character.dash_direction = dash_direction	
 	character.dash_timer = character.dash_duration
 	character.dash_cooldown_timer = character.dash_cooldown
-
-
+	character.dash_invuln_timer = character.dash_invuln_duration
+	character.health.set_invincible(true)
+	
 	return Status.DONE

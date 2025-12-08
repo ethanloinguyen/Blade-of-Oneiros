@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vknwr2ne086f"
-path="res://.godot/imported/animations.png-a2fe51ccdad7c4ba696c97a82cc08dbd.ctex"
+uid="uid://bsffjlmyu5wno"
+path="res://.godot/imported/5.png-5b2a8339b5c8b248cc614e72c240e718.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/Swordsman_lvl2/animations.png"
-dest_files=["res://.godot/imported/animations.png-a2fe51ccdad7c4ba696c97a82cc08dbd.ctex"]
+source_file="res://assets/ui/startingscreen_animation/5.png"
+dest_files=["res://.godot/imported/5.png-5b2a8339b5c8b248cc614e72c240e718.ctex"]
 
 [params]
 

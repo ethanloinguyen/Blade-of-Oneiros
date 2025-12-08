@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dvrmpg74vm0t6"]
+[gd_scene load_steps=104 format=3 uid="uid://dvrmpg74vm0t6"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -6,8 +6,24 @@
 [ext_resource type="Texture2D" uid="uid://csantj70kan1a" path="res://assets/player/playerspritesheet_pixelperfect.png" id="2_j1nbv"]
 [ext_resource type="PackedScene" uid="uid://cw10pkjy2r22o" path="res://scenes/dashghost.tscn" id="2_r7u1p"]
 [ext_resource type="AudioStream" uid="uid://bfmw277i5bsxh" path="res://assets/audio/recorded_audio/nono_panic.wav" id="3_8068f"]
+[ext_resource type="AudioStream" uid="uid://btdea0jii4tuo" path="res://assets/audio/recorded_audio/hurt1.wav" id="3_nnse2"]
+[ext_resource type="AudioStream" uid="uid://duuwvu4ef7hj6" path="res://assets/audio/recorded_audio/hurt2.wav" id="4_4y5hj"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_jtonm"]
+[ext_resource type="AudioStream" uid="uid://k2la1flb2hhm" path="res://assets/audio/recorded_audio/hurt_owie.wav" id="5_ai3mq"]
+[ext_resource type="AudioStream" uid="uid://bg8yamnwxkdij" path="res://assets/audio/recorded_audio/hurt_my_leg.wav" id="6_arqf2"]
 [ext_resource type="Shader" uid="uid://o744eoddvlwq" path="res://scenes/playershader.gdshader" id="6_plnse"]
+[ext_resource type="AudioStream" uid="uid://bupdhoi2law5g" path="res://assets/audio/dash/dash1.wav" id="7_p42uh"]
+[ext_resource type="AudioStream" uid="uid://og3r2epv30ge" path="res://assets/audio/dash/dash2.wav" id="8_r8ub6"]
+[ext_resource type="AudioStream" uid="uid://cwdoaakpy05xh" path="res://assets/audio/dash/dash3.wav" id="9_5n52e"]
+[ext_resource type="AudioStream" uid="uid://dvwytsiywksb7" path="res://assets/audio/dash/dash4.wav" id="10_o7hj1"]
+[ext_resource type="AudioStream" uid="uid://cjr5rinska33" path="res://assets/audio/recorded_audio/attack1.wav" id="11_cbeiu"]
+[ext_resource type="AudioStream" uid="uid://cld4m20qr65jc" path="res://assets/audio/recorded_audio/attack2.wav" id="12_pq5me"]
+[ext_resource type="AudioStream" uid="uid://wydaxsj3lse0" path="res://assets/audio/recorded_audio/attack3.wav" id="13_bsxtd"]
+[ext_resource type="AudioStream" uid="uid://cfcdey6ad5hst" path="res://assets/audio/recorded_audio/attack4.wav" id="14_y0gk3"]
+[ext_resource type="AudioStream" uid="uid://crqw2pr521p6h" path="res://assets/audio/sword_swing/swordswing1.wav" id="15_on3w6"]
+[ext_resource type="AudioStream" uid="uid://cykewtykej5sg" path="res://assets/audio/sword_swing/swordswing2.wav" id="16_i4tte"]
+[ext_resource type="AudioStream" uid="uid://4mfbqkbpx0qw" path="res://assets/audio/recorded_audio/panting.wav" id="18_4rvpn"]
+[ext_resource type="AudioStream" uid="uid://kxlcm2xm7pyc" path="res://assets/audio/recorded_audio/death.wav" id="19_mktrd"]
 
 [sub_resource type="Curve" id="Curve_s1psh"]
 _limits = [0.0, 1.5, 0.0, 1.0]
@@ -730,7 +746,13 @@ hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
 dash_ghost_scene = ExtResource("2_r7u1p")
 dash_curve = SubResource("Curve_s1psh")
+hurt_audio = Array[AudioStream]([ExtResource("3_nnse2"), ExtResource("4_4y5hj"), ExtResource("5_ai3mq"), ExtResource("6_arqf2")])
+dash_audio = Array[AudioStream]([ExtResource("7_p42uh"), ExtResource("8_r8ub6"), ExtResource("9_5n52e"), ExtResource("10_o7hj1")])
+attack_grunt_audio = Array[AudioStream]([ExtResource("11_cbeiu"), ExtResource("12_pq5me"), ExtResource("13_bsxtd"), ExtResource("14_y0gk3")])
+sword_whoosh_audio = Array[AudioStream]([ExtResource("15_on3w6"), ExtResource("16_i4tte")])
 falling_audio = ExtResource("3_8068f")
+exhausted_audio = ExtResource("18_4rvpn")
+death_audio = ExtResource("19_mktrd")
 dash_speed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

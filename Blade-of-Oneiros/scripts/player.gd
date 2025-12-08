@@ -15,7 +15,16 @@ extends Character
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
+@export var hurt_audio: Array[AudioStream] = []
+@export var dash_audio: Array[AudioStream] = []
+@export var attack_grunt_audio: Array[AudioStream] = []
+@export var sword_whoosh_audio: Array[AudioStream] = []
+@export var walking_audio: Array[AudioStream] = []
+@export var running_audio: AudioStream
 @export var falling_audio: AudioStream
+@export var exhausted_audio: AudioStream
+@export var death_audio: AudioStream
+
 
 var dash_time:= 0.0
 var _damaged: bool = false
@@ -31,6 +40,8 @@ var dash_ghost_timer: float = 0.0
 var dash_on_cooldown: bool = true
 var dash_cooldown: float = 0.8
 var dash_cooldown_timer: float = 0.0
+var dash_invuln_duration: float = 0.15
+var dash_invuln_timer: float = 0.0
 
 # STAMINA SYSTEM
 var base_move_speed: float = 100.0
@@ -68,7 +79,7 @@ func _ready() -> void:
 	
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
-		
+
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	inventory = hud.get_node("InventoryPanel") as Control
@@ -137,30 +148,51 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle dash lock 
 	if dashing:
+		dash_invuln_timer -= delta
 		dash_timer -= delta
 		dash_ghost_timer -= delta
 		dash_time += delta / dash_duration
+		
 		
 		var factor := dash_curve.sample(dash_time)
 		velocity = dash_direction * dash_speed * factor
 		if dash_ghost_timer <= 0.0:
 			_spawn_dash_ghost()
 			dash_ghost_timer = dash_ghost_interval
-	
+		
 		if dash_timer <= 0:
 			dashing = false
 			dash_time = 0.0
 			velocity = Vector2.ZERO
 		
+		if dash_invuln_timer <= 0:
+			health.set_invincible(false)
+		
 		super(delta)
 		_manage_animation_tree_state()
 		return
+	
+	if Input.is_action_just_pressed("potion"):
+		print("pressed")
+		if Inventory.use_potion():
+			print("heal")
+			health.current_health += roundi(health.max_health * 0.2)
+			health.current_health = min(health.max_health, health.current_health)
+		_manage_animation_tree_state()
+		return
+	
+	#if Input.is_action_just_pressed("use_key"):
+		#if Inventory.use_key():
+			## open door command
+			#pass
+		#_manage_animation_tree_state()
+		#return
 	
 	# If exhausted skip all stamina-related actions
 	if not stamina_actions_locked:
 		if Input.is_action_just_pressed("attack"):
 			if try_use_stamina(stamina_cost_attack):
-				#play_audio(sword_whoosh_audio[randi() % sword_whoosh_audio.size()])
+				play_audio(sword_whoosh_audio[randi() % sword_whoosh_audio.size()])
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
 				return
@@ -168,6 +200,7 @@ func _physics_process(delta: float) -> void:
 		# DASH
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown:
 			if try_use_stamina(stamina_cost_dash):
+				play_audio(dash_audio[randi() % dash_audio.size()])
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
@@ -216,19 +249,22 @@ func _physics_process(delta: float) -> void:
 		
 	_manage_animation_tree_state()
 
+#function to play audio throughout script
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
 
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
-	
 		
 func _on_health_hurt() -> void:
 	if dead:
 		return
 	_damaged = true
+	play_audio(hurt_audio[randi() % hurt_audio.size()])
 	set_health_bar()
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("hurt") 
-
 	#_manage_animation_tree_state()
 
 
@@ -242,8 +278,9 @@ func _on_health_died() -> void:
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
-
+	
 	#animation_tree["parameters/conditions/death"] = true
+	play_audio(death_audio)
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("death")
 	await get_tree().create_timer(1.0).timeout
