@@ -20,3 +20,7 @@ func _close() -> void:
 	animation_player.play("closed")
 	pass
 	
+
+
+func _on_plates_all_pressed() -> void:
+	pass # Replace with function body.

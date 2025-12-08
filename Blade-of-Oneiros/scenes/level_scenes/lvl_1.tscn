@@ -58,6 +58,18 @@ z_index = 3
 position = Vector2(7, -3)
 shape = SubResource("RectangleShape2D_u8ilr")
 
+[node name="level1cont" type="Area2D" parent="."]
+position = Vector2(374, 1146)
+collision_mask = 2
+script = ExtResource("4_53anu")
+target_scene = "uid://d2kauldx3frsx"
+target_spawn = &"level1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level1cont"]
+z_index = 3
+position = Vector2(7, -3)
+shape = SubResource("RectangleShape2D_u8ilr")
+
 [node name="bossskip" type="Area2D" parent="."]
 position = Vector2(490, 1271)
 collision_mask = 2

@@ -2,6 +2,7 @@ class_name BreakableTiles
 extends TileMapLayer
 
 signal player_fell(tile_coords: Vector2i)
+signal all_tiles_cracked  
 
 var source_id: int = 12
 
@@ -11,7 +12,15 @@ var broken_tile: Vector2i = Vector2i(10, 14)
 
 var step_count: Dictionary = {}
 var prev_tile: Vector2i = Vector2i(999, 999)
+var remaining_intact: int = 0
 
+func _ready() -> void:
+	for coords in get_used_cells():
+		if get_cell_source_id(coords) == source_id \
+		and get_cell_atlas_coords(coords) == reg_tile:
+			remaining_intact += 1
+	remaining_intact -= 1
+	print("BreakableTiles: remaining_intact at start =", remaining_intact)
 
 func process_player_step(world_pos: Vector2, player: Node) -> void:
 	var local_pos: Vector2 = to_local(world_pos)
@@ -31,6 +40,12 @@ func process_player_step(world_pos: Vector2, player: Node) -> void:
 		step_count[coords] = 1
 		set_cell(coords, source_id, cracked_tile)
 
+		remaining_intact -= 1
+		print("BreakableTiles: cracked tile", coords, "remaining =", remaining_intact)
+
+		if remaining_intact <= 0:
+			all_tiles_cracked.emit()
+			
 	elif atlas == cracked_tile:
 		var count := int(step_count.get(coords, 1)) + 1
 		step_count[coords] = count
