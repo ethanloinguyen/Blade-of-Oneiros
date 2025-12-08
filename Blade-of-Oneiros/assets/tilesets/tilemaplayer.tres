@@ -1209,7 +1209,6 @@ texture = ExtResource("2_mvfbh")
 2:2/0/z_index = 3
 2:2/0/terrain_set = 1
 2:2/0/terrain = 0
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:2/0/terrains_peering_bit/right_side = 0
 2:2/0/terrains_peering_bit/bottom_right_corner = 0
 2:2/0/terrains_peering_bit/bottom_side = 0

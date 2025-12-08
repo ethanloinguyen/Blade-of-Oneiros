@@ -102,6 +102,7 @@ position = Vector2(-26.230896, 335.11185)
 
 [node name="Boss1" parent="Entities/Enemies2" index="0"]
 position = Vector2(34.230896, -113.11185)
+between_states_wait_duration = 4.0
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
