@@ -81,12 +81,13 @@ texture_normal = ExtResource("2_g2w87")
 texture_hover = ExtResource("3_os8c6")
 
 [node name="IntroVideo" type="VideoStreamPlayer" parent="CanvasLayer"]
-offset_left = 6.0
-offset_top = -5.0
-offset_right = 1926.0
-offset_bottom = 1075.0
-scale = Vector2(0.6, 0.6)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stream = ExtResource("2_0dix8")
+expand = true
 
 [node name="Title" type="Sprite2D" parent="CanvasLayer"]
 z_index = 6

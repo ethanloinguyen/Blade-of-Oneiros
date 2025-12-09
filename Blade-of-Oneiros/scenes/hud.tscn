@@ -26,10 +26,15 @@ offset_bottom = 125.0
 scale = Vector2(4, 4)
 
 [node name="InventoryPanel" parent="." instance=ExtResource("4_6fi6k")]
-offset_left = 50.000008
-offset_top = 523.00006
-offset_right = 104.00001
-offset_bottom = 563.00006
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -125.99994
+offset_right = 85.0
+offset_bottom = -85.99994
+grow_vertical = 0
 scale = Vector2(2.6, 2.6)
 
 [node name="DialogUI" parent="." instance=ExtResource("5_uo2fv")]
+visible = false
