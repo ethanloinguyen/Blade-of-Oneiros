@@ -16,13 +16,15 @@ func _ready():
 			_explode()
 	)
 	body_entered.connect(func(b):
-		if not (b is CollisionObject2D and (b.collision_layer & 0b11 << 1) != 0):
+		# check collided body is not player or enemy
+		if not (b is CollisionObject2D and b.collision_layer & (0b11 << 1) != 0):
 			_explode()
 	)
-	if fixed_sprite_rotation:
-		sprite.global_rotation = 0
+
 
 func _physics_process(_delta):
+	if fixed_sprite_rotation:
+		sprite.global_rotation = 0
 	if not _exploded:
 		var vel = transform.x * speed
 		global_position += vel * _delta
