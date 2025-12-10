@@ -16,8 +16,8 @@ func _ready() -> void:
 	body_entered.connect(_on_enter)
 	body_exited.connect(_on_exit)
 	set_process_unhandled_input(true)
-	
-	
+
+
 func _on_enter(body: Node) -> void:
 	#for debug purposes
 	#print("Door", name, "body_entered by:", body.name, "groups:", body.get_groups())
@@ -28,7 +28,7 @@ func _on_enter(body: Node) -> void:
 	_player_inside = true
 	if not press_to_use:
 		_trigger()
-	
+
 
 func _on_exit(body: Node) -> void:
 	if not _enabled:
@@ -37,16 +37,16 @@ func _on_exit(body: Node) -> void:
 		return
 		
 	_player_inside = false
-	
-	
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not _enabled or not press_to_use or not _player_inside:
 		return
 		
 	if event.is_action_pressed(action):
 		_trigger()
-	
-	
+
+
 func _trigger() -> void:
 	#for debug
 	#print("Door", name, "TRIGGER: target_scene =", target_scene, "target_spawn =", target_spawn)

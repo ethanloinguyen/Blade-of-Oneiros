@@ -18,8 +18,7 @@ func _physics_process(delta: float) -> void:
 		
 	_current_look_ahead = _current_look_ahead.lerp(target_offset, look_ahead_speed*delta)
 	offset = _current_look_ahead
-	
-	
-func snap_to_player() -> void:
 
+
+func snap_to_player() -> void:
 	reset_smoothing()

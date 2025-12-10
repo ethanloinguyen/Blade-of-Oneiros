@@ -9,6 +9,8 @@ extends Character
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
+
+
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -44,20 +46,11 @@ var dash_cooldown_timer: float = 0.0
 var dash_invuln_duration: float = 0.15
 var dash_invuln_timer: float = 0.0
 
-# STAMINA SYSTEM
+# Stamina-related variables
+var run_cost: float = 1.0
+var dash_cost: float = 15.0
+var attack_cost: float = 10.0
 var base_move_speed: float = 100.0
-var slow_factor: float = 0.6
-@export var max_stamina: float = 100.0
-var stamina: float = 100.0
-
-@export var stamina_recharge_rate: float = 20.0   # stamina per second
-@export var stamina_recharge_delay: float = 1.0   # how long until refill starts
-var stamina_delay_timer: float = 0.0
-var stamina_actions_locked = false  # exhaustion state
-
-@export var stamina_cost_attack: float = 10.0
-@export var stamina_cost_dash: float = 15.0
-@export var stamina_cost_run: float = 0.5
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -75,7 +68,6 @@ var cutscene_scene: PackedScene = preload("res://scenes/falling_cutscene.tscn")
 var cutscene_walking: bool = false
 var cutscene_direction: Vector2 = Vector2.ZERO
 
-var upgraded: bool = false
 @export var upgraded_texture: Texture2D 
 
 func _ready() -> void:
@@ -87,7 +79,8 @@ func _ready() -> void:
 	
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
-
+	
+	# Set HUD related logic
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	hud.visible = true
@@ -95,20 +88,20 @@ func _ready() -> void:
 	health.died.connect(_on_health_died)	
 	health_bar.max_value = health.max_health
 	set_health_bar()
-	stamina_bar.max_value = max_stamina
-	set_stamina_bar()
-	bind_commands()
 	
-func _physics_process(delta: float) -> void:	
+	StaminaSystem.stamina_changed.connect(_on_stamina_changed)
+	StaminaSystem.exhausted.connect(_on_stamina_exhausted)
+	StaminaSystem.recovered.connect(_on_stamina_recovered)
+	stamina_bar.max_value = StaminaSystem.max_stamina
+	StaminaSystem.reset_stamina()
+	
+	bind_commands()
 
-	stamina_bar.max_value = max_stamina
-	set_stamina_bar()
+
+func _physics_process(delta: float) -> void:
+	# regen and update stamina
 	set_health_bar()
-		
-
-
-	#breakable_tiles = get_tree().current_scene.get_node("BreakableTiles")
-
+	
 	if not GameState.game_started or GameState.input_locked:
 		velocity = Vector2.ZERO
 		return
@@ -127,22 +120,14 @@ func _physics_process(delta: float) -> void:
 		idle_cmd.execute(self)
 		_manage_animation_tree_state()
 		return
-
-	
 	
 	if dead:
 		GameState.game_over = true
-		#GameState.game_over = true
-		#get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 		velocity = Vector2.ZERO
 		return
 	
 	if falling:
 		return
-		
-	# Regen stamina and update stamina bar
-	_regen_stamina(delta)
-	set_stamina_bar()
 	
 	if dash_on_cooldown:
 		dash_cooldown_timer -= delta
@@ -196,17 +181,10 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-	#if Input.is_action_just_pressed("use_key"):
-		#if Inventory.use_key():
-			## open door command
-			#pass
-		#_manage_animation_tree_state()
-		#return
-	
 	# If exhausted skip all stamina-related actions
-	if not stamina_actions_locked:
+	if not StaminaSystem.locked:
 		if Input.is_action_just_pressed("attack"):
-			if try_use_stamina(stamina_cost_attack):
+			if StaminaSystem.try_use(attack_cost):
 				play_audio(sword_whoosh_audio[randi() % sword_whoosh_audio.size()])
 				attack_cmd.execute(self)
 				_manage_animation_tree_state()
@@ -214,13 +192,12 @@ func _physics_process(delta: float) -> void:
 		
 		# DASH (Adjusted by Alfred)
 		if Input.is_action_just_pressed("dash") and not dash_on_cooldown and not in_dialogue:
-			if try_use_stamina(stamina_cost_dash):
+			if StaminaSystem.try_use(dash_cost):
 				play_audio(dash_audio[randi() % dash_audio.size()])
 				dash_cmd.execute(self)
 				dash_ghost_timer = 0.0
 				_manage_animation_tree_state()
 				return
-
 	else:
 		running = false
 	
@@ -232,7 +209,6 @@ func _physics_process(delta: float) -> void:
 		)
 		if direction.length() > 1:
 			direction = direction.normalized()
-
 	
 	#Ray updates in frame if while pressing directional input against box,
 	# the ray collides with the box, it will continuously call push in that direction
@@ -260,7 +236,6 @@ func _physics_process(delta: float) -> void:
 			move_cmd.execute(self)
 		else:
 			idle_cmd.execute(self)
-
 	
 	super(delta)
 	
@@ -279,9 +254,11 @@ func play_footstep():
 	footstep_audio.pitch_scale = randf_range(0.95, 1.05)  
 	footstep_audio.play()
 
+
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
-		
+
+
 func _on_health_hurt() -> void:
 	if dead:
 		return
@@ -314,30 +291,9 @@ func _on_health_died() -> void:
 	#_manage_animation_tree_state()
 
 
-
-# returns false if unable to use stamina, true if usable
-func try_use_stamina(amount: float) -> bool:
-	if stamina_actions_locked:
-		return false # exhausted, cannot perform action
-	
-	# If stamina > 0, action is allowed EVEN IF amount > stamina
-	if stamina > 0:
-		stamina -= amount
-		stamina = max(stamina, 0) # stamina should at least be 0
-		stamina_delay_timer = stamina_recharge_delay 
-		_check_exhaustion()
-		return true
-	
-	return false
-
 func set_health_bar() -> void:
 	if health_bar and health:
 		health_bar.value = health.current_health
-
-
-func set_stamina_bar() -> void:
-	if stamina_bar:
-		stamina_bar.value = stamina
 
 
 func bind_commands() -> void:
@@ -345,34 +301,6 @@ func bind_commands() -> void:
 	attack_cmd = AttackCommand.new()
 	idle_cmd = IdleCommand.new()
 	dash_cmd = DashCommand.new()
-
-
-# regen stamina when not full, unlock exhaustion when full
-func _regen_stamina(delta):
-	if stamina < max_stamina:
-		if stamina_delay_timer > 0:
-			stamina_delay_timer -= delta
-		else:
-			stamina += stamina_recharge_rate * delta
-			stamina = min(stamina, max_stamina)
-	
-	stamina_bar.value = stamina
-	
-	# Unlock only when FULL
-	if stamina_actions_locked and stamina >= max_stamina:
-		stamina_actions_locked = false
-		stamina_bar.modulate = Color(1, 1, 1)     # normal
-		move_speed = base_move_speed
-
-
-# if stamina reaches 0, lock stamina actions and slow player
-func _check_exhaustion():
-	if stamina <= 0 and not stamina_actions_locked:
-		stamina_actions_locked = true
-		running = false
-		velocity = Vector2.ZERO
-		stamina_bar.modulate = Color(1, 0.3, 0.3) # reddish
-		move_speed = base_move_speed * slow_factor
 
 
 func _spawn_dash_ghost() -> void:
@@ -396,19 +324,20 @@ func _spawn_dash_ghost() -> void:
 
 
 func upgrade_sprite() -> void:
-	if upgraded:
+	if GameState.has_armor:
 		return
 	
-	upgraded = true
 	sprite.texture = upgraded_texture
+	
+	# upgrade stamina
+	StaminaSystem.recharge_rate = 30
+	StaminaSystem.reset_stamina()
 	
 	# Upgrade player stats
 	health.max_health = 200
 	health_bar.max_value = health.max_health
 	health.current_health = health.max_health
-	stamina_recharge_rate = 30
 	set_health_bar()
-	set_stamina_bar()
 
 
 #falling animation/ stops the player, plays moving animation, then fades the player
@@ -475,14 +404,31 @@ func reset_player() -> void:
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
+	StaminaSystem.locked = true
 	
 	# Restore resources
 	health.current_health = health.max_health
-	stamina = max_stamina
+	StaminaSystem.reset_stamina()
 	set_health_bar()
-	set_stamina_bar()
+	upgrade_sprite()
 	_manage_animation_tree_state()
 	modulate = Color(1, 1, 1, 1)  # fully visible
+
+
+# Stamina-related functions
+func _on_stamina_changed() -> void:
+	stamina_bar.max_value = StaminaSystem.max_stamina
+	stamina_bar.value = StaminaSystem.current
+
+
+func _on_stamina_exhausted() -> void:
+	move_speed = base_move_speed * StaminaSystem.slow_factor
+	stamina_bar.modulate = Color(1, 0.3, 0.3)
+
+
+func _on_stamina_recovered() -> void:
+	move_speed = base_move_speed
+	stamina_bar.modulate = Color(1, 1, 1)
 
 
 func _manage_animation_tree_state() -> void:
@@ -504,7 +450,7 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
 	
-	if stamina_actions_locked && running:
+	if StaminaSystem.locked && running:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/moving"] = false
 		animation_tree["parameters/conditions/running"] = false
@@ -526,10 +472,12 @@ func _manage_animation_tree_state() -> void:
 		animation_tree["parameters/conditions/damaged"] = false
 		
 	animation_tree["parameters/conditions/running"] = running
+
+
 # Added by Alfred
 func begin_cutscene_walk(dir_str: String) -> void:
 	cutscene_walking = true
-
+	
 	# Map text direction to a unit vector + facing enum
 	match dir_str.to_lower():
 		"left":
@@ -546,11 +494,11 @@ func begin_cutscene_walk(dir_str: String) -> void:
 			change_facing(Facing.DOWN)
 		_:
 			cutscene_direction = Vector2.ZERO
-
+	
 	# Use this direction for blend spaces
 	if cutscene_direction != Vector2.ZERO:
 		direction = cutscene_direction
-
+	
 	_manage_animation_tree_state()  # immediately update animations
 
 
@@ -559,19 +507,3 @@ func end_cutscene_walk() -> void:
 	cutscene_direction = Vector2.ZERO
 	direction = Vector2.ZERO
 	_manage_animation_tree_state()  # return to idle
-
-## Inventory related commands:
-#func _on_potion_pickup_area_entered(body):
-	#if body is Player:
-		#Inventory.add_potion(1)
-		#queue_free()
-#
-#if Inventory.use_key():
-	#open_door()
-#else:
-	#print("Need a key!")
-#
-#if Inventory.use_potion():
-	#player.heal(20)
-#else:
-	#print("No potions!")

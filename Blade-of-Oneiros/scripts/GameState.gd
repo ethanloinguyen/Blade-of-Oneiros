@@ -7,6 +7,7 @@ var game_over := false
 var last_scene_path: String = ""
 var last_spawn_tag: StringName = "default"
 var is_respawning: bool = false
+var has_armor: bool = false
 var game_finished := false
 
 # Added by Alfred

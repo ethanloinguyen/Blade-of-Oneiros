@@ -24,6 +24,7 @@ DialogueOrchestrator="*res://scripts/dialogue/DialogueOrchestrator.gd"
 GameState="*res://scripts/GameState.gd"
 Inventory="*res://scripts/hud/inventory.gd"
 hud="*res://scenes/hud.tscn"
+StaminaSystem="*res://scripts/combat/Stamina.gd"
 
 [dotnet]
 
