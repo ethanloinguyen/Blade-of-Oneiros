@@ -6,23 +6,29 @@ extends Area2D
 @export var animation_delay:float
 @export var hitstop_duration:float
 
+var _hit_something = false
 
 # activate hitbox and aim in a direction
 func activate(dir:Vector2, rotate_hitbox:bool, wait_for_delay:bool) -> void:
+	_hit_something = false
 	if wait_for_delay:
 		await get_tree().create_timer(animation_delay, false).timeout
 	if rotate_hitbox:
 		global_rotation = dir.angle()
 	for a in get_overlapping_areas():
 		if a is Health:
-			a.take_damage(damage)
-			print(a.get_parent().name + " took damage and is at " + str(a.current_health))
-
 			# hitstop
-			if not a.is_dead() and hitstop_duration > 0:
+			if not a.is_dead() and hitstop_duration > 0 and not _hit_something:
+				var parent = get_parent()
+				var old_mode = parent.process_mode
 				get_tree().paused = true
+				parent.process_mode = PROCESS_MODE_INHERIT
 				await get_tree().create_timer(hitstop_duration, true).timeout
 				get_tree().paused = false
+				parent.process_mode = old_mode
+
+			a.take_damage(damage)
+			_hit_something = true
 
 
 
