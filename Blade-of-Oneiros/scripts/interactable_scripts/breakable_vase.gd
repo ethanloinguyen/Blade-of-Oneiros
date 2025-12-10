@@ -111,5 +111,5 @@ func _spawn_potion() -> void:
 		return
 
 	var potion := potion_scene.instantiate()
-	potion.global_position = global_position
 	get_parent().add_child(potion)
+	potion.global_position = global_position

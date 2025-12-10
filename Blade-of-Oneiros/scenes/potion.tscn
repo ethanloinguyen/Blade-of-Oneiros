@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://dtt57jn3v7wg2" path="res://scripts/interactable_scripts/potion_pickup.gd" id="1_ym5ma"]
 [ext_resource type="Texture2D" uid="uid://cv1qm5tjb10xf" path="res://assets/map/tileset/new_objects_fixed.png" id="2_le10y"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxto5"]
 
 [node name="Potion" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
 script = ExtResource("1_ym5ma")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
