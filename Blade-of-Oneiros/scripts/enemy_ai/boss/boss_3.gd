@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 @export var between_states_wait_duration:float = 4.0
 
-@export var bounce_audio: AudioStream
+@export var bounce_audio: Array[AudioStream]
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
 
@@ -85,7 +85,7 @@ func _ready():
 		_face_player()
 	)
 	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, true, func():
-		play_audio(bounce_audio)
+		play_audio(bounce_audio[randi() % bounce_audio.size()])
 		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(

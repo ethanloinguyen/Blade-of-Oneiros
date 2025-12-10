@@ -1,13 +1,16 @@
-[gd_scene load_steps=90 format=3 uid="uid://dapjo80x5nxtv"]
+[gd_scene load_steps=93 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
-[ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slime/slimebounce.wav" id="2_7geqw"]
+[ext_resource type="AudioStream" uid="uid://cfcofjvpe2dab" path="res://assets/audio/slime/boss3jump1.wav" id="2_foicd"]
 [ext_resource type="PackedScene" uid="uid://5vvl8ewnkllm" path="res://scenes/boss/slimeball/fireball.tscn" id="2_gajum"]
 [ext_resource type="AudioStream" uid="uid://deth3hlu0rl2f" path="res://assets/audio/slime/slimedeath.mp3" id="3_33goe"]
+[ext_resource type="AudioStream" uid="uid://gg36p1kldw5s" path="res://assets/audio/slime/boss3jump2.wav" id="3_74p58"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_oxfrb"]
 [ext_resource type="PackedScene" uid="uid://c0iyshfw82ja6" path="res://scenes/boss/rain_slime_3.tscn" id="3_qnbdj"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_7geqw"]
+[ext_resource type="AudioStream" uid="uid://c46f1b01h22sc" path="res://assets/audio/slime/boss3jump3.wav" id="4_cbg1l"]
 [ext_resource type="AudioStream" uid="uid://4mmi2j4noj1x" path="res://assets/audio/slime/slimehurt1.wav" id="4_wb56y"]
+[ext_resource type="AudioStream" uid="uid://b1cb8xqotsune" path="res://assets/audio/slime/boss3jump4.wav" id="5_cpvmx"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="5_gajum"]
 [ext_resource type="AudioStream" uid="uid://da3oolg4dteld" path="res://assets/audio/slime/slimehurt2.wav" id="5_xbv8c"]
 [ext_resource type="AudioStream" uid="uid://bk60k2bxtlrkk" path="res://assets/audio/slime/slimehurt3.wav" id="6_grqg8"]
@@ -608,7 +611,7 @@ collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gajum")
 between_states_wait_duration = 1.0
-bounce_audio = ExtResource("2_7geqw")
+bounce_audio = Array[AudioStream]([ExtResource("2_foicd"), ExtResource("3_74p58"), ExtResource("4_cbg1l"), ExtResource("5_cpvmx")])
 death_audio = ExtResource("3_33goe")
 hurt_audio = Array[AudioStream]([ExtResource("4_wb56y"), ExtResource("5_xbv8c"), ExtResource("6_grqg8")])
 projectile = ExtResource("2_gajum")
