@@ -112,7 +112,8 @@ func _ready():
 	)
 	fsm = FSM.new(idle_state)
 
-	await get_tree().process_frame
+	# idle for a few seconds after spawning, then jump to player
+	await get_tree().create_timer(3.0).timeout
 	if not is_instance_valid(self):
 		return
 	jump_state.jump(_player.global_position)

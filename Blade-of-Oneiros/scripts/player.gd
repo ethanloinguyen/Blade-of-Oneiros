@@ -306,7 +306,10 @@ func _on_health_died() -> void:
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
-	
+
+	# disable boss health bar
+	get_tree().get_first_node_in_group("hud").boss_health.visible = false
+
 	#animation_tree["parameters/conditions/death"] = true
 	play_audio(death_audio)
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -315,7 +318,6 @@ func _on_health_died() -> void:
 	GameState.game_over = true
 	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
 	#_manage_animation_tree_state()
-
 
 
 # returns false if unable to use stamina, true if usable
