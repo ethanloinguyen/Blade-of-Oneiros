@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d34jk32r71yh2"]
+
+[ext_resource type="PackedScene" uid="uid://d1s8l4r338100" path="res://scenes/enemies/enemy_bomb_slime.tscn" id="1_lmxmd"]
+
+[node name="EnemyBombSlimeJumping" instance=ExtResource("1_lmxmd")]
+start_jumping = true

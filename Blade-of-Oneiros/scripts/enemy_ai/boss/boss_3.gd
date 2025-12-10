@@ -18,6 +18,9 @@ extends CharacterBody2D
 @export var projectile:PackedScene
 @export var rain_slime:PackedScene
 
+@export var summon_slime:PackedScene
+@export var hurt_slime_summon_count:int
+
 var fsm:FSM
 var idle_state:State
 var jump_state:JumpState
@@ -65,6 +68,7 @@ func _ready():
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
+		AiHelper.spawn_enemy_around(self, summon_slime, hurt_slime_summon_count)
 	)
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)

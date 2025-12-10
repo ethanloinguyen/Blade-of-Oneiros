@@ -103,3 +103,12 @@ static func connect_to_boss_health_bar(tree:SceneTree, health:Health, over_textu
 	hud.boss_health.value = health.current_health
 	health.hurt.connect(func(): hud.boss_health.value = health.current_health)
 	health.died.connect(func(): hud.boss_health.visible = false)
+
+
+static func spawn_enemy_around(spawner:Node2D, enemy:PackedScene, count:int):
+	for i in range(count):
+		var s:Node2D = enemy.instantiate()
+		spawner.get_parent().add_child(s)
+		var a = float(i)/count * TAU
+		var offset = Vector2(cos(a), sin(a))
+		s.global_position = spawner.global_position + offset * 20
