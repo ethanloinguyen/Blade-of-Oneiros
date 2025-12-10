@@ -16,6 +16,8 @@ extends CharacterBody2D
 @export var hurt_audio: Array[AudioStream]
 
 @export var next_boss:PackedScene
+@export var slime_enemy:PackedScene
+@export var death_slime_spawn_count:int = 7
 
 var fsm:FSM
 var idle_state:State
@@ -73,6 +75,12 @@ func _ready():
 			var boss:CharacterBody2D = next_boss.instantiate()
 			get_parent().add_child(boss)
 			boss.global_position = global_position
+		for i in range(death_slime_spawn_count):
+			var s:CharacterBody2D = slime_enemy.instantiate()
+			get_parent().add_child(s)
+			var a = float(i)/death_slime_spawn_count * TAU
+			var offset = Vector2(cos(a), sin(a))
+			s.global_position = global_position + offset * 20
 
 		queue_free()
 	)
@@ -91,9 +99,7 @@ func _ready():
 	)
 	jump_state_1 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		play_audio(bounce_audio)
-		_idle(1.0, func():
-			shoot_state_1.shoot(global_position)
-		)
+		shoot_state_1.shoot(global_position)
 	)
 	shoot_state_1 = ShootState.new(self, projectile, 4, false, func():
 		_idle(between_states_wait_duration, func():
@@ -102,9 +108,7 @@ func _ready():
 	)
 	jump_state_2 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		play_audio(bounce_audio)
-		_idle(1.0, func():
-			shoot_state_2.shoot(global_position)
-		)
+		shoot_state_2.shoot(global_position)
 	)
 	shoot_state_2 = ShootState.new(self, projectile, 4, true, func():
 		_idle(between_states_wait_duration, func():
@@ -113,12 +117,10 @@ func _ready():
 	)
 	jump_state_3 = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		play_audio(bounce_audio)
-		_idle(1.0, func():
-			shoot_state_3.shoot(global_position)
-		)
+		shoot_state_3.shoot(global_position)
 	)
 	shoot_state_3 = ShootState.new(self, projectile, 4, false, func():
-		_idle(4.0, func():
+		_idle(2.5, func():
 			jump_state_1.jump(_player.global_position)
 		)
 	)

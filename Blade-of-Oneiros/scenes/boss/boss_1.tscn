@@ -22,7 +22,7 @@
 size = Vector2(32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t46gg"]
-radius = 26.0
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wo2b5"]
 atlas = ExtResource("5_p5eep")
@@ -945,10 +945,11 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_7g4c7")
-between_states_wait_duration = 1.0
+between_states_wait_duration = 0.3
 projectile = ExtResource("2_w52jb")
 next_boss = ExtResource("3_76j1g")
 slime_enemy = ExtResource("4_p5eep")
+death_slime_spawn_count = 5
 bounce_audio = ExtResource("13_c0fov")
 death_audio = ExtResource("6_oxjat")
 hurt_audio = Array[AudioStream]([ExtResource("7_q40mq"), ExtResource("8_ecu3m"), ExtResource("9_muypa")])
@@ -960,7 +961,7 @@ shape = SubResource("RectangleShape2D_22uif")
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("2_wj12j")
-max_health = 100
+max_health = 200
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]

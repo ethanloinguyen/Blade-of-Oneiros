@@ -96,6 +96,21 @@ position = Vector2(-26.230896, 335.11185)
 position = Vector2(34.230896, -113.11185)
 between_states_wait_duration = 4.0
 
+[node name="EnemySlime" parent="Entities/Enemies" index="1"]
+position = Vector2(-48.769104, -24.111847)
+
+[node name="EnemySlime2" parent="Entities/Enemies" index="2"]
+position = Vector2(111.230896, -23.111847)
+
+[node name="EnemySlime3" parent="Entities/Enemies" index="3"]
+position = Vector2(-7.769104, 20.888153)
+
+[node name="EnemySlime4" parent="Entities/Enemies" index="4"]
+position = Vector2(70.230896, 18.888153)
+
+[node name="EnemySlime5" parent="Entities/Enemies" index="5"]
+position = Vector2(33.230896, 69.88815)
+
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 

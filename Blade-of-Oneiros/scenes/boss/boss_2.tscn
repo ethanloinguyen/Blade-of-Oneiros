@@ -753,12 +753,13 @@ animations = [{
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_oq0kp")
-between_states_wait_duration = 1.0
+between_states_wait_duration = 0.6
 projectile = ExtResource("2_kaocr")
 bounce_audio = ExtResource("3_oq0kp")
 death_audio = ExtResource("4_kgkne")
 hurt_audio = Array[AudioStream]([ExtResource("5_v1nfs"), ExtResource("6_ydmu7"), ExtResource("7_dptfo")])
 next_boss = ExtResource("3_d11rf")
+death_slime_spawn_count = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
