@@ -22,6 +22,9 @@ var wait_state:State
 var chase_state:State
 var attack_state:State
 var stun_state:State
+var _stun_knockback_dir:Vector2
+var _stun_timer:float
+var STUN_SPEED:float = 140.0
 
 var _player:Player
 var _dir:String = "down"
@@ -55,6 +58,7 @@ func _ready():
 		fsm.change_state(stun_state)
 	)
 	health.died.connect(func():
+		fsm.change_state(stun_state)
 		AiHelper.play_animation(sprite, "death", _dir)
 		await sprite.animation_finished
 		if not is_instance_valid(self):
@@ -86,6 +90,8 @@ func _ready():
 		if _player == null:
 			return
 
+		_desired_move_dir = Vector2.ZERO
+		_update_velocity_walk()
 		AiHelper.play_animation(sprite, "idle", _dir)
 
 		# transition
@@ -103,6 +109,7 @@ func _ready():
 		_desired_move_dir = to_player
 		if chase_leash_distance > dist_to_player:
 			_move_avoid_dirs.push_back(to_player)
+		_update_velocity_walk()
 
 		# play animation
 		_dir = AiHelper.update_dir(to_player)
@@ -133,7 +140,7 @@ func _ready():
 			fsm.change_state(chase_state)
 		,
 		func(_delta:float):
-		velocity = Vector2(0, 0)
+		velocity = Vector2.ZERO
 		,
 		Callable()
 	)
@@ -142,12 +149,19 @@ func _ready():
 		func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
+		_stun_knockback_dir = global_position - _player.global_position
+		_stun_timer = 0
 		await sprite.animation_finished
 		if not is_instance_valid(self):
 			return
 		fsm.change_state(chase_state)
 		,
-		Callable()
+		func(delta):
+		_stun_timer += delta
+		if _stun_timer < 0.2:
+			velocity = _stun_knockback_dir.normalized() * STUN_SPEED
+		else:
+			velocity = Vector2.ZERO
 		,
 		Callable()
 	)
@@ -155,15 +169,13 @@ func _ready():
 
 
 func _physics_process(delta:float) -> void:
-	if not health.is_dead():
-		fsm.update(delta)
-
-		if not _desired_move_dir.is_zero_approx():
-			_update_velocity()
-			move_and_slide()
+	fsm.update(delta)
+	move_and_slide()
 
 
-func _update_velocity() -> void:
+func _update_velocity_walk() -> void:
+	if _desired_move_dir.is_zero_approx():
+		return
 	var space_state := get_world_2d().direct_space_state
 	for i in range(_move_dirs.size()):
 		_move_dirs_weights[i] = 1

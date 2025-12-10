@@ -9,6 +9,7 @@ extends Character
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
+@onready var camera:Camera = $Camera2D
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -92,12 +93,17 @@ func _ready() -> void:
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	hud.visible = true
 	health.hurt.connect(_on_health_hurt)
-	health.died.connect(_on_health_died)	
+	health.died.connect(_on_health_died)
 	health_bar.max_value = health.max_health
 	set_health_bar()
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	bind_commands()
+
+	health.hurt.connect(func():
+		# screenshake on hit
+		camera.screenshake(6.0, 30)
+	)
 	
 func _physics_process(delta: float) -> void:	
 
@@ -361,9 +367,10 @@ func _regen_stamina(delta):
 	# Unlock only when FULL
 	if stamina_actions_locked and stamina >= max_stamina:
 		stamina_actions_locked = false
-		stamina_bar.modulate = Color(1, 1, 1)     # normal
 		move_speed = base_move_speed
 
+	if not stamina_actions_locked:
+		stamina_bar.modulate = Color(1, 1, 1)     # normal
 
 # if stamina reaches 0, lock stamina actions and slow player
 func _check_exhaustion():
