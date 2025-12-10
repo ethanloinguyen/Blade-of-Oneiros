@@ -4,6 +4,8 @@ extends Node2D
 
 @onready var area: Area2D = $Area2D
 @onready var prompt: Node2D = $Prompt
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var page: AudioStream = preload("res://assets/audio/page-flip-47177.mp3")
 @onready var tutorial_panel: Control = $CanvasLayer/TutorialPanel
 @onready var anim: AnimationPlayer = $Prompt/AnimationPlayer
 var _player_near: bool = false
@@ -45,4 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _open_tutorial() -> void:
 	if tutorial_panel and "open_tutorial" in tutorial_panel:
 		print("Opening tutorial")
+		audio.stream = page
+		audio.play()
+
 		tutorial_panel.call("open_tutorial")

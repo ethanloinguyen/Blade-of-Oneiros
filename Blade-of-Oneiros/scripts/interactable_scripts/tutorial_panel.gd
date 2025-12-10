@@ -2,6 +2,8 @@ extends Control
 
 @export var pages: Array[Texture2D] = [] 
 @export var action: StringName = "attack"  
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D2
+@onready var page: AudioStream = preload("res://assets/audio/page-flip-47177.mp3")
 @onready var page_texture: TextureRect = $TextureRect
 
 var _page_index: int = 0
@@ -32,7 +34,7 @@ func close_tutorial() -> void:
 	visible = false
 	_is_open = false
 	set_process_unhandled_input(false)
-
+	await get_tree().process_frame
 	GameState.input_locked = false
 	hud.visible = true
 	print("Tutorial closed")
@@ -57,6 +59,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _advance_page() -> void:
+		audio.stream = page
+		audio.play()
 		_page_index += 1
 		if _page_index >= pages.size():
 			close_tutorial()
