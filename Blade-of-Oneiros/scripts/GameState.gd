@@ -57,3 +57,7 @@ func is_enemy_dead(id: StringName) -> bool:
 	if id == "":
 		return false
 	return dead_enemies.get(id, false)
+
+
+func reset_game() -> void:
+	pass

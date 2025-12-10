@@ -10,19 +10,18 @@ extends Area2D
 @onready var sprite:AnimatedSprite2D = $Sprite
 
 func _ready():
-	# fall to floor
+	var tree = get_tree()
 	sprite.position.y = -height
 	while sprite.position.y < 0:
 		if not is_instance_valid(self) or not is_inside_tree():
 			return
-		var tree = get_tree()
+
 		if tree != null:
 			await tree.process_frame
 		else:
 			return
 
-	# hurt player
-	var tree = get_tree()
+
 	if tree == null:
 		return
 	var player:Player = tree.get_first_node_in_group("player")
