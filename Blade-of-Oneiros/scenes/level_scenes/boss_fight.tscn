@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=4 uid="uid://qf60ey6t8ph6"]
+[gd_scene load_steps=21 format=4 uid="uid://qf60ey6t8ph6"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_ddjkd"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_0vr5p"]
 [ext_resource type="PackedScene" uid="uid://dtt6ths5d2otx" path="res://scenes/level_enemy_containers/boss_fight_container.tscn" id="3_ttc01"]
+[ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="4_1a5x1"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="10_gqr7n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttc01"]
@@ -111,6 +112,20 @@ position = Vector2(70.230896, 18.888153)
 
 [node name="EnemySlime5" parent="Entities/Enemies" index="5"]
 position = Vector2(33.230896, 69.88815)
+
+[node name="vases" type="Node2D" parent="Entities"]
+
+[node name="BreakableVase" parent="Entities/vases" instance=ExtResource("4_1a5x1")]
+position = Vector2(-290, 238)
+
+[node name="BreakableVase2" parent="Entities/vases" instance=ExtResource("4_1a5x1")]
+position = Vector2(-272, 238)
+
+[node name="BreakableVase4" parent="Entities/vases" instance=ExtResource("4_1a5x1")]
+position = Vector2(306, 248)
+
+[node name="BreakableVase5" parent="Entities/vases" instance=ExtResource("4_1a5x1")]
+position = Vector2(288, 248)
 
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true

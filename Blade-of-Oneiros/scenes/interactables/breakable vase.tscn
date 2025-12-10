@@ -1,0 +1,95 @@
+[gd_scene load_steps=15 format=3 uid="uid://bi6c4e5gohuk6"]
+
+[ext_resource type="Script" uid="uid://bg7kgbvijkvs" path="res://scripts/interactable_scripts/breakable_vase.gd" id="1_keb0y"]
+[ext_resource type="Texture2D" uid="uid://bp778sn4kicur" path="res://assets/map/tileset/breaking_animation.png" id="2_c8b0m"]
+[ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_fey8i"]
+[ext_resource type="PackedScene" uid="uid://cpptia23mhpbe" path="res://scenes/potion.tscn" id="2_xn5t0"]
+[ext_resource type="AudioStream" uid="uid://yhkjw7xa06yc" path="res://assets/audio/glass-bottle-breaking-351297.mp3" id="3_h6bp7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xn5t0"]
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h6bp7"]
+height = 24.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8b0m"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(0, 48, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xn5t0"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(38, 48, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6bp7"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(76, 48, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8knct"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(114, 48, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nigsm"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(152, 48, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkvn4"]
+atlas = ExtResource("2_c8b0m")
+region = Rect2(190, 48, 38, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8b0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8b0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xn5t0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6bp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8knct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nigsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkvn4")
+}],
+"loop": false,
+"name": &"break",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BreakableVase" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_keb0y")
+potion_scene = ExtResource("2_xn5t0")
+break_sound = ExtResource("3_h6bp7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xn5t0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Health" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_fey8i")
+max_health = 70
+metadata/_custom_type_script = "uid://cwcorrfft7hdn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
+shape = SubResource("CapsuleShape2D_h6bp7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-10, 2)
+sprite_frames = SubResource("SpriteFrames_c8b0m")
+animation = &"break"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://d2kauldx3frsx"]
+[gd_scene load_steps=51 format=4 uid="uid://d2kauldx3frsx"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_xusmx"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_bya5x"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d34qb7pfnldo5" path="res://assets/map/dungeon_objects_extra/Interior.png" id="6_yjd8r"]
 [ext_resource type="Texture2D" uid="uid://d3uf6o6t8c2ta" path="res://assets/map/dungeon_objects_extra/full.png" id="7_kgaty"]
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="7_wdjpx"]
-[ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="8_1orwu"]
+[ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/interactable_scripts/breakable_tiles.gd" id="8_1orwu"]
 [ext_resource type="Texture2D" uid="uid://bmub1d1q1n24d" path="res://assets/map/tileset/walls_floor.png" id="8_2xmai"]
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="9_l5sba"]
 [ext_resource type="Texture2D" uid="uid://cnfdfavidmc2o" path="res://assets/map/tileset/fire_animation.png" id="10_orr7t"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bdawost1o6f5o" path="res://scripts/door2.tscn" id="26_yjd8r"]
 [ext_resource type="PackedScene" uid="uid://b4rjp4ug8igat" path="res://scenes/level_enemy_containers/lvl1enemies.tscn" id="27_kgaty"]
 [ext_resource type="PackedScene" uid="uid://b7kese1ixn7rr" path="res://scenes/interactables/triggerscene.tscn" id="30_orr7t"]
+[ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="31_pbiu2"]
 
 [sub_resource type="Gradient" id="Gradient_07sfe"]
 offsets = PackedFloat32Array(0.06, 0.27333334, 0.54, 0.7733333, 0.98)
@@ -4301,6 +4302,19 @@ position = Vector2(-482.14063, -296.68555)
 [node name="Triggerscene" parent="Entities" instance=ExtResource("30_orr7t")]
 position = Vector2(-298.27417, 68.242065)
 single_use = true
+
+[node name="vases" type="Node2D" parent="Entities"]
+z_index = 2
+y_sort_enabled = true
+
+[node name="BreakableVase" parent="Entities/vases" instance=ExtResource("31_pbiu2")]
+position = Vector2(-434.40958, 51.31494)
+
+[node name="BreakableVase2" parent="Entities/vases" instance=ExtResource("31_pbiu2")]
+position = Vector2(-371.1352, 51.12146)
+
+[node name="BreakableVase3" parent="Entities/vases" instance=ExtResource("31_pbiu2")]
+position = Vector2(-544.59595, -280.7005)
 
 [node name="bossskip" type="Area2D" parent="."]
 position = Vector2(-44.53356, 556.5205)
