@@ -9,7 +9,9 @@ extends CharacterBody2D
 
 @export var between_states_wait_duration:float = 4.0
 
-@export var bounce_audio: AudioStream
+@export var bounce_audio: Array[AudioStream]
+@export var death_audio: AudioStream
+@export var hurt_audio: Array[AudioStream]
 
 @export var projectile:PackedScene
 @export var rain_slime:PackedScene
@@ -40,7 +42,23 @@ func _ready():
 		await get_tree().process_frame
 		if not is_instance_valid(self):
 			return
-
+	
+	
+	#audio
+	sprite.frame_changed.connect(func():
+		if (sprite.animation.begins_with("death_down") or \
+		sprite.animation.begins_with("death_up") or \
+		sprite.animation.begins_with("death_left") or \
+		sprite.animation.begins_with("death_right")) and sprite.frame == 1:
+			play_audio(death_audio)
+			
+		if (sprite.animation.begins_with("hurt_down") or \
+		sprite.animation.begins_with("hurt_up") or \
+		sprite.animation.begins_with("hurt_left") or \
+		sprite.animation.begins_with("hurt_right")):
+			play_audio(hurt_audio[randi() % hurt_audio.size()])
+	)
+	
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
@@ -67,7 +85,7 @@ func _ready():
 		_face_player()
 	)
 	jump_state = JumpState.new(self, 100, 0.7, sprite, attack_hitbox, true, func():
-		play_audio(bounce_audio)
+		play_audio(bounce_audio[randi() % bounce_audio.size()])
 		fsm.change_state(rain_state)
 	)
 	rain_state = State.new(

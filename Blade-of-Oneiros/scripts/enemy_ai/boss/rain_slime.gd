@@ -37,6 +37,7 @@ func _ready():
 
 	# splat on floor and become puddle
 	sprite.play("splat")
+	
 	$Shadow.queue_free()
 	await sprite.animation_finished
 	if not is_instance_valid(self):

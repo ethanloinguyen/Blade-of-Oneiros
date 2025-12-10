@@ -17,8 +17,8 @@ func activate(dir:Vector2, rotate_hitbox:bool, wait_for_delay:bool) -> void:
 		await get_tree().create_timer(animation_delay, false).timeout
 	for a in get_overlapping_areas():
 		if a is Health:
-			# hitstop
 			if not a.is_dead() and hitstop_duration > 0 and not _hit_something:
+				# hitstop
 				var parent = get_parent()
 				var old_mode = parent.process_mode
 				get_tree().paused = true
@@ -26,6 +26,9 @@ func activate(dir:Vector2, rotate_hitbox:bool, wait_for_delay:bool) -> void:
 				await get_tree().create_timer(hitstop_duration, true).timeout
 				get_tree().paused = false
 				parent.process_mode = old_mode
+
+				# screenshake
+				get_viewport().get_camera_2d().screenshake(1.0, 10)
 
 			a.take_damage(damage)
 			_hit_something = true

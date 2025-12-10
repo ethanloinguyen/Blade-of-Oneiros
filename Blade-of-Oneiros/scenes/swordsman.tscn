@@ -964,7 +964,7 @@ script = ExtResource("4_jtonm")
 damage = 35
 activate_animation = "attack"
 animation_delay = 0.2
-hitstop_duration = 0.15
+hitstop_duration = 0.05
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(14, 0)
