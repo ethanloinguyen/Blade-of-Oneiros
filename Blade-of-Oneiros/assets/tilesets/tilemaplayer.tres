@@ -6037,6 +6037,24 @@ texture = ExtResource("4_17v8r")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ikiii"]
 texture = ExtResource("5_4wrlo")
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/animation_columns = 1
+4:0/animation_separation = Vector2i(0, 2)
+4:0/animation_frame_0/duration = 1.0
+4:0/animation_frame_1/duration = 1.0
+4:0/animation_frame_2/duration = 1.0
+4:0/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/animation_columns = 1
+2:0/animation_frame_0/duration = 1.0
+2:0/animation_frame_1/duration = 1.0
+2:0/animation_frame_2/duration = 1.0
+2:0/animation_frame_3/duration = 1.0
+2:0/animation_frame_4/duration = 1.0
+2:0/animation_frame_5/duration = 1.0
+2:0/0 = 0
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cbp6q"]
 texture = ExtResource("6_jjvph")
