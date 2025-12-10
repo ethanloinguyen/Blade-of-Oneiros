@@ -10,13 +10,17 @@ extends Character
 @onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
 @onready var camera:Camera = $Camera2D
+
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
 @export var hitbox_offset_right: Vector2 = Vector2(12, 10)
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
+
 @export var dash_ghost_scene: PackedScene
 @export var dash_curve: Curve
+
+# Audio
 @export var hurt_audio: Array[AudioStream] = []
 @export var dash_audio: Array[AudioStream] = []
 @export var attack_grunt_audio: Array[AudioStream] = []

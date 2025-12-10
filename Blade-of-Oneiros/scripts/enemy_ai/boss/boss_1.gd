@@ -16,6 +16,8 @@ extends CharacterBody2D
 @export var death_slime_spawn_count:int = 3
 
 @export var bounce_audio: AudioStream
+@export var death_audio: AudioStream
+@export var hurt_audio: Array[AudioStream]
 
 var fsm:FSM
 var idle_state:State
@@ -41,6 +43,21 @@ func _ready():
 		await get_tree().process_frame
 		if not is_instance_valid(self):
 			return
+	
+	#audio
+	sprite.frame_changed.connect(func():
+		if (sprite.animation.begins_with("death_down") or \
+		sprite.animation.begins_with("death_up") or \
+		sprite.animation.begins_with("death_left") or \
+		sprite.animation.begins_with("death_right")) and sprite.frame == 1:
+			play_audio(death_audio)
+			
+		if (sprite.animation.begins_with("hurt_down") or \
+		sprite.animation.begins_with("hurt_up") or \
+		sprite.animation.begins_with("hurt_left") or \
+		sprite.animation.begins_with("hurt_right")):
+			play_audio(hurt_audio[randi() % hurt_audio.size()])
+	)
 
 	health.hurt.connect(func():
 		sprite.stop()
