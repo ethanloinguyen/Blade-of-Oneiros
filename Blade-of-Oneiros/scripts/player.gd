@@ -361,9 +361,10 @@ func _regen_stamina(delta):
 	# Unlock only when FULL
 	if stamina_actions_locked and stamina >= max_stamina:
 		stamina_actions_locked = false
-		stamina_bar.modulate = Color(1, 1, 1)     # normal
 		move_speed = base_move_speed
 
+	if not stamina_actions_locked:
+		stamina_bar.modulate = Color(1, 1, 1)     # normal
 
 # if stamina reaches 0, lock stamina actions and slow player
 func _check_exhaustion():

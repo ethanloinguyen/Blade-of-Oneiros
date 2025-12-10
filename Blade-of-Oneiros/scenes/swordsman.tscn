@@ -51,7 +51,7 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
-size = Vector2(16, 38)
+size = Vector2(24, 44)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_plnse"]
 shader = ExtResource("6_plnse")
@@ -963,7 +963,8 @@ collision_mask = 4
 script = ExtResource("4_jtonm")
 damage = 35
 activate_animation = "attack"
-animation_delay = 0.15
+animation_delay = 0.2
+hitstop_duration = 0.15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(14, 0)
