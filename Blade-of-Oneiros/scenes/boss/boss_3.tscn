@@ -23,8 +23,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(32, 32)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t46gg"]
-radius = 26.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74p58"]
+height = 35.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gdr7f"]
 atlas = ExtResource("5_gajum")
@@ -639,7 +639,9 @@ script = ExtResource("4_7geqw")
 damage = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpHitbox"]
-shape = SubResource("CircleShape2D_t46gg")
+position = Vector2(0, 11)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_74p58")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1

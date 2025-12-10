@@ -29,7 +29,6 @@ func _physics_process(delta: float) -> void:
 	
 	
 func snap_to_player() -> void:
-
 	reset_smoothing()
 
 

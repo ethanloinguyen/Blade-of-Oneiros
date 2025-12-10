@@ -9,6 +9,7 @@ func _ready() -> void:
 	end_video.play()
 	print("game over")
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if GameState.game_finished:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://dvrmpg74vm0t6"]
+[gd_scene load_steps=116 format=3 uid="uid://dvrmpg74vm0t6"]
 
 [ext_resource type="Script" uid="uid://luse2aynsuip" path="res://scripts/player.gd" id="1_yb8h7"]
 [ext_resource type="Script" uid="uid://cltd1825afskb" path="res://scripts/camera.gd" id="2_6mje0"]
@@ -33,15 +33,9 @@
 [ext_resource type="AudioStream" uid="uid://c2v0pegyvo644" path="res://assets/audio/walking/walkstep6.wav" id="31_n8ud3"]
 [ext_resource type="AudioStream" uid="uid://bbvxifyel80u1" path="res://assets/audio/walking/walkstep7.wav" id="32_um5ev"]
 [ext_resource type="AudioStream" uid="uid://dscofnjmwp1r5" path="res://assets/audio/walking/walkstep8.wav" id="33_5jjdc"]
+[ext_resource type="Script" uid="uid://d1buhfim8f3xh" path="res://scripts/dash_controller.gd" id="33_on3w6"]
 [ext_resource type="AudioStream" uid="uid://d1mltbaxu4v8j" path="res://assets/audio/walking/walkstep9.wav" id="34_jgi4d"]
 [ext_resource type="AudioStream" uid="uid://bl0gmhokcbyf1" path="res://assets/audio/walking/walkstep10.wav" id="35_aeqmg"]
-
-[sub_resource type="Curve" id="Curve_s1psh"]
-_limits = [0.0, 1.5, 0.0, 1.0]
-_data = [Vector2(0, 1.4), 0.0, 0.32389936, 0, 0, Vector2(0.26666668, 1), -2.2825458, -2.2825458, 0, 0, Vector2(0.4666667, 0.6), -1.429245, -1.429245, 0, 0, Vector2(0.8000001, 0.2), -1.3638501, -1.3638501, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 5
-metadata/_snap_enabled = true
-metadata/_snap_count = 15
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rdqc"]
 radius = 5.0
@@ -52,6 +46,11 @@ height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(24, 44)
+
+[sub_resource type="Curve" id="Curve_i4tte"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 1.4), 0.0, 0.32, 0, 0, Vector2(0.25, 1), -2.3, -2.3, 0, 0, Vector2(0.6, 0.6), -1.4, -1.4, 0, 0, Vector2(0.8, 0.2), -1.3, -1.3, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_plnse"]
 shader = ExtResource("6_plnse")
@@ -927,8 +926,6 @@ hitbox_offset_down = Vector2(0, -14)
 hitbox_offset_up = Vector2(0, 0)
 hitbox_offset_right = Vector2(-5, -10)
 hitbox_offset_left = Vector2(5, -10)
-dash_ghost_scene = ExtResource("2_r7u1p")
-dash_curve = SubResource("Curve_s1psh")
 hurt_audio = Array[AudioStream]([ExtResource("3_nnse2"), ExtResource("4_4y5hj"), ExtResource("5_ai3mq"), ExtResource("6_arqf2")])
 dash_audio = Array[AudioStream]([ExtResource("7_p42uh"), ExtResource("8_r8ub6"), ExtResource("9_5n52e"), ExtResource("10_o7hj1")])
 attack_grunt_audio = Array[AudioStream]([ExtResource("11_cbeiu"), ExtResource("12_pq5me"), ExtResource("13_bsxtd"), ExtResource("14_y0gk3")])
@@ -969,6 +966,11 @@ hitstop_duration = 0.05
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(14, 0)
 shape = SubResource("RectangleShape2D_7mycd")
+
+[node name="DashController" type="Node2D" parent="."]
+script = ExtResource("33_on3w6")
+dash_curve = SubResource("Curve_i4tte")
+dash_ghost_scene = ExtResource("2_r7u1p")
 
 [node name="Audio" type="Node2D" parent="."]
 

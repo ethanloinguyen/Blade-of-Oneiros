@@ -14,7 +14,7 @@ func execute(character: Character) -> Status:
 	
 	# Only consume stamina when actually moving
 	if Input.is_action_pressed("run"):
-		if character.try_use_stamina(character.stamina_cost_run):
+		if StaminaSystem.try_use(character.run_cost):
 			character.running = true
 	else:
 		character.running = false
