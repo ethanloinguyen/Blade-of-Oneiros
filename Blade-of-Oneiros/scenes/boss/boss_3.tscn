@@ -1,11 +1,16 @@
-[gd_scene load_steps=85 format=3 uid="uid://dapjo80x5nxtv"]
+[gd_scene load_steps=90 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
+[ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slime/slimebounce.wav" id="2_7geqw"]
 [ext_resource type="PackedScene" uid="uid://5vvl8ewnkllm" path="res://scenes/boss/slimeball/fireball.tscn" id="2_gajum"]
+[ext_resource type="AudioStream" uid="uid://deth3hlu0rl2f" path="res://assets/audio/slime/slimedeath.mp3" id="3_33goe"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_oxfrb"]
 [ext_resource type="PackedScene" uid="uid://c0iyshfw82ja6" path="res://scenes/boss/rain_slime_3.tscn" id="3_qnbdj"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="4_7geqw"]
+[ext_resource type="AudioStream" uid="uid://4mmi2j4noj1x" path="res://assets/audio/slime/slimehurt1.wav" id="4_wb56y"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="5_gajum"]
+[ext_resource type="AudioStream" uid="uid://da3oolg4dteld" path="res://assets/audio/slime/slimehurt2.wav" id="5_xbv8c"]
+[ext_resource type="AudioStream" uid="uid://bk60k2bxtlrkk" path="res://assets/audio/slime/slimehurt3.wav" id="6_grqg8"]
 [ext_resource type="Texture2D" uid="uid://cqsdpj24pty3" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Hurt_with_shadow.png" id="6_qnbdj"]
 [ext_resource type="Texture2D" uid="uid://c8poc3rhkist2" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Idle_with_shadow.png" id="7_oxfrb"]
 [ext_resource type="Texture2D" uid="uid://csr28uxwjvry3" path="res://assets/mobs/slimes/Slime3/Without_shadow/Slime3_Attack_without_shadow.png" id="8_gajum"]
@@ -603,6 +608,9 @@ collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_gajum")
 between_states_wait_duration = 1.0
+bounce_audio = ExtResource("2_7geqw")
+death_audio = ExtResource("3_33goe")
+hurt_audio = Array[AudioStream]([ExtResource("4_wb56y"), ExtResource("5_xbv8c"), ExtResource("6_grqg8")])
 projectile = ExtResource("2_gajum")
 rain_slime = ExtResource("3_qnbdj")
 
@@ -640,3 +648,4 @@ scale = Vector2(2, 2)
 texture = ExtResource("9_grqg8")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.097

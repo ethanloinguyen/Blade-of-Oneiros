@@ -1,13 +1,16 @@
-[gd_scene load_steps=153 format=3 uid="uid://cmy6ymoibmm2m"]
+[gd_scene load_steps=156 format=3 uid="uid://cmy6ymoibmm2m"]
 
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
-[ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slimebounce.wav" id="2_2p468"]
+[ext_resource type="AudioStream" uid="uid://deth3hlu0rl2f" path="res://assets/audio/slime/slimedeath.mp3" id="2_2p468"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
+[ext_resource type="AudioStream" uid="uid://4mmi2j4noj1x" path="res://assets/audio/slime/slimehurt1.wav" id="3_uha0q"]
 [ext_resource type="Texture2D" uid="uid://cl31jqs14fgu5" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_8c00y"]
+[ext_resource type="AudioStream" uid="uid://da3oolg4dteld" path="res://assets/audio/slime/slimehurt2.wav" id="4_jkghi"]
 [ext_resource type="Texture2D" uid="uid://df7imlxh27mt2" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="4_jqw88"]
 [ext_resource type="Texture2D" uid="uid://dpy8bjduomqaq" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="4_lkcdx"]
 [ext_resource type="Texture2D" uid="uid://qkf1riv0bww2" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Death_with_shadow.png" id="5_1y3pe"]
+[ext_resource type="AudioStream" uid="uid://bk60k2bxtlrkk" path="res://assets/audio/slime/slimehurt3.wav" id="5_8vnxq"]
 [ext_resource type="Texture2D" uid="uid://cifskkkahq2ox" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Hurt_with_shadow.png" id="6_t46gg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
@@ -1111,7 +1114,8 @@ speed = 60.0
 move_avoid_collision_dist = 50.0
 chase_leash_distance = 10.0
 attack_distance = 20.0
-slime_attack_audio = ExtResource("2_2p468")
+death_audio = ExtResource("2_2p468")
+hurt_audio = Array[AudioStream]([ExtResource("3_uha0q"), ExtResource("4_jkghi"), ExtResource("5_8vnxq")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -1139,7 +1143,7 @@ shape = SubResource("CircleShape2D_t46gg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpxyv")
-animation = &"idle_left"
+animation = &"death_up"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -6.058
+volume_db = -10.097
