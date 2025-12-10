@@ -12,6 +12,7 @@ var game_finished := false
 
 var collected: Dictionary = {}
 var opened_doors: Dictionary ={}
+var dead_enemies: Dictionary = {}
 # Added by Alfred
 var start_with_opening_tutorial: bool = false
 
@@ -44,3 +45,15 @@ func is_door_open(id: StringName) -> bool:
 	if id == "":
 		return false
 	return opened_doors.get(id, false)
+	
+	
+func mark_enemy_dead(id: StringName) -> void:
+	if id == "":
+		return
+	dead_enemies[id] = true
+
+
+func is_enemy_dead(id: StringName) -> bool:
+	if id == "":
+		return false
+	return dead_enemies.get(id, false)
