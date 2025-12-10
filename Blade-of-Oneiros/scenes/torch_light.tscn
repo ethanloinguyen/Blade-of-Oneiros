@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cuhftwboyvhsl" path="res://scripts/torches.gd" id="1_5riym"]
 [ext_resource type="Texture2D" uid="uid://cnfdfavidmc2o" path="res://assets/map/tileset/fire_animation.png" id="2_oqpyg"]
 
-[sub_resource type="Gradient" id="Gradient_07sfe"]
+[sub_resource type="Gradient" id="Gradient_5riym"]
 offsets = PackedFloat32Array(0.06, 0.27333334, 0.54, 0.7733333, 0.98)
 colors = PackedColorArray(1, 1, 1, 1, 1.0006572, 0.90080905, 0, 1, 0.9851902, 0.56361926, 0.2627525, 1, 0.5202182, 0.17668536, 0.119739406, 1, 0.011087579, 0.011087578, 0.01108758, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1884o"]
-gradient = SubResource("Gradient_07sfe")
+gradient = SubResource("Gradient_5riym")
 width = 100
 height = 100
 fill = 1

@@ -50,3 +50,7 @@ func _close() -> void:
 	animation_player.play("closed")
 
 	print("BarredDoor _close: id=", door_id)
+
+
+func _on_triggerscene_triggered(body: Node) -> void:
+	_close()

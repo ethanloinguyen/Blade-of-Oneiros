@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0p8oe3fkisl7"]
+
+[ext_resource type="Texture2D" uid="uid://d3uf6o6t8c2ta" path="res://assets/map/dungeon_objects_extra/full.png" id="1_no6ut"]
+[ext_resource type="Script" uid="uid://bhr8q3jvk8t6q" path="res://scripts/interactable_scripts/guards.gd" id="1_rafwy"]
+[ext_resource type="AudioStream" uid="uid://clp5xs88smlgp" path="res://assets/audio/guardswalking.mp3" id="2_v83ra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no6ut"]
+size = Vector2(65.177605, 20)
+
+[node name="Guards" type="Node2D"]
+script = ExtResource("1_rafwy")
+walk = ExtResource("2_v83ra")
+
+[node name="guard1" type="Sprite2D" parent="."]
+texture = ExtResource("1_no6ut")
+region_enabled = true
+region_rect = Rect2(96, 248, 32, 32)
+
+[node name="guard2" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("1_no6ut")
+region_enabled = true
+region_rect = Rect2(96, 248, 32, 32)
+
+[node name="guard4" type="Sprite2D" parent="."]
+position = Vector2(32, 0)
+texture = ExtResource("1_no6ut")
+region_enabled = true
+region_rect = Rect2(128, 248, 32, 32)
+
+[node name="guard3" type="Sprite2D" parent="."]
+position = Vector2(-16, 0)
+texture = ExtResource("1_no6ut")
+region_enabled = true
+region_rect = Rect2(128, 248, 32, 32)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(6.835906, 0)
+shape = SubResource("RectangleShape2D_no6ut")
