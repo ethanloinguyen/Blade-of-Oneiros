@@ -45,7 +45,6 @@ y_sort_enabled = true
 position = Vector2(345, 533)
 
 [node name="Door" parent="Entities" instance=ExtResource("2_x3h6k")]
-z_index = 2
 texture_filter = 1
 position = Vector2(321, 473)
 collision_mask = 15
@@ -142,6 +141,7 @@ shape = SubResource("RectangleShape2D_ieut8")
 
 [node name="Key" parent="." instance=ExtResource("13_qxto5")]
 position = Vector2(504, 524)
+pickup_id = &""
 
 [node name="Potion" parent="." instance=ExtResource("14_m8cr4")]
 position = Vector2(450, 523)

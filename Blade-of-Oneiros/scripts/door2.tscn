@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdawost1o6f5o"]
+[gd_scene load_steps=13 format=3 uid="uid://bdawost1o6f5o"]
 
 [ext_resource type="Script" uid="uid://3kgurf3ba1qa" path="res://scripts/door.gd" id="1_hwhk6"]
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="2_kpej0"]
@@ -23,7 +23,7 @@ resource_name = "close"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("sprite2D:region_rect")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -71,6 +71,9 @@ size = Vector2(32, 23.697765)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_18pbm"]
 size = Vector2(25, 11.257126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_powvp"]
+size = Vector2(32, 20)
 
 [node name="Door2" type="StaticBody2D"]
 z_index = 2
@@ -120,3 +123,8 @@ position = Vector2(0.5, 20.628563)
 shape = SubResource("RectangleShape2D_18pbm")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 5
+shape = SubResource("RectangleShape2D_powvp")
+debug_color = Color(0.88307685, 0.30499688, 0.37086004, 0.41960785)

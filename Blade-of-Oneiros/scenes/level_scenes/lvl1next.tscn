@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://d2kauldx3frsx"]
+[gd_scene load_steps=44 format=4 uid="uid://d2kauldx3frsx"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_xusmx"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_bya5x"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dceswf5asdop8" path="res://assets/map/debug_map.png" id="15_ekyxo"]
 [ext_resource type="Script" uid="uid://be64va3tbaiux" path="res://scripts/pressure_plate_group.gd" id="21_6stvj"]
 [ext_resource type="PackedScene" uid="uid://bvp22eifui3tj" path="res://scenes/sprite_upgrade.tscn" id="25_er6ev"]
+[ext_resource type="PackedScene" uid="uid://bdawost1o6f5o" path="res://scripts/door2.tscn" id="26_yjd8r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dynrj"]
 texture = ExtResource("2_dynrj")
@@ -4029,7 +4030,7 @@ metadata/_better_terrain = {
 size = Vector2(22.5, 18.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvy3t"]
-size = Vector2(22.5, 18.25)
+size = Vector2(22.5, 21.400024)
 
 [node name="Level1" type="Node2D"]
 y_sort_enabled = true
@@ -4094,6 +4095,7 @@ position = Vector2(437, 1130)
 [node name="Key" parent="Entities" instance=ExtResource("6_1orwu")]
 z_index = 2
 position = Vector2(-597, -97)
+pickup_id = &""
 
 [node name="boxes" type="Node2D" parent="Entities"]
 y_sort_enabled = true
@@ -4134,12 +4136,6 @@ script = ExtResource("8_1orwu")
 [node name="BarredDoor2" parent="Entities" instance=ExtResource("7_wdjpx")]
 position = Vector2(-555, -145)
 
-[node name="Door" parent="Entities" instance=ExtResource("2_bya5x")]
-z_index = 2
-position = Vector2(-539, -282)
-requires_key = true
-single_use = true
-
 [node name="SpriteUpgrade" parent="Entities" instance=ExtResource("25_er6ev")]
 position = Vector2(-176, -351)
 
@@ -4151,6 +4147,11 @@ start_open = true
 position = Vector2(-523, 95)
 start_open = true
 
+[node name="Door2" parent="Entities" instance=ExtResource("26_yjd8r")]
+z_index = 0
+position = Vector2(-539.0008, -288.76495)
+requires_key = true
+
 [node name="bossskip" type="Area2D" parent="."]
 position = Vector2(-109, 843)
 collision_mask = 2
@@ -4160,7 +4161,7 @@ target_spawn = &"boss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bossskip"]
 z_index = 3
-position = Vector2(7, -3)
+position = Vector2(7, -1.4249878)
 shape = SubResource("RectangleShape2D_yvy3t")
 
 [connection signal="all_pressed" from="Entities/plates" to="Entities/BarredDoor" method="_open"]

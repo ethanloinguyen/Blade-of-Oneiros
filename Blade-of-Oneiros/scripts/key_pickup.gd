@@ -4,15 +4,27 @@ extends Node2D
 
 @onready var sprite := $Sprite2D
 @onready var area := $Area2D
+@export var pickup_id: StringName = "key_1"   # MUST be unique per key instance
+
 
 func _ready():
-	area.connect("body_entered", _on_body_entered)
+	if pickup_id == "":
+		var root_scene := get_tree().current_scene
+		var scene_path := root_scene.scene_file_path
+		pickup_id = "%s:%s" % [scene_path, get_path()]
+
+	if GameState.is_pickup_collected(pickup_id):
+		queue_free()
+		return
+		
+	area.body_entered.connect(_on_body_entered)
 	_start_bobbing()
-
-
+	
+	
 func _on_body_entered(body):
 	if body is Player:
 		Inventory.add_key(amount)
+		GameState.mark_pickup_collected(pickup_id)
 		_play_pickup_animation()
 
 
