@@ -15,6 +15,8 @@ extends CharacterBody2D
 @export var slime_enemy:PackedScene
 @export var death_slime_spawn_count:int = 3
 
+@export var texture_over:Texture2D
+
 @export var bounce_audio: AudioStream
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
@@ -43,7 +45,8 @@ func _ready():
 		await get_tree().process_frame
 		if not is_instance_valid(self):
 			return
-	
+
+
 	#audio
 	sprite.frame_changed.connect(func():
 		if (sprite.animation.begins_with("death_down") or \
@@ -59,6 +62,7 @@ func _ready():
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
 	)
 
+	AiHelper.connect_to_boss_health_bar(get_tree(), health, texture_over)
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)

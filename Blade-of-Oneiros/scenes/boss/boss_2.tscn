@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://8juwuubc4nfx"]
+[gd_scene load_steps=113 format=3 uid="uid://8juwuubc4nfx"]
 
 [ext_resource type="Script" uid="uid://b3t75tepsr635" path="res://scripts/enemy_ai/boss/boss_2.gd" id="1_oq0kp"]
 [ext_resource type="PackedScene" uid="uid://fohlexck7mcd" path="res://scenes/boss/slimeball/ghostball.tscn" id="2_kaocr"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://deth3hlu0rl2f" path="res://assets/audio/slime/slimedeath.mp3" id="4_kgkne"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="4_vhq4w"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="5_ec1eq"]
+[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemies/enemy_slime.tscn" id="5_kgkne"]
 [ext_resource type="AudioStream" uid="uid://4mmi2j4noj1x" path="res://assets/audio/slime/slimehurt1.wav" id="5_v1nfs"]
 [ext_resource type="Texture2D" uid="uid://bfjxgjqj6ci0e" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Death_with_shadow.png" id="6_d11rf"]
 [ext_resource type="AudioStream" uid="uid://da3oolg4dteld" path="res://assets/audio/slime/slimehurt2.wav" id="6_ydmu7"]
@@ -14,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://bk60k2bxtlrkk" path="res://assets/audio/slime/slimehurt3.wav" id="7_dptfo"]
 [ext_resource type="Texture2D" uid="uid://bex8dhsnf0hxt" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Idle_with_shadow.png" id="8_oq0kp"]
 [ext_resource type="Texture2D" uid="uid://ch12hntm4at5o" path="res://assets/mobs/slimes/Slime2/Without_shadow/Slime2_Attack_without_shadow.png" id="9_oq0kp"]
+[ext_resource type="Texture2D" uid="uid://vehn6rm3si5y" path="res://assets/hud/bossbar_frame_2.png" id="10_ydmu7"]
 [ext_resource type="Texture2D" uid="uid://bnlutkodpqosi" path="res://assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png" id="11_xn5pu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
@@ -759,7 +761,9 @@ bounce_audio = ExtResource("3_oq0kp")
 death_audio = ExtResource("4_kgkne")
 hurt_audio = Array[AudioStream]([ExtResource("5_v1nfs"), ExtResource("6_ydmu7"), ExtResource("7_dptfo")])
 next_boss = ExtResource("3_d11rf")
+slime_enemy = ExtResource("5_kgkne")
 death_slime_spawn_count = 15
+texture_over = ExtResource("10_ydmu7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -768,7 +772,7 @@ shape = SubResource("RectangleShape2D_22uif")
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("4_vhq4w")
-max_health = 100
+max_health = 300
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]

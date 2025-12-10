@@ -24,7 +24,7 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		await _enemy.get_tree().create_timer(jump_duration, false).timeout
 		if not is_instance_valid(self):
 			return
-		if exit_jump.is_valid():
+		if exit_jump.is_valid() and exit_jump.get_object() != null and is_instance_valid(exit_jump.get_object()):
 			exit_jump.call()
 		,
 		func(delta):

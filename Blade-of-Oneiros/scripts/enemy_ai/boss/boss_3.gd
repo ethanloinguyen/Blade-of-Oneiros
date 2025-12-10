@@ -9,6 +9,8 @@ extends CharacterBody2D
 
 @export var between_states_wait_duration:float = 4.0
 
+@export var texture_over:Texture2D
+
 @export var bounce_audio: Array[AudioStream]
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
@@ -58,7 +60,8 @@ func _ready():
 		sprite.animation.begins_with("hurt_right")):
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
 	)
-	
+
+	AiHelper.connect_to_boss_health_bar(get_tree(), health, texture_over)
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)

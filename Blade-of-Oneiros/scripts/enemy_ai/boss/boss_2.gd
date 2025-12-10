@@ -19,6 +19,8 @@ extends CharacterBody2D
 @export var slime_enemy:PackedScene
 @export var death_slime_spawn_count:int = 7
 
+@export var texture_over:Texture2D
+
 var fsm:FSM
 var idle_state:State
 var jump_state_1:JumpState
@@ -61,6 +63,7 @@ func _ready():
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
 	)
 
+	AiHelper.connect_to_boss_health_bar(get_tree(), health, texture_over)
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)

@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 [global_group]
 
 player=""
+hud=""
 
 [input]
 

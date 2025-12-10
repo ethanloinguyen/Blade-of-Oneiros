@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://bdfx0cj4pw7ht"]
+[gd_scene load_steps=138 format=3 uid="uid://bdfx0cj4pw7ht"]
 
 [ext_resource type="Script" uid="uid://oesp1yjysd64" path="res://scripts/enemy_ai/boss/boss_1.gd" id="1_7g4c7"]
 [ext_resource type="PackedScene" uid="uid://c8r2dhocxynw0" path="res://scenes/boss/slimeball/slimeball.tscn" id="2_w52jb"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dpy8bjduomqaq" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="8_gv3dn"]
 [ext_resource type="AudioStream" uid="uid://bk60k2bxtlrkk" path="res://assets/audio/slime/slimehurt3.wav" id="9_muypa"]
 [ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slime/slimebounce.wav" id="13_c0fov"]
+[ext_resource type="Texture2D" uid="uid://cbvxde7130yww" path="res://assets/hud/bossbar_frame_1.png" id="18_muypa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(32, 32)
@@ -950,6 +951,7 @@ projectile = ExtResource("2_w52jb")
 next_boss = ExtResource("3_76j1g")
 slime_enemy = ExtResource("4_p5eep")
 death_slime_spawn_count = 5
+texture_over = ExtResource("18_muypa")
 bounce_audio = ExtResource("13_c0fov")
 death_audio = ExtResource("6_oxjat")
 hurt_audio = Array[AudioStream]([ExtResource("7_q40mq"), ExtResource("8_ecu3m"), ExtResource("9_muypa")])

@@ -285,9 +285,6 @@ func play_footstep():
 	footstep_audio.pitch_scale = randf_range(0.95, 1.05)  
 	footstep_audio.play()
 
-func take_damage(damage: int) -> void:
-	health.take_damage(damage)
-		
 func _on_health_hurt() -> void:
 	if dead:
 		return

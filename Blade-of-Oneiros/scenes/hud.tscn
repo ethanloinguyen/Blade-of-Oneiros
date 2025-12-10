@@ -1,29 +1,46 @@
-[gd_scene load_steps=6 format=3 uid="uid://ikceup4254qu"]
+[gd_scene load_steps=8 format=3 uid="uid://ikceup4254qu"]
 
 [ext_resource type="Script" uid="uid://bjmgpt3v3d3ts" path="res://scripts/hud/hud.gd" id="1_5ysmq"]
 [ext_resource type="PackedScene" uid="uid://c8un0chbrs547" path="res://scenes/health.tscn" id="2_uo2fv"]
 [ext_resource type="PackedScene" uid="uid://bi58g0ma5yt4i" path="res://scenes/stamina.tscn" id="3_047uy"]
 [ext_resource type="PackedScene" uid="uid://bgnihqp3bpqcl" path="res://scenes/inventory.tscn" id="4_6fi6k"]
 [ext_resource type="PackedScene" uid="uid://cjm6vswbwmqr5" path="res://scenes/DialogUI.tscn" id="5_uo2fv"]
+[ext_resource type="Texture2D" uid="uid://cbvxde7130yww" path="res://assets/hud/bossbar_frame_1.png" id="6_5pdws"]
+[ext_resource type="Texture2D" uid="uid://bctpr5onosonw" path="res://assets/hud/bossbar_juice.png" id="7_hd3ao"]
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" groups=["hud"]]
 script = ExtResource("1_5ysmq")
 
 [node name="Health" parent="." instance=ExtResource("2_uo2fv")]
 z_index = 6
-offset_left = 12.0
+offset_left = 4.9999995
 offset_top = 14.0
-offset_right = 96.0
+offset_right = 89.0
 offset_bottom = 54.0
-scale = Vector2(4, 4)
+scale = Vector2(5, 5)
 
 [node name="Stamina" parent="." instance=ExtResource("3_047uy")]
 z_index = 6
-offset_left = 91.0
-offset_top = 85.0
-offset_right = 131.0
-offset_bottom = 125.0
-scale = Vector2(4, 4)
+offset_left = 104.0
+offset_top = 104.00001
+offset_right = 144.0
+offset_bottom = 144.0
+scale = Vector2(5, 5)
+
+[node name="BossHealth" type="TextureProgressBar" parent="."]
+z_index = 6
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -719.0
+offset_top = 27.0
+offset_right = -582.0
+offset_bottom = 67.0
+grow_horizontal = 0
+scale = Vector2(5, 5)
+fill_mode = 1
+texture_over = ExtResource("6_5pdws")
+texture_progress = ExtResource("7_hd3ao")
 
 [node name="InventoryPanel" parent="." instance=ExtResource("4_6fi6k")]
 anchors_preset = 2

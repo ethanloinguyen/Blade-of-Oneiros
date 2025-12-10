@@ -17,3 +17,12 @@ static func update_dir(dir:Vector2) -> String:
 
 static func play_animation(sprite:AnimatedSprite2D, animation:String, dir:String) -> void:
 	sprite.play("%s_%s" % [animation, dir])
+
+static func connect_to_boss_health_bar(tree:SceneTree, health:Health, over_texture:Texture2D):
+	var hud:HUD = tree.get_first_node_in_group("hud")
+	hud.boss_health.texture_over = over_texture
+	hud.boss_health.visible = true
+	hud.boss_health.max_value = health.max_health
+	hud.boss_health.value = health.current_health
+	health.hurt.connect(func(): hud.boss_health.value = health.current_health)
+	health.died.connect(func(): hud.boss_health.visible = false)
