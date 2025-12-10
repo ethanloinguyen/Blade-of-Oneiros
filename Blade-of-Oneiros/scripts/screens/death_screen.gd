@@ -6,7 +6,6 @@ extends Node
 @onready var you_died_text = $CanvasLayer/YouDied
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	menu_button.pressed.connect(_on_menu_button_pressed)
@@ -24,15 +23,16 @@ func _process(_delta: float) -> void:
 		you_died_text.visible = true
 	else:
 		_hide_death_screen()
-		
-		
+
+
 func _on_menu_button_pressed():
 	_hide_death_screen()
 	GameState.game_started = false
 	GameState.game_over = false
+	GameState.has_armor = false
 	get_tree().change_scene_to_file("res://scenes/title_scene/title_screen.tscn")
-	
-	
+
+
 func _on_respawn_button_pressed():
 	_hide_death_screen()
 	#get_tree().change_scene_to_file("res://scenes/title_scene/title_screen.tscn")
@@ -43,8 +43,8 @@ func _on_respawn_button_pressed():
 		if "reset_player" in PlayerManagement.player:
 			PlayerManagement.player.reset_player()
 	PlayerManagement.change_level(GameState.last_scene_path, GameState.last_spawn_tag)
-	
-	
+
+
 func _hide_death_screen():
 	background.visible = false
 	menu_button.visible = false

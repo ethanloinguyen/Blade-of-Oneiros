@@ -17,20 +17,20 @@ func _ready() -> void:
 	
 	# ADDED BY ALFRED: register player as "swordsman" character with the DialogueOrchestrator
 	DialogueOrchestrator.register_character("swordsman", player)
-
-
+	
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy._player = player
-
+	
 	_place_player()
+
 
 func check_exist() -> void:
 	if player == null or not is_instance_valid(player):
 		player = PLAYER.instantiate()
 		player.add_to_group("player")
 		player.owner = null
-		
-		
+
+
 func change_level(scene_path: String, spawn_tag: StringName = "default") -> void:
 	next_spawn = spawn_tag
 	GameState.last_scene_path = scene_path
@@ -42,17 +42,16 @@ func change_level(scene_path: String, spawn_tag: StringName = "default") -> void
 		if parent and parent != root:
 			parent.remove_child(player)
 			root.add_child(player)
-
+	
 		#if player.get_parent() != root:
 			#player.get_parent().remove_child(player)
 			#root.add_child(player)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
-	
 
 
 func _on_scene_changed() -> void:
 	_place_player()
-
+	
 	#ADded by Alfred
 	if GameState.start_with_opening_tutorial \
 	and GameState.last_scene_path == "res://scenes/level_scenes/lvl_1.tscn":
@@ -67,8 +66,7 @@ func _place_player() ->void:
 		return
 		
 	var entities := root.find_child("Entities", true, false)
-
-
+	
 	if entities != null:
 		if player.get_parent() != entities:
 			if player.get_parent():
@@ -141,7 +139,6 @@ func _place_player() ->void:
 		new_enemy_container.update_spawn_pos_dict()
 
 
-
 func _find_spawn(root: Node, tag: StringName) -> Node2D:
 	for n in get_tree().get_nodes_in_group("spawn_point"):
 		if root.is_ancestor_of(n) and (n as SpawnPoint).tag == tag:
@@ -154,4 +151,3 @@ func _get_any_spawn(root: Node) -> Node2D:
 		if root.is_ancestor_of(n):
 			return n
 	return null
-	
