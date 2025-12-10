@@ -9,6 +9,7 @@ extends Character
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
+@onready var camera:Camera = $Camera2D
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
 @export var hitbox_offset_up: Vector2 = Vector2(0, 8)
@@ -98,6 +99,19 @@ func _ready() -> void:
 	stamina_bar.max_value = max_stamina
 	set_stamina_bar()
 	bind_commands()
+
+	health.hurt.connect(func():
+		# screenshake on hit
+		var frames:int = 0
+		camera.screenshake = 6.0
+		while frames < 30:
+			if is_inside_tree():
+				await get_tree().process_frame
+				frames += 1
+			else:
+				return
+		camera.screenshake = 0.0
+	)
 	
 func _physics_process(delta: float) -> void:	
 
