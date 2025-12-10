@@ -11,10 +11,10 @@ var _hit_something = false
 # activate hitbox and aim in a direction
 func activate(dir:Vector2, rotate_hitbox:bool, wait_for_delay:bool) -> void:
 	_hit_something = false
-	if wait_for_delay:
-		await get_tree().create_timer(animation_delay, false).timeout
 	if rotate_hitbox:
 		global_rotation = dir.angle()
+	if wait_for_delay:
+		await get_tree().create_timer(animation_delay, false).timeout
 	for a in get_overlapping_areas():
 		if a is Health:
 			# hitstop
