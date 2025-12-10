@@ -7,8 +7,11 @@
 script = ExtResource("1_ux7fx")
 
 [node name="EnemyBombSlime" parent="." instance=ExtResource("2_jijeq")]
+start_jumping = true
 
 [node name="EnemyBombSlime2" parent="." instance=ExtResource("2_jijeq")]
+start_jumping = true
 
 [node name="EnemyBombSlime3" parent="." instance=ExtResource("2_jijeq")]
 move_avoid_collision_dist = 80.0
+start_jumping = true

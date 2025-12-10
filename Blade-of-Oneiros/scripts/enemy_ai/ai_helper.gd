@@ -16,7 +16,9 @@ static func update_dir(dir:Vector2) -> String:
 
 
 static func play_animation(sprite:AnimatedSprite2D, animation:String, dir:String) -> void:
-	sprite.play("%s_%s" % [animation, dir])
+	var anim := "%s_%s" % [animation, dir]
+	if sprite.sprite_frames.has_animation(anim):
+		sprite.play(anim)
 
 
 const MOVE_DIR_COUNT:int = 32

@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var move_avoid_collision_dist:float
 
 @export var attack_distance:float
+@export var start_jumping:bool
+@export var jump_duration:float
 
 @export var slime_attack_audio: AudioStream
 @export var death_audio: AudioStream
@@ -18,6 +20,7 @@ extends CharacterBody2D
 
 var fsm:FSM
 var wait_state:State
+var jump_state:JumpState
 var chase_state:State
 var explode_state:State
 
@@ -77,9 +80,16 @@ func _ready():
 
 			# transition
 			if _player.global_position.distance_to(global_position) < activate_distance:
-				fsm.change_state(chase_state)
+				if start_jumping:
+					jump_state.jump(_player.global_position)
+				else:
+					fsm.change_state(chase_state)
 			,
 		Callable(),
+	)
+	jump_state = JumpState.new(self, 60, jump_duration, sprite, null, false, func():
+		fsm.change_state(chase_state)
+		$Shadow.queue_free()
 	)
 	chase_state = State.new(
 		"Chase",
@@ -103,21 +113,21 @@ func _ready():
 		Callable(),
 	)
 	explode_state = State.new(
-	"Explode",
-	func():
-		AiHelper.play_animation(sprite, "explode", _dir)
-		#play_audio(slime_attack_audio)
+		"Explode",
+		func():
+			AiHelper.play_animation(sprite, "explode", _dir)
+			#play_audio(slime_attack_audio)
 
-		await explode_sprite.animation_finished
-		queue_free()
-		,
-	func(_delta:float):
-		velocity = Vector2.ZERO
-	,
-	Callable()
+			await explode_sprite.animation_finished
+			queue_free()
+			,
+		func(_delta:float):
+			velocity = Vector2.ZERO
+			,
+		Callable()
 	)
-	fsm = FSM.new(wait_state)
 
+	fsm = FSM.new(wait_state)
 
 func _physics_process(delta:float) -> void:
 	fsm.update(delta)
