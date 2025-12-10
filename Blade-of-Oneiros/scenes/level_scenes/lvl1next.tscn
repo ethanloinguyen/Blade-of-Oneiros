@@ -4147,8 +4147,9 @@ persistent = false
 
 [node name="BreakableTiles" type="TileMapLayer" parent="Entities"]
 z_index = 1
+y_sort_enabled = true
 position = Vector2(5, -7)
-tile_map_data = PackedByteArray("AAAdACIADAAKAA0AAADa//3/AgACAAoAAADb//3/AgACAAoAAADc//3/AgACAAoAAADd//3/AgABAA0AAADe//3/AgACAAoAAADf//3/AgACAAoAAADg//3/AgACAAoAAADc//n/AAAMAAUAAADd//n/AgADAAwAAADe//n/AAAMAAUAAADf//n/AAAMAAUAAADb//n/AAAMAAUAAADa//n/AAAMAAUAAADg//n/AAAMAAUAAADa//z/DAAKAA0AAADb//z/DAAKAA0AAADc//z/DAAKAA0AAADd//z/DAAKAA0AAADe//z/DAAKAA0AAADf//z/DAAKAA0AAADg//z/DAAKAA0AAADg//v/DAAKAA0AAADe//v/DAAKAA0AAADd//v/DAAKAA0AAADc//v/DAAKAA0AAADa//v/DAAKAA0AAADa//r/DAAKAA0AAADb//r/DAAKAA0AAADc//r/DAAKAA0AAADd//r/DAAKAA0AAADe//r/DAAKAA0AAADf//r/DAAKAA0AAADg//r/DAAKAA0AAADb//v/AAAMAAUAAADf//v/AAAMAAUAAAA=")
+tile_map_data = PackedByteArray("AAAdACIADAAKAA0AAADa//3/AgACAAoAAADb//3/AgACAAoAAADc//3/AgACAAoAAADd//3/AgABAA0AAADe//3/AgACAAoAAADf//3/AgACAAoAAADg//3/AgACAAoAAADd//n/AgADAAwAAADa//z/DAAKAA0AAADb//z/DAAKAA0AAADc//z/DAAKAA0AAADd//z/DAAKAA0AAADe//z/DAAKAA0AAADf//z/DAAKAA0AAADg//z/DAAKAA0AAADg//v/DAAKAA0AAADe//v/DAAKAA0AAADd//v/DAAKAA0AAADc//v/DAAKAA0AAADa//v/DAAKAA0AAADa//r/DAAKAA0AAADb//r/DAAKAA0AAADc//r/DAAKAA0AAADd//r/DAAKAA0AAADe//r/DAAKAA0AAADf//r/DAAKAA0AAADg//r/DAAKAA0AAAA=")
 tile_set = ExtResource("1_xusmx")
 script = ExtResource("8_1orwu")
 
@@ -4170,6 +4171,13 @@ start_open = true
 z_index = 0
 position = Vector2(-539.0008, -288.76495)
 requires_key = true
+
+[node name="barrel" type="TileMapLayer" parent="Entities"]
+z_index = 2
+y_sort_enabled = true
+position = Vector2(5, -7)
+tile_map_data = PackedByteArray("AADb//v/AAAMAAUAAADf//v/AAAMAAUAAADg//n/AAAMAAUAAADf//n/AAAMAAUAAADe//n/AAAMAAUAAADc//n/AAAMAAUAAADb//n/AAAMAAUAAADa//n/AAAMAAUAAAA=")
+tile_set = ExtResource("1_xusmx")
 
 [node name="bossskip" type="Area2D" parent="."]
 position = Vector2(-109, 843)

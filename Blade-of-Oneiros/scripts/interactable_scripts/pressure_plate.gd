@@ -53,5 +53,9 @@ func _is_activated() -> void:
 		
 	
 func play_audio(_stream : AudioStream) -> void:
+	if not is_inside_tree():
+		return
+	if audio == null or not audio.is_inside_tree():
+		return
 	audio.stream = _stream
 	audio.play()

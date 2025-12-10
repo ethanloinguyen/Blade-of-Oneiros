@@ -29,18 +29,16 @@ extends Character
 @export var exhausted_audio: AudioStream
 @export var death_audio: AudioStream
 
+# Stamina-related variables
+@export var run_cost: float = 0.1
+@export var dash_cost: float = 15.0
+@export var attack_cost: float = 10.0
+@export var base_move_speed: float = 100.0
 
 var _damaged: bool = false
 var dead: bool = false
 var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
-
-
-# Stamina-related variables
-var run_cost: float = 1.0
-var dash_cost: float = 15.0
-var attack_cost: float = 10.0
-var base_move_speed: float = 100.0
 
 var move_cmd: Command
 var attack_cmd: Command
@@ -123,6 +121,12 @@ func _physics_process(delta: float) -> void:
 	
 	dash_controller.process_dash(delta)
 	
+	# Handle dash lock
+	if dash_controller.dashing:
+		super(delta)
+		_manage_animation_tree_state()
+		return
+	
 	# Handle attack lock (movement disabled)
 	if attacking:
 		attack_timer -= delta
@@ -134,6 +138,7 @@ func _physics_process(delta: float) -> void:
 		
 		_manage_animation_tree_state()
 		return
+	
 	
 	
 	if Input.is_action_just_pressed("potion"):
