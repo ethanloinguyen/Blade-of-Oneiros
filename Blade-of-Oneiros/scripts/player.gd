@@ -93,7 +93,7 @@ func _ready() -> void:
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
 	hud.visible = true
 	health.hurt.connect(_on_health_hurt)
-	health.died.connect(_on_health_died)	
+	health.died.connect(_on_health_died)
 	health_bar.max_value = health.max_health
 	set_health_bar()
 	stamina_bar.max_value = max_stamina
@@ -102,15 +102,7 @@ func _ready() -> void:
 
 	health.hurt.connect(func():
 		# screenshake on hit
-		var frames:int = 0
-		camera.screenshake = 6.0
-		while frames < 30:
-			if is_inside_tree():
-				await get_tree().process_frame
-				frames += 1
-			else:
-				return
-		camera.screenshake = 0.0
+		camera.screenshake(6.0, 30)
 	)
 	
 func _physics_process(delta: float) -> void:	
