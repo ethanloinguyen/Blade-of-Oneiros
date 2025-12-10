@@ -60,4 +60,16 @@ func is_enemy_dead(id: StringName) -> bool:
 
 
 func reset_game() -> void:
-	pass
+	game_started = false
+	input_locked = false
+	game_over = false
+	game_finished = false
+	is_respawning = false
+	has_armor = false
+	last_scene_path = ""
+	last_spawn_tag = "default"
+	start_with_opening_tutorial = true
+	collected.clear()
+	opened_doors.clear()
+	dead_enemies.clear()
+	Inventory.reset()

@@ -28,3 +28,9 @@ func use_key() -> bool:
 		return true
 	
 	return false
+
+
+func reset() -> void:
+	potions = 0
+	keys = 0
+	emit_signal("inventory_changed")

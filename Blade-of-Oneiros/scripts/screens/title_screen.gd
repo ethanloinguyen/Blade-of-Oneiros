@@ -39,7 +39,7 @@ func _on_start_button_pressed():
 	intro_video.visible = true
 	intro_video.play()
 	_video_playing = true
-	
+	GameState.reset_game()
 	
 func _on_video_finished():
 	_video_playing = false
