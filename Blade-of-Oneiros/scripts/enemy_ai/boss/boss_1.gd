@@ -69,6 +69,7 @@ func _ready():
 	)
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
+		$Shadow.queue_free()
 		await sprite.animation_finished
 		if not is_instance_valid(self):
 			return
