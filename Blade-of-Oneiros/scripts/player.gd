@@ -10,6 +10,7 @@ extends Character
 @onready var footstep_audio = $FootstepAudio2D
 @onready var health: Health = $HurtBox
 @onready var camera:Camera = $Camera2D
+@onready var dash_controller = $DashController
 
 @export var attack_damage: int = 1
 @export var hitbox_offset_down: Vector2 = Vector2(0, 0)
@@ -17,10 +18,7 @@ extends Character
 @export var hitbox_offset_right: Vector2 = Vector2(12, 10)
 @export var hitbox_offset_left: Vector2 = Vector2(-12, 10)
 
-@export var dash_ghost_scene: PackedScene
-@export var dash_curve: Curve
-
-# Audio
+# Audioc
 @export var hurt_audio: Array[AudioStream] = []
 @export var dash_audio: Array[AudioStream] = []
 @export var attack_grunt_audio: Array[AudioStream] = []
@@ -32,22 +30,11 @@ extends Character
 @export var death_audio: AudioStream
 
 
-var dash_time:= 0.0
 var _damaged: bool = false
 var dead: bool = false
 var attack_duration: float = 0.3  
 var attack_timer: float = 0.0
 
-# Dash related variables
-var dash_duration: float = 0.16
-var dash_timer: float = 0.0
-var dash_ghost_interval:float = 0.03
-var dash_ghost_timer: float = 0.0
-var dash_on_cooldown: bool = true
-var dash_cooldown: float = 0.8
-var dash_cooldown_timer: float = 0.0
-var dash_invuln_duration: float = 0.15
-var dash_invuln_timer: float = 0.0
 
 # Stamina-related variables
 var run_cost: float = 1.0
@@ -83,6 +70,8 @@ func _ready() -> void:
 	if sprite and sprite.material:
 		sprite.material = sprite.material.duplicate()
 	
+	dash_controller.attach_player(self)
+	
 	# Set HUD related logic
 	health_bar = hud.get_node("Health/HealthBar") as TextureProgressBar
 	stamina_bar = hud.get_node("Stamina/StaminaBar") as TextureProgressBar
@@ -110,19 +99,14 @@ func _physics_process(delta: float) -> void:
 	# regen and update stamina
 	set_health_bar()
 	
-	if not GameState.game_started or GameState.input_locked:
-		velocity = Vector2.ZERO
-		return
-	
-	# ADDED BY ALFRED:
 	# If the dialogue is active, the player should lose all movement, except idle.
 	# However, the player should be able to move through durative commands (like exercise 1) for
 	var in_dialogue := DialogueOrchestrator.is_dialogue_active()
 	if not GameState.game_started or GameState.input_locked:
 		velocity = Vector2.ZERO
 		return
-	# if in dialogue stop all movement,
-	# EXCEPT in cutscenes
+	
+	# if in dialogue stop all movement, EXCEPT in cutscenes
 	if in_dialogue and not cutscene_walking:
 		velocity = Vector2.ZERO
 		idle_cmd.execute(self)
@@ -137,11 +121,7 @@ func _physics_process(delta: float) -> void:
 	if falling:
 		return
 	
-	if dash_on_cooldown:
-		dash_cooldown_timer -= delta
-		
-		if dash_cooldown_timer <= 0:
-			dash_on_cooldown = false
+	dash_controller.process_dash(delta)
 	
 	# Handle attack lock (movement disabled)
 	if attacking:
@@ -155,35 +135,9 @@ func _physics_process(delta: float) -> void:
 		_manage_animation_tree_state()
 		return
 	
-	# Handle dash lock (Adjusted by Alfred)
-	if dashing and not in_dialogue:
-		dash_invuln_timer -= delta
-		dash_timer -= delta
-		dash_ghost_timer -= delta
-		dash_time += delta / dash_duration
-		
-		var factor := dash_curve.sample(dash_time)
-		velocity = dash_direction * dash_speed * factor
-		if dash_ghost_timer <= 0.0:
-			_spawn_dash_ghost()
-			dash_ghost_timer = dash_ghost_interval
-		
-		if dash_timer <= 0:
-			dashing = false
-			dash_time = 0.0
-			velocity = Vector2.ZERO
-		
-		if dash_invuln_timer <= 0:
-			health.set_invincible(false)
-		
-		super(delta)
-		_manage_animation_tree_state()
-		return
 	
 	if Input.is_action_just_pressed("potion"):
-		print("pressed")
 		if Inventory.use_potion():
-			print("heal")
 			health.current_health += roundi(health.max_health * 0.2)
 			health.current_health = min(health.max_health, health.current_health)
 		_manage_animation_tree_state()
@@ -198,12 +152,10 @@ func _physics_process(delta: float) -> void:
 				_manage_animation_tree_state()
 				return
 		
-		# DASH (Adjusted by Alfred)
-		if Input.is_action_just_pressed("dash") and not dash_on_cooldown and not in_dialogue:
+		if Input.is_action_just_pressed("dash") and not dash_controller.dash_on_cooldown and not in_dialogue:
 			if StaminaSystem.try_use(dash_cost):
 				play_audio(dash_audio[randi() % dash_audio.size()])
-				dash_cmd.execute(self)
-				dash_ghost_timer = 0.0
+				dash_controller.start_dash(self)
 				_manage_animation_tree_state()
 				return
 	else:
@@ -235,7 +187,8 @@ func _physics_process(delta: float) -> void:
 				box.push(facing_direction)
 	
 	# Reset velocity every frame
-	velocity = Vector2.ZERO
+	if not dash_controller.dashing:
+		velocity = Vector2.ZERO
 	
 	# If player input direction is not 0 execute 
 	# appropriate movement command, if 0, execute idle (Adjusted by Alfred)
@@ -252,17 +205,19 @@ func _physics_process(delta: float) -> void:
 		
 	_manage_animation_tree_state()
 
+
 #function to play audio throughout script
 func play_audio(_stream : AudioStream) -> void:
 	audio.stream = _stream
 	audio.play()
-	
+
+
 func play_footstep():
 	footstep_audio.stream = walking_audio[randi() % walking_audio.size()]
 	footstep_audio.pitch_scale = randf_range(0.95, 1.05)  
 	footstep_audio.play()
 
-
+# Health-related functions
 func take_damage(damage: int) -> void:
 	health.take_damage(damage)
 
@@ -281,22 +236,20 @@ func _on_health_hurt() -> void:
 func _on_health_died() -> void:
 	if dead:
 		return
-
+	
 	dead = true
 	set_health_bar()
-
+	
 	attacking = false
 	running = false
 	velocity = Vector2.ZERO
 	
-	#animation_tree["parameters/conditions/death"] = true
 	play_audio(death_audio)
 	var sm: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 	sm.travel("death")
 	await get_tree().create_timer(1.0).timeout
 	GameState.game_over = true
 	get_tree().change_scene_to_file("res://scenes/death_scene/death_screen.tscn")
-	#_manage_animation_tree_state()
 
 
 func set_health_bar() -> void:
@@ -308,27 +261,6 @@ func bind_commands() -> void:
 	move_cmd = MoveCommand.new()
 	attack_cmd = AttackCommand.new()
 	idle_cmd = IdleCommand.new()
-	dash_cmd = DashCommand.new()
-
-
-func _spawn_dash_ghost() -> void:
-	if dash_ghost_scene == null:
-		return
-	
-	var ghost := dash_ghost_scene.instantiate() as Sprite2D
-	var src: Sprite2D = $Sprite2D
-	ghost.texture = src.texture
-	ghost.hframes = src.hframes
-	ghost.vframes = src.vframes
-	ghost.frame = src.frame
-	ghost.flip_h = src.flip_h
-	ghost.flip_v = src.flip_v
-	
-	ghost.global_position = src.global_position
-	ghost.global_rotation = src.global_rotation
-	ghost.global_scale = src.global_scale
-	
-	get_tree().current_scene.add_child(ghost)
 
 
 func upgrade_sprite() -> void:
@@ -352,7 +284,7 @@ func upgrade_sprite() -> void:
 func start_fall(fall_position: Vector2) -> void:
 	if falling or dead:
 		return
-		
+	
 	falling = true
 	velocity = Vector2.ZERO
 	running = false
@@ -443,6 +375,7 @@ func _manage_animation_tree_state() -> void:
 	# Always update directional blend spaces
 	if dead:
 		return
+	
 	if (direction != Vector2.ZERO):
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
@@ -465,24 +398,15 @@ func _manage_animation_tree_state() -> void:
 	
 	# Toggles
 	animation_tree["parameters/conditions/attacking"] = attacking
-		
+	animation_tree["parameters/conditions/running"] = running
+	
 	if _damaged:
 		animation_tree["parameters/conditions/damaged"] = true
 		_damaged = false
 	else:
 		animation_tree["parameters/conditions/damaged"] = false
-		
-	animation_tree["parameters/conditions/running"] = running
-	if _damaged:
-		animation_tree["parameters/conditions/damaged"] = true
-		_damaged = false
-	else:
-		animation_tree["parameters/conditions/damaged"] = false
-		
-	animation_tree["parameters/conditions/running"] = running
 
 
-# Added by Alfred
 func begin_cutscene_walk(dir_str: String) -> void:
 	cutscene_walking = true
 	
