@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://d1s8l4r338100"]
+[gd_scene load_steps=94 format=3 uid="uid://d1s8l4r338100"]
 
 [ext_resource type="Script" uid="uid://ef5aapeajhjh" path="res://scripts/enemy_ai/enemy_bomb_slime.gd" id="1_apeok"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="4_y28a6"]
@@ -58,10 +58,6 @@ region = Rect2(192, 64, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ikyid"]
 atlas = ExtResource("4_y28a6")
 region = Rect2(256, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m5yh3"]
-atlas = ExtResource("4_y28a6")
-region = Rect2(576, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6sgub"]
 atlas = ExtResource("8_wm5m7")
@@ -340,9 +336,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ikyid")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m5yh3")
 }],
 "loop": false,
 "name": &"explode_up",
@@ -573,10 +566,6 @@ region = Rect2(128, 128, 64, 64)
 atlas = ExtResource("7_y28a6")
 region = Rect2(192, 128, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0gy84"]
-atlas = ExtResource("7_y28a6")
-region = Rect2(256, 128, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_j5cjr"]
 atlas = ExtResource("7_y28a6")
 region = Rect2(320, 128, 64, 64)
@@ -633,9 +622,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_101fm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0gy84")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_j5cjr")
 }, {
 "duration": 1.0,
@@ -665,13 +651,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g7qp2")
 }],
-"loop": true,
-"name": &"default",
+"loop": false,
+"name": &"explode",
 "speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y28a6"]
-radius = 67.18631
+radius = 86.69
 
 [node name="EnemyBombSlime" type="CharacterBody2D"]
 z_index = 2
@@ -680,9 +666,10 @@ collision_layer = 4
 collision_mask = 13
 motion_mode = 1
 script = ExtResource("1_apeok")
-activate_distance = 30.0
-speed = 120.0
+activate_distance = 200.0
+speed = 80.0
 move_avoid_collision_dist = 70.0
+attack_distance = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -699,26 +686,57 @@ shape = SubResource("RectangleShape2D_22uif")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wm5m7")
-animation = &"walk_up"
+animation = &"explode_down"
+frame = 2
+frame_progress = 1.0
 
-[node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+[node name="ExplodeSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -33)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_fh175")
-autoplay = "default"
-frame_progress = 0.7320136
+animation = &"explode"
+frame = 13
+frame_progress = 1.0
 
-[node name="ExplodeHitbox" type="Area2D" parent="ExplosionSprite"]
+[node name="ExplodeHitbox" type="Area2D" parent="ExplodeSprite"]
 position = Vector2(0, 8.25)
 scale = Vector2(0.25, 0.25)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("7_i5ryi")
-damage = 50
-activate_animation = "attack"
+damage = 30
+activate_animation = "explode"
+animation_delay = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeSprite/ExplodeHitbox"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_y28a6")
+
+[node name="ExplodeHitbox2" type="Area2D" parent="ExplodeSprite"]
+position = Vector2(0, 8.25)
+scale = Vector2(0.25, 0.25)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_i5ryi")
+damage = 30
+activate_animation = "explode"
 animation_delay = 7.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionSprite/ExplodeHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeSprite/ExplodeHitbox2"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_y28a6")
+
+[node name="ExplodeHitbox3" type="Area2D" parent="ExplodeSprite"]
+position = Vector2(0, 8.25)
+scale = Vector2(0.25, 0.25)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_i5ryi")
+damage = 30
+activate_animation = "explode"
+animation_delay = 9.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeSprite/ExplodeHitbox3"]
 position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_y28a6")
 

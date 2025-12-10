@@ -45,6 +45,8 @@ func activate_from_dir(dir:String, rotate_hitbox:bool, wait_for_delay:bool):
 			activate(Vector2.UP, rotate_hitbox, wait_for_delay)
 		"down":
 			activate(Vector2.DOWN, rotate_hitbox, wait_for_delay)
+		_:
+			activate(Vector2.UP, rotate_hitbox, wait_for_delay)
 
 
 func attach_signal(animation_player, rotate_hitbox:bool):

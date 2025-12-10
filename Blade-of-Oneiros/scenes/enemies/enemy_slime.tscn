@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cifskkkahq2ox" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Hurt_with_shadow.png" id="6_t46gg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
-size = Vector2(16, 16)
+size = Vector2(16, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t46gg"]
 radius = 22.0
@@ -1118,6 +1118,7 @@ death_audio = ExtResource("2_2p468")
 hurt_audio = Array[AudioStream]([ExtResource("3_uha0q"), ExtResource("4_jkghi"), ExtResource("5_8vnxq")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_22uif")
 
 [node name="Health" type="Area2D" parent="."]

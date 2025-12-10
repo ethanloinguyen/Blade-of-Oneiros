@@ -11,19 +11,16 @@ extends CharacterBody2D
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
 
-@onready var attack_hitbox = $AttackHitbox
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
+@onready var explode_sprite:AnimatedSprite2D = $ExplodeSprite
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var fsm:FSM
 var wait_state:State
 var chase_state:State
-var attack_state:State
-var stun_state:State
-var _stun_knockback_dir:Vector2
-var _stun_timer:float
-const STUN_SPEED:float = 140.0
+var explode_state:State
+
 
 var _player:Player
 var _dir:String = "down"
@@ -34,24 +31,16 @@ func _enter_tree():
 
 
 func _ready():
-	attack_hitbox.attach_signal(sprite, false)
-
 	# set player var for enemies spawned mid-game
 	if _player == null:
 		_player = get_tree().get_first_node_in_group("player")
 
 	# health setup
 	health.hurt.connect(func():
-		fsm.change_state(stun_state)
+		fsm.change_state(explode_state)
 	)
 	health.died.connect(func():
-		fsm.change_state(stun_state)
-		AiHelper.play_animation(sprite, "death", _dir)
-		$CollisionShape2D.disabled = true
-		await sprite.animation_finished
-		if not is_instance_valid(self):
-			return
-		queue_free()
+		fsm.change_state(explode_state)
 	)
 
 	#audio for death
@@ -62,6 +51,17 @@ func _ready():
 		if (sprite.animation.begins_with("hurt")):
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
 	)
+
+	# handle explosion
+	sprite.animation_changed.connect(func():
+		if sprite.animation.begins_with("explode"):
+			await sprite.animation_finished
+			explode_sprite.visible = true
+			explode_sprite.play("explode")
+			sprite.queue_free()
+	)
+	var explode_hitbox:Hitbox = explode_sprite.get_node("ExplodeHitbox")
+	explode_hitbox.attach_signal(explode_sprite, false)
 
 	# create states
 	wait_state = State.new(
@@ -98,49 +98,23 @@ func _ready():
 
 			# transition
 			if dist_to_player < attack_distance:
-				fsm.change_state(attack_state)
+				fsm.change_state(explode_state)
 			,
 		Callable(),
 	)
-	attack_state = State.new(
-	"Attack",
+	explode_state = State.new(
+	"Explode",
 	func():
-		AiHelper.play_animation(sprite, "attack", _dir)
+		AiHelper.play_animation(sprite, "explode", _dir)
 		#play_audio(slime_attack_audio)
 
-		# wait for attack animation to finish
-		await sprite.animation_finished
-
-		if not is_instance_valid(self):
-			return
-		if fsm.current_state == attack_state:
-			fsm.change_state(chase_state)
+		await explode_sprite.animation_finished
+		queue_free()
 		,
 	func(_delta:float):
 		velocity = Vector2.ZERO
 	,
 	Callable()
-		)
-	stun_state = State.new(
-		"Stun",
-		func():
-			sprite.stop()
-			AiHelper.play_animation(sprite, "hurt", _dir)
-			_stun_knockback_dir = global_position - _player.global_position
-			_stun_timer = 0
-			await sprite.animation_finished
-			if not is_instance_valid(self):
-				return
-			fsm.change_state(chase_state)
-			,
-		func(delta):
-			_stun_timer += delta
-			if _stun_timer < 0.2:
-				velocity = _stun_knockback_dir.normalized() * STUN_SPEED
-			else:
-				velocity = Vector2.ZERO
-			,
-		Callable()
 	)
 	fsm = FSM.new(wait_state)
 
