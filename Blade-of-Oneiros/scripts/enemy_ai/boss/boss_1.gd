@@ -97,6 +97,7 @@ func _ready():
 	)
 	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		play_audio(bounce_audio)
+		AiHelper.spawn_enemy_around(self, slime_enemy, 2)
 		_idle(between_states_wait_duration, func():
 			shoot_state.shoot(global_position)
 		)

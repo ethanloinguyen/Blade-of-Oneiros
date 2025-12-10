@@ -127,6 +127,9 @@ func _ready():
 			if sprite == null or not is_instance_valid(sprite):
 				return
 			AiHelper.play_animation(sprite, "explode", _dir)
+			var enemy_mask := 1 << 2
+			collision_layer &= ~enemy_mask
+			collision_mask &= ~enemy_mask
 			#play_audio(slime_attack_audio)
 
 			await explode_sprite.animation_finished

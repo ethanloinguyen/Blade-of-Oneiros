@@ -104,7 +104,7 @@ func _ready():
 			get_parent().add_child(rs)
 			rs.global_position = _player.global_position
 			await get_tree().create_timer(0.2, false).timeout
-			if not is_instance_valid(self):
+			if not is_instance_valid(self) or not is_inside_tree():
 				return
 		await get_tree().create_timer(1.5, false).timeout
 		if not is_instance_valid(self):

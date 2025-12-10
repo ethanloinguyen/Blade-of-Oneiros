@@ -762,7 +762,6 @@ death_audio = ExtResource("4_kgkne")
 hurt_audio = Array[AudioStream]([ExtResource("5_v1nfs"), ExtResource("6_ydmu7"), ExtResource("7_dptfo")])
 next_boss = ExtResource("3_d11rf")
 slime_enemy = ExtResource("5_kgkne")
-death_slime_spawn_count = 15
 texture_over = ExtResource("10_ydmu7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
