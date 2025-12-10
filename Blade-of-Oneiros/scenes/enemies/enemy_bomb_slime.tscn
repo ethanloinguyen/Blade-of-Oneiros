@@ -693,12 +693,12 @@ animation = &"idle_down"
 
 [node name="ExplodeSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(0, -33)
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_fh175")
 animation = &"explode"
 frame = 13
 frame_progress = 1.0
+offset = Vector2(0, -8)
 
 [node name="ExplodeHitbox" type="Area2D" parent="ExplodeSprite"]
 position = Vector2(0, 8.25)

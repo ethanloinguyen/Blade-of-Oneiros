@@ -66,6 +66,18 @@ func _ready():
 	var explode_hitbox:Hitbox = explode_sprite.get_node("ExplodeHitbox")
 	explode_hitbox.attach_signal(explode_sprite, false)
 
+	# scale explosion sprite with animation progress
+	var explosion_scale:float = explode_sprite.scale.x
+	explode_sprite.frame_changed.connect(func():
+		var frames := explode_sprite.sprite_frames.get_frame_count("explode")
+		if frames <= 1:
+			return
+
+		var t:float = float(explode_sprite.frame) / float(frames - 1) # 0.0 at first frame, 1.0 at last frame
+		var s:float = lerp(1.0, explosion_scale, t)
+		explode_sprite.scale = Vector2.ONE * s
+	)
+
 	# create states
 	wait_state = State.new(
 		"Wait",
