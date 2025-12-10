@@ -8,7 +8,7 @@ var dash_ghost_timer := 0.0
 var dash_time := 0.0
 
 # Parameters 
-@export var dash_duration: float = 0.16
+@export var dash_duration: float = 0.1
 @export var dash_cooldown: float = 0.8
 @export var dash_ghost_interval: float = 0.03
 @export var dash_curve: Curve

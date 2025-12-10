@@ -123,6 +123,12 @@ func _physics_process(delta: float) -> void:
 	
 	dash_controller.process_dash(delta)
 	
+	# Handle dash lock
+	if dash_controller.dashing:
+		super(delta)
+		_manage_animation_tree_state()
+		return
+	
 	# Handle attack lock (movement disabled)
 	if attacking:
 		attack_timer -= delta
@@ -134,6 +140,7 @@ func _physics_process(delta: float) -> void:
 		
 		_manage_animation_tree_state()
 		return
+	
 	
 	
 	if Input.is_action_just_pressed("potion"):
