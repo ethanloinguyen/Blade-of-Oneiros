@@ -6,6 +6,7 @@
 
 [node name="Enemies" type="Node2D"]
 script = ExtResource("1_vhrhm")
+persistance = false
 
 [node name="Boss1" parent="." instance=ExtResource("3_axuxg")]
 
