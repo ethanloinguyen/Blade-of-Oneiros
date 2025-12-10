@@ -324,7 +324,7 @@ func _spawn_dash_ghost() -> void:
 
 
 func upgrade_sprite() -> void:
-	if GameState.has_armor:
+	if not GameState.has_armor:
 		return
 	
 	sprite.texture = upgraded_texture

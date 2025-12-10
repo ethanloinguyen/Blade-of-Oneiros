@@ -8,6 +8,6 @@ func _ready():
 
 func _on_body_entered(body):
 	if body is Player:
-		body.upgrade_sprite()
 		GameState.has_armor = true
+		body.upgrade_sprite()
 		queue_free()
