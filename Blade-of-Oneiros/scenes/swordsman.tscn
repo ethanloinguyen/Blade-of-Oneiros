@@ -33,7 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://c2v0pegyvo644" path="res://assets/audio/walking/walkstep6.wav" id="31_n8ud3"]
 [ext_resource type="AudioStream" uid="uid://bbvxifyel80u1" path="res://assets/audio/walking/walkstep7.wav" id="32_um5ev"]
 [ext_resource type="AudioStream" uid="uid://dscofnjmwp1r5" path="res://assets/audio/walking/walkstep8.wav" id="33_5jjdc"]
-[ext_resource type="Script" uid="uid://d1buhfim8f3xh" path="res://scripts/dash_controller.gd" id="33_on3w6"]
+[ext_resource type="Script" path="res://scripts/dash_controller.gd" id="33_on3w6"]
 [ext_resource type="AudioStream" uid="uid://d1mltbaxu4v8j" path="res://assets/audio/walking/walkstep9.wav" id="34_jgi4d"]
 [ext_resource type="AudioStream" uid="uid://bl0gmhokcbyf1" path="res://assets/audio/walking/walkstep10.wav" id="35_aeqmg"]
 
