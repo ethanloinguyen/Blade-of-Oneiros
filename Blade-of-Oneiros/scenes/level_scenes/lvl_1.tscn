@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cs6v7gg3ojoa8" path="res://scenes/level_scenes/debug_map.tscn" id="5_53anu"]
 [ext_resource type="PackedScene" uid="uid://dho272p8oa3pp" path="res://scenes/interactables/pushables.tscn" id="6_o8j81"]
 [ext_resource type="PackedScene" uid="uid://ds2ns05ftbc5g" path="res://scenes/key.tscn" id="8_0jp12"]
-[ext_resource type="PackedScene" uid="uid://bw3wu3k17g02p" path="res://scenes/interactables/tutorial_paper.tscn" id="9_jpcv7"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/tutorial_paper.tscn" id="9_jpcv7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ilr"]
 size = Vector2(22.5, 18.25)
