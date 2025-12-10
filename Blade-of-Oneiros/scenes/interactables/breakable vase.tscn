@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bi6c4e5gohuk6"]
+[gd_scene load_steps=16 format=3 uid="uid://bi6c4e5gohuk6"]
 
 [ext_resource type="Script" uid="uid://bg7kgbvijkvs" path="res://scripts/interactable_scripts/breakable_vase.gd" id="1_keb0y"]
 [ext_resource type="Texture2D" uid="uid://bp778sn4kicur" path="res://assets/map/tileset/breaking_animation.png" id="2_c8b0m"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="2_fey8i"]
 [ext_resource type="PackedScene" uid="uid://cpptia23mhpbe" path="res://scenes/potion.tscn" id="2_xn5t0"]
+[ext_resource type="AudioStream" uid="uid://5qpcfpjti8yc" path="res://assets/audio/vaseabreaking.mp3" id="3_8knct"]
 [ext_resource type="AudioStream" uid="uid://yhkjw7xa06yc" path="res://assets/audio/glass-bottle-breaking-351297.mp3" id="3_h6bp7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xn5t0"]
@@ -72,6 +73,7 @@ collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_keb0y")
 potion_scene = ExtResource("2_xn5t0")
+hit_sound = ExtResource("3_8knct")
 break_sound = ExtResource("3_h6bp7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
