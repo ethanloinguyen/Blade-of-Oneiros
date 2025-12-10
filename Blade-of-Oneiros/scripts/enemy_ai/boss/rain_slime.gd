@@ -25,6 +25,8 @@ func _ready():
 	if tree == null:
 		return
 	var player:Player = tree.get_first_node_in_group("player")
+	if player == null:
+		return
 	if player.global_position.distance_to(global_position) <= damage_radius:
 		player.health.take_damage(damage)
 		queue_free()

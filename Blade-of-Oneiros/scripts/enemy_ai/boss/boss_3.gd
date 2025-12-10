@@ -18,6 +18,9 @@ extends CharacterBody2D
 @export var projectile:PackedScene
 @export var rain_slime:PackedScene
 
+@export var summon_slime:PackedScene
+@export var hurt_slime_summon_count:int
+
 var fsm:FSM
 var idle_state:State
 var jump_state:JumpState
@@ -65,6 +68,7 @@ func _ready():
 	health.hurt.connect(func():
 		sprite.stop()
 		AiHelper.play_animation(sprite, "hurt", _dir)
+		AiHelper.spawn_enemy_around(self, summon_slime, hurt_slime_summon_count)
 	)
 	health.died.connect(func():
 		AiHelper.play_animation(sprite, "death", _dir)
@@ -100,7 +104,7 @@ func _ready():
 			get_parent().add_child(rs)
 			rs.global_position = _player.global_position
 			await get_tree().create_timer(0.2, false).timeout
-			if not is_instance_valid(self):
+			if not is_instance_valid(self) or not is_inside_tree():
 				return
 		await get_tree().create_timer(1.5, false).timeout
 		if not is_instance_valid(self):

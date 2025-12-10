@@ -6,26 +6,27 @@ extends Node2D
 var enemy_spawn_pos:Dictionary[NodePath, Vector2]
 var enemy_ids: Dictionary[NodePath, StringName] = {}
 
-
 func _ready() -> void:
 	update_spawn_pos_dict()
-	
-	
+
 func update_spawn_pos_dict():
 	var root_scene := get_tree().current_scene
 	var scene_path := root_scene.scene_file_path
 
 	for enemy:Node2D in get_children():
+		# handle positions
 		var path: NodePath = get_path_to(enemy)
 		if path not in enemy_spawn_pos:
 			enemy_spawn_pos[path] = enemy.global_position
 		else:
 			enemy.global_position = enemy_spawn_pos[path]
+
+		# handle persistence
 		if not persistance:
 			continue
 		var enemy_id: StringName = "%s:%s" % [scene_path, path]
 		enemy_ids[path] = enemy_id
-		
+
 		if GameState.is_enemy_dead(enemy_id):
 			enemy.queue_free()
 			continue

@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://dapjo80x5nxtv"]
+[gd_scene load_steps=95 format=3 uid="uid://dapjo80x5nxtv"]
 
 [ext_resource type="Script" uid="uid://cf85bx603f71" path="res://scripts/enemy_ai/boss/boss_3.gd" id="1_gajum"]
 [ext_resource type="Texture2D" uid="uid://blw68spu4a5xt" path="res://assets/hud/bossbar_frame_3.png" id="2_74p58"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c8poc3rhkist2" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Idle_with_shadow.png" id="7_oxfrb"]
 [ext_resource type="Texture2D" uid="uid://csr28uxwjvry3" path="res://assets/mobs/slimes/Slime3/Without_shadow/Slime3_Attack_without_shadow.png" id="8_gajum"]
 [ext_resource type="Texture2D" uid="uid://bnlutkodpqosi" path="res://assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png" id="9_grqg8"]
+[ext_resource type="PackedScene" uid="uid://d34jk32r71yh2" path="res://scenes/enemies/enemy_bomb_slime_jumping.tscn" id="13_cbg1l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22uif"]
 size = Vector2(32, 32)
@@ -618,6 +619,8 @@ death_audio = ExtResource("3_33goe")
 hurt_audio = Array[AudioStream]([ExtResource("4_wb56y"), ExtResource("5_xbv8c"), ExtResource("6_grqg8")])
 projectile = ExtResource("2_gajum")
 rain_slime = ExtResource("3_qnbdj")
+summon_slime = ExtResource("13_cbg1l")
+hurt_slime_summon_count = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -626,7 +629,7 @@ shape = SubResource("RectangleShape2D_22uif")
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("3_oxfrb")
-max_health = 400
+max_health = 600
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]

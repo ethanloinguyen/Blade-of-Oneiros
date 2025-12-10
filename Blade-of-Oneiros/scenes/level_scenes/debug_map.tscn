@@ -71,6 +71,9 @@ script = ExtResource("2_ml6jv")
 
 [node name="Enemies" parent="Entities" instance=ExtResource("9_ieut8")]
 
+[node name="Boss3" parent="Entities/Enemies" index="0"]
+position = Vector2(374, 367)
+
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(417, 13)

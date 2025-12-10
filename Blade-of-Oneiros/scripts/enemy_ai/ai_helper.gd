@@ -16,7 +16,9 @@ static func update_dir(dir:Vector2) -> String:
 
 
 static func play_animation(sprite:AnimatedSprite2D, animation:String, dir:String) -> void:
-	sprite.play("%s_%s" % [animation, dir])
+	var anim := "%s_%s" % [animation, dir]
+	if sprite.sprite_frames.has_animation(anim):
+		sprite.play(anim)
 
 
 const MOVE_DIR_COUNT:int = 32
@@ -101,3 +103,12 @@ static func connect_to_boss_health_bar(tree:SceneTree, health:Health, over_textu
 	hud.boss_health.value = health.current_health
 	health.hurt.connect(func(): hud.boss_health.value = health.current_health)
 	health.died.connect(func(): hud.boss_health.visible = false)
+
+
+static func spawn_enemy_around(spawner:Node2D, enemy:PackedScene, count:int):
+	for i in range(count):
+		var s:Node2D = enemy.instantiate()
+		spawner.get_parent().add_child(s)
+		var a = float(i)/count * TAU
+		var offset = Vector2(cos(a), sin(a))
+		s.global_position = spawner.global_position + offset * 20

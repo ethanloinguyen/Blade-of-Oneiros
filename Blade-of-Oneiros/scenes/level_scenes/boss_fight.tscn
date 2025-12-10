@@ -92,7 +92,6 @@ y_sort_enabled = true
 
 [node name="Enemies" parent="Entities" instance=ExtResource("3_ttc01")]
 position = Vector2(-26.230896, 335.11185)
-persistance = false
 
 [node name="Boss1" parent="Entities/Enemies" index="0"]
 position = Vector2(34.230896, -113.11185)

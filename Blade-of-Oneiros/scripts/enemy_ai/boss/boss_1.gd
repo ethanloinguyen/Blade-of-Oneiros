@@ -78,12 +78,7 @@ func _ready():
 			var boss:CharacterBody2D = next_boss.instantiate()
 			get_parent().add_child(boss)
 			boss.global_position = global_position
-		for i in range(death_slime_spawn_count):
-			var s:CharacterBody2D = slime_enemy.instantiate()
-			get_parent().add_child(s)
-			var a = float(i)/death_slime_spawn_count * TAU
-			var offset = Vector2(cos(a), sin(a))
-			s.global_position = global_position + offset * 20
+		AiHelper.spawn_enemy_around(self, slime_enemy, death_slime_spawn_count)
 
 		queue_free()
 	)
@@ -102,6 +97,7 @@ func _ready():
 	)
 	jump_state = JumpState.new(self, 100, 1.0, sprite, attack_hitbox, false, func():
 		play_audio(bounce_audio)
+		AiHelper.spawn_enemy_around(self, slime_enemy, 2)
 		_idle(between_states_wait_duration, func():
 			shoot_state.shoot(global_position)
 		)

@@ -37,7 +37,8 @@ func _init(enemy, jump_height:float, jump_duration:float, sprite:AnimatedSprite2
 		,
 		func():
 		sprite.position = Vector2.ZERO
-		attack_hitbox.activate(Vector2.UP, false, false)
+		if attack_hitbox != null:
+			attack_hitbox.activate(Vector2.UP, false, false)
 		enemy.collision_layer |= ENEMY_COLLISION_LAYER
 		_set_owner_immunity(false)
 		if play_anim_after:
