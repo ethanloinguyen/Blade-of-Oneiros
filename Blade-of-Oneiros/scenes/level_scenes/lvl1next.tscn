@@ -4143,6 +4143,7 @@ position = Vector2(-75, -1078)
 
 [node name="BarredDoor" parent="Entities" instance=ExtResource("7_wdjpx")]
 position = Vector2(-139, -289)
+persistent = false
 
 [node name="BreakableTiles" type="TileMapLayer" parent="Entities"]
 z_index = 1
@@ -4184,4 +4185,5 @@ shape = SubResource("RectangleShape2D_yvy3t")
 
 [connection signal="all_pressed" from="Entities/plates" to="Entities/BarredDoor" method="_open"]
 [connection signal="all_pressed" from="Entities/plates" to="Entities/BarredDoor" method="_on_plates_all_pressed"]
+[connection signal="any_released" from="Entities/plates" to="Entities/BarredDoor" method="_close"]
 [connection signal="all_tiles_cracked" from="Entities/BreakableTiles" to="Entities/BarredDoor2" method="_open"]
