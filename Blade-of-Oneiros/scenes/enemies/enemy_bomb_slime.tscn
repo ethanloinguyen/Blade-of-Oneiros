@@ -677,10 +677,10 @@ jump_duration = 0.8
 shape = SubResource("RectangleShape2D_22uif")
 
 [node name="Health" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 20
 collision_mask = 0
 script = ExtResource("6_1mog4")
-max_health = 60
+max_health = 10
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
@@ -693,7 +693,7 @@ animation = &"idle_down"
 
 [node name="ExplodeSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
-scale = Vector2(3, 3)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_fh175")
 animation = &"explode"
 frame = 13
@@ -704,9 +704,9 @@ offset = Vector2(0, -8)
 position = Vector2(0, 8.25)
 scale = Vector2(0.25, 0.25)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("7_i5ryi")
-damage = 30
+damage = 15
 activate_animation = "explode"
 animation_delay = 5.0
 
@@ -718,9 +718,9 @@ shape = SubResource("CircleShape2D_y28a6")
 position = Vector2(0, 8.25)
 scale = Vector2(0.25, 0.25)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("7_i5ryi")
-damage = 30
+damage = 15
 activate_animation = "explode"
 animation_delay = 7.0
 
@@ -732,9 +732,9 @@ shape = SubResource("CircleShape2D_y28a6")
 position = Vector2(0, 8.25)
 scale = Vector2(0.25, 0.25)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("7_i5ryi")
-damage = 30
+damage = 15
 activate_animation = "explode"
 animation_delay = 9.0
 

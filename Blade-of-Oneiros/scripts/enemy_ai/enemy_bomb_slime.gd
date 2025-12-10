@@ -42,9 +42,6 @@ func _ready():
 	health.hurt.connect(func():
 		fsm.change_state(explode_state)
 	)
-	health.died.connect(func():
-		fsm.change_state(explode_state)
-	)
 
 	#audio for death
 	sprite.frame_changed.connect(func():
@@ -127,6 +124,8 @@ func _ready():
 	explode_state = State.new(
 		"Explode",
 		func():
+			if sprite == null or not is_instance_valid(sprite):
+				return
 			AiHelper.play_animation(sprite, "explode", _dir)
 			#play_audio(slime_attack_audio)
 
