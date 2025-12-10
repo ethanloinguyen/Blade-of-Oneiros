@@ -58,6 +58,7 @@ func _ready():
 	health.died.connect(func():
 		fsm.change_state(stun_state)
 		AiHelper.play_animation(sprite, "death", _dir)
+		$CollisionShape2D.disabled = true
 		await sprite.animation_finished
 		if not is_instance_valid(self):
 			return

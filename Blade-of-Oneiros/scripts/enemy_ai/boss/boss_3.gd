@@ -73,11 +73,11 @@ func _ready():
 	rain_state = State.new(
 		"Rain",
 		func():
-		for i in range(5):
+		for i in range(7):
 			var rs:RainSlime = rain_slime.instantiate()
 			get_parent().add_child(rs)
 			rs.global_position = _player.global_position
-			await get_tree().create_timer(0.5, false).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			if not is_instance_valid(self):
 				return
 		await get_tree().create_timer(1.5, false).timeout

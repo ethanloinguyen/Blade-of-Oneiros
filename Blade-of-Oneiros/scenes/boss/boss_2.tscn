@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=3 uid="uid://8juwuubc4nfx"]
+[gd_scene load_steps=108 format=3 uid="uid://8juwuubc4nfx"]
 
 [ext_resource type="Script" uid="uid://b3t75tepsr635" path="res://scripts/enemy_ai/boss/boss_2.gd" id="1_oq0kp"]
 [ext_resource type="PackedScene" uid="uid://fohlexck7mcd" path="res://scenes/boss/slimeball/ghostball.tscn" id="2_kaocr"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://cq1d3puhfhh3h" path="res://assets/audio/slimebounce.wav" id="3_oq0kp"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="4_vhq4w"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="5_ec1eq"]
+[ext_resource type="PackedScene" uid="uid://cmy6ymoibmm2m" path="res://scenes/enemies/enemy_slime.tscn" id="5_kgkne"]
 [ext_resource type="Texture2D" uid="uid://bfjxgjqj6ci0e" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Death_with_shadow.png" id="6_d11rf"]
 [ext_resource type="Texture2D" uid="uid://dbhyir26jguue" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Hurt_with_shadow.png" id="7_d11rf"]
 [ext_resource type="Texture2D" uid="uid://bex8dhsnf0hxt" path="res://assets/mobs/slimes/Slime2/With_shadow/Slime2_Idle_with_shadow.png" id="8_oq0kp"]
@@ -749,10 +750,12 @@ animations = [{
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_oq0kp")
-between_states_wait_duration = 1.0
+between_states_wait_duration = 0.6
 projectile = ExtResource("2_kaocr")
 bounce_audio = ExtResource("3_oq0kp")
 next_boss = ExtResource("3_d11rf")
+slime_enemy = ExtResource("5_kgkne")
+death_slime_spawn_count = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -761,7 +764,7 @@ shape = SubResource("RectangleShape2D_22uif")
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("4_vhq4w")
-max_health = 100
+max_health = 300
 metadata/_custom_type_script = "uid://cwcorrfft7hdn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
