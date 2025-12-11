@@ -126,3 +126,5 @@ position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_7pdxm")
 autoplay = "default"
 frame_progress = 0.63705134
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
