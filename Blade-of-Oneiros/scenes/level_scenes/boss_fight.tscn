@@ -1,7 +1,9 @@
-[gd_scene load_steps=21 format=4 uid="uid://qf60ey6t8ph6"]
+[gd_scene load_steps=23 format=4 uid="uid://qf60ey6t8ph6"]
 
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_ddjkd"]
+[ext_resource type="Script" uid="uid://vwggjwagsxqn" path="res://scripts/boss_fight.gd" id="1_ttc01"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="2_0vr5p"]
+[ext_resource type="AudioStream" uid="uid://i502sd60le4a" path="res://assets/audio/music/bossmusic.ogg" id="2_jc83c"]
 [ext_resource type="PackedScene" uid="uid://dtt6ths5d2otx" path="res://scenes/level_enemy_containers/boss_fight_container.tscn" id="3_ttc01"]
 [ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="4_1a5x1"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="10_gqr7n"]
@@ -53,6 +55,8 @@ size = Vector2(35, 32.5)
 
 [node name="boss_fight" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_ttc01")
+music_audio = ExtResource("2_jc83c")
 
 [node name="floor" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AADs/xwAAQALAB4AAADs/x0AAQALAB4AAADt/x0AAQALAB4AAAA=")
@@ -258,5 +262,7 @@ z_index = 9
 texture_filter = 1
 position = Vector2(-700, -137)
 shape = SubResource("RectangleShape2D_c2rtx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [editable path="Entities/Enemies"]

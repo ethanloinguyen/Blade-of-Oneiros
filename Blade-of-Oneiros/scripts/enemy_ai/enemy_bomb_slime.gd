@@ -51,11 +51,12 @@ func _ready():
 
 		if (sprite.animation.begins_with("hurt")):
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
-			
+	)
+	
+	explode_sprite.frame_changed.connect(func():
 		if (explode_sprite.animation.begins_with("explode")) and explode_sprite.frame == 4:
 			play_audio(explode_audio)
 	)
-
 	# handle explosion
 	sprite.animation_changed.connect(func():
 		if sprite.animation.begins_with("explode"):
