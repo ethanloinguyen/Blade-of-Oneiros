@@ -44,7 +44,7 @@ func _ready():
 		fsm.change_state(explode_state)
 	)
 
-	#audio for death
+	#audio
 	sprite.frame_changed.connect(func():
 		if sprite.animation.begins_with("death") and sprite.frame == 1:
 			play_audio(death_audio)

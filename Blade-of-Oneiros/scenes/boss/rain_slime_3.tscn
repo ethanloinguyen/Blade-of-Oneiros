@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0iyshfw82ja6"]
+[gd_scene load_steps=19 format=3 uid="uid://c0iyshfw82ja6"]
 
 [ext_resource type="Script" uid="uid://us025xitlkes" path="res://scripts/enemy_ai/boss/rain_slime.gd" id="1_qqhhm"]
 [ext_resource type="Texture2D" uid="uid://bn8208fb85ok1" path="res://assets/mobs/slimes/Slime3/Without_shadow/Slime3_Death_without_shadow.png" id="2_i35pw"]
+[ext_resource type="AudioStream" uid="uid://cmy4pd6rga6im" path="res://assets/audio/slime/rainslimesplat.wav" id="2_ji7ts"]
 [ext_resource type="Texture2D" uid="uid://bnlutkodpqosi" path="res://assets/mobs/slimes/Slime1/Without_shadow/Shadows/Shadow.png" id="3_ji7ts"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i35pw"]
@@ -114,6 +115,7 @@ fall_duration = 0.5
 damage = 30
 damage_radius = 9.0
 remain_duration = 5.0
+splat_audio = ExtResource("2_ji7ts")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
@@ -127,3 +129,5 @@ animation = &"splat"
 [node name="Shadow" type="Sprite2D" parent="."]
 position = Vector2(0, 8)
 texture = ExtResource("3_ji7ts")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

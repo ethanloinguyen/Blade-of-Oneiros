@@ -6,12 +6,21 @@ extends Area2D
 @export var damage:int
 @export var damage_radius:float
 @export var remain_duration:float
+@export var splat_audio: AudioStream
 
 @onready var sprite:AnimatedSprite2D = $Sprite
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 
 func _ready():
 	var tree = get_tree()
 	sprite.position.y = -height
+	
+	sprite.frame_changed.connect(func():
+		if sprite.animation.begins_with("splat") and sprite.frame == 3:
+			play_audio(splat_audio)
+	)
+	
 	while sprite.position.y < 0:
 		if not is_instance_valid(self) or not is_inside_tree():
 			return
@@ -55,3 +64,8 @@ func _ready():
 func _process(_delta):
 	# make sprite fall down
 	sprite.position.y = min(sprite.position.y + height/fall_duration * _delta, 0.0)
+
+
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	audio.play()
