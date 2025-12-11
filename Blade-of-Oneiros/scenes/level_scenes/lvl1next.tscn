@@ -4112,7 +4112,6 @@ texture_filter = 1
 position = Vector2(-417, 0)
 tile_map_data = PackedByteArray("AAAOAEUABAAFAAAAAAAgADYABAAFAAAAAAAgAEsABAACAAAAAAAYAEsABAACAAAAAAAnAC4ABAACAAAAAAAuAC4ABAACAAAAAAArADMABAACAAAAAAAkAEYABAAFAAAAAAAfAD8ABAAFAAAAAAARADwABAACAAAAAAAVADwABAACAAAAAAA=")
 tile_set = ExtResource("1_xusmx")
-collision_visibility_mode = 1
 
 [node name="decor" type="TileMapLayer" parent="ysort"]
 y_sort_enabled = true
