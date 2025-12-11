@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://b4rjp4ug8igat" path="res://scenes/level_enemy_containers/lvl1enemies.tscn" id="27_kgaty"]
 [ext_resource type="PackedScene" uid="uid://b7kese1ixn7rr" path="res://scenes/interactables/triggerscene.tscn" id="30_orr7t"]
 [ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="31_pbiu2"]
-[ext_resource type="Script" path="res://scenes/level_scenes/tooltip.gd" id="32_w5uhu"]
+[ext_resource type="Script" uid="uid://dcgwda164oi37" path="res://scenes/level_scenes/tooltip.gd" id="32_w5uhu"]
 
 [sub_resource type="Gradient" id="Gradient_07sfe"]
 offsets = PackedFloat32Array(0.06, 0.27333334, 0.54, 0.7733333, 0.98)
