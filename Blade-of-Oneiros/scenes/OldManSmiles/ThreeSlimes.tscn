@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccy0w0kgcpgjq"]
+
+[ext_resource type="Script" uid="uid://c8r4be4owl32e" path="res://scenes/OldManSmiles/three_slimes.gd" id="1_18lbv"]
+[ext_resource type="Texture2D" uid="uid://ce6xphc6h8j3i" path="res://assets/mobs/3slimesontopofeachother.png" id="1_261ud"]
+
+[node name="ThreeSlimes" type="CharacterBody2D"]
+script = ExtResource("1_18lbv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_261ud")
