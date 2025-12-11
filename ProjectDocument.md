@@ -1,13 +1,15 @@
-# Blade of Oneiros #
+# The title of your game #
 
 ## Summary ##
 
-**Blade of Oneiros is a single-player action RPG that fuses fast, satisfying hack-and-slash combat with thoughtful, retro-inspired puzzle mechanics. Drawing influence from Illusion of Gaia, Hyperlight Drifter and early Zelda titles, the game challenges players to fluidly switch between intense battles against swarming slime enemies and clever problem-solving to unlock new pathways. As players descend deeper into the mysterious dungeon, they must master both reflexes and reasoning to survive.**
+**A paragraph-length pitch for your game.**
 
 ## Project Resources
 
-([https://itch.io/](https://hadiafifah.itch.io/blade-of-oneiros))   
-[Proposal: make your own copy of the linked doc.](https://docs.google.com/document/d/1Z7eXWpFV-SrlHFVSt_nuXlzHZt53bzFxvXNTj_RhVMA/edit?usp=sharing)
+[Web-playable version of your game.](https://itch.io/)  
+[Trailor](https://youtube.com)  
+[Press Kit](https://dopresskit.com/)  
+[Proposal: make your own copy of the linked doc.](https://docs.google.com/document/d/1qwWCpMwKJGOLQ-rRJt8G8zisCa2XHFhv6zSWars0eWM/edit?usp=sharing)  
 
 ## Gameplay Explanation ##
 
@@ -58,35 +60,42 @@ Here is an example:
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
 Add addition contributions int he Other Contributions section.
-# Ethan Nguyen #
 
-# Main Roles #
+## Main Roles ##
 
+## Sub-Roles ##
 
 * AI and Behavior Designer: [Ben Nelson](https://github.com/bnelson1324)
-
-## Game Logic (Jerome Hernandez) ##
 
 ## AI and Behavior Designer (Ben Nelson) ##
 
 ### Finite State Machine ###
 
+I implemented a finite state machine using two classes. The [FSM class](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/fsm/fsm.gd) represents a finite state machine. It stores the current state, and has a function to change state. It also has a function to update hte current state, which is called in every Enemy's _physics_process() loop.
 
-### Basic Enemy AI ###
+The FSM class stores instances of the [State class](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/fsm/state.gd). Each state stores three functions, called when entering, updating, and exiting the state. This state class allowed me to [use lambda functions](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L74) in enemy scripts, making creating dynamic behavior very convenient.
 
-![](Blade-of-Oneiros/documentation/enemy%20AI%20FSM.jpg)
+### Basic Slime Enemy AI ###
+
+I drew a diagram for the [basic slime enemy's FSM](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L71). It starts in wait_state, where it just stands still and plays its idle animation. When the player enters within the activate_distance, the enemy changes to chase_state, where it starts chasing the player. And when it reaches within attack_distance, the enemy changes to attack_state. When the attack animation is finished, it returns to chase_state.
+![](./documentation/enemy_ai_fsm.jpg)
+
+The enemy also has a stun_state, which it enters whenever it takes damage. In this state, it takes knockback away from the player for 0.2 seconds, then stays still until the hurt animation is finished, then it returns to chase_state.
+
+### Bomb Slime AI ###
+
+The [bomb slime](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy_bomb_slime.gd) is another enemy, its behavior is very similar to the basic enemy. Its difference is that instead of normally attacking when in range of the player, it self destructs and creates an explosion.
+
+### Enemy Pathfinding ###
+
+The basic slime and bomb slime both [use the same pathfinding algorithm](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/ai_helper.gd#L25). I created a system inspired by [this video](https://www.youtube.com/watch?v=6BrZryMz-ac). Each enemy shoots out 32 rays in a circle around itself. Each ray also has a float weight. If a ray collides with the terrain or other enemies, it will reduce the weight of that ray and nearby rays. After processing all the raycasts, the ray with the highest weight is chosen as the direction for the enemy to move in.
+
+I also created a [function to visualize the pathfinding](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/ai_helper.gd#L82). This function draws each ray with its weight as the length. The ray with the highest weight is highlighted green.
+![](./documentation/enemy_ai_pathfinding.png)
+
 
 # Sub-Roles #
 
 * Game Feel: [Ben Nelson](https://github.com/bnelson1324)
 
 # Other Contributions #
-
-
-## Ben Nelson ##
-
-
-
-
-
-
