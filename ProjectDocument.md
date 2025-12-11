@@ -351,6 +351,167 @@ I created and maintained the Debug Map used throughout development. This map con
 This tool significantly accelerated development and supported debugging across multiple systems.
 
 
+# Alfred Camacho #
+
+# Main Role: UI & Input #
+My main role in this project focused on the **Dialogue/Tooltip UI**, a bit of **Input Integration**, and **Cutscene Flow**. In the section below, I've outlined my four core contributions to this project that leveraged several in-class concepts including **Design Patterns**, **Component Pattern**, **Mechanics, Rules and Systems**, and **Computer Animation**.
+
+## 1) Dialogue Orchestrator System
+
+### **Short Description**
+
+Implemented the Dialogue Orchestrator, a centralized brain that pipelines dialogue, cutscene actions, NPC behaviors, and camera transitions.
+
+### **Long Description**
+The game’s main dialogue/cutscenes are directed, pipelined, and coordinated through the `Dialogue Orchestrator` system.
+
+I designed the Dialogue Orchestrator to act as a central controller for all dialogue instances in our project. 
+It works by taking in abstract concepts from two main input sources: 
+1. Signals from the game world that requests a particular dialogue or cutscene to begin and,
+2. Abstract commands issued by the dialogue script during its execution.
+
+When an element from the game world starts a dialogue (such as an Area2D, trigger, boss, or event flag), it sends a `dialogue_id` and data that includes whether the UI should use tooltip mode. 
+The orchestrator then maps the ID to a corresponding dialogue script, runs it, and sets the game into dialogue state. 
+In the dialogue state, the player’s input is locked, the dialogueUI is used, and other necessary functions (such as camera changes) are used.
+
+
+<img width="1534" height="853" alt="Screenshot 2025-12-10 230802" src="https://github.com/user-attachments/assets/69773f46-a105-472d-ae92-2fc56691327f" />
+
+As the script is running, it sends high-level abstract instructions back to the orchestrator such as `speak()`, `narrate()`, `npc_moveto()`, `camera_to()` or `wait()`. 
+Each instruction is then placed into the orchestrator’s **durative command queue**, which executes each command one at a time, waiting for one to finish completing before starting the next. 
+This structure directly reflects the **Command Pattern** taught in the first few days of the course, as well as assignment 1 since each step is a reusable, self-contained command with parameters, rules, and lists of things to do when it is complete.
+
+![Animation](https://github.com/user-attachments/assets/ca91bf19-57bf-45a2-a0f5-5c69459de2d9)
+
+Once the queue is empty, the orchestrator cleans up `DialogUI`, unlocks player input, restores the camera (if necessary), and returns to an idle state where it waits for the next trigger event.
+
+This system also applies the **Component Pattern**, since the orchestrator itself contains no implementation details of UI animation, camera logic, or player movement. 
+It instead gives these tasks to the designated components through dedicated API calls. 
+This structure allows my teammates (such as Afifa and Jerome) to modify animations and player logic without breaking cutscenes.
+
+<img width="2235" height="568" alt="Screenshot 2025-12-10 235531" src="https://github.com/user-attachments/assets/aea7646e-265a-445b-aea9-b3b6e9a4a10b" />
+
+Finally, since the orchestrator enforces the **Mechanics, Rules, and Systems** principles, it establishes when players are frozen, how cutscenes override normal gameplay, how timed UI animations are played, and how multiple subsystems (camera, UI, NPC, player, triggers) are synchronized. 
+Thus ensuring that every cutscene feels and acts like an actual cutscene.
+
+
+## 2) DialogUI Animation System
+
+### **Short Description**
+
+Designed and implemented the animated dialogue UI, including typewriter effects, tyext styling, portrait switching, fade transitions, and multi-voice simultaneous dialogue.
+
+### **Long Description**
+The `DialogUI` system is responsible for rendering, moving, and pacing every line of dialogue that appears in the game. This is done through an animated dialogue box that supports several features, including:
+1. Changing Character Portraits
+2. Text Progression
+3. Fade-in / Fade out behavior
+This system goes hand-in-hand with the Dialogue Orchestrator, however it itself is fully modular. Meaning that it can be reused across any dialogue types, which includes cutscenes, dialogue triggers, and tooltips.
+
+A strong feature of the UI is the typewriter effect, which prints out a particular line character by character at a speed that can be changed by the orchestrator.
+To make the typewriter feel responsive rather than slow, the player can press the `advance` button (spacebar) at any time to skip the full line. Another strong feature of the UI is the dialogue box itself. 
+The dialogue box can change/animate to different positions based on who the speaker is and whether or not the dialogue is complete/is starting. These concepts directly tie to **Computer Animation and Game Feel**, since each element requires precise timing, easing, and responsiveness that all tie to how a player experiences the narrative. As an example, refer to the image below, which shows the interaction between the swordsman and the three slimes, and how the dialogue box bounces off once another, preventing the UI from feeling stiff.
+
+![Animation2](https://github.com/user-attachments/assets/c0c88004-fd4d-47cf-935d-911ec813d3a9)
+
+The `DialogUI` also includes a dedicated fade layer that changes opacity when a dialogue sequence begins, ends, or calls it directly somewhere in the middle.
+Implementing these transitions required multiple iterations of timing changes so as the fades felt smooth and not too abrupt. I constantly use the fades as a communication tool to convey tone and mood in a particular scene.
+
+`DialogUI` is separated from gameplay logic in a **Component-like Pattern**. It exposes public API calls that the orchestrator constantly uses, like (`show_line()`, `fade_in()`, `fade_out()`). 
+Again, the orchestrator does not know how the animations are implemented, just that they work. This allowed me, the narrative designer, to focus on the pure dialog/the scene management without worrying too much about whether or not it would actually work.
+
+
+## 3) Tooltip UI System
+
+### **Short Description**
+
+I created a reusable Tooltip system built on Area2D triggers. The tooltip system supports context-sensitive tutorial messages, dynamic enabling/disabling, and interactions with the orchestrator.
+
+### **Long Description**
+
+The game includes several lightweight tutorial prompts that help the player navigate through the dungeon. Most of these include movement hints and interaction guides. 
+These are processed by a separate Tooltip UI system that I designed to be independent from the main dialogue pipeline. 
+The tooltip system is controlled by `tooltips.gd`, which is a manager that demuxes Area2D trigger events by looking at which tooltip it’s meant to represent, and handles it accordingly.
+
+The tooltip UI system support several features such as:
+1. One-time triggers that can permanently disable tutorials after the player completes an action
+2. Reusable tooltip zones that can be used by multiple entities sharing the same hint
+3. Immediate tooltip-box fade-out when the player leaves the Area2D
+4. Non-blocking UI that allows players to move even when dialogue is still being shown
+
+The tooltip system maps into the “**Component Pattern**” shown in this course. The tooltip system is a standalone architecture that is self-contained, reusable, and separated from the Dialogue Orchestrator. 
+Though it does call the Dialogue Orchestrator, it does not need to know how it works, simply that it can create a request, and the dialogue orchestrator can handle it accordingly. 
+This separation allowed me to create multiple tooltips in a systematic fashion without worrying too much about affecting the orchestrator.
+
+Furthermore, the Tooltip UI also focuses on **Game Feel**, since they appear smoothly to the player without getting too in the way. 
+The type feature allows players who are new to stop for a second, read what they need to do and make a decision, while not being too intrusive to players who know how the game works.
+
+![Animation3](https://github.com/user-attachments/assets/55706249-d7fd-4671-8482-480d92c674c4)
+
+
+# Sub-Role: Narrative Design#
+
+My secondary, or sub role, in this project focused heavily on the **Narrative Design** of the game itself. In the section below, I've outlined my main three contributions to this project that helped steer the story in the right direction.
+
+## 1) Screenplay Director and Story Structure
+
+### **Short Description**
+
+I wrote the original screenplay and narrative framework for the game, establishing tone, pacing, and the structure of all major and minor dialogue moments.
+
+### **Long Description**
+
+My main contribution to the** Narrative Design** sub-role was the creation of the game’s original screenplay. This document organized the story’s tone, tutorial progression (though we ran out of time), character roles and behaviors. 
+This document served as a blueprint for the game’s opening and ending cutscenes (implemented by Afifa), and tutorial. By giving my team an idea as to where our story is going to go (from a narrative perspective), I was able to help my team stay on topic for the entirety of the project.
+
+<img width="814" height="740" alt="Screenshot 2025-12-11 004159" src="https://github.com/user-attachments/assets/8b7b89f6-00a5-48b1-95b1-9636ef05922a" />
+
+My storyboard/screenplay directly connects to the concepts of **Game Feel**, **Mechanics, Rules, and Systems**. The screenplay determines when players receive information about the world around them, how tutorials are meant to reinforce new mechanics, and how narrative moments fit into gameplay loops. 
+The storyboard also ensured that the narrative played along with player actions, instead of interrupting them (similar to how the tooltips function). The screenplay functions as a high-level system specification that guided UI, cameras, and cutscene integrations throughout the project.
+
+<img width="815" height="1141" alt="Screenshot 2025-12-11 004605" src="https://github.com/user-attachments/assets/3731c363-65d0-4e5d-8444-91cdbd51b2c0" />
+
+## 2) Dialogue Script Authoring (`dialogue_<id>.gd`)
+
+### **Short Description**
+
+I used the screenplay to help generate system-readable code that is both abstract enough so a non-programmer can read and see what is happening, and can also be read by the compiler to generate code.
+
+### **Long Description**
+
+After I drafted the narrative structure, I converted the screenplay into high-level pseudocode that eventually became the dialogue scripts (`dialogue_<id>.gd`). 
+These scripts define how scenes unfold line-by-line, command-by-command using the Dialogue Orchestrator’s API (`speak()`, `multi_voice()`, `narrate()`, `npc_moveto()` and `wait()` as examples). 
+By separating story content from system logic, these files acted as narrative components that were editable, testable, and reusable without modifying actual code.
+
+<img width="1532" height="955" alt="Screenshot 2025-12-11 005247" src="https://github.com/user-attachments/assets/034cc1ff-e0f1-45f0-89ec-3d28e072806b" />
+
+This design, again, goes into the idea of **Component Patterns** due to how the dialogue data acts independent from the orchestrator/dialogUI’s engine. 
+It also leverages/is highly inspired by the durative commands used in dialogues for the first major assignment in this class. Each line in the script is read as a durative command that integrates UI animation, actor behaviors, and timing rules.
+
+## 3) Tutorial & Tooltip Narrative Writing
+
+### **Short Description**
+
+Wrote the cutscenes, tutorial, and tooltips for the project.
+
+I created and authored the instructional text used in tutorial tooltips and early-game guidance. This included writing explanations for how to interact with objects, puzzle hints, and cutscene transitions. My main goal here was to deliver information to the player as clear and consistently as possible without overwhelming them.
+
+Due to how the tutorials introduce/reinforce core mechanics at certain moments, and how tooltip text appears contextually and doesn’t overstay its welcome, my contribution here ties into the idea of **Mechanics, Rules, and Systems** as well as **Game Feel**. Good tutorial writing ensures that the player never feels lost, confused, or slowed down.
+
+<img width="1059" height="595" alt="Screenshot 2025-12-11 005713" src="https://github.com/user-attachments/assets/e3990ddf-bee3-4962-9df2-9e3992e54d5a" />
+
+# Other Contributions #
+
+Aside from implementing the Dialogue UI system, I worked with Afifa to translate her ideas into functional DialogUI elements. This process included early mockups, discussing how the dialogue box and portraits should animate, and refinign the layout until it matched the intended goal. 
+Although I handled the technical implementation, the final result mainly reflects the artist’s vision. 
+
+<img width="1064" height="708" alt="image" src="https://github.com/user-attachments/assets/9361d1e3-1588-451f-b98b-6def49ee3307" /> <img width="1079" height="573" alt="image" src="https://github.com/user-attachments/assets/71e29f2d-7129-4e6e-b10c-5482b24f7541" />
+ 
+
+I also worked together with Afifa to fully design and realize OldManSmiles. Based on the character’s role in the story, and his personality from the screenplay, I pitched several visual traits that reinforced who he was as a character. 
+These talks helped ensure that the character’s visual presentation supported the story’s original intention with him. This contribution connects to **Game Feel** and **Narrative Coherence**, ensuring that character visuals and story intention remain one and the same.
+
+<img width="785" height="598" alt="image" src="https://github.com/user-attachments/assets/fc116a98-e0db-4652-af87-6a56462a0d02" /> <img width="878" height="574" alt="image" src="https://github.com/user-attachments/assets/6cfab2ef-aa32-49e9-92a5-0991f8ef82f3" />  
 
 
 
@@ -448,4 +609,3 @@ https://opengameart.org/content/generic-8-bit-jrpg-soundtrack
 ### Dialogue System Contribution 
 Assisted Alfred in bringing his code into repository through Git 
 and implemented dialogue skip button.
-
