@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8r2dhocxynw0"]
+[gd_scene load_steps=16 format=3 uid="uid://c8r2dhocxynw0"]
 
 [ext_resource type="Script" uid="uid://o4iivkp0oabx" path="res://scripts/enemy_ai/boss/slimeball.gd" id="1_k2oac"]
+[ext_resource type="AudioStream" uid="uid://cph3nv6gicurp" path="res://assets/audio/slime/smallslimeexplosion.wav" id="2_bastg"]
 [ext_resource type="Texture2D" uid="uid://bbn7wggftc6om" path="res://assets/mobs/slimes/projectiles.png" id="2_h4jer"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bastg"]
@@ -96,6 +97,7 @@ collision_mask = 3
 script = ExtResource("1_k2oac")
 damage = 30
 speed = 40
+explode_audio = ExtResource("2_bastg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bastg")
@@ -106,3 +108,5 @@ position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_347hh")
 autoplay = "default"
 frame_progress = 0.55761695
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

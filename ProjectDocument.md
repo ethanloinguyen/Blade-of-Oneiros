@@ -66,3 +66,13 @@ Add addition contributions int he Other Contributions section.
 ## Sub-Roles ##
 
 ## Other Contributions ##
+
+
+# Jerome Hernandez #
+
+## Main Roles ##
+
+## Sub-Roles ##
+
+## Other Contributions ##
+

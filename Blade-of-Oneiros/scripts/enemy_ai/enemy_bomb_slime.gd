@@ -56,7 +56,6 @@ func _ready():
 		if (explode_sprite.animation.begins_with("explode")) and explode_sprite.frame == 4:
 				play_audio(explode_audio)
 	)
-
 	# handle explosion
 	sprite.animation_changed.connect(func():
 		if sprite.animation.begins_with("explode"):
