@@ -618,6 +618,27 @@ Assisted Alfred in bringing his code into repository through Git
 
 and implemented dialogue skip button.
 
+# Jerome Hernandez #
+
+# Main Role: Game Logic #
+
+One of my primary responsibilities throughout the project was building and maintaining the core gameplay loop for the player, including movement, stamina, combat, health, item usage, and animation integration. Because our game relies heavily on responsive action-based mechanics, I focused on ensuring that the internal systems felt consistent and intuitive, while also balancing them in a way that supported our game’s difficulty curve.
+![Box diagram](documentation/GameLogicDiagram.drawio.png)
+**Movement and Stamina Foundations**
+I implemented player movement with walking, running, and dashing in direction-based motion. This was centered around the WASD control scheme in a top-down world, using normalized input vectors to avoid faster diagonal movement. Running is a stamina-consuming action that increases speed but drains stamina at a steady rate. On the other hand, the dash gives the player a short burst of speed, a small invulnerability window while dashing, at a high cost of stamina and a dash cooldown. The implementation of dash is encapsulated in dash_controller.gd and the design choice is meant to encourage the player to use the dash sparingly to dodge enemy attack with precise timing. Also, once stamina drops below a threshold, the player enters an exhaustion state, reducing movement speed and disabling all stamina-related actions until stamina regenerates to full to discourage spamming stamina-related attacks. To support this, I developed a stamina system in stamina.gd that manages the player’s maximum stamina, recharge rate, recharge delay, and the transitions into and out of exhaustion. This creates a natural rhythm in gameplay that rewards intentional movement instead of button-mashing.
+
+**Combat, Health, and Inventory Systems**
+Combat and stamina are heavily intertwined, so I developed attack logic that consumes stamina and determines attack direction based on player facing direction. I opted for this fixed attack direction as our player sprite only supported animations in the four cardinal directions and simplified attacking for players without a mouse. I also implemented the full player health system, which handles current and maximum health tracking, damage processing, hurt and death reactions, and all HUD updates tied to player health. Taking damage correctly triggers animations and transitions, while death initiates the proper state change and HUD update. Alongside combat and health, I created the entire inventory system in inventory.gd, which includes potion and key pickup, usage logic, and unified item tracking. Potions tie directly into the health system to provide real-time healing during gameplay of up to 20% recovery with each potion as usage is instant and multiple can be held at one time. Then, keys can be manually or automatically used on interactable objects such as doors to unlock new areas. Inventory values automatically update the HUD, ensuring that potion and key count remain accurate and visible during gameplay.
+
+**Animation Integration and Sprite Upgrade System**
+Another part of my work involved connecting all gameplay systems to the AnimationTree so that player actions always matched the visual feedback on screen. I linked movement, combat, stamina states, damage reactions, and death behavior to the animation tree, ensuring that the player’s velocity, direction, exhaustion state, and action triggers updated every frame. This frame-by-frame synchronization kept the gameplay responsive and made the character’s animations feel tightly connected to player input. Later on in development, the amount of game content increased alongside difficulty which is what led to a sprite upgrade implementation. When the player acquires this upgrade, the player swaps to a new sprite sheet, updates all animation references, and applies progression bonuses such as increased maximum health and faster stamina regeneration. This feature tied visual progression and gameplay progression together, giving players a clear sense of growth as they advanced through the game’s content.
+# Sub Role: Performance Optimization #
+
+# Other Contributions #
+Helped link up transitions between level scenes through level_transition.gd and door.gd. I also helped with the Player’s upgraded sprite, potion, and key amounts being persistent between death and respawns. Played a huge part in recording audio and voicing most of the player’s sound effects.
+
+
+
 
 
 
