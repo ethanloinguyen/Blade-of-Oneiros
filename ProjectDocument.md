@@ -367,7 +367,7 @@ My main role in this project focused on the **Dialogue/Tooltip UI**, a bit of **
 
 ### **Short Description**
 
-Implemented the Dialogue Orchestrator, a centralized brain that pipelines dialogue, cutscene actions, NPC behaviors, and camera transitions.
+Implemented the [Dialogue Orchestrator](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/DialogueOrchestrator.gd), a centralized brain that pipelines dialogue, cutscene actions, NPC behaviors, and camera transitions.
 
 ### **Long Description**
 The game’s main dialogue/cutscenes are directed, pipelined, and coordinated through the `Dialogue Orchestrator` system.
@@ -406,7 +406,7 @@ Thus ensuring that every cutscene feels and acts like an actual cutscene.
 
 ### **Short Description**
 
-Designed and implemented the animated dialogue UI, including typewriter effects, tyext styling, portrait switching, fade transitions, and multi-voice simultaneous dialogue.
+Designed and implemented the animated [dialogue UI](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/DialogUI.gd), including typewriter effects, tyext styling, portrait switching, fade transitions, and multi-voice simultaneous dialogue.
 
 ### **Long Description**
 The `DialogUI` system is responsible for rendering, moving, and pacing every line of dialogue that appears in the game. This is done through an animated dialogue box that supports several features, including:
@@ -432,7 +432,7 @@ Again, the orchestrator does not know how the animations are implemented, just t
 
 ### **Short Description**
 
-I created a reusable Tooltip system built on Area2D triggers. The tooltip system supports context-sensitive tutorial messages, dynamic enabling/disabling, and interactions with the orchestrator.
+I created a reusable [Tooltip](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scenes/level_scenes/tooltip.gd) system built on Area2D triggers. The tooltip system supports context-sensitive tutorial messages, dynamic enabling/disabling, and interactions with the orchestrator.
 
 ### **Long Description**
 
@@ -456,7 +456,7 @@ The type feature allows players who are new to stop for a second, read what they
 ![Animation3](https://github.com/user-attachments/assets/55706249-d7fd-4671-8482-480d92c674c4)
 
 
-# Sub-Role: Narrative Design#
+# Sub-Role: Narrative Design
 
 My secondary, or sub role, in this project focused heavily on the **Narrative Design** of the game itself. In the section below, I've outlined my main three contributions to this project that helped steer the story in the right direction.
 
@@ -464,7 +464,7 @@ My secondary, or sub role, in this project focused heavily on the **Narrative De
 
 ### **Short Description**
 
-I wrote the original screenplay and narrative framework for the game, establishing tone, pacing, and the structure of all major and minor dialogue moments.
+I wrote the [original screenplay](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/documentation/Blade%20of%20Oneiros%20Screenplay.pdf) and narrative framework for the game, establishing tone, pacing, and the structure of all major and minor dialogue moments.
 
 ### **Long Description**
 
@@ -482,7 +482,7 @@ The storyboard also ensured that the narrative played along with player actions,
 
 ### **Short Description**
 
-I used the screenplay to help generate system-readable code that is both abstract enough so a non-programmer can read and see what is happening, and can also be read by the compiler to generate code.
+I used the screenplay to help generate [system-readable code](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/scripts/dialogue_script_boss_intro.gd) that is both abstract enough so a non-programmer can read and see what is happening, and can also be read by the compiler to generate code.
 
 ### **Long Description**
 
@@ -510,7 +510,7 @@ Due to how the tutorials introduce/reinforce core mechanics at certain moments, 
 # Other Contributions #
 
 Aside from implementing the Dialogue UI system, I worked with Afifa to translate her ideas into functional DialogUI elements. This process included early mockups, discussing how the dialogue box and portraits should animate, and refinign the layout until it matched the intended goal. 
-Although I handled the technical implementation, the final result mainly reflects the artist’s vision. 
+Although I handled the technical implementation, the final result mainly reflects her vision. 
 
 <img width="1064" height="708" alt="image" src="https://github.com/user-attachments/assets/9361d1e3-1588-451f-b98b-6def49ee3307" /> <img width="1079" height="573" alt="image" src="https://github.com/user-attachments/assets/71e29f2d-7129-4e6e-b10c-5482b24f7541" />
  
@@ -636,6 +636,7 @@ Another part of my work involved connecting all gameplay systems to the Animatio
 
 # Other Contributions #
 Helped link up transitions between level scenes through level_transition.gd and door.gd. I also helped with the Player’s upgraded sprite, potion, and key amounts being persistent between death and respawns. Played a huge part in recording audio and voicing most of the player’s sound effects.
+
 
 
 
