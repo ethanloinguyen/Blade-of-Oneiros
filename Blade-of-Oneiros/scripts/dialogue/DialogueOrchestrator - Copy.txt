@@ -39,18 +39,8 @@ var _script_paths: Dictionary = {
 	"tutorial_cutscene": "res://scripts/dialogue/scripts/dialogue_script_tutorial_cutscene.gd",
 	"tooltip_1": "res://scripts/dialogue/scripts/dialogue_script_tooltip_1.gd",
 	"pre_boss_fight": "res://scripts/dialogue/scripts/dialogue_script_boss_intro.gd",
-	"post_boss": "res://scripts/dialogue/scripts/dialogue_script_boss_finish.gd",
-
-	# New tooltips
-	"tooltip_door": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_door.gd",
-	"tooltip_bed": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_bed.gd",
-	"tooltip_pot": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_pot.gd",
-	"tooltip_lever": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_lever.gd",
-	"tooltip_fireplace": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_fireplace.gd",
-	"tooltip_block": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_block.gd",
-	"tooltip_armor": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_armor.gd",
+	"post_boss": "res://scripts/dialogue/scripts/dialogue_script_boss_finish.gd"
 }
-
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

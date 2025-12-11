@@ -9,7 +9,6 @@ var pressed: int = 0
 
 
 func _ready() -> void:
-	# Auto-detect plates as children
 	for child in get_children():
 		if child is PressurePlate:
 			total += 1
@@ -32,5 +31,4 @@ func _on_plate_deactivated() -> void:
 	pressed -= 1
 	print("PlateGroup: released", pressed, "/", total)
 
-	# optional:
 	any_released.emit()

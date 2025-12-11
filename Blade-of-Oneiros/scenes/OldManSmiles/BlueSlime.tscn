@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpjbkomnne6w7"]
+
+[ext_resource type="Script" uid="uid://dmbkmbgjjiemq" path="res://scenes/OldManSmiles/blue_slime.gd" id="1_3be6r"]
+[ext_resource type="Texture2D" uid="uid://vwkm4jyxeg4i" path="res://assets/mobs/slimes/Slime2/Parts/Slime2_Death_body.png" id="2_3be6r"]
+
+[node name="BlueSlime" type="CharacterBody2D"]
+script = ExtResource("1_3be6r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
+scale = Vector2(1.0034621, 1)
+texture = ExtResource("2_3be6r")
+hframes = 10
+vframes = 4
+frame = 9
+region_rect = Rect2(726, 0, 21.06604, 256)

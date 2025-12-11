@@ -15,6 +15,15 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		print ("playerin")
+		print("DEBUG: interact pressed inside trigger; dialogue_id = ", dialogue_id)
+
+		if DialogueOrchestrator.is_dialogue_active():
+			print("DEBUG: dialogue already active, ignoring start()")
+			return
+
+		print("DEBUG: calling DialogueOrchestrator.start(...)")
+		DialogueOrchestrator.start(dialogue_id)
+		get_viewport().set_input_as_handled()
 		_player_inside = true
 
 

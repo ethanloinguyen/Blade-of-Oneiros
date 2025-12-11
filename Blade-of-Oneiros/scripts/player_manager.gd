@@ -9,9 +9,6 @@ var next_spawn: StringName = &"default"
 
 
 func _ready() -> void:
-	#player = PLAYER.instantiate()
-	#player.add_to_group("player")
-	#player.owner = null
 	check_exist()
 	get_tree().scene_changed.connect(_on_scene_changed)
 	
@@ -43,9 +40,6 @@ func change_level(scene_path: String, spawn_tag: StringName = "default") -> void
 			parent.remove_child(player)
 			root.add_child(player)
 
-		#if player.get_parent() != root:
-			#player.get_parent().remove_child(player)
-			#root.add_child(player)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	
 
@@ -107,23 +101,9 @@ func _place_player() ->void:
 		if cam:
 			cam.snap_to_player()
 
-	# reinstantiate enemy container
-	#if entities != null:
-		#var enemy_container:EnemyContainer = entities.find_child("Enemies")
-		#if enemy_container != null:
-			#enemy_container.update_spawn_pos_dict()
-			#var enemy_spawn_pos = enemy_container.enemy_spawn_pos
-			#var container_path = enemy_container.scene_file_path
-			#enemy_container.queue_free()
-			#var new_enemy_container:EnemyContainer = load(container_path).instantiate()
-			#new_enemy_container.enemy_spawn_pos = enemy_spawn_pos
-			#entities.add_child(new_enemy_container)
-			#new_enemy_container.update_spawn_pos_dict()
-	# reinstantiate enemy container
 	if entities != null:
 		var enemy_container := entities.find_child("Enemies") as EnemyContainer
 		if enemy_container == null:
-			# Either there's no "Enemies" node or it doesn't have EnemyContainer script
 			return
 
 		enemy_container.update_spawn_pos_dict()

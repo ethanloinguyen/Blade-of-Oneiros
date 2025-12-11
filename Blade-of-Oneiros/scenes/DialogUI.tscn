@@ -108,7 +108,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 texture = ExtResource("3_trnpe")
-region_rect = Rect2(5.875719, 0.0704155, 237.06134, 54.8045)
+region_rect = Rect2(5.876, 0.07, 237.016, 54.805)
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/DialogueBG"]
 texture_filter = 3
