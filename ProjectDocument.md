@@ -73,21 +73,22 @@ As the producer, I was mainly in charge of organizing group meetings, planning o
 In my secondary role, I oversaw the game's audio pipeline. This included selecting and editing sound effects, integrating them into the Godot project, and ensuring proper triggers for footsteps, combat actions, and cutscenes. This ties into the course content related to game asset pipelines, resource importing, and the separation of content and engine logic.
 
 **SFX Trigger System**
-I attached audio cues to player actions and cutscene events, ensuring timing alignment and state-based playback. This relates to state machines and event-driven programming from the course.
+I attached [audio cues](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/player.gd#L155) to player actions and cutscene events, ensuring timing alignment and state-based playback. This relates to state machines and event-driven programming from the course.
 
 
 # Other Contributions #
 **Cutscene Integration System**
-I implemented the logic that connects cutscenes with playable segments, ensuring scene transitions properly pause input, manage player state, and resume gameplay afterward. This relates to finite state machines and scene management discussed in class.
+I implemented the logic that connects cutscenes with playable segments, ensuring scene transitions properly pause input, [manage player state](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/player.gd#L103C2-L105C9), and resume gameplay afterward. This relates to finite state machines and scene management discussed in class.
 
 **Title Screen and Death Screen Flow**
-I scripted and integrated the title screen and death screen so the game transitions reliably between menus and gameplay scenes. This included handling input locking, scene switching, and resetting game state, tying into the course's lessons on UI flow, scene trees, and modular game state management.
+I scripted and integrated the [title screen](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/screens/title_screen.gd) and [death screen](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/screens/death_screen.gd) so the game transitions reliably between menus and gameplay scenes. This included handling input locking, scene switching, and resetting game state, tying into the course's lessons on UI flow, scene trees, and modular game state management.
 
 **Code Patching & Bug Fixes**
-I assisted multiple team members by debugging and stitching together gameplay components that were developed independently. This involved resolving script conflicts, ensuring consistent signal usage, and cleaning up game logic connecting to course topics on debugging strategies and communication between game modules.
+I assisted multiple team members by debugging and stitching together gameplay components that were developed independently. This involved resolving script conflicts, ensuring [consistent signal usage](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/GameState.gd), and cleaning up game logic connecting to course topics on debugging strategies and communication between game modules.
 
 Below is a diagram of how the overall transitions look:
-![]("Blade-of-Oneiros/documentation/179 Scene State Diagram.JPEG")
+![179 Scene State Diagram](https://github.com/user-attachments/assets/02f3b293-ad58-4ca3-83b1-a070f31aca97)
+
 
  # Quinton Nguyen #
 
@@ -616,5 +617,6 @@ https://opengameart.org/content/generic-8-bit-jrpg-soundtrack
 Assisted Alfred in bringing his code into repository through Git 
 
 and implemented dialogue skip button.
+
 
 
