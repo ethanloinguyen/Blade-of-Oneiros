@@ -15,6 +15,7 @@ func _ready() -> void:
 	animation_player.play("default")
 	start_button.pressed.connect(_on_start_button_pressed)
 	intro_video.finished.connect(_on_video_finished)
+	music_audio.loop = true
 	play_audio(music_audio)
 	
 	
@@ -33,7 +34,7 @@ func _on_start_button_pressed():
 	background.visible = false
 	start_button.visible = false
 	title.visible = false
-	stop_audio()
+	audio.stop()
 	
 	#Show and start video
 	intro_video.visible = true
@@ -66,8 +67,6 @@ func play_audio(_stream : AudioStream) -> void:
 	audio.stream = _stream
 	audio.play()	
 	
-func stop_audio():
-	audio.stop()
 			
 func _skip_video():
 	intro_video.stop()

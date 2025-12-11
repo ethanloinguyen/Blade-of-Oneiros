@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bib054f3xmxj0"]
+[gd_scene load_steps=8 format=3 uid="uid://bib054f3xmxj0"]
 
 [ext_resource type="Script" uid="uid://dsp6nn5yqrx23" path="res://scripts/screens/death_screen.gd" id="1_3wubt"]
 [ext_resource type="Texture2D" uid="uid://bwwvgtu7xqa5y" path="res://assets/ui/deathscreen/youdied.png" id="2_6g7ta"]
+[ext_resource type="AudioStream" uid="uid://1dyvyq5nbj1g" path="res://assets/audio/music/20 - Game Over.ogg" id="2_m8qf3"]
 [ext_resource type="Texture2D" uid="uid://cmx1gr47qnpgm" path="res://assets/ui/deathscreen/menu.png" id="3_bc1nx"]
 [ext_resource type="Texture2D" uid="uid://b8b1t7qgxp6xn" path="res://assets/ui/deathscreen/menu_hover.png" id="4_ekl2i"]
 [ext_resource type="Texture2D" uid="uid://clxjfs0gfqa5u" path="res://assets/ui/deathscreen/respawn.png" id="5_ekl2i"]
@@ -9,6 +10,7 @@
 
 [node name="DeathScreen" type="Node2D"]
 script = ExtResource("1_3wubt")
+music_audio = ExtResource("2_m8qf3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -60,3 +62,5 @@ texture_hover = ExtResource("6_w2in8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

@@ -4,13 +4,18 @@ extends Node
 @onready var respawn_button = $CanvasLayer/Respawn
 @onready var background = $CanvasLayer/ColorRect
 @onready var you_died_text = $CanvasLayer/YouDied
-
+@onready var audio = $AudioStreamPlayer2D
+@export var music_audio: AudioStream
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	music_audio.loop = true
+	play_audio(music_audio)
 	menu_button.pressed.connect(_on_menu_button_pressed)
 	respawn_button.pressed.connect(_on_respawn_button_pressed)
 	_hide_death_screen()
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -51,3 +56,13 @@ func _hide_death_screen():
 	respawn_button.visible = false
 	you_died_text.visible = false
 	
+func play_audio(_stream : AudioStream) -> void:
+	audio.stream = _stream
+	_fade_in_audio(3) 
+	
+func _fade_in_audio(duration := 1.5):
+	audio.volume_db = -40.0   # start very quiet
+	audio.play()
+
+	var tween := get_tree().create_tween()
+	tween.tween_property(audio, "volume_db", 0.0, duration)
