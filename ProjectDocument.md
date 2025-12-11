@@ -21,7 +21,7 @@ If your project contains code that: 1) your team did not write, and 2) does not 
 The basis of the Dialogue class/what Alfred used in the very beginning was made with help from Andrew Hoffman's youtube video: [Build a Top-Down 2D GODOT RPG in 20 Minutes!](https://www.youtube.com/watch?v=-4jEXTwTsVI&t=932s). Thank you!
 
 The Dialogue Orchestrator, DialogUI, and tooltip.gd and other associated files were designed by Alfred, as well as the pseudocode associated with it, and the flow as a whole. 
-However, the code implementation, especially towards the very end, was created in assistance with ChatGPT.
+However, the DialogueUI Shaders, as well as the debugging features towards the end, were implemented with the help of ChatGPT. Thank you!
 
 
 If you used tutorials or other intellectual guidance to create aspects of your project, include reference to that information as well.
@@ -636,6 +636,7 @@ Another part of my work involved connecting all gameplay systems to the Animatio
 
 # Other Contributions #
 Helped link up transitions between level scenes through level_transition.gd and door.gd. I also helped with the Player’s upgraded sprite, potion, and key amounts being persistent between death and respawns. Played a huge part in recording audio and voicing most of the player’s sound effects.
+
 
 
 
