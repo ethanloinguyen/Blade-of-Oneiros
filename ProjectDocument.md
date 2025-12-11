@@ -55,33 +55,17 @@ Here is an example:
 
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
-Add addition contributions int he Other Contributions section.
+Add addition contributions in the Other Contributions section.
 # Ethan Nguyen #
 
-# Main Roles #
-
-
-* AI and Behavior Designer: [Ben Nelson](https://github.com/bnelson1324)
-
-## Game Logic (Jerome Hernandez) ##
-
-## AI and Behavior Designer (Ben Nelson) ##
-
-### Finite State Machine ###
-
-
-### Basic Enemy AI ###
-
-![](Blade-of-Oneiros/documentation/enemy%20AI%20FSM.jpg)
+# Main Role: Producer #
+As the producer, I was mainly in charge of organizing group meetings, planning out the project, and performing basic team logistics. I set up the github repository and then created the workflow for the project on [github](https://github.com/users/ethanloinguyen/projects/1/views/1). each member was assigned a ticket that was needed for project 
 
 # Sub-Roles #
 
-* Game Feel: [Ben Nelson](https://github.com/bnelson1324)
 
 # Other Contributions #
-
-
-## Ben Nelson ##
+Despite my main role being the producer and my second role being audio, both of which have minimal direct programming, I ended up coding a decent amount on the project. I ended up being responsible for sewing the game's cutscenes and title/death screens back to the overall game. 
 
 
 
