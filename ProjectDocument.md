@@ -87,7 +87,7 @@ I scripted and integrated the title screen and death screen so the game transiti
 I assisted multiple team members by debugging and stitching together gameplay components that were developed independently. This involved resolving script conflicts, ensuring consistent signal usage, and cleaning up game logic connecting to course topics on debugging strategies and communication between game modules.
 
 Below is a diagram of how the overall transitions look:
-![](Blade-of-Oneiros/documentation/179 Scene State Diagram.JPEG)
+![]("Blade-of-Oneiros/documentation/179 Scene State Diagram.JPEG")
 
  # Quinton Nguyen #
 
@@ -616,4 +616,5 @@ https://opengameart.org/content/generic-8-bit-jrpg-soundtrack
 Assisted Alfred in bringing his code into repository through Git 
 
 and implemented dialogue skip button.
+
 
