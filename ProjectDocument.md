@@ -21,7 +21,7 @@ If your project contains code that: 1) your team did not write, and 2) does not 
 The basis of the Dialogue class/what Alfred used in the very beginning was made with help from Andrew Hoffman's youtube video: [Build a Top-Down 2D GODOT RPG in 20 Minutes!](https://www.youtube.com/watch?v=-4jEXTwTsVI&t=932s). Thank you!
 
 The Dialogue Orchestrator, DialogUI, and tooltip.gd and other associated files were designed by Alfred, as well as the pseudocode associated with it, and the flow as a whole. 
-However, most of the code implementation, especially towards the very end, was created in assistance with ChatGPT.
+However, the code implementation, especially towards the very end, was created in assistance with ChatGPT.
 
 
 If you used tutorials or other intellectual guidance to create aspects of your project, include reference to that information as well.
@@ -616,3 +616,4 @@ https://opengameart.org/content/generic-8-bit-jrpg-soundtrack
 Assisted Alfred in bringing his code into repository through Git 
 
 and implemented dialogue skip button.
+
