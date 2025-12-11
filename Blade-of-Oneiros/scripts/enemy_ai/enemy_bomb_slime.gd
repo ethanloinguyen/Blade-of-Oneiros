@@ -9,9 +9,10 @@ extends CharacterBody2D
 @export var start_jumping:bool
 @export var jump_duration:float
 
-@export var slime_attack_audio: AudioStream
+@export var attack_audio: AudioStream
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
+@export var explode_audio: AudioStream
 
 @onready var sprite:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health:Health = $Health
@@ -50,6 +51,9 @@ func _ready():
 
 		if (sprite.animation.begins_with("hurt")):
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
+			
+		if (explode_sprite.animation.begins_with("explode")) and explode_sprite.frame == 4:
+			play_audio(explode_audio)
 	)
 
 	# handle explosion

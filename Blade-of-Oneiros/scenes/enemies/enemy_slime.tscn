@@ -1,11 +1,14 @@
-[gd_scene load_steps=156 format=3 uid="uid://cmy6ymoibmm2m"]
+[gd_scene load_steps=159 format=3 uid="uid://cmy6ymoibmm2m"]
 
 [ext_resource type="Script" uid="uid://b3q6umnnckdre" path="res://scripts/enemy_ai/enemy.gd" id="1_mkyue"]
 [ext_resource type="AudioStream" uid="uid://deth3hlu0rl2f" path="res://assets/audio/slime/slimedeath.mp3" id="2_2p468"]
+[ext_resource type="AudioStream" uid="uid://pqnkq4b6jdig" path="res://assets/audio/slime/slimeattack1.wav" id="2_xnqyc"]
+[ext_resource type="AudioStream" uid="uid://bk25sbsqm1xoo" path="res://assets/audio/slime/slimeattack2.wav" id="3_fkpsb"]
 [ext_resource type="Script" uid="uid://cd7rxd2ibfalf" path="res://scripts/combat/hitbox.gd" id="3_fpxyv"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="3_lkcdx"]
 [ext_resource type="AudioStream" uid="uid://4mmi2j4noj1x" path="res://assets/audio/slime/slimehurt1.wav" id="3_uha0q"]
 [ext_resource type="Texture2D" uid="uid://cl31jqs14fgu5" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Idle_with_shadow.png" id="4_8c00y"]
+[ext_resource type="AudioStream" uid="uid://djyvoh77ydjid" path="res://assets/audio/slime/slimeattack3.wav" id="4_bcndl"]
 [ext_resource type="AudioStream" uid="uid://da3oolg4dteld" path="res://assets/audio/slime/slimehurt2.wav" id="4_jkghi"]
 [ext_resource type="Texture2D" uid="uid://df7imlxh27mt2" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Attack_with_shadow.png" id="4_jqw88"]
 [ext_resource type="Texture2D" uid="uid://dpy8bjduomqaq" path="res://assets/mobs/slimes/Slime1/With_shadow/Slime1_Walk_with_shadow.png" id="4_lkcdx"]
@@ -1114,6 +1117,7 @@ speed = 60.0
 move_avoid_collision_dist = 50.0
 chase_leash_distance = 10.0
 attack_distance = 20.0
+attack_audio = Array[AudioStream]([ExtResource("2_xnqyc"), ExtResource("3_fkpsb"), ExtResource("4_bcndl")])
 death_audio = ExtResource("2_2p468")
 hurt_audio = Array[AudioStream]([ExtResource("3_uha0q"), ExtResource("4_jkghi"), ExtResource("5_8vnxq")])
 
