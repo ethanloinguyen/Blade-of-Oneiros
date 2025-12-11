@@ -9,9 +9,6 @@ var next_spawn: StringName = &"default"
 
 
 func _ready() -> void:
-	#player = PLAYER.instantiate()
-	#player.add_to_group("player")
-	#player.owner = null
 	check_exist()
 	get_tree().scene_changed.connect(_on_scene_changed)
 	
@@ -43,9 +40,6 @@ func change_level(scene_path: String, spawn_tag: StringName = "default") -> void
 			parent.remove_child(player)
 			root.add_child(player)
 
-		#if player.get_parent() != root:
-			#player.get_parent().remove_child(player)
-			#root.add_child(player)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	
 
