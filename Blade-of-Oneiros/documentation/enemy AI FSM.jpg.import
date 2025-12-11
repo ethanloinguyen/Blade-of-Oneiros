@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqkrba0u50l1l"
-path="res://.godot/imported/tooltip.png-ac49d676c859bcc6ae9cf1d79e8ffff3.ctex"
+uid="uid://cpxc6rgw8tady"
+path="res://.godot/imported/enemy AI FSM.jpg-d91950863fc0a198eede292bc13d148a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/tutorial/tooltip.png"
-dest_files=["res://.godot/imported/tooltip.png-ac49d676c859bcc6ae9cf1d79e8ffff3.ctex"]
+source_file="res://documentation/enemy AI FSM.jpg"
+dest_files=["res://.godot/imported/enemy AI FSM.jpg-d91950863fc0a198eede292bc13d148a.ctex"]
 
 [params]
 

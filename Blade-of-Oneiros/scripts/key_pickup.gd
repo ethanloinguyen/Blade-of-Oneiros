@@ -4,7 +4,7 @@ extends Node2D
 
 @onready var sprite := $Sprite2D
 @onready var area := $Area2D
-@export var pickup_id: StringName = "key_1"   # MUST be unique per key instance
+@export var pickup_id: StringName = "key_1"  
 
 
 func _ready():

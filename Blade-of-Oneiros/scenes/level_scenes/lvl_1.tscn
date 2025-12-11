@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cuiacgigade2i"]
+[gd_scene load_steps=15 format=4 uid="uid://cuiacgigade2i"]
 
 [ext_resource type="Script" uid="uid://dofim5r66ei11" path="res://scripts/level.gd" id="1_l8iau"]
 [ext_resource type="AudioStream" uid="uid://bxoopimuqqdrt" path="res://assets/audio/music/dungeonmusic.ogg" id="2_7e26i"]
@@ -11,9 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://ds2ns05ftbc5g" path="res://scenes/key.tscn" id="8_0jp12"]
 [ext_resource type="PackedScene" uid="uid://bw3wu3k17g02p" path="res://scenes/interactables/tutorial_paper.tscn" id="9_jpcv7"]
 [ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="10_jpcv7"]
+[ext_resource type="Script" path="res://scenes/level_scenes/tooltip.gd" id="11_7e26i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ilr"]
 size = Vector2(22.5, 18.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oajq3"]
 
 [node name="tutorial_start" type="Node2D"]
 y_sort_enabled = true
@@ -148,5 +151,25 @@ tile_set = ExtResource("2_l8iau")
 
 [node name="BreakableVase" parent="." instance=ExtResource("10_jpcv7")]
 position = Vector2(421.3353, 1167.8708)
+
+[node name="tooltip_bed" type="Area2D" parent="."]
+position = Vector2(310.00003, 1226)
+scale = Vector2(0.95517284, 1.5785339)
+collision_mask = 2
+script = ExtResource("11_7e26i")
+dialogue_id = "tooltip_bed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_bed"]
+shape = SubResource("RectangleShape2D_oajq3")
+
+[node name="tooltip_door" type="Area2D" parent="."]
+position = Vector2(381, 1165)
+scale = Vector2(1.9551775, 0.93853384)
+collision_mask = 2
+script = ExtResource("11_7e26i")
+dialogue_id = "tooltip_door"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_door"]
+shape = SubResource("RectangleShape2D_oajq3")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

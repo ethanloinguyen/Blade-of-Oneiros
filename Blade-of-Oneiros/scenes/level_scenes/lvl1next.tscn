@@ -1,10 +1,8 @@
 [gd_scene load_steps=53 format=4 uid="uid://d2kauldx3frsx"]
 
-[ext_resource type="Script" uid="uid://cxcgmpxxauaoq" path="res://scripts/lvl_1_next.gd" id="1_vuryn"]
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="1_xusmx"]
 [ext_resource type="PackedScene" uid="uid://bsub7obgh0uw8" path="res://scenes/door.tscn" id="2_bya5x"]
 [ext_resource type="Texture2D" uid="uid://dxgmesqjiaxxx" path="res://assets/map/tileset/Objects.png" id="2_dynrj"]
-[ext_resource type="AudioStream" uid="uid://bxoopimuqqdrt" path="res://assets/audio/music/dungeonmusic.ogg" id="2_kxpoo"]
 [ext_resource type="Script" uid="uid://db5glvsbun3wt" path="res://scripts/level_transition.gd" id="2_q3gkm"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_bya5x"]
 [ext_resource type="Texture2D" uid="uid://bywqebn6pou0b" path="res://assets/map/tileset/Water_coasts_animation.png" id="3_yvy3t"]
@@ -16,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d34qb7pfnldo5" path="res://assets/map/dungeon_objects_extra/Interior.png" id="6_yjd8r"]
 [ext_resource type="Texture2D" uid="uid://d3uf6o6t8c2ta" path="res://assets/map/dungeon_objects_extra/full.png" id="7_kgaty"]
 [ext_resource type="PackedScene" uid="uid://dqms8su4ht6k" path="res://scenes/interactables/barred_door.tscn" id="7_wdjpx"]
-[ext_resource type="Script" path="res://scripts/interactable_scripts/breakable_tiles.gd" id="8_1orwu"]
+[ext_resource type="Script" uid="uid://x0xxuw70csg1" path="res://scripts/breakable_tiles.gd" id="8_1orwu"]
 [ext_resource type="Texture2D" uid="uid://bmub1d1q1n24d" path="res://assets/map/tileset/walls_floor.png" id="8_2xmai"]
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="9_l5sba"]
 [ext_resource type="Texture2D" uid="uid://cnfdfavidmc2o" path="res://assets/map/tileset/fire_animation.png" id="10_orr7t"]
@@ -33,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://b4rjp4ug8igat" path="res://scenes/level_enemy_containers/lvl1enemies.tscn" id="27_kgaty"]
 [ext_resource type="PackedScene" uid="uid://b7kese1ixn7rr" path="res://scenes/interactables/triggerscene.tscn" id="30_orr7t"]
 [ext_resource type="PackedScene" uid="uid://bi6c4e5gohuk6" path="res://scenes/interactables/breakable vase.tscn" id="31_pbiu2"]
+[ext_resource type="Script" uid="uid://dcgwda164oi37" path="res://scenes/level_scenes/tooltip.gd" id="32_w5uhu"]
 
 [sub_resource type="Gradient" id="Gradient_07sfe"]
 offsets = PackedFloat32Array(0.06, 0.27333334, 0.54, 0.7733333, 0.98)
@@ -4068,10 +4067,10 @@ size = Vector2(28.425018, 20.631012)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvy3t"]
 size = Vector2(22.5, 21.400024)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuryn"]
+
 [node name="Level1" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_vuryn")
-music_audio = ExtResource("2_kxpoo")
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 top_level = true
@@ -4322,15 +4321,93 @@ position = Vector2(-544.59595, -280.7005)
 position = Vector2(-44.53356, 556.5205)
 collision_mask = 2
 script = ExtResource("2_q3gkm")
-target_scene = "uid://qf60ey6t8ph6"
-target_spawn = &"boss"
+target_scene = "uid://bcbuduh4hhutk"
+target_spawn = &"pre_boss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bossskip"]
 z_index = 3
 position = Vector2(7, -1.4249878)
 shape = SubResource("RectangleShape2D_yvy3t")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="tooltip_pot" type="Area2D" parent="."]
+position = Vector2(64, 1188)
+scale = Vector2(-1.456391, 1.2369972)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_pot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_pot"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_fireplace" type="Area2D" parent="."]
+position = Vector2(256.00003, 906)
+scale = Vector2(-1.8163959, 1.3403748)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_fireplace"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_fireplace"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_lever" type="Area2D" parent="."]
+position = Vector2(201, 786)
+scale = Vector2(-1.8163959, 1.3403748)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_lever"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_lever"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_armor" type="Area2D" parent="."]
+position = Vector2(259.00003, 776)
+scale = Vector2(-3.2818542, -1.7828795)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_armor"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_armor"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_lever2" type="Area2D" parent="."]
+position = Vector2(287.00003, 1062)
+scale = Vector2(-1.8163959, 1.3403748)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_lever"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_lever2"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_pot2" type="Area2D" parent="."]
+position = Vector2(4, 1188)
+scale = Vector2(-1.456391, 1.2369972)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_pot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_pot2"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_pot3" type="Area2D" parent="."]
+position = Vector2(-106, 857)
+scale = Vector2(-1.456391, 1.2369972)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_pot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_pot3"]
+shape = SubResource("RectangleShape2D_vuryn")
+
+[node name="tooltip_block" type="Area2D" parent="."]
+position = Vector2(-37.999996, 847.00006)
+scale = Vector2(-3.9679549, 1.2369972)
+collision_mask = 2
+script = ExtResource("32_w5uhu")
+dialogue_id = "tooltip_block"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_block"]
+shape = SubResource("RectangleShape2D_vuryn")
 
 [connection signal="activated" from="Entities/Lever" to="Entities/BarredDoor3" method="_open"]
 [connection signal="activated" from="Entities/Lever" to="Entities/BarredDoor4" method="_open"]
