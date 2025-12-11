@@ -26,6 +26,11 @@ Inventory="*res://scripts/hud/inventory.gd"
 hud="*res://scenes/hud.tscn"
 StaminaSystem="*res://scripts/combat/Stamina.gd"
 
+[display]
+
+window/size/resizable=false
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="Blade-of-Oneiros"
