@@ -2,10 +2,9 @@ extends Resource
 class_name DialogueScriptBossIntro
 
 ## Boss intro cutscene script
-## Used by DialogueOrchestrator with dialogue_id = "boss_fight"
+
 
 func run(orchestrator) -> void:
-	# Clear any leftover steps from previous dialogues / cutscenes
 	orchestrator.clear_steps()
 	orchestrator.set_speakers("swordsman_lvl2", "oldmansmiles")
 
@@ -25,8 +24,8 @@ func run(orchestrator) -> void:
 		
 	orchestrator.npc_face("oldmansmiles", "down")
 	orchestrator.npc_and_player_move(
-		Vector2(8,260),  # NPC target
-		Vector2(8,319),  # Player step back
+		Vector2(8,260),  
+		Vector2(8,319), 
 		"down",
 		"up",
 		50
@@ -153,6 +152,8 @@ func run(orchestrator) -> void:
 		"color": Color(0.0, 0.741, 0.346, 1.0),
 		"size": 12,
 	})
+	# A cheap/cheat way to have the orchestrator wait/make the UI disappear.
+	# Have an offscreen element move exactly 5 seconds
 	orchestrator.npc_moveto("movethis", Vector2(-280.0,514.0))
 	chorus_voices = [
 		{
