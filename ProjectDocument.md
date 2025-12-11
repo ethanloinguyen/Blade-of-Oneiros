@@ -60,20 +60,35 @@ You should replay any **bold text** with your relevant information. Liberally us
 Add addition contributions int he Other Contributions section.
 # Ethan Nguyen #
 
-## Main Roles ##
-
-## Sub-Roles ##
-
-## Other Contributions ##
+# Main Roles #
 
 
-# Jerome Hernandez #
+* AI and Behavior Designer: [Ben Nelson](https://github.com/bnelson1324)
 
-## Main Roles ##
+## Game Logic (Jerome Hernandez) ##
 
-## Sub-Roles ##
+## AI and Behavior Designer (Ben Nelson) ##
 
-## Other Contributions ##
+### Finite State Machine ###
+
+
+### Basic Enemy AI ###
+
+![](Blade-of-Oneiros/documentation/enemy%20AI%20FSM.jpg)
+
+# Sub-Roles #
+
+* Game Feel: [Ben Nelson](https://github.com/bnelson1324)
+
+# Other Contributions #
+
+
+## Ben Nelson ##
+
+
+
+
+
 
 # Afifah Hadi #
 
