@@ -15,6 +15,7 @@ extends CharacterBody2D
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
 
+
 @export var projectile:PackedScene
 @export var rain_slime:PackedScene
 

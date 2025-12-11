@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqms8su4ht6k"]
+[gd_scene load_steps=11 format=3 uid="uid://dqms8su4ht6k"]
 
 [ext_resource type="Texture2D" uid="uid://cx805rqc4k463" path="res://assets/map/tileset/doors_lever_chest_animation.png" id="1_mahfm"]
 [ext_resource type="Script" uid="uid://d2whycugnw03g" path="res://scripts/barred_door.gd" id="1_mrjan"]
+[ext_resource type="AudioStream" uid="uid://dgirjwcx4i38g" path="res://assets/audio/gateopen.wav" id="2_rf6uo"]
 [ext_resource type="AudioStream" uid="uid://obwth85dqt67" path="res://assets/audio/grave-yard-iron-gate-opening-392362.mp3" id="3_mrjan"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrjan"]
@@ -139,6 +140,7 @@ z_index = 2
 y_sort_enabled = true
 collision_mask = 7
 script = ExtResource("1_mrjan")
+gate_audio = ExtResource("2_rf6uo")
 
 [node name="blocker" type="CollisionShape2D" parent="."]
 position = Vector2(4.00196, -13.170459)

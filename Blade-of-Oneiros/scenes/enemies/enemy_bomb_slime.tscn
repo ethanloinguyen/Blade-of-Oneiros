@@ -1,6 +1,7 @@
-[gd_scene load_steps=95 format=3 uid="uid://d1s8l4r338100"]
+[gd_scene load_steps=96 format=3 uid="uid://d1s8l4r338100"]
 
 [ext_resource type="Script" uid="uid://ef5aapeajhjh" path="res://scripts/enemy_ai/enemy_bomb_slime.gd" id="1_apeok"]
+[ext_resource type="AudioStream" uid="uid://b8aqfn2e38n5a" path="res://assets/audio/slime/loudslimeexplosion.wav" id="2_wm5m7"]
 [ext_resource type="Texture2D" uid="uid://cr0edgpcdigge" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Death_with_shadow.png" id="4_y28a6"]
 [ext_resource type="Script" uid="uid://cwcorrfft7hdn" path="res://scripts/combat/health.gd" id="6_1mog4"]
 [ext_resource type="Texture2D" uid="uid://dtndfy8y2i8ko" path="res://assets/mobs/slimes/Slime3/With_shadow/Slime3_Run_with_shadow.png" id="6_v6nsm"]
@@ -672,6 +673,7 @@ speed = 80.0
 move_avoid_collision_dist = 70.0
 attack_distance = 20.0
 jump_duration = 0.8
+explode_audio = ExtResource("2_wm5m7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_22uif")
@@ -689,7 +691,7 @@ shape = SubResource("RectangleShape2D_22uif")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_wm5m7")
-animation = &"idle_down"
+animation = &"explode_right"
 
 [node name="ExplodeSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
