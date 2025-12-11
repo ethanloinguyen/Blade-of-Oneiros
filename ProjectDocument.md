@@ -1,4 +1,4 @@
-# The title of your game #
+# Blade of Oneiros #
 
 ## Summary ##
 
@@ -75,4 +75,15 @@ Add addition contributions int he Other Contributions section.
 ## Sub-Roles ##
 
 ## Other Contributions ##
+
+# Afifah Hadi #
+
+## Animation and Visuals ##
+
+## Technical Artist ##
+
+## Other Contributions ##
+- Git debugger 
+- Background music
+- Small contributions to Dialogue system
 
