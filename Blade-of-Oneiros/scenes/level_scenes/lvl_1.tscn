@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://cuiacgigade2i"]
+[gd_scene load_steps=15 format=4 uid="uid://cuiacgigade2i"]
 
 [ext_resource type="Script" uid="uid://dofim5r66ei11" path="res://scripts/level.gd" id="1_l8iau"]
+[ext_resource type="AudioStream" uid="uid://bxoopimuqqdrt" path="res://assets/audio/music/dungeonmusic.ogg" id="2_7e26i"]
 [ext_resource type="PackedScene" uid="uid://cnmnm7x3tww41" path="res://scenes/OldManSmiles/OldManSmiles.tscn" id="2_jpcv7"]
 [ext_resource type="TileSet" uid="uid://dpssabsldbk1n" path="res://assets/tilesets/tilemaplayer.tres" id="2_l8iau"]
 [ext_resource type="Script" uid="uid://tdtsst8lreg4" path="res://scripts/spawn_point.gd" id="3_hwdor"]
@@ -20,6 +21,7 @@ size = Vector2(22.5, 18.25)
 [node name="tutorial_start" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_l8iau")
+music_audio = ExtResource("2_7e26i")
 
 [node name="OldManSmiles" parent="." instance=ExtResource("2_jpcv7")]
 position = Vector2(443, 1259)
@@ -169,3 +171,5 @@ dialogue_id = "tooltip_door"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_door"]
 shape = SubResource("RectangleShape2D_oajq3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
