@@ -1,5 +1,10 @@
+# ==================================================================== DialogueOrchestrator
+# Central system for running dialogue scripts and durative queues, driving DialogUI, and orchestrating cutscene actions
 extends Node
 
+
+
+# ==================================================================== State & configuration
 enum State {
 	IDLE,
 	RUNNING_SCRIPT
@@ -16,23 +21,16 @@ var _step_index: int = 0
 var _parallel_actions_remaining: int = 0
 var _is_tooltip_run: bool = false
 
-
-# True while a blocking tween / action is in progress
 var _is_blocking_step: bool = false
 
-# Map character IDs (like "swordsman", "shadowman") to actual nodes
 var _character_registry: Dictionary = {}
 
-# Camera handling for cutscenes
 var _original_camera: Camera2D = null
 var _cutscene_camera: Camera2D = null
 
-# Optional: if other systems want to listen for cutscene actions
-signal action_enqueued(character_id: String, action_type: String, payload: Dictionary)
 signal dialogue_finished(dialogue_id: String)
 
-# Map dialogue IDs to script resource paths.
-# You can fill this in code or via an exported Dictionary if you prefer.
+# This is used to map the dialogue_id straight to the dialogue_script.gd
 var _script_paths: Dictionary = {
 	"npc_intro_1": "res://scripts/dialogue/scripts/dialogue_script_intro.gd",
 	"npc_intro_2": "res://scripts/dialogue/scripts/dialogue_script_intro_2.gd",
@@ -40,8 +38,8 @@ var _script_paths: Dictionary = {
 	"tooltip_1": "res://scripts/dialogue/scripts/dialogue_script_tooltip_1.gd",
 	"pre_boss_fight": "res://scripts/dialogue/scripts/dialogue_script_boss_intro.gd",
 	"post_boss": "res://scripts/dialogue/scripts/dialogue_script_boss_finish.gd",
-
-	# New tooltips
+	
+	# This portion of script_patchs is dedicated to the tooktips
 	"tooltip_door": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_door.gd",
 	"tooltip_bed": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_bed.gd",
 	"tooltip_pot": "res://scripts/dialogue/scripts/tooltips/dialogue_script_tooltip_pot.gd",
@@ -52,7 +50,14 @@ var _script_paths: Dictionary = {
 }
 
 
+
+# ==================================================================== Orchastrator lifecycle
+
+# The ready function properly checks to see if:
+# The dialog UI exists as a whole, and if it does, have it ready for processing
+# If not, throw an error, but don't break everything
 func _ready() -> void:
+	# Need this to make sure that the dialog box actually shows up
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Try to find any node named "DialogUI" anywhere in the tree.
 	_dialog_ui = get_tree().root.find_child("DialogUI", true, false)
@@ -62,15 +67,15 @@ func _ready() -> void:
 	else:
 		print("DEBUG: DialogueOrchestrator found DialogUI at: ", _dialog_ui.get_path())
 
-# --------------------------------------------------------------
-# Public API: Player / triggers use these
-# --------------------------------------------------------------
+# -------------------------------------------------------------- Public API
+# This is the part of the code that triggers use to function with the orchestrator
 
+# Returns if dialogUI is active
 func is_dialogue_active() -> bool:
 	if _dialog_ui == null:
 		return false
 
-	# Tooltips: UI is open, but should NOT block gameplay
+	# Tooltips - UI is open, but DO NOT block gameplay
 	if _dialog_ui.has_method("is_tooltip_open") and _dialog_ui.is_tooltip_open():
 		return false
 
@@ -79,10 +84,7 @@ func is_dialogue_active() -> bool:
 
 	return _state != State.IDLE
 
-
-
-
-
+# Start the dialogue
 func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false) -> void:
 	print("DEBUG: DialogueOrchestrator.start called with id: ", dialogue_id)
 
@@ -90,7 +92,7 @@ func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false
 		print("DEBUG: state is not IDLE (", _state, "), aborting")
 		return
 
-	_is_tooltip_run = is_tooltip  # <<< NEW
+	_is_tooltip_run = is_tooltip  
 
 	if !_script_paths.has(dialogue_id):
 		push_warning("DialogueOrchestrator: No script found for id '%s'" % dialogue_id)
@@ -98,11 +100,11 @@ func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false
 		return
 	print("DEBUG: _script_paths HAS key: ", dialogue_id)
 
-	# Use the dialog_ui if one was passed in, otherwise auto-resolve
+	# Use the dialog_ui, else auto-resolve
 	if dialog_ui != null:
 		set_dialog_ui(dialog_ui)
 	elif _dialog_ui == null:
-		# Try the self-registration first (in case DialogUI loaded after us)
+		# If DialogUI launched first, autorun
 		var found := get_tree().root.find_child("DialogUI", true, false)
 		if found == null:
 			push_warning("DialogueOrchestrator: DialogUI not found; cannot start dialogue.")
@@ -125,10 +127,11 @@ func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false
 	_step_index = 0
 	_state = State.RUNNING_SCRIPT
 
-	# Reset camera state for this run
+	# Reset camera state
 	_original_camera = null
 	_cutscene_camera = null
 
+	# Pull up dialogue script, and read it
 	var path: String = _script_paths[dialogue_id]
 	print("DEBUG: loading script at path: ", path)
 	var script_res: Resource = load(path)
@@ -139,7 +142,6 @@ func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false
 	print("DEBUG: running script_instance.run(self)")
 	script_instance.run(self)
 
-	# NEW: look at _steps, not just _current_lines
 	print("DEBUG: steps collected: %d" % _steps.size())
 
 	if _steps.is_empty():
@@ -147,13 +149,11 @@ func start(dialogue_id: String, dialog_ui: Node = null, is_tooltip: bool = false
 		_finish_dialogue()
 		return
 
-	# If you pause gameplay for dialogue, you can do that here
-	# get_tree().paused = true
-
-	# Start our step-based playback: move → line → move → line…
+	#Start durative actions
 	_start_sequence()
 
-
+# ==================================================================== Finish calls
+# Is the dialogue finished
 func _finish_dialogue() -> void:
 	if _dialog_ui != null and _dialog_ui.has_method("close"):
 		_dialog_ui.close()
@@ -170,19 +170,17 @@ func on_dialogue_finished() -> void:
 	_current_lines.clear()
 	_current_script_id = ""
 
-	_is_tooltip_run = false  # <<< NEW
+	_is_tooltip_run = false  
 
 	dialogue_finished.emit(finished_id)
 
 
 
 
-# --------------------------------------------------------------
-# Character registry (so actions can find real nodes)
-# --------------------------------------------------------------
-
+# ==================================================================== Character registration
+# Used by nodes to connect actions
 func register_character(character_id: String, node: Node) -> void:
-	# Example: register_character("swordsman", player_node)
+
 	if node == null:
 		return
 	_character_registry[character_id] = node
@@ -196,20 +194,20 @@ func unregister_character(character_id: String, node: Node) -> void:
 
 
 func _get_character_node(character_id: String) -> Node:
-	# 1) Registry lookup with validity check
+	# Character lookup
 	if _character_registry.has(character_id):
 		var cached = _character_registry[character_id]
-		# Make sure the cached node hasn't been freed
+		# Ensure the cached node hasn't been freed
 		if is_instance_valid(cached):
 			return cached
-		# If it's stale, drop it so we can re-resolve
+		# If stale, drop it so we can re-resolve
 		_character_registry.erase(character_id)
 
-	# 2) Fallback: try to find by group "character"
-	for n in get_tree().get_nodes_in_group("character"):
-		if is_instance_valid(n) and n.has_meta("character_id") and n.get_meta("character_id") == character_id:
-			_character_registry[character_id] = n
-			return n
+	# As a fallback, try to find by group "character"
+	for chara_node in get_tree().get_nodes_in_group("character"):
+		if is_instance_valid(chara_node) and chara_node.has_meta("character_id") and chara_node.get_meta("character_id") == character_id:
+			_character_registry[character_id] = chara_node
+			return chara_node
 
 	# 3) Extra fallback: player / swordsman group
 	if character_id == "player" or character_id == "swordsman":
@@ -220,20 +218,12 @@ func _get_character_node(character_id: String) -> Node:
 
 	return null
 
-
-
-
-
-# --------------------------------------------------------------
-# API used BY dialogue scripts
-# --------------------------------------------------------------
+# ==================================================================== APIs used by dialogue script
 
 func clear_steps() -> void:
 	_current_lines.clear()
 	_steps.clear()
 	_step_index = 0
-
-
 
 func speak(character_id: String, text: String, overrides: Dictionary = {}) -> void:
 	var speaker_side: String = ""
@@ -244,7 +234,6 @@ func speak(character_id: String, text: String, overrides: Dictionary = {}) -> vo
 
 	var merged_overrides: Dictionary = overrides.duplicate()
 
-	# Tooltip runs: auto-tag
 	if _is_tooltip_run and not merged_overrides.has("is_tooltip"):
 		merged_overrides["is_tooltip"] = true
 
@@ -271,7 +260,7 @@ func npc_disappear(character_id: String, duration: float = 0.5) -> void:
 	action(character_id, "npc_disappear", duration)
 
 
-# --- Helper: fade screen to black ---
+# ---------------------------------------------------Screen Faders
 func fade_out(duration: float = 1.0) -> void:
 	var step := {
 		"kind": "fade",
@@ -280,9 +269,6 @@ func fade_out(duration: float = 1.0) -> void:
 	}
 	_steps.append(step)
 
-
-
-# --- Helper: fade screen from black to clear ---
 func fade_in(duration: float = 1.0) -> void:
 	var step := {
 		"kind": "fade",
@@ -291,24 +277,15 @@ func fade_in(duration: float = 1.0) -> void:
 	}
 	_steps.append(step)
 
+# -------------------------------------------------------Have two players act at the same time
 func parallel_actions(actions: Array) -> void:
-	# Each element of `actions` is a mini-action dict:
-	# {
-	#   "character_id": String,
-	#   "action_type": String,  # e.g. "move"
-	#   "arg1": Variant,
-	#   "arg2": Variant,
-	#   "arg3": Variant,
-	# }
+
 	var step := {
 		"kind": "parallel_action",
 		"actions": actions,
 	}
 	_steps.append(step)
 
-
-# Convenience wrapper for the common case:
-# NPC walks toward player while player steps back.
 func npc_and_player_move(
 	npc_dest: Vector2,
 	player_dest: Vector2,
@@ -325,7 +302,7 @@ func npc_and_player_move(
 			"arg3": npc_facing,
 		},
 		{
-			"character_id": "swordsman", # or "player" if that’s your id
+			"character_id": "swordsman", 
 			"action_type": "move",
 			"arg1": player_dest,
 			"arg2": speed,
@@ -338,7 +315,6 @@ func narrate(text: String, overrides: Dictionary = {}) -> void:
 	var merged_overrides := overrides.duplicate()
 	merged_overrides["is_narration"] = true
 
-	# Tooltip runs: auto-tag
 	if _is_tooltip_run and not merged_overrides.has("is_tooltip"):
 		merged_overrides["is_tooltip"] = true
 
@@ -363,20 +339,14 @@ func narrate(text: String, overrides: Dictionary = {}) -> void:
 
 
 func set_speakers(left_id: String, right_id: String) -> void:
-	# Example: left_id = "swordsman", right_id = "shadowman"
 	_left_character_id = left_id
 	_right_character_id = right_id
 
 
 func set_script_mapping(mapping: Dictionary) -> void:
-	# Optional: allow setting mappings from outside.
 	_script_paths = mapping
 	
-# --- NEW: Cutscene-style actions from dialogue scripts --- #
-# Usage from script:
-#   orchestrator.action("swordsman", "move", Vector2(500, 200))
-#   orchestrator.action("swordsman", "face", "right")
-#   orchestrator.action("swordsman", "attack")
+# ------------------------------------------ Cutscene-style actions from dialogue scripts
 func action(
 	character_id: String,
 	action_type: String,
@@ -394,13 +364,14 @@ func action(
 	}
 	_steps.append(step)
 
+# ====================================================================  Durative runner (core loop)
 func _start_sequence() -> void:
 	if _steps.is_empty():
 		_finish_dialogue()
 		return
 
 	_step_index = 0
-	_is_blocking_step = false  # <--- add this
+	_is_blocking_step = false
 
 	_play_next_step()
 
@@ -449,7 +420,7 @@ func _show_line_step(step: Dictionary) -> void:
 
 	_dialog_ui.show_line(speaker, text, overrides)
 
-
+# ==================================================================== NPC helpers
 
 func npc_appear(character_id: String, duration: float = 0.5) -> void:
 	action(character_id, "npc_appear", duration)
@@ -461,6 +432,8 @@ func npc_moveto(character_id: String, dest: Vector2, facing: String = "", speed:
 func npc_face(character_id: String, facing: String) -> void:
 	action(character_id, "face", facing)
 
+# ==================================================================== Camera helpers
+
 func camera_switch_to(camera_path: Variant) -> void:
 	var step := {
 		"kind": "camera",
@@ -469,7 +442,6 @@ func camera_switch_to(camera_path: Variant) -> void:
 	}
 	_steps.append(step)
 
-
 func camera_restore() -> void:
 	var step := {
 		"kind": "camera",
@@ -477,6 +449,7 @@ func camera_restore() -> void:
 	}
 	_steps.append(step)
 
+# ==================================================================== Dialog UI connection
 
 func set_dialog_ui(ui: Node) -> void:
 	_dialog_ui = ui
@@ -487,11 +460,10 @@ func set_dialog_ui(ui: Node) -> void:
 
 func _on_line_finished() -> void:
 	if _is_blocking_step:
-		# We're in the middle of a blocking action (move, fade, etc),
-		# so ignore stray line_finished signals.
 		return
 	_play_next_step()
 
+# ==================================================================== NPC appear/disappear runners
 
 func _run_npc_appear(target: Node, duration: float) -> void:
 	if target == null:
@@ -509,7 +481,6 @@ func _run_npc_appear(target: Node, duration: float) -> void:
 		else:
 			_play_next_step()
 	else:
-		# Fallback: just pop him in instantly
 		target.modulate.a = 1.0
 		target.visible = true
 		_play_next_step()
@@ -544,6 +515,7 @@ func _run_npc_disappear(target: Node, duration: float) -> void:
 		target.visible = false
 		_play_next_step()
 
+# ==================================================================== Parallel action runner
 
 func _run_parallel_action_step(step: Dictionary) -> void:
 	var actions: Array = step.get("actions", [])
@@ -613,6 +585,8 @@ func _run_parallel_action_step(step: Dictionary) -> void:
 				push_warning("parallel_action: unsupported action_type '%s'" % action_type)
 				_on_parallel_action_one_finished()
 
+# ==================================================================== Single action runner
+
 func _run_action_step(step: Dictionary) -> void:
 	var character_id: String = step["character_id"]
 	var action_type: String = step["action_type"]
@@ -626,7 +600,6 @@ func _run_action_step(step: Dictionary) -> void:
 		_play_next_step()
 		return
 
-	# Hide the dialogue UI while we run blocking movement actions.
 	if action_type == "move" and _dialog_ui != null and _dialog_ui.has_method("set_box_visible"):
 		_dialog_ui.set_box_visible(false)
 
@@ -657,16 +630,16 @@ func _run_action_step(step: Dictionary) -> void:
 			_play_next_step()
 
 
+# ==================================================================== Wait/fade runners
+
 func _run_wait_step(step: Dictionary) -> void:
 	var duration: float = float(step.get("duration", 0.0))
 
 	if duration <= 0.0:
-		# No real wait, just continue
 		_play_next_step()
 		return
 
 	var tween := create_tween()
-	# Must run while the tree is paused (dialogue usually pauses the game)
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_interval(duration)
 
@@ -685,7 +658,7 @@ func _run_fade_step(step: Dictionary) -> void:
 	if not _dialog_ui.is_connected("fade_finished", Callable(self, "_on_fade_finished")):
 		_dialog_ui.connect("fade_finished", Callable(self, "_on_fade_finished"))
 
-	_is_blocking_step = true  # <--- fade is blocking
+	_is_blocking_step = true  
 
 	match dir:
 		"out":
@@ -714,12 +687,12 @@ func _on_fade_finished() -> void:
 	_is_blocking_step = false
 	_play_next_step()
 
-
+# ==================================================================== Blocking move/Camera durative execution
 
 func _run_blocking_move(target: Node, dest: Vector2, speed: float, facing_override: String = "") -> void:
-	_is_blocking_step = true  # <--- we’re now in a blocking step
+	_is_blocking_step = true  
 
-	# Hide the dialogue box while the character moves
+	
 	if _dialog_ui != null and _dialog_ui.has_method("set_box_visible"):
 		_dialog_ui.set_box_visible(false)
 
@@ -730,8 +703,8 @@ func _run_blocking_move(target: Node, dest: Vector2, speed: float, facing_overri
 	var current_pos: Vector2 = target.global_position
 	var distance: float = current_pos.distance_to(dest)
 	if distance < 1.0:
-		# Already basically there
-		_is_blocking_step = false  # <--- done blocking
+
+		_is_blocking_step = false 
 		if _dialog_ui != null and _dialog_ui.has_method("set_box_visible"):
 			_dialog_ui.set_box_visible(true)
 		_play_next_step()
@@ -763,7 +736,7 @@ func _run_blocking_move(target: Node, dest: Vector2, speed: float, facing_overri
 		if target.has_method("end_cutscene_walk"):
 			target.end_cutscene_walk()
 
-		_is_blocking_step = false  # <--- unblock input now
+		_is_blocking_step = false  
 		_play_next_step()
 	)
 
@@ -777,10 +750,9 @@ func _run_camera_step(step: Dictionary) -> void:
 			_do_camera_restore()
 		_:
 			push_warning("DialogueOrchestrator: Unknown camera_action '%s'" % action)
-
-	# Camera changes are instantaneous; go straight to next step
 	_play_next_step()
 
+# ==================================================================== Wait helper for scripts
 
 func wait(seconds: float) -> void:
 	var step := {
@@ -790,13 +762,15 @@ func wait(seconds: float) -> void:
 	_steps.append(step)
 
 
+# ==================================================================== Camera internals
+
 func _do_camera_switch(camera_path: Variant) -> void:
 	var viewport := get_viewport()
 	if viewport == null:
 		print("DEBUG camera: no viewport")
 		return
 
-	# Cache the original camera the first time we ever switch
+
 	if _original_camera == null:
 		_original_camera = viewport.get_camera_2d()
 		if _original_camera != null:
@@ -806,26 +780,26 @@ func _do_camera_switch(camera_path: Variant) -> void:
 
 	var cam: Camera2D = null
 
-	# --- Resolve the target camera ---
+
 	if camera_path is Camera2D:
 		cam = camera_path
 	elif camera_path is String or camera_path is NodePath:
 		var path_str := str(camera_path)
 		var root := get_tree().current_scene
 
-		# 1) Absolute from /root
+
 		if path_str.begins_with("/"):
 			cam = get_node_or_null(path_str) as Camera2D
 
-		# 2) Relative to current scene (e.g. "BossCutsceneCam")
+
 		if cam == null and root != null:
 			cam = root.get_node_or_null(path_str) as Camera2D
 
-		# 3) Relative to /root, if current_scene is something else
+
 		if cam == null:
 			cam = get_tree().root.get_node_or_null(path_str) as Camera2D
 
-		# 4) Last resort: search entire tree by name
+
 		if cam == null:
 			cam = get_tree().root.find_child(path_str, true, false) as Camera2D
 
@@ -837,7 +811,7 @@ func _do_camera_switch(camera_path: Variant) -> void:
 	_cutscene_camera = cam
 	print("DEBUG camera: switching to cutscene camera", cam.get_path())
 
-	# Godot 4: enable this camera and disable the original
+
 	if _original_camera != null and is_instance_valid(_original_camera):
 		_original_camera.enabled = false
 
@@ -859,14 +833,14 @@ func _do_camera_restore() -> void:
 
 	_cutscene_camera = null
 
-
+# ==================================================================== Multi-voice helpers
 
 func multi_voice_narrate(voices: Array, overrides: Dictionary = {}) -> void:
 	var merged := overrides.duplicate()
 	merged["multi_voice"] = true
 	merged["voices"] = voices
 
-	# Main text can safely be ""
+
 	narrate("", merged)
 
 func multi_voice_speak(character_id: String, voices: Array, overrides: Dictionary = {}) -> void:
@@ -877,12 +851,13 @@ func multi_voice_speak(character_id: String, voices: Array, overrides: Dictionar
 	speak(character_id, "", merged)
 
 
+# ==================================================================== move/face/attack helpers
 
 func _do_move_action(target: Node, dest: Vector2, speed: float) -> void:
 	if target == null:
 		return
 
-	# If the target is a CharacterBody2D, we can safely clear velocity
+
 	if target is CharacterBody2D:
 		var body := target as CharacterBody2D
 		body.velocity = Vector2.ZERO
@@ -895,7 +870,7 @@ func _do_move_action(target: Node, dest: Vector2, speed: float) -> void:
 	var duration: float = distance / max(speed, 1.0)
 
 	var tween := create_tween()
-	# ⬇️ This is the important line: make tween run even while the tree is paused
+
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) 
 
 	tween.tween_property(target, "global_position", dest, duration)
@@ -907,7 +882,7 @@ func _do_face_action(target: Node, dir: String) -> void:
 
 	var facing_enum_value: int = -1
 
-	# Try to map string -> Character.Facing enum
+
 	match dir:
 		"up":
 			if Character.Facing.has("UP"):
@@ -926,12 +901,12 @@ func _do_face_action(target: Node, dir: String) -> void:
 		push_warning("DialogueOrchestrator._do_face_action: Unknown direction '%s'" % dir)
 		return
 
-	# Prefer the Character API
+
 	if target.has_method("change_facing"):
 		target.change_facing(facing_enum_value)
 	elif target is Character:
-		var c := target as Character
-		c.facing = facing_enum_value
+		var ch := target as Character
+		ch.facing = facing_enum_value
 	else:
 		push_warning("DialogueOrchestrator._do_face_action: target has no facing API")
 
@@ -940,8 +915,6 @@ func _do_attack_action(target: Node) -> void:
 	if target == null:
 		return
 
-	# Let Player / NPCs decide how to respond to this call.
-	# We'll try a few conventions so you can wire things your way.
 	if target.has_method("play_attack_from_dialogue"):
 		target.play_attack_from_dialogue()
 	elif target.has_method("attack"):
@@ -950,6 +923,8 @@ func _do_attack_action(target: Node) -> void:
 		target.start_attack()
 	else:
 		push_warning("DialogueOrchestrator._do_attack_action: target has no attack method (expected play_attack_from_dialogue/attack/start_attack)")
+
+# ==================================================================== Global skip & input handling
 
 func skip_all() -> void:
 	if _state != State.RUNNING_SCRIPT:
@@ -961,7 +936,6 @@ func skip_all() -> void:
 	_current_lines.clear()
 	_step_index = 0
 
-	# If this run was a tooltip and we have a UI, ask it to fade out nicely.
 	if _is_tooltip_run and _dialog_ui != null and _dialog_ui.has_method("fade_out_tooltip"):
 		_dialog_ui.fade_out_tooltip(0.2)
 		_is_tooltip_run = false
@@ -970,22 +944,17 @@ func skip_all() -> void:
 
 	
 func _unhandled_input(event: InputEvent) -> void:
-	# Only care about input while a script is running
 	if _state != State.RUNNING_SCRIPT:
 		return
 
-	# Only keys, only on press
 	if not (event is InputEventKey and event.is_pressed()):
 		return
 
-	# Never allow skipping while a blocking step (move/fade/etc.) is active
 	if _is_blocking_step:
 		return
 
-	# Ask the DialogUI if it is still busy (typing, multi-voice, cooldown, etc.)
 	if _dialog_ui != null and _dialog_ui.has_method("is_busy") and _dialog_ui.is_busy():
 		return
 
-	# Only now do we allow the global skip-all behavior
 	if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
 		skip_all()

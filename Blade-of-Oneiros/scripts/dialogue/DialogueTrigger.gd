@@ -1,3 +1,4 @@
+#Used by Area2Ds to call the dialogue orchestrator
 extends Area2D
 class_name DialogueTrigger
 

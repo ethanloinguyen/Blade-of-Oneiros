@@ -1,13 +1,12 @@
 extends CanvasLayer
-
+# ====================================================================== DialogUI
+# Main UI layer for all dialogue actions
 signal line_finished
 signal fade_finished
 
+# ====================================================================== Constants and node refs
 const DIALOGUE_BG_TEXTURE: Texture2D = preload("res://assets/ui/dialoguebox.png")
 const TOOLTIP_BG_TEXTURE: Texture2D = preload("res://assets/ui/tutorial/tooltip.png")
-
-
-# --- Node refs -------------------------------------------------------------
 
 @onready var _label: Label = $Control/DialogueBG/MarginContainer/DialogueLabel
 @onready var _bg: NinePatchRect = $Control/DialogueBG
@@ -26,10 +25,14 @@ var _portrait_left_base_pos: Vector2
 var _portrait_right_base_pos: Vector2
 var _last_was_narration: bool = false
 var _advance_cooldown: float = 0.0
+
 # Label styling
 var _settings: LabelSettings = LabelSettings.new()
 
-# --- Highlight / focus controls --------------------------------------
+# ====================================================================== Exported Settings
+# Used to control typing speed, delays, fade timings, Portrait highlight, Font styling, etc etc
+
+# ----------------------------------------- Highlight / focus
 
 @export var active_scale: Vector2 = Vector2(1.0, 1.0)
 @export var inactive_scale: Vector2 = Vector2(0.9, 0.9)
@@ -43,7 +46,7 @@ var _settings: LabelSettings = LabelSettings.new()
 @export var highlight_duration: float = 0.2
 
 
-# --- Exported style controls ----------------------------------------------
+# ----------------------------------------- Style controls 
 
 @export var font: Font
 @export var font_size: int = 40
@@ -51,11 +54,12 @@ var _settings: LabelSettings = LabelSettings.new()
 @export var outline_size: int = 0
 @export var outline_color: Color = Color.BLACK
 
+# Unused shadow controls
 #@export var shadow_enabled: bool = true
 #@export var shadow_color: Color = Color(0.0, 0.0, 0.0, 0.6)
 #@export var shadow_offset: Vector2 = Vector2(2.0, 2.0)
 
-# --- Animation controls ---------------------------------------------------
+# ----------------------------------------- Animation controls
 
 @export var dimmer_rise_duration: float = 0.25
 @export var portrait_slide_duration: float = 0.30
@@ -64,14 +68,17 @@ var _settings: LabelSettings = LabelSettings.new()
 @export var anim_ease: Tween.EaseType = Tween.EASE_OUT
 @export var dialogue_shift_amount: float = 0.0
 
-# Gradient shader target values (for version 1 shader)
+# ----------------------------------------- Gradient shader target values
 @export var gradient_height_target: float = 0.4
 @export var gradient_max_alpha_target: float = 0.6
 
-# --- Conversation state ---------------------------------------------------
+
+# ====================================================================== Internal state vars
+
+# ----------------------------------------- Conversation states
 var _can_advance: bool = false
 var _is_open: bool = false
-var _lines: Array = []      # each element: { "text": String, "speaker": String, "overrides": Dictionary }
+var _lines: Array = []     
 var _tweens: Array[Tween] = []
 var _current_index: int = -1
 var _current_speaker: String = ""
@@ -82,7 +89,7 @@ var _portrait_right_base_modulate: Color
 var _is_tooltip_open: bool = false
 var _paused_by_dialogue: bool = false
 
-# --- Multi-voice (chorus) sequencing state --------------------------------
+# -----------------------------------------  Multi-voice (chorus) sequencing state
 
 @export var multi_voice_interval: float = 0.35  # seconds between each voice
 @export var multi_voice_post_delay: float = 0.3 # extra delay after last line
@@ -91,7 +98,7 @@ var _is_multi_voice_playing: bool = false
 var _multi_voice_queue: Array = []
 var _multi_voice_index: int = -1
 var _lock_advance: bool = false
-# --- Typing effect ---------------------------------------------------
+# -----------------------------------------  Typing effect
 
 @export var chars_per_second: float = 30.0
 
@@ -103,12 +110,10 @@ var _intro_text: String = ""
 
 
 
-# ======================================================================
-# LIFECYCLE
-# ======================================================================
+# ====================================================================== Lifecycle/input
 
 func _ready() -> void:
-	# Register this UI instance with the global DialogueOrchestrator autoload
+	# Register  UI instance with global DialogueOrchestrator autoload
 	if typeof(DialogueOrchestrator) != TYPE_NIL:
 		DialogueOrchestrator.set_dialog_ui(self)
 
@@ -121,16 +126,15 @@ func _ready() -> void:
 	if fade_rect:
 		var c := fade_rect.color
 		if GameState.start_with_opening_tutorial:
-			# Coming from the title video: start fully black
+			# Coming from the title video; start fully black
 			c.a = 1.0
-			visible = true      # show the CanvasLayer so the black covers the level
+			visible = true      
 		else:
-			# Normal gameplay: start transparent and hidden
+			# Normal gameplay; start transparent
 			c.a = 0.0
 			visible = false
 		fade_rect.color = c
 	else:
-		# No fade rect – just follow old behavior
 		visible = false
 
 	set_process(true)
@@ -153,6 +157,7 @@ func _ready() -> void:
 	_settings.font_color = font_color
 	_settings.outline_size = outline_size
 	_settings.outline_color = outline_color
+	# Old shadow features
 	#_settings.shadow_color = shadow_color
 	#if shadow_enabled:
 		#_settings.shadow_offset = shadow_offset
@@ -163,7 +168,7 @@ func _ready() -> void:
 	_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_label.clip_text = false
 
-	# Reset gradient shader parameters if present
+	# Reset gradient shader parameters
 	if _dimmer.material is ShaderMaterial:
 		var sm: ShaderMaterial = _dimmer.material
 		sm.set_shader_parameter("height_fraction", 0.0)
@@ -176,35 +181,33 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not _is_open:
 		return
 		
-	# Tooltips should not respond to advance/skips
+
 	if _is_tooltip_open:
 		return
 		
 	if not event.is_action_pressed("advance"):
 		return
 
-	# Hard lock during chorus and its post-delay
+	# Hard lock during chorus
 	if _lock_advance:
 		get_viewport().set_input_as_handled()
 		return
 
-	# While multi-voice is animating, completely ignore advance.
+	# While multi-voice, ignore advance
 	if _is_multi_voice_playing:
 		get_viewport().set_input_as_handled()
 		return
 
-	# If the opening animation is still playing:
+	# If the opening animation:
 	if not _is_typing and _label and _label.text == "":
 		get_viewport().set_input_as_handled()
 		return
 
-	# 1) While typing: skip to full text
 	if _is_typing:
 		_finish_typing()
 		get_viewport().set_input_as_handled()
 		return
 
-	# 2) After text is fully visible: only then advance/close
 	if _can_advance and _advance_cooldown <= 0.0:
 		_advance_or_close()
 		get_viewport().set_input_as_handled()
@@ -214,7 +217,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
-
+# ====================================================================== Multi-voice support
 func _reset_multi_voice() -> void:
 	if multi_voice_container == null:
 		return
@@ -228,7 +231,6 @@ func _reset_multi_voice() -> void:
 			label.visible = false
 
 func _show_multi_voice_line(voices: Array, overrides: Dictionary = {}) -> void:
-	# Clear any previous multi-voice content
 	_reset_multi_voice()
 
 	if multi_voice_container == null:
@@ -244,7 +246,7 @@ func _show_multi_voice_line(voices: Array, overrides: Dictionary = {}) -> void:
 	_multi_voice_index = -1
 	_is_multi_voice_playing = true
 
-	# While the chorus is animating, do NOT allow advancing.
+	# While the chorus is animating, do not advance
 	_lock_advance = true
 	_can_advance = false
 	_advance_cooldown = 0.0
@@ -263,19 +265,18 @@ func _play_next_multi_voice_entry() -> void:
 
 	var max_labels := multi_voice_labels.size()
 
-	# Done? Either we ran out of voices or labels.
 	if _multi_voice_index >= _multi_voice_queue.size() or _multi_voice_index >= max_labels:
 		_is_multi_voice_playing = false
 
-		# Mark this "line" as fully visible for orchestrator logic.
+
 		_on_line_fully_visible()
 		_can_advance = true
 
-		# Give _label a dummy so intro guard doesn't block forever.
+
 		if _label:
 			_label.text = " "
 
-		# Now wait a tiny bit *before* we let the player advance.
+
 		var t := _make_tween()
 		t.tween_interval(multi_voice_post_delay)
 		t.finished.connect(func() -> void:
@@ -283,7 +284,7 @@ func _play_next_multi_voice_entry() -> void:
 		)
 		return
 
-	# Otherwise, show the next voice in the stack with typewriter effect
+
 	var label: Label = multi_voice_labels[_multi_voice_index]
 	if label is Label:
 		var v: Dictionary = _multi_voice_queue[_multi_voice_index]
@@ -322,7 +323,7 @@ func _play_next_multi_voice_entry() -> void:
 
 
 
-
+# ====================================================================== Fade/Tween helpers
 
 func _set_fade_alpha(alpha: float) -> void:
 	if fade_rect == null:
@@ -341,7 +342,6 @@ func _make_tween() -> Tween:
 	return t
 
 func fade_out_tooltip(duration: float = 0.2) -> void:
-	# Only matters if a tooltip is actually open
 	if not _is_open or not _is_tooltip_open:
 		close()
 		return
@@ -349,16 +349,14 @@ func fade_out_tooltip(duration: float = 0.2) -> void:
 	var tween := create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 
-	# Animate the box alpha down
 	var mod := _bg.modulate
-	# Ensure we start from fully visible
 	mod.a = 1.0
 	_bg.modulate = mod
 
 	tween.tween_property(_bg, "modulate:a", 0.0, duration)
 
 	tween.finished.connect(func() -> void:
-		# Once faded out, close normally (will reset flags, clear text, etc.)
+
 		close()
 	)
 
@@ -373,24 +371,18 @@ func is_tooltip_open() -> bool:
 	return _is_open and _is_tooltip_open
 
 
-# ======================================================================
-# PUBLIC API
-# ======================================================================
+# ====================================================================== PUBLIC API
+# Used by dialogue orchestrator
 
-# You can still use this for a single line if you want,
-# but for multi-line back-and-forth, use start_conversation().
 func open(text: String, overrides: Dictionary = {}) -> void:
-	# Is this line a tooltip?
+
 	var is_tooltip: bool = overrides.get("is_tooltip", false)
 	_is_tooltip_open = is_tooltip
 
-	# ------------------------------
-	# FAST PATH: box already open
-	# ------------------------------
+
 	if _is_open:
 		var o := overrides.duplicate()
 
-		# If the line did not explicitly pass "speaker", keep the current one
 		if _current_speaker != "" and not o.has("speaker"):
 			o["speaker"] = _current_speaker
 
@@ -405,12 +397,9 @@ func open(text: String, overrides: Dictionary = {}) -> void:
 		_can_advance = true
 		return
 
-	# ------------------------------
-	# FIRST TIME OPENING
-	# ------------------------------
+	# Opening for the first time
 	_apply_overrides(overrides)
 
-	# Store intro text, but do not start typing until intro animation callback
 	_intro_text = text
 
 	_label.text = ""
@@ -428,23 +417,19 @@ func open(text: String, overrides: Dictionary = {}) -> void:
 	visible = true
 	_is_open = true
 
-	# Important: pass tooltip flag into animation so it uses the tooltip path
+
 	_play_open_animation(speaker, is_tooltip)
 
-	# We are not pausing the tree here.
-	# Player freezing should be based on DialogueOrchestrator.is_dialogue_active()
-	# so tooltips can leave gameplay free while main dialogue can still lock controls.
 
 
 
-
-# --- Public API: set fade by percentage (0–100) ---
+# --------------------------------- Set fade by percentage
 func set_fade_percent(percent: float) -> void:
 	var p : float = clamp(percent, 0.0, 100.0)
 	_set_fade_alpha(p / 100.0)
 
 
-# --- Tween helper: fade to specific percent over duration (seconds) ---
+# --------------------------------- Fade to specific percent over duration
 func _fade_to_percent(percent: float, duration: float) -> Tween:
 	if fade_rect == null:
 		return null
@@ -452,13 +437,13 @@ func _fade_to_percent(percent: float, duration: float) -> Tween:
 	var target_alpha : bool = clamp(percent, 0.0, 100.0) / 100.0
 
 	var tween := create_tween()
-	# Make sure it still runs when the tree is paused (Godot 4)
+
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(fade_rect, "color:a", target_alpha, duration)
 	return tween
 
 
-# --- Convenience: fade out to 100% black ---
+# --------------------------------- Convenience: fade out to 100% black
 func fade_out(duration: float = 1.0) -> void:
 	if fade_rect == null:
 		emit_signal("fade_finished")
@@ -493,22 +478,19 @@ func force_black_start_from_gamestate() -> void:
 	var c := fade_rect.color
 
 	if GameState.start_with_opening_tutorial:
-		# Start fully black and make the layer visible
+		# Start fully black
 		c.a = 1.0
 		visible = true
 	else:
-		# Normal gameplay: make sure we start clear
+		# Start clear
 		c.a = 0.0
-		# leave `visible` alone so open/close still controls it
 
 	fade_rect.color = c
 
-# Single-line entry point used by DialogueOrchestrator's step system.
-# speaker: "player1" / "player2" / "" (for narration)
-# text: the dialogue text
-# overrides: same kind of overrides you already use (color, size, portrait_name, etc.)
+# ====================================================================== LINE LAYOUT MODES
+
 func show_line(speaker: String, text: String, overrides: Dictionary) -> void:
-	# Clear any previous multi-voice content
+
 	_reset_multi_voice()
 
 	if _label:
@@ -521,36 +503,36 @@ func show_line(speaker: String, text: String, overrides: Dictionary) -> void:
 	_is_tooltip_open = is_tooltip
 	print("DEBUG: DialogUI.show_line is_tooltip=", is_tooltip, " text='", text, "'")
 
-	# ---------- Multi-voice path ----------
+
 	if is_multi:
 		var voices: Array = o.get("voices", [])
 
-		# Decide narrator vs speaker purely from speaker / override
+
 		var narrator_mode: bool = (speaker == "") or o.get("is_narration", false)
 
 		if narrator_mode:
-			# Use your existing narrator layout (centered box)
+
 			_show_narration_line("", o)
 		else:
-			# Use your existing speaker layout (bottom box / portraits)
+
 			if speaker != "":
 				o["speaker"] = speaker
 			_show_speaker_line(speaker, "", o)
 
-		# Hide the normal single-line label; the chorus uses stacked labels
+
 		if _label:
 			_label.visible = false
 
-		# HARD LOCK: any multi-voice (speak or narrate) temporarily ignores advance
+
 		_lock_advance = true
 		_can_advance = false
 		_advance_cooldown = 0.0
 
-		# Kick off the sequential multi-voice sequence
+
 		_show_multi_voice_line(voices, o)
 		return
 
-# ---------- Normal, single-voice behavior ----------
+
 	var is_narration: bool = o.get("is_narration", speaker == "")
 
 	if is_tooltip:
@@ -562,24 +544,18 @@ func show_line(speaker: String, text: String, overrides: Dictionary) -> void:
 			o["speaker"] = speaker
 		_show_speaker_line(speaker, text, o)
 
-
-
-
-
-
-
 func _show_narration_line(text: String, overrides: Dictionary) -> void:
 	_last_was_narration = true
 
-	# Make sure this line is treated as "no side" / narrator
-	var o := overrides.duplicate()
-	o["speaker"] = ""   # 🔹 force narrator speaker
 
-	# Hide portraits always
+	var o := overrides.duplicate()
+	o["speaker"] = ""   
+
+
 	_portrait_left.visible = false
 	_portrait_right.visible = false
 
-	# Use normal dialogue box art for narration
+
 	if _bg:
 		_bg.texture = DIALOGUE_BG_TEXTURE
 
@@ -589,7 +565,7 @@ func _show_narration_line(text: String, overrides: Dictionary) -> void:
 		vp_rect.size.y - _bg.size.y - 32
 	)
 
-	# Centered text
+
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
@@ -603,12 +579,12 @@ func _show_tooltip_line(text: String, overrides: Dictionary) -> void:
 	var o := overrides.duplicate()
 	o["speaker"] = ""
 
-	# No portraits, no dimmer
+
 	_portrait_left.visible = false
 	_portrait_right.visible = false
 	_dimmer.visible = false
 
-	# Use tooltip-specific box art
+
 	if _bg:
 		_bg.texture = TOOLTIP_BG_TEXTURE
 
@@ -626,13 +602,11 @@ func _show_tooltip_line(text: String, overrides: Dictionary) -> void:
 
 
 
+# ====================================================================== Start talking
 
 
-
-# Preferred entry point for multi-line conversations.
-# Each line: { "text": String, "speaker": String, "overrides": Dictionary }
 func start_conversation(lines: Array) -> void:
-	_can_advance = false  # block advance during intro
+	_can_advance = false 
 	_left_has_entered = false
 	_right_has_entered = false
 	if lines.is_empty():
@@ -658,7 +632,7 @@ func set_box_visible(visible: bool) -> void:
 	if _portrait_right:
 		_portrait_right.visible = visible and _portrait_right.texture != null
 
-	# Multi-voice stack (chorus)
+	# Multi-voice
 	if multi_voice_container:
 		multi_voice_container.visible = visible
 
@@ -675,7 +649,7 @@ func is_busy() -> bool:
 		return true
 	return false
 
-
+# ====================================================================== Function use to close dialogUI
 
 func close() -> void:
 	_kill_all_tweens()
@@ -699,8 +673,6 @@ func close() -> void:
 	_can_advance = false
 	_advance_cooldown = 0.0
 	
-
-	# 🔽 add this
 	DialogueOrchestrator.on_dialogue_finished()
 
 
@@ -710,9 +682,7 @@ func is_open() -> bool:
 	return _is_open
 
 
-# ======================================================================
-# CONVERSATION FLOW
-# ======================================================================
+# ====================================================================== CONVERSATION FLOW
 
 func _open_first_line() -> void:
 	print("First line called!")
@@ -732,12 +702,12 @@ func _open_first_line() -> void:
 
 
 func _advance_or_close() -> void:
-	# Orchestrator-driven single-line mode: _lines is empty
+
 	if _lines.is_empty():
 		emit_signal("line_finished")
 		return
 
-	# Original multi-line behavior
+
 	if _current_index >= 0 and _current_index < _lines.size() - 1:
 		_current_index += 1
 		var line: Dictionary = _lines[_current_index]
@@ -772,13 +742,13 @@ func _start_typing(text: String, instant: bool = false) -> void:
 	_typing_accum = 0.0
 
 	if instant:
-		# Show full text immediately, no typewriter
+
 		_is_typing = false
 		_visible_chars = text.length()
 		_label.text = text
 		_on_line_fully_visible()
 	else:
-		# Normal typewriter behavior
+
 		_visible_chars = 0
 		_is_typing = true
 		_label.text = ""
@@ -796,13 +766,12 @@ func _finish_typing() -> void:
 
 
 func _on_line_fully_visible() -> void:
-	# Half-second delay before the player can advance to the next line
+
 	_advance_cooldown = 0.5
 
 
-# ======================================================================
-# SPEAKER / PORTRAIT HANDLING
-# ======================================================================
+# ====================================================================== Speaker/Portrait Handles
+
 
 func _show_speaker(speaker: String, overrides: Dictionary) -> void:
 	var ph: int = -1
@@ -817,16 +786,16 @@ func _show_speaker(speaker: String, overrides: Dictionary) -> void:
 		if portrait_name != "":
 			_set_portrait(_portrait_left, portrait_name, ph)
 		_portrait_left.visible = true
-		# Do NOT auto-show right portrait here
+
 
 	elif speaker == "player2":
 		if portrait_name != "":
 			_set_portrait(_portrait_right, portrait_name, ph)
 		_portrait_right.visible = true
-		# Do NOT auto-show left portrait here
+
 
 	else:
-		# No known side; hide both
+
 		_portrait_left.visible = false
 		_portrait_right.visible = false
 
@@ -835,7 +804,7 @@ func _show_speaker_line(speaker: String, text: String, overrides: Dictionary) ->
 	var from_narration := _last_was_narration
 	_last_was_narration = false
 
-	# Use normal dialogue box art for speaker lines
+
 	if _bg:
 		_bg.texture = DIALOGUE_BG_TEXTURE
 
@@ -861,7 +830,7 @@ func _show_speaker_line(speaker: String, text: String, overrides: Dictionary) ->
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 
-	# 🔽 Always set the portrait if we have a portrait_name
+
 	if speaker == "player1":
 		_portrait_left.visible = true
 		if overrides.has("portrait_name"):
@@ -879,8 +848,6 @@ func _show_speaker_line(speaker: String, text: String, overrides: Dictionary) ->
 
 
 func _set_portraits_initial_inactive_state() -> void:
-	# Base inactive transforms for both portraits:
-	# shrink, darken, step outward.
 	var left_pos: Vector2 = _portrait_left_base_pos - Vector2(inactive_offset, 0.0)
 	var right_pos: Vector2 = _portrait_right_base_pos + Vector2(inactive_offset, 0.0)
 
@@ -921,29 +888,22 @@ func _set_portrait(portrait: TextureRect, portrait_name: String, ph: int) -> voi
 
 
 
-# ======================================================================
-# ANIMATION HELPERS
-# ======================================================================
+# ====================================================================== ANIMATION HELPERS
 
 func _apply_highlight(active_speaker: String, tween: Tween, delay: float = 0.0) -> void:
-	# Decide target scale / position / brightness for each side
+
 	var left_target_scale: Vector2 = inactive_scale
 	var right_target_scale: Vector2 = inactive_scale
 
-	# Start at base positions
 	var left_target_pos: Vector2 = _portrait_left_base_pos
 	var right_target_pos: Vector2 = _portrait_right_base_pos
 
 	var left_brightness: float = inactive_brightness
 	var right_brightness: float = inactive_brightness
 
-	# Inactive "step back" offset goes outward from center:
-	# left speaker: outward = more to the left
-	# right speaker: outward = more to the right
 	left_target_pos.x = _portrait_left_base_pos.x - inactive_offset
 	right_target_pos.x = _portrait_right_base_pos.x + inactive_offset
 
-	# Active speaker overrides: full scale, full brightness, no offset
 	if active_speaker == "player1":
 		left_target_scale = active_scale
 		left_target_pos = _portrait_left_base_pos
@@ -953,7 +913,6 @@ func _apply_highlight(active_speaker: String, tween: Tween, delay: float = 0.0) 
 		right_target_pos = _portrait_right_base_pos
 		right_brightness = active_brightness
 
-	# Compute target colors from base modulate * brightness
 	var left_color: Color = _portrait_left_base_modulate
 	left_color.r = clamp(left_color.r * left_brightness, 0.0, 1.0)
 	left_color.g = clamp(left_color.g * left_brightness, 0.0, 1.0)
@@ -964,7 +923,6 @@ func _apply_highlight(active_speaker: String, tween: Tween, delay: float = 0.0) 
 	right_color.g = clamp(right_color.g * right_brightness, 0.0, 1.0)
 	right_color.b = clamp(right_color.b * right_brightness, 0.0, 1.0)
 
-	# Left portrait animation (if visible)
 	if _portrait_left.visible:
 		var lt_scale: PropertyTweener = tween.tween_property(
 			_portrait_left,
@@ -990,7 +948,6 @@ func _apply_highlight(active_speaker: String, tween: Tween, delay: float = 0.0) 
 		)
 		lt_color.set_delay(delay)
 
-	# Right portrait animation (if visible)
 	if _portrait_right.visible:
 		var rt_scale: PropertyTweener = tween.tween_property(
 			_portrait_right,
@@ -1023,10 +980,8 @@ func _play_open_animation(first_speaker: String, is_tooltip: bool = false) -> vo
 	tween.set_parallel(true)
 
 	if is_tooltip:
-		# No gradient, no fancy portrait intro – just pop the box in
 		_dimmer.visible = false
 
-		# Put box at its current position and fade it in quickly
 		var end_pos: Vector2 = _bg.position
 		var start_pos: Vector2 = end_pos + Vector2(0.0, 8.0)
 		_bg.position = start_pos
@@ -1042,30 +997,23 @@ func _play_open_animation(first_speaker: String, is_tooltip: bool = false) -> vo
 		cb.set_delay(bg_fade_duration * 0.5)
 		return
 
-	# --- Normal dialogue path ---
-	# 1) Gradient rises
+
 	_play_dimmer_open(tween)
-	# 2) Put both portraits into their "inactive" pose immediately
 	_set_portraits_initial_inactive_state()
 
-	# --- Timing setup ---
+	# ------------------------------------------ Setup the timing
 	var left_delay: float = dimmer_rise_duration
 	var right_delay: float = left_delay + portrait_slide_duration * 0.8
 
-	# We want the box AFTER the second (right) portrait has fully finished sliding.
 	var right_finish: float = right_delay + portrait_slide_duration
-	var box_delay: float = right_finish + 0.05  # small extra pause so it feels intentional
+	var box_delay: float = right_finish + 0.05  
 
-	# 3) Both slide in from off-screen to their inactive pose
 	_play_portrait_intro_both(tween, left_delay, right_delay)
 
-	# 4) Dialogue box appears on the first speaker
 	_play_dialogue_box_open(tween, first_speaker, box_delay)
 
-	# 5) Active speaker steps up
 	_apply_highlight(first_speaker, tween, box_delay)
 
-	# 6) Start typing AND allow advancing only once box is visible
 	var cb: CallbackTweener = tween.tween_callback(Callable(self, "_on_intro_box_ready"))
 	cb.set_delay(box_delay)
 
@@ -1103,9 +1051,9 @@ func _play_dimmer_open(tween: Tween) -> void:
 
 
 func _play_portrait_intro_both(tween: Tween, left_delay: float, right_delay: float) -> void:
-	# Left side (player1)
+	# Left side
 	if _portrait_left.visible and _portrait_left.texture != null:
-		var end_left: Vector2 = _portrait_left.position   # current inactive position
+		var end_left: Vector2 = _portrait_left.position   
 		var start_left: Vector2 = end_left - Vector2(_portrait_left.size.x + 32.0, 0.0)
 		_portrait_left.position = start_left
 
@@ -1117,9 +1065,9 @@ func _play_portrait_intro_both(tween: Tween, left_delay: float, right_delay: flo
 		)
 		lt_pos.set_delay(left_delay)
 
-	# Right side (player2)
+	# Right side
 	if _portrait_right.visible and _portrait_right.texture != null:
-		var end_right: Vector2 = _portrait_right.position # current inactive position
+		var end_right: Vector2 = _portrait_right.position 
 		var start_right: Vector2 = end_right + Vector2(_portrait_right.size.x + 32.0, 0.0)
 		_portrait_right.position = start_right
 
@@ -1136,9 +1084,9 @@ func _play_portrait_intro_both(tween: Tween, left_delay: float, right_delay: flo
 func _play_dialogue_box_open(tween: Tween, speaker: String, delay: float = 0.0) -> void:
 	var end_pos: Vector2 = _bg_base_pos
 	if speaker == "player1":
-		end_pos.x = 129   # your left-side position
+		end_pos.x = 129   
 	elif speaker == "player2":
-		end_pos.x = 269   # your right-side position
+		end_pos.x = 269   
 
 	var start_pos: Vector2 = end_pos + Vector2(0.0, 8.0)
 	_bg.position = start_pos
@@ -1154,26 +1102,22 @@ func _play_dialogue_box_open(tween: Tween, speaker: String, delay: float = 0.0) 
 	alpha_tweener.set_delay(delay)
 
 
-# --- For advancing between lines (no gradient changes) ---------------------
+# ------------------------ For advancing between lines
 
 func _play_line_change_animation(prev_speaker: String, new_speaker: String, overrides: Dictionary) -> void:
 	var tween: Tween = _make_tween()
 	tween.set_parallel(true)
 
-	# Move the dialogue box to the new speaker
 	_play_dialogue_box_shift_only(tween, new_speaker)
 
-	# Slide in the active speaker the first time they speak
 	_play_portrait_line_change(tween, new_speaker)
 
-	# Update active vs inactive portraits (scale/brightness/offset)
 	_apply_highlight(new_speaker, tween)
 
 
 
 func _play_portrait_line_change(tween: Tween, speaker: String) -> void:
-	# Add a small delay so this feels more like the initial intro timing
-	var delay := dimmer_rise_duration * 0.025  # tweak if you want slower/faster
+	var delay := dimmer_rise_duration * 0.025 
 
 	if speaker == "player1" and !_left_has_entered and _portrait_left.visible and _portrait_left.texture != null:
 		var start_left: Vector2 = _portrait_left_base_pos - Vector2(_portrait_left.size.x + 32.0, 0.0)
@@ -1201,10 +1145,6 @@ func _play_portrait_line_change(tween: Tween, speaker: String) -> void:
 		rt.set_delay(delay)
 		_right_has_entered = true
 
-
-
-
-
 func _play_dialogue_box_shift_only(tween: Tween, speaker: String) -> void:
 	var target: Vector2 = _bg_base_pos
 
@@ -1216,10 +1156,7 @@ func _play_dialogue_box_shift_only(tween: Tween, speaker: String) -> void:
 	tween.tween_property(_bg, "position", target, bg_fade_duration)
 
 
-# ======================================================================
-# LABEL STYLE OVERRIDES
-# ======================================================================
-
+# ====================================================================== LABEL STYLE OVERRIDES
 func _apply_overrides(o: Dictionary) -> void:
 	if o.has("font"):
 		_settings.font = o["font"]
@@ -1231,6 +1168,7 @@ func _apply_overrides(o: Dictionary) -> void:
 		_settings.outline_size = int(o["outline_size"])
 	if o.has("outline_color"):
 		_settings.outline_color = o["outline_color"]
+	# Old shadow commands
 	#if o.has("shadow"):
 		#var s : Dictionary = o["shadow"]
 		#if s is Dictionary:
@@ -1245,7 +1183,6 @@ func _apply_overrides(o: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	if _is_typing:
-		# how many chars we should see now
 		_typing_accum += delta * chars_per_second
 		var target_visible: int = int(_typing_accum)
 
@@ -1258,6 +1195,5 @@ func _process(delta: float) -> void:
 				_typing_accum = 0.0
 				_on_line_fully_visible()
 	else:
-		# Count down cooldown once we’re no longer typing
 		if _advance_cooldown > 0.0:
 			_advance_cooldown -= delta
