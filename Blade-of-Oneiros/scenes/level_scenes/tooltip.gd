@@ -54,7 +54,7 @@ func _ready() -> void:
 			_disable_and_stop()
 			return
 
-	# ---------- BLOCK / GUARDS ----------
+	# ------------------------------ Guards
 	if dialogue_id == "tooltip_block":
 		add_to_group("block_tooltip")
 
@@ -71,7 +71,7 @@ func _ready() -> void:
 			_disable_and_stop()
 			return
 
-	# ---------- LEVER ----------
+	# ------------------------------ Lever
 	if dialogue_id == "tooltip_lever":
 		add_to_group("lever_tooltip")
 		if _lever_pulled:
@@ -99,21 +99,21 @@ func _process(_delta: float) -> void:
 			_disable_all_pot_tooltips()
 			_disable_and_stop()
 
-	# ---------- BLOCK / GUARDS ----------
+	# ------------------------------ Guards
 	if dialogue_id == "tooltip_block" and not _guards_dismissed:
 		if _linked_guards and _linked_guards.blocker and _linked_guards.blocker.disabled:
 			_guards_dismissed = true
 			_disable_all_block_tooltips()
 			_disable_and_stop()
 
-	# ---------- LEVER ----------
+	# ------------------------------ Lever
 	if dialogue_id == "tooltip_lever" and not _lever_pulled:
 		if _has_any_lever_been_pulled_cached():
 			_lever_pulled = true
 			_disable_all_lever_tooltips()
 			_disable_and_stop()
 
-	# ---------- DOOR ----------
+	# ------------------------------ Door
 	if dialogue_id == "tooltip_door" and _linked_door:
 		if _is_door_open(_linked_door):
 			_disable_and_stop()
@@ -203,10 +203,15 @@ func _on_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
+	# if pots resolved, no hint
 	if dialogue_id == "tooltip_pot" and _pots_broken:
 		return
+
+	# if already used, no hint
 	if dialogue_id == "tooltip_fireplace" and _fireplace_used:
 		return
+
+	# if guards dismissed, no hint
 	if dialogue_id == "tooltip_block" and _guards_dismissed:
 		return
 	if dialogue_id == "tooltip_lever" and _lever_pulled:

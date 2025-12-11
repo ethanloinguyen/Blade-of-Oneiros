@@ -1,4 +1,4 @@
-extends CharacterBody2D  # or Node2D if that's what you're using
+extends CharacterBody2D  
 
 @export var character_id: String = "blueslime"
 @onready var sprite: Sprite2D = $Sprite2D
@@ -6,7 +6,7 @@ extends CharacterBody2D  # or Node2D if that's what you're using
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Start invisible so npc_appear can fade him in
+	# Start invisible
 	var start_mod := modulate
 	start_mod.a = 1.0
 	modulate = start_mod
@@ -37,7 +37,7 @@ func disappear_from_dialogue(duration: float) -> Tween:
 
 	tween.tween_property(self, "modulate:a", 0.0, duration)
 
-	# Optional: once faded out, hide the sprite for cleanliness
+
 	tween.finished.connect(func():
 		visible = false
 	)
@@ -46,10 +46,9 @@ func disappear_from_dialogue(duration: float) -> Tween:
 
 func change_facing(facing_enum: int) -> void:
 	# Map Character.Facing enum to sprite frames.
-	# Adjust indices if your sheet order is different.
 	match facing_enum:
 		Character.Facing.DOWN:
-			sprite.frame = 0  # front
+			sprite.frame = 0 
 		Character.Facing.RIGHT:
 			sprite.frame = 1
 		Character.Facing.LEFT:
@@ -57,13 +56,11 @@ func change_facing(facing_enum: int) -> void:
 		Character.Facing.UP:
 			sprite.frame = 3
 		_:
-			# Fallback: default front
 			sprite.frame = 0
 
 
-# Optional hooks if you want him to "do something" while moving
+
 func begin_cutscene_walk(dir: String) -> void:
-	# No walking animation, so we can leave this empty
 	pass
 
 func end_cutscene_walk() -> void:

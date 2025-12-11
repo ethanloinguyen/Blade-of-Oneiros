@@ -1,10 +1,8 @@
 extends Resource
 
-## Boss intro cutscene script
-## Used by DialogueOrchestrator with dialogue_id = "boss_fight"
+## Boss finish cutscene script
 
 func run(orchestrator) -> void:
-	# Clear any leftover steps from previous dialogues / cutscenes
 	orchestrator.clear_steps()
 	orchestrator.set_speakers("swordsman_lvl2", "threeslimes")
 	orchestrator.camera_switch_to("PostBossCutsceneCam")

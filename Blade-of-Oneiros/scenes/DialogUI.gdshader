@@ -1,3 +1,4 @@
+//Generated with OpenAI Help, thank you!
 shader_type canvas_item;
 
 // Base gradient color (usually black)
@@ -38,7 +39,6 @@ void fragment() {
     float vignette_factor = 1.0 + vignette_strength * vignette;
 
     // Noise (static or very subtle shimmering)
-    // You can add TIME if you want animated noise: rand(UV * noise_scale + vec2(TIME * 0.2, 0.0))
     float n = rand(UV * noise_scale);
     float noise_offset = (n - 0.5) * 2.0 * noise_amount; // range roughly [-noise_amount, +noise_amount]
 

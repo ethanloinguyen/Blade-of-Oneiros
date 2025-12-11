@@ -21,7 +21,7 @@ If your project contains code that: 1) your team did not write, and 2) does not 
 The basis of the Dialogue class/what Alfred used in the very beginning was made with help from Andrew Hoffman's youtube video: [Build a Top-Down 2D GODOT RPG in 20 Minutes!](https://www.youtube.com/watch?v=-4jEXTwTsVI&t=932s). Thank you!
 
 The Dialogue Orchestrator, DialogUI, and tooltip.gd and other associated files were designed by Alfred, as well as the pseudocode associated with it, and the flow as a whole. 
-However, the code implementation, especially towards the very end, was created in assistance with ChatGPT.
+However, the DialogueUI Shaders, as well as the debugging features towards the end, were implemented with the help of ChatGPT. Thank you!
 
 
 If you used tutorials or other intellectual guidance to create aspects of your project, include reference to that information as well.
@@ -367,7 +367,7 @@ My main role in this project focused on the **Dialogue/Tooltip UI**, a bit of **
 
 ### **Short Description**
 
-Implemented the Dialogue Orchestrator, a centralized brain that pipelines dialogue, cutscene actions, NPC behaviors, and camera transitions.
+Implemented the [Dialogue Orchestrator](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/DialogueOrchestrator.gd), a centralized brain that pipelines dialogue, cutscene actions, NPC behaviors, and camera transitions.
 
 ### **Long Description**
 The game’s main dialogue/cutscenes are directed, pipelined, and coordinated through the `Dialogue Orchestrator` system.
@@ -406,7 +406,7 @@ Thus ensuring that every cutscene feels and acts like an actual cutscene.
 
 ### **Short Description**
 
-Designed and implemented the animated dialogue UI, including typewriter effects, tyext styling, portrait switching, fade transitions, and multi-voice simultaneous dialogue.
+Designed and implemented the animated [dialogue UI](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/DialogUI.gd), including typewriter effects, tyext styling, portrait switching, fade transitions, and multi-voice simultaneous dialogue.
 
 ### **Long Description**
 The `DialogUI` system is responsible for rendering, moving, and pacing every line of dialogue that appears in the game. This is done through an animated dialogue box that supports several features, including:
@@ -432,7 +432,7 @@ Again, the orchestrator does not know how the animations are implemented, just t
 
 ### **Short Description**
 
-I created a reusable Tooltip system built on Area2D triggers. The tooltip system supports context-sensitive tutorial messages, dynamic enabling/disabling, and interactions with the orchestrator.
+I created a reusable [Tooltip](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scenes/level_scenes/tooltip.gd) system built on Area2D triggers. The tooltip system supports context-sensitive tutorial messages, dynamic enabling/disabling, and interactions with the orchestrator.
 
 ### **Long Description**
 
@@ -456,7 +456,7 @@ The type feature allows players who are new to stop for a second, read what they
 ![Animation3](https://github.com/user-attachments/assets/55706249-d7fd-4671-8482-480d92c674c4)
 
 
-# Sub-Role: Narrative Design#
+# Sub-Role: Narrative Design
 
 My secondary, or sub role, in this project focused heavily on the **Narrative Design** of the game itself. In the section below, I've outlined my main three contributions to this project that helped steer the story in the right direction.
 
@@ -464,7 +464,7 @@ My secondary, or sub role, in this project focused heavily on the **Narrative De
 
 ### **Short Description**
 
-I wrote the original screenplay and narrative framework for the game, establishing tone, pacing, and the structure of all major and minor dialogue moments.
+I wrote the [original screenplay](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/documentation/Blade%20of%20Oneiros%20Screenplay.pdf) and narrative framework for the game, establishing tone, pacing, and the structure of all major and minor dialogue moments.
 
 ### **Long Description**
 
@@ -482,7 +482,7 @@ The storyboard also ensured that the narrative played along with player actions,
 
 ### **Short Description**
 
-I used the screenplay to help generate system-readable code that is both abstract enough so a non-programmer can read and see what is happening, and can also be read by the compiler to generate code.
+I used the screenplay to help generate [system-readable code](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/dialogue/scripts/dialogue_script_boss_intro.gd) that is both abstract enough so a non-programmer can read and see what is happening, and can also be read by the compiler to generate code.
 
 ### **Long Description**
 
@@ -510,7 +510,7 @@ Due to how the tutorials introduce/reinforce core mechanics at certain moments, 
 # Other Contributions #
 
 Aside from implementing the Dialogue UI system, I worked with Afifa to translate her ideas into functional DialogUI elements. This process included early mockups, discussing how the dialogue box and portraits should animate, and refinign the layout until it matched the intended goal. 
-Although I handled the technical implementation, the final result mainly reflects the artist’s vision. 
+Although I handled the technical implementation, the final result mainly reflects her vision. 
 
 <img width="1064" height="708" alt="image" src="https://github.com/user-attachments/assets/9361d1e3-1588-451f-b98b-6def49ee3307" /> <img width="1079" height="573" alt="image" src="https://github.com/user-attachments/assets/71e29f2d-7129-4e6e-b10c-5482b24f7541" />
  
@@ -618,6 +618,116 @@ Assisted Alfred in bringing his code into repository through Git
 
 and implemented dialogue skip button.
 
+# Jerome Hernandez #
+
+# Main Role: Game Logic #
+
+One of my primary responsibilities throughout the project was building and maintaining the core gameplay loop for the player, including movement, stamina, combat, health, item usage, and animation integration. Because our game relies heavily on responsive action-based mechanics, I focused on ensuring that the internal systems felt consistent and intuitive, while also balancing them in a way that supported our game’s difficulty curve.
+![Box diagram](documentation/GameLogicDiagram.drawio.png)
+**Movement and Stamina Foundations**
+I implemented player movement with walking, running, and dashing in direction-based motion. This was centered around the WASD control scheme in a top-down world, using normalized input vectors to avoid faster diagonal movement. Running is a stamina-consuming action that increases speed but drains stamina at a steady rate. On the other hand, the dash gives the player a short burst of speed, a small invulnerability window while dashing, at a high cost of stamina and a dash cooldown. The implementation of dash is encapsulated in dash_controller.gd and the design choice is meant to encourage the player to use the dash sparingly to dodge enemy attack with precise timing. Also, once stamina drops below a threshold, the player enters an exhaustion state, reducing movement speed and disabling all stamina-related actions until stamina regenerates to full to discourage spamming stamina-related attacks. To support this, I developed a stamina system in stamina.gd that manages the player’s maximum stamina, recharge rate, recharge delay, and the transitions into and out of exhaustion. This creates a natural rhythm in gameplay that rewards intentional movement instead of button-mashing.
+
+**Combat, Health, and Inventory Systems**
+Combat and stamina are heavily intertwined, so I developed attack logic that consumes stamina and determines attack direction based on player facing direction. I opted for this fixed attack direction as our player sprite only supported animations in the four cardinal directions and simplified attacking for players without a mouse. I also implemented the full player health system, which handles current and maximum health tracking, damage processing, hurt and death reactions, and all HUD updates tied to player health. Taking damage correctly triggers animations and transitions, while death initiates the proper state change and HUD update. Alongside combat and health, I created the entire inventory system in inventory.gd, which includes potion and key pickup, usage logic, and unified item tracking. Potions tie directly into the health system to provide real-time healing during gameplay of up to 20% recovery with each potion as usage is instant and multiple can be held at one time. Then, keys can be manually or automatically used on interactable objects such as doors to unlock new areas. Inventory values automatically update the HUD, ensuring that potion and key count remain accurate and visible during gameplay.
+
+**Animation Integration and Sprite Upgrade System**
+Another part of my work involved connecting all gameplay systems to the AnimationTree so that player actions always matched the visual feedback on screen. I linked movement, combat, stamina states, damage reactions, and death behavior to the animation tree, ensuring that the player’s velocity, direction, exhaustion state, and action triggers updated every frame. This frame-by-frame synchronization kept the gameplay responsive and made the character’s animations feel tightly connected to player input. Later on in development, the amount of game content increased alongside difficulty which is what led to a sprite upgrade implementation. When the player acquires this upgrade, the player swaps to a new sprite sheet, updates all animation references, and applies progression bonuses such as increased maximum health and faster stamina regeneration. This feature tied visual progression and gameplay progression together, giving players a clear sense of growth as they advanced through the game’s content.
+# Sub Role: Performance Optimization #
+
+# Other Contributions #
+Helped link up transitions between level scenes through level_transition.gd and door.gd. I also helped with the Player’s upgraded sprite, potion, and key amounts being persistent between death and respawns. Played a huge part in recording audio and voicing most of the player’s sound effects.
 
 
 
+
+# [Ben Nelson](https://github.com/bnelson1324) / bnelson1324 #
+
+## Main role: AI and Behavior Designer ##
+
+### Finite State Machine ###
+
+I implemented a finite state machine using two classes. The [FSM class](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/fsm/fsm.gd) represents a finite state machine. It stores the current state, and has a function to change state. It also has a function to update hte current state, which is called in every Enemy's _physics_process() loop.
+
+The FSM class stores instances of the [State class](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/fsm/state.gd). Each state stores three functions, called when entering, updating, and exiting the state. This state class allowed me to [use lambda functions](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L74) in enemy scripts, making creating dynamic behavior very convenient.
+
+### Basic Slime Enemy AI ###
+
+I drew a diagram for the [basic slime enemy's FSM](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L71). It starts in wait_state, where it just stands still and plays its idle animation. When the player enters within the activate_distance, the enemy changes to chase_state, where it starts chasing the player. And when it reaches within attack_distance, the enemy changes to attack_state. When the attack animation is finished, it returns to chase_state.
+![](./documentation/enemy_ai_fsm.jpg)
+
+The team agreed on a more deliberate, slower-paced, methodical style of gameplay for the player, which I tried to encourage in the AI. Because I made the slime stay still during its attack, the AI encourages a hit and run style of gameplay. The player is able to go in, hit the slime once, then run away before the slime's hitbox activates.
+
+The enemy also has a stun_state, which it enters whenever it takes damage. In this state, it takes knockback away from the player for 0.2 seconds, then stays still until the hurt animation is finished, then it returns to chase_state.
+
+### Bomb Slime AI ###
+
+The [bomb slime](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/enemy_bomb_slime.gd) is another enemy, its behavior and FSM is very similar to the basic enemy. Its difference is that instead of normally attacking when in range of the player, it self destructs and creates an explosion.
+
+### Enemy Pathfinding ###
+
+The basic slime and bomb slime both [use the same pathfinding algorithm](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/ai_helper.gd#L25). I created a system inspired by [this video](https://www.youtube.com/watch?v=6BrZryMz-ac). Each enemy shoots out 32 rays in a circle around itself. Each ray also has a float weight. If a ray collides with the terrain or other enemies, it will reduce the weight of that ray and nearby rays. After processing all the raycasts, the ray with the highest weight is chosen as the direction for the enemy to move in.
+
+I also created a [function to visualize the pathfinding](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/2f188e9450592b807f1197e2dd5140193571a94b/Blade-of-Oneiros/scripts/enemy_ai/ai_helper.gd#L82). This function draws each ray with its weight as the length. The ray with the highest weight is highlighted green. This helped me visualize what the AI was thinking when I was tweaking parameters for things like letting enemies pathfind through narrow hallways.
+![](./documentation/enemy_ai_pathfinding.png)
+
+
+### Boss Fight ###
+
+Our writer wanted the antagonist of the story to be 3 slimes stacked on each other pretending to be a human. That's why when coming up with ideas for the bossfight, I wanted to have 3 phases, one for each slime. I also wanted each phase to get progressively more difficult.
+
+#### Phase 1 ####
+
+In this phase, the [boss's FSM](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/boss_1.gd) cycles between three states.
+* Idle state is a state used to wait a certain duration. I have the boss in phase 1 set to wait 2 seconds between attacks.
+* [Jump state](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/jump_state.gd) is an attack where the enemy's sprite2D's y position is modulated in a parabola, making it appear as if it's jumping through the air. Its true position doesn't change, only the sprite's offset from its parent node (a CharacterBody3D) changes. Because the enemy's true position doesn't change, but I don't want the jumping enemy to collide with the player, [I disabled the enemy's collision](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/be1d66b159f55255dd5796c1672869b09cb7fedc/Blade-of-Oneiros/scripts/enemy_ai/boss/jump_state.gd#L19) for the duration of the jump. I also wrote a [function that lets me make the enemy invincible during its ump](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/be1d66b159f55255dd5796c1672869b09cb7fedc/Blade-of-Oneiros/scripts/enemy_ai/boss/jump_state.gd#L53). Specific to phase 1, the boss spawns 2 basic slimes every time it jumps. I wanted to emphasize crowd control in this phase. ![](./documentation/boss1_1.png)
+* [Shoot state](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/shoot_state.gd) is an attack where the boss shoots out a certain number of projectiles in an even spread. For phase 1, the boss shoots out 4 projectiles at 90 degree intervals. I implemented the projectile shot by this state in [slimeball.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/slimeball.gd). ![](./documentation/boss1_2.png)
+
+The boss summons 4 basic slimes when it dies.
+
+#### Phase 2 ####
+
+In [this phase's FSM](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/boss_2.gd), much of the functionality from phase 1 is reused. In this phase, the boss cycles through jumping, then shooting projectiles out. After 3 cycles, the boss idles for 4 seconds. This phase's projectiles are much larger than before, because I wanted to emphasize weaving through projectiles in this phase. ![](./documentation/boss2_1.png)
+
+The boss summons 7 basic slimes when it dies.
+
+#### Phase 3 ####
+
+In [this phase's FSM](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/boss_3.gd), the boss cycles through jumping on top of the player, a new state where the boss [rains slimes on top of the player](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/be1d66b159f55255dd5796c1672869b09cb7fedc/Blade-of-Oneiros/scripts/enemy_ai/boss/boss_3.gd#L109), and shooting out 2 series of 8 projectiles.
+
+To implement this new mechanic where the boss rains slimes on top of players, I created a new class [RainSlime](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/enemy_ai/boss/rain_slime.gd). It spawns falling from the sky, and when it hits the floor, it leaves a lava puddle. ![](./documentation/boss3_1.png)
+
+![](./documentation/boss3_2.png)
+
+Also when you  attack this boss, it spawns 2 bomb slimes.
+
+![](./documentation/boss3_3.png)
+
+## Sub Role: Game Feel ##
+
+### Hitstop ###
+
+I implemented hitstop for the player in for the [hitbox.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/914cef090418fd43064520af126dc9fcbf68a6c2/Blade-of-Oneiros/scripts/combat/hitbox.gd#L20) file. It works by pausing the entire tree except for the hitstop timer for the duration of the hitstop. At first I set the duration to 0.15 seconds, but the game felt unresponsive, as if it was lagging whenever the player hit an enemy, so I settled on making the value 0.05 seconds. The addition of hitstop gives a powerful impact frame feeling to every hit, making combat much more satisfying.
+
+### Stun state ###
+
+I implemented the basic enemies getting stunned by attacks using [a state in their finite state machine](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/8d577468ac485fb249251358ea0fa473118dac46/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L131). During this state, enemies can't move and get knocked back away from the player for 0.2 seconds. This provides lots of good feedback for the player. It feel like every hit on an enemy is powerful.
+
+I tweaked the values for knockback duration until I came up with 0.2 seconds, which felt neither too weak, nor too long.
+
+### Stun animation ###
+
+When enemies get hit, they also play a [stun animation](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L135). During this animation, they flash red. This visual feedback makes it very satisfying to hit enemies. I also worked with Ethan so we could implement sounds when the enemies die and get hurt. The audiovisual feedback was an important part of juicing our combat.
+
+### Screenshake ###
+
+I implemented screenshake in the [camera.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/camera.gd) file. I modified the existing camera file to also store values for screenshake. I also created a [function in this file](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/914cef090418fd43064520af126dc9fcbf68a6c2/Blade-of-Oneiros/scripts/camera.gd#L35) to activate screenshake from anywhere in the codebase with just one line.
+
+This screenshake plays when the player hits an enemy, and when an enemy hits the player. Because I thought the player getting hit is more significant, I made the screenshake when the player gets hit much stronger and longer than the screenshake when the player hits an enemy.
+
+# Other Contributions #
+
+### Hurtbox and hitbox ###
+
+I implemented the hurtboxes for the player and enemies in [health.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/combat/health.gd). The Health class inherits Area2D, and it has signals for when the owner is hurt or dies. From the enemy and player classes, I'm able to [connect to these signals](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/6ae67fcd0ee4427e6103af5a8216ae59af6de569/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L45) to implement special functionality on hurt or on death. I'm happy with this implementation, as it was modular enough to be reused in both enemies and the player.
+
+I also implemented the [hitbox.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/combat/hitbox.gd) script, which has an [activate function](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/6ae67fcd0ee4427e6103af5a8216ae59af6de569/Blade-of-Oneiros/scripts/combat/hitbox.gd#L12) which checks for any Health nodes overlapping the hitbox in the current frame.
