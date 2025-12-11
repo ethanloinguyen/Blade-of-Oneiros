@@ -131,4 +131,32 @@ Also when you  attack this boss, it spawns 2 bomb slimes.
 
 * Game Feel: [Ben Nelson](https://github.com/bnelson1324)
 
+## Game Feel (Ben Nelson) ##
+
+### Hitstop ###
+
+I implemented hitstop for the player in for the [hitbox.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/914cef090418fd43064520af126dc9fcbf68a6c2/Blade-of-Oneiros/scripts/combat/hitbox.gd#L20) file. It works by pausing the entire tree except for the hitstop timer for the duration of the hitstop. At first I set the duration to 0.15 seconds, but the game felt unresponsive, as if it was lagging whenever the player hit an enemy, so I settled on making the value 0.05 seconds. The addition of hitstop gives a powerful impact frame feeling to every hit, making combat much more satisfying.
+
+### Stun state ###
+
+I implemented the basic enemies getting stunned by attacks using [a state in their finite state machine](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/8d577468ac485fb249251358ea0fa473118dac46/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L131). During this state, enemies can't move and get knocked back away from the player for 0.2 seconds. This provides lots of good feedback for the player. It feel like every hit on an enemy is powerful.
+
+I tweaked the values for knockback duration until I came up with 0.2 seconds, which felt neither too weak, nor too long.
+
+### Stun animation ###
+
+When enemies get hit, they also play a [stun animation](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/910851cd59b5f23f491609dde16daf90b53cb7d7/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L135). During this animation, they flash red. This visual feedback makes it very satisfying to hit enemies. I also worked with Ethan so we could implement sounds when the enemies die and get hurt. The audiovisual feedback was an important part of juicing our combat.
+
+### Screenshake ###
+
+I implemented screenshake in the [camera.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/camera.gd) file. I modified the existing camera file to also store values for screenshake. I also created a [function in this file](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/914cef090418fd43064520af126dc9fcbf68a6c2/Blade-of-Oneiros/scripts/camera.gd#L35) to activate screenshake from anywhere in the codebase with just one line.
+
+This screenshake plays when the player hits an enemy, and when an enemy hits the player. Because I thought the player getting hit is more significant, I made the screenshake when the player gets hit much stronger and longer than the screenshake when the player hits an enemy.
+
 # Other Contributions #
+
+### Hurtbox and hitbox ###
+
+I implemented the hurtboxes for the player and enemies in [health.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/combat/health.gd). The Health class inherits Area2D, and it has signals for when the owner is hurt or dies. From the enemy and player classes, I'm able to [connect to these signals](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/6ae67fcd0ee4427e6103af5a8216ae59af6de569/Blade-of-Oneiros/scripts/enemy_ai/enemy.gd#L45) to implement special functionality on hurt or on death. I'm happy with this implementation, as it was modular enough to be reused in both enemies and the player.
+
+I also implemented the [hitbox.gd](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/main/Blade-of-Oneiros/scripts/combat/hitbox.gd) script, which has an [activate function](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/6ae67fcd0ee4427e6103af5a8216ae59af6de569/Blade-of-Oneiros/scripts/combat/hitbox.gd#L12) which checks for any Health nodes overlapping the hitbox in the current frame.
