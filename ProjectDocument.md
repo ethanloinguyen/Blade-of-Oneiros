@@ -59,13 +59,29 @@ Add addition contributions in the Other Contributions section.
 # Ethan Nguyen #
 
 # Main Role: Producer #
-As the producer, I was mainly in charge of organizing group meetings, planning out the project, and performing basic team logistics. I set up the github repository and then created the workflow for the project on [github](https://github.com/users/ethanloinguyen/projects/1/views/1). each member was assigned a ticket that was needed for project 
+As the producer, I was mainly in charge of organizing group meetings, planning out the project, and performing basic team logistics. I set up the github repository and then created the workflow for the project on [github](https://github.com/users/ethanloinguyen/projects/1/views/1). each member was assigned tasks that aligned with their roles. I helped set/update deadlines and a timeline for the project using the [gantt chart](https://docs.google.com/spreadsheets/u/2/d/1ewnawCuHxrr8ohDInJqwjjA__6vmtq0jJ56D-PwFAik/edit?usp=sharing). We made a [discord server](https://discord.gg/gk44wAGd) for communications when we were not in person and to allow for remote groupwork. Most importantly, I set up and maintained group meeting times based on when team member's schedule using a [when2meet](https://www.when2meet.com/?33037371-OGpAX). The in person group meetings were by far our most productive times as being in person allowed for ease of communication and ease of assistance if any team members needed help with their part. However, the communication during these times were crucial as a lot of the roles were interconnected/related and required input from multiple people.
 
-# Sub-Roles #
+
+
+# Sub-Roles: Audio #
+In my secondary role, I oversaw the game's audio pipeline. This included selecting and editing sound effects, integrating them into the Godot project, and ensuring proper triggers for footsteps, combat actions, and cutscenes. This ties into the course content related to game asset pipelines, resource importing, and the separation of content and engine logic.
+
+**SFX Trigger System**
+I attached audio cues to player actions and cutscene events, ensuring timing alignment and state-based playback. This relates to state machines and event-driven programming from the course.
 
 
 # Other Contributions #
-Despite my main role being the producer and my second role being audio, both of which have minimal direct programming, I ended up coding a decent amount on the project. I ended up being responsible for sewing the game's cutscenes and title/death screens back to the overall game. 
+**Cutscene Integration System**
+I implemented the logic that connects cutscenes with playable segments, ensuring scene transitions properly pause input, manage player state, and resume gameplay afterward. This relates to finite state machines and scene management discussed in class.
+
+**Title Screen and Death Screen Flow**
+I scripted and integrated the title screen and death screen so the game transitions reliably between menus and gameplay scenes. This included handling input locking, scene switching, and resetting game state, tying into the course's lessons on UI flow, scene trees, and modular game state management.
+
+**Code Patching & Bug Fixes**
+I assisted multiple team members by debugging and stitching together gameplay components that were developed independently. This involved resolving script conflicts, ensuring consistent signal usage, and cleaning up game logic connecting to course topics on debugging strategies and communication between game modules.
+
+Below is a diagram of how the overall transitions look:
+![](Blade-of-Oneiros/documentation/179 Scene State Diagram.JPEG)
 
  # Quinton Nguyen #
 
