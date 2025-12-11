@@ -3,11 +3,12 @@ extends Node2D
 
 
 @export var start_open: bool = false
-@export var gate: AudioStream
+@export var gate_audio: AudioStream
 @export var door_id: StringName = ""
 @export var persistent: bool = true
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 
 var is_open: bool = false
 
@@ -32,7 +33,7 @@ func _open() -> void:
 	is_open = true
 	if persistent and door_id != "":
 		GameState.mark_door_open(door_id)
-	audio.stream = gate
+	audio.stream = gate_audio
 	audio.play()
 	animation_player.play("open")
 	
@@ -45,7 +46,7 @@ func _close() -> void:
 
 	is_open = false
 
-	audio.stream = gate
+	audio.stream = gate_audio
 	audio.play()
 	animation_player.play("closed")
 

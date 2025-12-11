@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 @export var attack_distance:float
 
-@export var slime_attack_audio: AudioStream
+@export var attack_audio: Array[AudioStream]
 @export var death_audio: AudioStream
 @export var hurt_audio: Array[AudioStream]
 
@@ -55,13 +55,16 @@ func _ready():
 		queue_free()
 	)
 
-	#audio for death
+	#audio
 	sprite.frame_changed.connect(func():
 		if sprite.animation.begins_with("death") and sprite.frame == 1:
 			play_audio(death_audio)
 		
 		if (sprite.animation.begins_with("hurt")):
 			play_audio(hurt_audio[randi() % hurt_audio.size()])
+		
+		if (sprite.animation.begins_with("attack")) and sprite.frame == 4:
+			play_audio(attack_audio[randi() % attack_audio.size()])
 	)
 
 	# create states
