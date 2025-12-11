@@ -1,8 +1,8 @@
-# The title of your game #
+# Blade of Oneiros #
 
 ## Summary ##
 
-**A paragraph-length pitch for your game.**
+**Blade of Oneiros is a single-player action RPG that fuses fast, satisfying hack-and-slash combat with thoughtful, retro-inspired puzzle mechanics. Drawing influence from Illusion of Gaia, Hyperlight Drifter and early Zelda titles, the game challenges players to fluidly switch between intense battles against swarming slime enemies and clever problem-solving to unlock new pathways. As players descend deeper into the mysterious dungeon, they must master both reflexes and reasoning to survive.**
 
 ## Project Resources
 
@@ -60,6 +60,7 @@ Here is an example:
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
 Add addition contributions int he Other Contributions section.
+# Ethan Nguyen #
 
 ## Main Roles ##
 
