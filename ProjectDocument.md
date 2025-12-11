@@ -73,7 +73,7 @@ As the producer, I was mainly in charge of organizing group meetings, planning o
 In my secondary role, I oversaw the game's audio pipeline. This included selecting and editing sound effects, integrating them into the Godot project, and ensuring proper triggers for footsteps, combat actions, and cutscenes. This ties into the course content related to game asset pipelines, resource importing, and the separation of content and engine logic.
 
 **SFX Trigger System**
-I attached [audio cues](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/player.gd#L155) to player actions and cutscene events, ensuring timing alignment and state-based playback. This relates to state machines and event-driven programming from the course.
+I attached [audio cues](https://github.com/ethanloinguyen/Blade-of-Oneiros/blob/7381650371c5003bbda73e4a7afa433fcc71cd52/Blade-of-Oneiros/scripts/player.gd#L155) to player actions, mob sfx, and general audio, ensuring timing alignment and state-based playback. This relates to state machines and event-driven programming from the course.
 
 
 # Other Contributions #
@@ -617,6 +617,7 @@ https://opengameart.org/content/generic-8-bit-jrpg-soundtrack
 Assisted Alfred in bringing his code into repository through Git 
 
 and implemented dialogue skip button.
+
 
 
 
